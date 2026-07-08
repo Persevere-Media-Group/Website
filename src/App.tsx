@@ -1,9 +1,15 @@
+import { VideoText } from "@/components/ui/video-text";
+
 function App() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-neutral-950 px-6 text-center text-white">
-      <h1 className="text-4xl font-semibold tracking-tight sm:text-6xl">Choose Persevere</h1>
-      <p className="mt-4 text-lg text-neutral-400">Something new is on the way.</p>
-      <p className="mt-2 text-sm text-neutral-500">Coming soon.</p>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[#d5573b]">
+      <h1 className="text-[18vw] font-white leading-none tracking-tighter text-white sm:text-[15vw]">
+        CHOOSE
+      </h1>
+      <h1 className="text-[18vw] font-black leading-none tracking-tighter text-white sm:text-[15vw]">
+        PERSEVERE
+      </h1>
+      <h2 className="text-white ">Coming Soon.</h2>
     </div>
   );
 }
