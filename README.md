@@ -1,51 +1,75 @@
-# Choose Persevere
+# React + TypeScript + Vite
 
-Official website for **Choose Persevere**, hosted at [choosepersevere.com](https://choosepersevere.com).
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## About
+Currently, two official plugins are available:
 
-This repository contains the source code for the Choose Persevere website, built and maintained by Iona Watson on behalf of Persevere Media.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Live Site
+## React Compiler
 
-🔗 https://choosepersevere.com
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Tech Stack
+## Expanding the ESLint configuration
 
-- Typescript
-- Hosted via [GitHub Pages](https://pages.github.com/)
-- Custom domain managed through GoDaddy
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## Project Structure
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 
 ```
-/
-├── index.html      # Homepage
-├── /assets         # Images, fonts, icons
-├── /css            # Stylesheets
-└── /js             # Scripts
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
 ```
-
-_(Structure will evolve as the site grows.)_
-
-## Local Development
-
-1. Clone the repo:
-   ```
-   git clone https://github.com/Persevere-Media-Group/Website.git
-   ```
-2. Open `index.html` in your browser to preview locally, or use a local server (e.g. the VS Code "Live Server" extension) for a closer match to production.
-
-## Deployment
-
-This site deploys automatically via GitHub Pages whenever changes are pushed to the `main` branch. No build step is required.
-
-## Contributors
-
-- Iona Watson - Developer
-- Calum Keelan - Site owner
-- Keir Watson - Site owner
-
-## License
-
-© 2026 Persevere Media. All rights reserved.
