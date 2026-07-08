@@ -1,5 +1,3 @@
-import { VideoText } from "@/components/ui/video-text";
-
 function App() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#d5573b]">
