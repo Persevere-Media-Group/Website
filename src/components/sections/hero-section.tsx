@@ -5,15 +5,22 @@ import { Grainient } from "@/components/ui/grainient";
 // keeps every word in the sequence uppercase, no matter how it's typed below
 const toUpperCaseWords = (words: string[]) => words.map((word) => word.toUpperCase());
 
-// a trainspotting "choose life" style run, cycling through before it lands on the final word
-const WORD_SEQUENCE = toUpperCaseWords(["Expertise", "People", "Growth", "Results", "Persevere"]);
+// a trainspotting "choose life" style run, cycling continuously through the list
+const WORD_SEQUENCE = toUpperCaseWords([
+  "Expertise",
+  "People",
+  "Vibes",
+  "Growth",
+  "Results",
+  "Persevere",
+]);
 
-// the one word on the drum that gets its own colour, drawing the eye once it lands
+// the one word on the drum that gets its own colour and lingers longer, drawing the eye each time it comes round
 const HIGHLIGHT_WORD = "PERSEVERE";
 
 // shared ivory colour, matches CHOOSE and every rotating word except the highlighted one
 const TEXT_CLASSES =
-  "text-[clamp(2rem,7vw,6rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
+  "text-[clamp(2.25rem,8vw,7rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
 
 const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
@@ -30,9 +37,9 @@ export function HeroSection() {
         className="absolute inset-0"
       />
 
-      {/* fills the whole hero, so clicking anywhere across it triggers a burst of white sparks */}
+      {/* fills the whole hero, so clicking anywhere across it triggers a burst of ivory sparks */}
       <ClickSpark
-        sparkColor="#f7f3e3"
+        sparkColor="--color-ivory"
         sparkSize={10}
         sparkRadius={15}
         sparkCount={8}
@@ -41,7 +48,10 @@ export function HeroSection() {
         extraScale={1}
         className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center"
       >
-        <div className="flex flex-nowrap items-center justify-center gap-x-4">
+        {/* gap is in em rather than a fixed rem value, so the space between CHOOSE and the rotating
+            word grows proportionally along with the text size, instead of staying fixed while
+            everything around it gets bigger */}
+        <div className="flex flex-nowrap items-center justify-center" style={{ gap: "2em" }}>
           <h1 className={TEXT_CLASSES}>CHOOSE</h1>
 
           <div className="grid">
@@ -58,11 +68,12 @@ export function HeroSection() {
             <div className="w-full [grid-area:1/1]">
               <CylinderTextRotate
                 words={WORD_SEQUENCE}
-                duration={700}
-                loop={false}
+                duration={1000}
+                loop={true}
                 className={ROTATING_TEXT_CLASSES}
                 highlightWord={HIGHLIGHT_WORD}
                 highlightClassName="text-[var(--color-deep-plum)]"
+                highlightDuration={2000}
               />
             </div>
           </div>
