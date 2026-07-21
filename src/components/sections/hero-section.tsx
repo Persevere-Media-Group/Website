@@ -10,7 +10,11 @@ const toUpperCaseWords = (words: string[]) => words.map((word) => word.toUpperCa
 const WORD_SEQUENCE = toUpperCaseWords([
   "Expertise",
   "People",
-  "Vibes",
+  "Ambition",
+  "Graft",
+  "Trust",
+  "Connection",
+  "Presence",
   "Growth",
   "Results",
   "Persevere",
