@@ -11,7 +11,7 @@ body {
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: 'Inter Variable', sans-serif;
+  --font-sans: "Inter Variable", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -119,6 +119,18 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* brand colour palette, kept separate from the shadcn-generated theme tokens above.
+   these aren't registered with @theme, so they don't create utility classes like
+   bg-terracotta, use them with Tailwind's arbitrary value syntax instead,
+   e.g. bg-[var(--color-terracotta)] or text-[var(--color-ivory)] */
+:root {
+  --color-terracotta: #d5573b;
+  --color-clay-rose: #df7d68;
+  --color-deep-plum: #594157;
+  --color-amber-gold: #edb03e;
+  --color-ivory: #f7f3e3;
 }
 
 @layer base {
