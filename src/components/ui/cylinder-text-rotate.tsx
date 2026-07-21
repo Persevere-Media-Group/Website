@@ -67,7 +67,7 @@ export function CylinderTextRotate({
 
   return (
     <div
-      className={`relative overflow-hidden [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] ${className ?? ""}`}
+      className={`relative overflow-hidden [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] mask-[linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] ${className ?? ""}`}
       style={{
         height: "2.2em",
         perspective: `${perspectiveEm}em`,
