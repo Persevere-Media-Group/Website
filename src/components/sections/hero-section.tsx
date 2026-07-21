@@ -49,7 +49,12 @@ export function HeroSection() {
         extraScale={1}
         className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center"
       >
-        <div className="flex flex-nowrap items-center justify-center" style={{ gap: "2em" }}>
+        {/* small upward nudge so the text block sits slightly above dead centre, rather than
+            being perfectly centred in the viewport */}
+        <div
+          className="flex flex-nowrap items-center justify-center -translate-y-8 sm:-translate-y-12 md:-translate-y-16"
+          style={{ gap: "2em" }}
+        >
           <h1 className={TEXT_CLASSES}>CHOOSE</h1>
 
           <div className="grid">

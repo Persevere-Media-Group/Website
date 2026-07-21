@@ -19,8 +19,18 @@ interface ClickSparkProps {
   children?: ReactNode;
 }
 
+// canvas strokeStyle can't read CSS custom properties on its own, this looks the value up manually.
+// pass a CSS variable name (e.g. "--color-ivory") or a literal colour string, both work.
+function resolveSparkColor(colorOrVariableName: string): string {
+  if (!colorOrVariableName.startsWith("--")) {
+    return colorOrVariableName;
+  }
+
+  return getComputedStyle(document.documentElement).getPropertyValue(colorOrVariableName).trim();
+}
+
 export function ClickSpark({
-  sparkColor = "#fff",
+  sparkColor = "--color-ivory",
   sparkSize = 10,
   sparkRadius = 15,
   sparkCount = 8,
@@ -33,7 +43,6 @@ export function ClickSpark({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sparksRef = useRef<Spark[]>([]);
 
-  // keeps the canvas's pixel size matched to whatever size the wrapper actually ends up
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !canvas.parentElement) return;
@@ -51,7 +60,6 @@ export function ClickSpark({
     return () => resizeObserver.disconnect();
   }, []);
 
-  // turns a 0 to 1 progress value into the shape of the chosen easing curve
   const applyEasing = useCallback(
     (progress: number) => {
       switch (easing) {
@@ -68,11 +76,13 @@ export function ClickSpark({
     [easing]
   );
 
-  // the animation loop, draws every active spark each frame and removes ones that have finished
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
+
+    // resolved fresh whenever sparkColor changes, so it always reflects the current CSS variable value
+    const resolvedSparkColor = resolveSparkColor(sparkColor);
 
     let animationFrameId: number;
 
@@ -92,7 +102,7 @@ export function ClickSpark({
         const endX = spark.x + (travelDistance + remainingLength) * Math.cos(spark.angle);
         const endY = spark.y + (travelDistance + remainingLength) * Math.sin(spark.angle);
 
-        context.strokeStyle = sparkColor;
+        context.strokeStyle = resolvedSparkColor;
         context.lineWidth = 2;
         context.beginPath();
         context.moveTo(startX, startY);
@@ -109,7 +119,6 @@ export function ClickSpark({
     return () => cancelAnimationFrame(animationFrameId);
   }, [sparkColor, sparkSize, sparkRadius, duration, extraScale, applyEasing]);
 
-  // spawns a fresh ring of sparks radiating out from wherever the click landed
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
