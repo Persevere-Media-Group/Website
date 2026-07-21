@@ -1,5 +1,6 @@
 import { CylinderTextRotate } from "@/components/ui/cylinder-text-rotate";
 import { ClickSpark } from "@/components/ui/click-spark";
+import { Grainient } from "@/components/ui/grainient";
 
 // keeps every word in the sequence uppercase, no matter how it's typed below
 const toUpperCaseWords = (words: string[]) => words.map((word) => word.toUpperCase());
@@ -7,22 +8,31 @@ const toUpperCaseWords = (words: string[]) => words.map((word) => word.toUpperCa
 // a trainspotting "choose life" style run, cycling through before it lands on the final word
 const WORD_SEQUENCE = toUpperCaseWords(["Expertise", "People", "Growth", "Results", "Persevere"]);
 
-const ROTATING_TEXT_CLASSES =
-  "text-[clamp(2rem,7vw,6rem)] font-black leading-none tracking-tighter text-white text-left";
+// the one word on the drum that gets its own colour, drawing the eye once it lands
+const HIGHLIGHT_WORD = "PERSEVERE";
+
+// shared ivory colour, matches CHOOSE and every rotating word except the highlighted one
+const TEXT_CLASSES =
+  "text-[clamp(2rem,7vw,6rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
+
+const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
 export function HeroSection() {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#d5573b] px-4 py-12 text-center">
-      <div
-        className="pointer-events-none absolute inset-0 z-10"
-        style={{
-          background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.45) 100%)",
-        }}
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[var(--color-terracotta)] px-4 py-12 text-center">
+      {/* animated brand gradient with grain texture, sits directly on the fallback bg colour */}
+      <Grainient
+        colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
+        speed={7}
+        scale={1}
+        noiseIntensity={1.5}
+        rotation={0}
+        className="absolute inset-0"
       />
 
       {/* fills the whole hero, so clicking anywhere across it triggers a burst of white sparks */}
       <ClickSpark
-        sparkColor="#ffffff"
+        sparkColor="#f7f3e3"
         sparkSize={10}
         sparkRadius={15}
         sparkCount={8}
@@ -32,9 +42,7 @@ export function HeroSection() {
         className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center"
       >
         <div className="flex flex-nowrap items-center justify-center gap-x-4">
-          <h1 className="text-[clamp(2rem,7vw,6rem)] font-black leading-none tracking-tighter text-white">
-            CHOOSE
-          </h1>
+          <h1 className={TEXT_CLASSES}>CHOOSE</h1>
 
           <div className="grid">
             {WORD_SEQUENCE.map((word) => (
@@ -53,6 +61,8 @@ export function HeroSection() {
                 duration={700}
                 loop={false}
                 className={ROTATING_TEXT_CLASSES}
+                highlightWord={HIGHLIGHT_WORD}
+                highlightClassName="text-[var(--color-deep-plum)]"
               />
             </div>
           </div>

@@ -14,6 +14,9 @@ interface CylinderTextRotateProps {
   segmentAngle?: number;
   // opacity applied to every word that isn't the current centred one
   neighbourOpacity?: number;
+  // if a word on the drum matches this text exactly, it gets highlightClassName instead of the shared colour
+  highlightWord?: string;
+  highlightClassName?: string;
 }
 
 export function CylinderTextRotate({
@@ -23,6 +26,8 @@ export function CylinderTextRotate({
   className,
   segmentAngle = 30,
   neighbourOpacity = 0.4,
+  highlightWord,
+  highlightClassName,
 }: CylinderTextRotateProps) {
   const [index, setIndex] = useState(0);
 
@@ -63,7 +68,7 @@ export function CylinderTextRotate({
   return (
     // the text size class lives here too, so every em unit below (height, perspective, translateZ) shares the same font-size context
     <div
-      className={`relative overflow-hidden [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] mask-[linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] ${className ?? ""}`}
+      className={`relative overflow-hidden [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] ${className ?? ""}`}
       style={{
         height: "2.2em",
         perspective: `${perspectiveEm}em`,
@@ -78,11 +83,12 @@ export function CylinderTextRotate({
       >
         {wordsOnDrum.map((word, wordIndex) => {
           const isCurrentWord = wordIndex === currentDrumIndex;
+          const isHighlighted = highlightWord !== undefined && word === highlightWord;
 
           return (
             <div
               key={wordIndex}
-              className="absolute inset-x-0 top-1/2 flex h-[1em] items-center justify-start whitespace-nowrap transition-opacity duration-500"
+              className={`absolute inset-x-0 top-1/2 flex h-[1em] items-center justify-start whitespace-nowrap transition-opacity duration-500 ${isHighlighted ? (highlightClassName ?? "") : ""}`}
               style={{
                 // negative translateZ pushes the word back onto the drum's surface, away from the viewer
                 transform: `translateY(-50%) rotateX(${wordIndex * segmentAngle}deg) translateZ(${-drumRadiusEm}em)`,
