@@ -118,8 +118,8 @@ export function HeroSection() {
           <SpecularButton
             size="lg"
             radius={18}
-            tint="#ffffff"
-            tintOpacity={0}
+            tint="var(--color-amber-gold)"
+            tintOpacity={0.3}
             blur={0}
             textColor="#f5f5f5"
             lineColor="#ffffff"
