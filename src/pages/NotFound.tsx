@@ -65,20 +65,20 @@ export function NotFound() {
           <SpecularButton
             size="lg"
             radius={18}
-            tint="var(--color-amber-gold)"
+            tint="var(--color-terracotta)"
             tintOpacity={0.3}
             blur={0}
-            textColor="#5c2018"
+            textColor="#f5f5f5"
             lineColor="#ffffff"
             baseColor="#525252"
-            intensity={1}
+            intensity={0.8}
             shineSize={10}
             shineFade={40}
             thickness={1}
             speed={0.35}
             followMouse
             proximity={250}
-            autoAnimate={false}
+            autoAnimate
             onClick={() => navigate("/")}
           >
             Back to Home
