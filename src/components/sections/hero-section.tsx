@@ -41,7 +41,7 @@ export function HeroSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   return (
-    <div className="relative flex min-h-[65vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-32 pb-12 text-center sm:min-h-[80vh] sm:pt-72 md:pt-80">
+    <div className="relative flex min-h-[78vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-32 pb-20 text-center sm:min-h-[80vh] sm:pb-12 sm:pt-72 md:pt-80">
       {/* animated brand gradient with grain texture, sits directly on the fallback bg colour */}
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
