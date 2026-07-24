@@ -1,8 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import "./staggered-menu.css";
-import { Instagram } from "./svgs";
-
+import { Instagram, Anchor } from "./svgs";
 export interface StaggeredMenuItem {
   label: string;
   ariaLabel: string;
@@ -481,6 +480,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     aria-label={it.ariaLabel}
                     data-index={idx + 1}
                   >
+                    <span className="sm-panel-index" aria-hidden="true">
+                      <Anchor />
+                    </span>
                     <span className="sm-panel-itemLabel">{it.label}</span>
                   </a>
                 </li>
