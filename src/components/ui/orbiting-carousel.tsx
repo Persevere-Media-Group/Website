@@ -11,6 +11,9 @@ export interface OrbitCarouselItem {
   subtitle?: string;
   // optional, falls back to an initials circle when not provided, useful for placeholder entries with no real logo yet
   image?: string;
+  // optional lucide-react icon component, used as a nicer-looking placeholder than plain initials
+  // when there's no real logo yet, e.g. icon={Camera}. ignored if `image` is also set.
+  icon?: React.ComponentType<{ className?: string }>;
 }
 
 interface OrbitCarouselProps {
@@ -47,12 +50,21 @@ const useIsMobile = (breakpoint: number = 768): boolean => {
   return isMobile;
 };
 
-// renders either the real image, or an initials circle if no image was provided,
-// these render as normal DOM elements (unlike the IconCloud's canvas approach), so
-// CSS custom properties like var(--color-oxblood) resolve normally here, no workaround needed
+// renders the real image if provided, otherwise an icon if provided, otherwise falls back
+// to an initials circle. these render as normal DOM elements (unlike the IconCloud's canvas
+// approach), so CSS custom properties like var(--color-oxblood) resolve normally here, no
+// workaround needed.
 function ItemAvatar({ item, className }: { item: OrbitCarouselItem; className?: string }) {
   if (item.image) {
     return <img src={item.image} alt={item.name} onError={safeImage} className={className} />;
+  }
+  if (item.icon) {
+    const Icon = item.icon;
+    return (
+      <div className={`${className} flex items-center justify-center bg-(--color-ivory)`}>
+        <Icon className="h-1/2 w-1/2 text-(--color-oxblood)" />
+      </div>
+    );
   }
   return (
     <div
@@ -229,8 +241,8 @@ export function OrbitCarousel({ items, className }: OrbitCarouselProps) {
                     item={item}
                     className={`h-full w-full rounded-full object-cover transition-all duration-300 ${
                       i === realIndex
-                        ? "border-4 border-(--color-terracotta) shadow-lg"
-                        : "border-2 border-(--color-oxblood)/20 hover:border-(--color-terracotta)/60"
+                        ? "border-4 border-(--color-deep-plum) shadow-lg"
+                        : "border-2 border-(--color-deep-plum)/20 hover:border-(--color-deep-plum)/60"
                     }`}
                   />
                 </motion.button>
