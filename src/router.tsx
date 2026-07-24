@@ -6,6 +6,7 @@ import { Services } from "@/pages/Services";
 import { CaseStudies } from "@/pages/CaseStudies";
 import { Blog } from "@/pages/Blog";
 import { Contact } from "@/pages/Contact";
+import { NotFound } from "@/pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,8 @@ export const router = createBrowserRouter([
       { path: "/case-studies", element: <CaseStudies /> },
       { path: "/blog", element: <Blog /> },
       { path: "/contact", element: <Contact /> },
+      // catch-all: matches any path not explicitly defined above
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);
