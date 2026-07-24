@@ -25,22 +25,23 @@ const WORD_SEQUENCE = toUpperCaseWords([
 // the one word on the drum that gets its own colour and lingers longer, drawing the eye each time it comes round
 const HIGHLIGHT_WORD = "PERSEVERE";
 
-// shared ivory colour, matches CHOOSE and every rotating word except the highlighted one
+// shared ivory colour, matches CHOOSE and every rotating word except the highlighted one.
+// floor lowered from 2.25rem to 1.6rem: "CHOOSE" plus the longest rotating word
+// (CONNECTION/EXPERTISE/PERSEVERE) needs to stay on one line down to ~320px wide phones,
+// and 2.25rem was too large to guarantee that without overflowing off-screen.
 const TEXT_CLASSES =
-  "text-[clamp(2.25rem,8vw,7rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
+  "text-[clamp(1.6rem,7.5vw,7rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
 
 const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
-// TODO: replace with your real Calendly scheduling link once it's set up,
-// e.g. "https://calendly.com/persevere-media/discovery-call"
-const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
+const CALENDLY_URL = "https://calendly.com/your-username/your-event";
 
 export function HeroSection() {
   const navigate = useNavigate();
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   return (
-    <div className="relative flex min-h-[80vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-64 pb-12 text-center sm:pt-72 md:pt-80">
+    <div className="relative flex min-h-[65vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-32 pb-12 text-center sm:min-h-[80vh] sm:pt-72 md:pt-80">
       {/* animated brand gradient with grain texture, sits directly on the fallback bg colour */}
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
@@ -59,9 +60,9 @@ export function HeroSection() {
         duration={400}
         easing="ease-out"
         extraScale={1}
-        className="absolute inset-0 flex flex-col items-center justify-start px-4 pt-64 text-center sm:pt-72 md:pt-80"
+        className="absolute inset-0 flex flex-col items-center justify-start px-4 pt-32 text-center sm:pt-72 md:pt-80"
       >
-        <div className="flex flex-nowrap items-center justify-center" style={{ gap: "2em" }}>
+        <div className="flex flex-row items-center justify-center gap-2 sm:gap-6 md:gap-8">
           <h1 className={TEXT_CLASSES}>CHOOSE</h1>
 
           <div className="grid">
@@ -89,8 +90,8 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="mt-10 sm:mt-14 md:mt-20 max-w-2xl space-y-8 px-4">
-          <h3 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
+        <div className="mt-6 sm:mt-14 md:mt-20 max-w-2xl space-y-8 px-4">
+          <h3 className="text-[clamp(1.15rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
             From content to campaign,
             <br />
             all under one roof.
