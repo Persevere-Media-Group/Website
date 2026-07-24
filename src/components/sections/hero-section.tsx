@@ -2,6 +2,7 @@ import { CylinderTextRotate } from "@/components/ui/cylinder-text-rotate";
 import { ClickSpark } from "@/components/ui/click-spark";
 import { Grainient } from "@/components/ui/grainient";
 import { SectionWave } from "@/components/ui/section-wave";
+import SpecularButton from "@/components/ui/SpecularButton";
 
 // keeps every word in the sequence uppercase, no matter how it's typed below
 const toUpperCaseWords = (words: string[]) => words.map((word) => word.toUpperCase());
@@ -81,11 +82,36 @@ export function HeroSection() {
         <div className="mt-10 sm:mt-14 md:mt-20 max-w-2xl space-y-8 px-4">
           <p
             className="text-[clamp(1.05rem,2.2vw,1.4rem)] font-normal leading-relaxed tracking-normal text-(--color-oxblood)"
-            style={{ fontFamily: "var(--font-body)" }}
+            style={{ fontFamily: "var(--font-metamorphous)" }}
           >
             Camera to campaign, all under one roof.
             <br />
           </p>
+        </div>
+
+        <div className="mt-8 sm:mt-10 md:mt-12">
+          {/* placeholder glass button, same component now used for the nav toggle, swap copy/props once real CTA is decided */}
+          <SpecularButton
+            size="lg"
+            radius={18}
+            tint="#ffffff"
+            tintOpacity={0}
+            blur={0}
+            textColor="#f5f5f5"
+            lineColor="#ffffff"
+            baseColor="#525252"
+            intensity={1}
+            shineSize={10}
+            shineFade={40}
+            thickness={1}
+            speed={0.35}
+            followMouse
+            proximity={250}
+            autoAnimate={false}
+            onClick={() => console.log("clicked")}
+          >
+            Get Started
+          </SpecularButton>
         </div>
       </ClickSpark>
       {/* solid ivory curve capping the bottom of the hero, sits above all the animated layers
