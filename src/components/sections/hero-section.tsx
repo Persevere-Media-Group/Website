@@ -34,7 +34,7 @@ const TEXT_CLASSES =
 
 const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
-const CALENDLY_URL = "https://calendly.com/your-username/your-event";
+const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
 export function HeroSection() {
   const navigate = useNavigate();
