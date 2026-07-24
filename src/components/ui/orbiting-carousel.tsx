@@ -64,27 +64,47 @@ function ItemAvatar({ item, className }: { item: OrbitCarouselItem; className?: 
 }
 
 export function OrbitCarousel({ items, className }: OrbitCarouselProps) {
+  // deliberately NOT wrapped with modulo here, this is a continuous counter that can grow
+  // past items.length or go negative, so every next()/prev() step is always exactly one
+  // increment. wrapping this with % is what caused the "long way around" jump between the
+  // last and first item, since 7 -> 0 via modulo is a jump of -7, not the +1 it visually is.
   const [activeIndex, setActiveIndex] = React.useState(0);
   const isMobile = useIsMobile();
+
+  const n = items.length;
+  // the actual 0..n-1 index into the items array, only computed at the point we need to
+  // look up real data (which item's name/image to show), never used for rotation math
+  const realIndex = ((activeIndex % n) + n) % n;
+  const activeItem = items[realIndex];
 
   const containerRadius = isMobile ? 130 : 200;
   const profileSize = isMobile ? 60 : 80;
   const containerSize = containerRadius * 2 + 100;
 
   const getRotation = React.useCallback(
-    (index: number): number => (index - activeIndex) * (360 / items.length),
-    [activeIndex, items.length]
+    (index: number): number => (index - activeIndex) * (360 / n),
+    [activeIndex, n]
   );
 
-  const next = () => setActiveIndex((i) => (i + 1) % items.length);
-  const prev = () => setActiveIndex((i) => (i - 1 + items.length) % items.length);
+  const next = () => setActiveIndex((i) => i + 1);
+  const prev = () => setActiveIndex((i) => i - 1);
 
   const handleItemClick = React.useCallback(
     (index: number) => {
-      if (index === activeIndex) return;
-      setActiveIndex(index);
+      setActiveIndex((current) => {
+        const currentReal = ((current % n) + n) % n;
+        if (index === currentReal) return current;
+
+        // shortest-path diff: instead of always rotating "forward" to reach the clicked
+        // item, pick whichever direction (positive or negative) covers less distance
+        let diff = index - currentReal;
+        if (diff > n / 2) diff -= n;
+        else if (diff <= -n / 2) diff += n;
+
+        return current + diff;
+      });
     },
-    [activeIndex]
+    [n]
   );
 
   React.useEffect(() => {
@@ -98,8 +118,6 @@ export function OrbitCarousel({ items, className }: OrbitCarouselProps) {
   }, []);
 
   if (items.length === 0) return null;
-
-  const activeItem = items[activeIndex];
 
   return (
     <div className={`relative flex min-h-100 flex-col items-center p-4 ${className ?? ""}`}>
@@ -210,7 +228,7 @@ export function OrbitCarousel({ items, className }: OrbitCarouselProps) {
                   <ItemAvatar
                     item={item}
                     className={`h-full w-full rounded-full object-cover transition-all duration-300 ${
-                      i === activeIndex
+                      i === realIndex
                         ? "border-4 border-(--color-terracotta) shadow-lg"
                         : "border-2 border-(--color-oxblood)/20 hover:border-(--color-terracotta)/60"
                     }`}
