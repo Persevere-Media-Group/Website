@@ -1,53 +1,41 @@
-import { useState } from "react";
+import {
+  StaggeredMenu,
+  type StaggeredMenuItem,
+  type StaggeredMenuSocialItem,
+} from "@/components/ui/staggered-menu";
 
-interface NavTab {
-  label: string;
-  href: string;
-}
+// placeholder tabs, structured to match StaggeredMenuItem's shape, swap these for your real site sections
+const MENU_ITEMS: StaggeredMenuItem[] = [
+  { label: "Home", ariaLabel: "Go to home page", link: "#" },
+  { label: "About", ariaLabel: "Learn about us", link: "#" },
+  { label: "Services", ariaLabel: "View our services", link: "#" },
+  { label: "Case Studies", ariaLabel: "View our case studies", link: "#" },
+  { label: "Blog", ariaLabel: "Read our blog", link: "#" },
+  { label: "Contact", ariaLabel: "Get in touch", link: "#" },
+];
 
-// placeholder tabs, structured after the reference image, swap these for your real site sections
-const NAV_TABS: NavTab[] = [
-  { label: "Home", href: "#" },
-  { label: "About", href: "#" },
-  { label: "Services", href: "#" },
-  { label: "Case Studies", href: "#" },
-  { label: "Blog", href: "#" },
-  { label: "Contact", href: "#" },
+const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [
+  { label: "Instagram", link: "#" },
+  { label: "LinkedIn", link: "#" },
+  { label: "Twitter", link: "#" },
 ];
 
 export function Navbar() {
-  // tracks which tab is currently highlighted, defaults to the first one
-  const [activeLabel, setActiveLabel] = useState(NAV_TABS[0].label);
-
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-6 bg-(--color-oxblood)/90 px-6 py-4 backdrop-blur-md">
-      <nav className="flex flex-wrap items-center gap-6">
-        {NAV_TABS.map((tab) => {
-          const isActive = tab.label === activeLabel;
-
-          return (
-            <a
-              key={tab.label}
-              href={tab.href}
-              onClick={() => setActiveLabel(tab.label)}
-              className={`text-sm font-medium transition-colors ${
-                isActive
-                  ? "text-(--color-amber-gold)"
-                  : "text-(--color-ivory) hover:text-(--color-amber-gold)"
-              }`}
-            >
-              {tab.label}
-            </a>
-          );
-        })}
-      </nav>
-
-      <a
-        href="#"
-        className="rounded-full bg-(--color-amber-gold) px-5 py-2 text-sm font-semibold text-(--color-warm-black) transition-opacity hover:opacity-90"
-      >
-        Book a Call
-      </a>
-    </header>
+    <StaggeredMenu
+      position="right"
+      items={MENU_ITEMS}
+      socialItems={SOCIAL_ITEMS}
+      displaySocials
+      displayItemNumbering
+      // two brand tones for the staggered colour wipe, deep plum lands first, terracotta on top
+      colors={["var(--color-deep-plum)", "var(--color-terracotta)"]}
+      logoUrl="/logo-placeholder.svg"
+      menuButtonColor="var(--color-ivory)"
+      openMenuButtonColor="var(--color-ivory)"
+      changeMenuColorOnOpen={false}
+      accentColor="var(--color-amber-gold)"
+      isFixed
+    />
   );
 }
