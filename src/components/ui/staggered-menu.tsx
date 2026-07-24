@@ -2,6 +2,8 @@ import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import "./staggered-menu.css";
 import { Instagram, Anchor } from "./svgs";
+import SpecularButton from "./SpecularButton";
+
 export interface StaggeredMenuItem {
   label: string;
   ariaLabel: string;
@@ -96,7 +98,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       gsap.set(plusV, { transformOrigin: "50% 50%", rotate: 90 });
       gsap.set(icon, { rotate: 0, transformOrigin: "50% 50%" });
       gsap.set(textInner, { yPercent: 0 });
-      if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor });
+      if (toggleBtnRef.current)
+        gsap.set(toggleBtnRef.current, { "--sb-text-color": menuButtonColor });
     });
     return () => ctx.revert();
   }, [menuButtonColor, position]);
@@ -300,13 +303,13 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       if (changeMenuColorOnOpen) {
         const targetColor = opening ? openMenuButtonColor : menuButtonColor;
         colorTweenRef.current = gsap.to(btn, {
-          color: targetColor,
+          "--sb-text-color": targetColor,
           delay: 0.18,
           duration: 0.3,
           ease: "power2.out",
         });
       } else {
-        gsap.set(btn, { color: menuButtonColor });
+        gsap.set(btn, { "--sb-text-color": menuButtonColor });
       }
     },
     [openMenuButtonColor, menuButtonColor, changeMenuColorOnOpen]
@@ -316,9 +319,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     if (toggleBtnRef.current) {
       if (changeMenuColorOnOpen) {
         const targetColor = openRef.current ? openMenuButtonColor : menuButtonColor;
-        gsap.set(toggleBtnRef.current, { color: targetColor });
+        gsap.set(toggleBtnRef.current, { "--sb-text-color": targetColor });
       } else {
-        gsap.set(toggleBtnRef.current, { color: menuButtonColor });
+        gsap.set(toggleBtnRef.current, { "--sb-text-color": menuButtonColor });
       }
     }
   }, [changeMenuColorOnOpen, menuButtonColor, openMenuButtonColor]);
@@ -434,8 +437,24 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             height={24}
           />
         </div>
-        <button
+        <SpecularButton
           ref={toggleBtnRef}
+          size="sm"
+          radius={12}
+          tint="#ffffff"
+          tintOpacity={0}
+          blur={0}
+          textColor={menuButtonColor}
+          lineColor="#ffffff"
+          baseColor="#525252"
+          intensity={1}
+          shineSize={10}
+          shineFade={40}
+          thickness={1}
+          speed={0.35}
+          followMouse
+          proximity={200}
+          autoAnimate={false}
           className="sm-toggle"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
@@ -456,7 +475,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             <span ref={plusHRef} className="sm-icon-line" />
             <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
           </span>
-        </button>
+        </SpecularButton>
       </header>
 
       <aside
