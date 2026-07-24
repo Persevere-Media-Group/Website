@@ -30,7 +30,7 @@ importers:
         specifier: ^12.42.2
         version: 12.42.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       gsap:
-        specifier: ^3.15.0
+        specifier: ^3.13.0
         version: 3.15.0
       lucide-react:
         specifier: ^1.25.0
