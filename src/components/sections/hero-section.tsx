@@ -81,7 +81,9 @@ export function HeroSection() {
 
         <div className="mt-10 sm:mt-14 md:mt-20 max-w-2xl space-y-8 px-4">
           <h3 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
-            From content to campaign, all under one roof.
+            From content to campaign,
+            <br />
+            all under one roof.
           </h3>
         </div>
 
