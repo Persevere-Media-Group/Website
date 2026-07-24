@@ -29,7 +29,7 @@ const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
 export function HeroSection() {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 py-12 text-center">
+    <div className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 py-12 text-center">
       {/* animated brand gradient with grain texture, sits directly on the fallback bg colour */}
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
@@ -39,7 +39,6 @@ export function HeroSection() {
         rotation={0}
         className="absolute inset-0"
       />
-
       {/* fills the whole hero, so clicking anywhere across it triggers a burst of ivory sparks */}
       <ClickSpark
         sparkColor="--color-ivory"
@@ -77,15 +76,13 @@ export function HeroSection() {
                 loop={true}
                 className={ROTATING_TEXT_CLASSES}
                 highlightWord={HIGHLIGHT_WORD}
-                highlightClassName="text-[var(--color-deep-plum)]"
+                highlightClassName="text-[var(--color-oxblood)]"
                 highlightDuration={2800}
-                highlightScale={1.2}
               />
             </div>
           </div>
         </div>
       </ClickSpark>
-
       {/* solid ivory curve capping the bottom of the hero, sits above all the animated layers
           so it reads as a clean edge rather than picking up the grain or gradient underneath it */}
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />

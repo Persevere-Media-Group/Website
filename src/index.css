@@ -131,6 +131,8 @@ body {
   --color-deep-plum: #594157;
   --color-amber-gold: #edb03e;
   --color-ivory: #f7f3e3;
+  --color-warm-black: #241914;
+  --color-oxblood: #4a1f1d;
 }
 
 @layer base {

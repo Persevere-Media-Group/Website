@@ -20,7 +20,7 @@ export function Navbar() {
   const [activeLabel, setActiveLabel] = useState(NAV_TABS[0].label);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-6 bg-(--color-deep-plum)/90 px-6 py-4 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-6 bg-(--color-oxblood)/90 px-6 py-4 backdrop-blur-md">
       <nav className="flex flex-wrap items-center gap-6">
         {NAV_TABS.map((tab) => {
           const isActive = tab.label === activeLabel;
@@ -44,7 +44,7 @@ export function Navbar() {
 
       <a
         href="#"
-        className="rounded-full bg-(--color-amber-gold) px-5 py-2 text-sm font-semibold text-(--color-deep-plum) transition-opacity hover:opacity-90"
+        className="rounded-full bg-(--color-amber-gold) px-5 py-2 text-sm font-semibold text-(--color-warm-black) transition-opacity hover:opacity-90"
       >
         Book a Call
       </a>
