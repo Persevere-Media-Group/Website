@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 interface CylinderTextRotateProps {
@@ -86,6 +86,8 @@ export function CylinderTextRotate({
           const slotPosition = spinCount + 1 + offset;
           const isCurrentWord = offset === 0;
           const isHighlighted = highlightWord !== undefined && word === highlightWord;
+          // sheen only ever plays for the highlighted word while it's the one centred on screen
+          const showSheen = isHighlighted && isCurrentWord;
 
           return (
             <div
@@ -97,7 +99,33 @@ export function CylinderTextRotate({
                 opacity: isCurrentWord ? 1 : neighbourOpacity,
               }}
             >
-              {word}
+              <span className="relative inline-block">
+                {word}
+
+                <AnimatePresence>
+                  {showSheen && (
+                    <motion.span
+                      // keyed by spinCount so the sheen resets and replays every time the
+                      // drum comes back around and lands on this word again
+                      key={`sheen-${spinCount}`}
+                      className="pointer-events-none absolute inset-0 whitespace-nowrap bg-clip-text text-transparent"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.95) 49%, rgba(255,255,255,0.95) 51%, transparent 60%)",
+                        backgroundSize: "300% 100%",
+                        backgroundRepeat: "no-repeat",
+                        WebkitBackgroundClip: "text",
+                      }}
+                      aria-hidden
+                      initial={{ backgroundPosition: "200% 0%" }}
+                      animate={{ backgroundPosition: "-100% 0%" }}
+                      transition={{ duration: 1.1, ease: "easeInOut", delay: 0.15 }}
+                    >
+                      {word}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </span>
             </div>
           );
         })}

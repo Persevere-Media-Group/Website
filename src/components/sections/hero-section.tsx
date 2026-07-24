@@ -11,10 +11,8 @@ const WORD_SEQUENCE = toUpperCaseWords([
   "Expertise",
   "People",
   "Ambition",
-  "Graft",
   "Trust",
   "Connection",
-  "Presence",
   "Growth",
   "Results",
   "Persevere",
@@ -81,6 +79,7 @@ export function HeroSection() {
                 highlightWord={HIGHLIGHT_WORD}
                 highlightClassName="text-[var(--color-deep-plum)]"
                 highlightDuration={2800}
+                highlightScale={1.2}
               />
             </div>
           </div>
