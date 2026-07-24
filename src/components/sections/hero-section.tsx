@@ -30,7 +30,7 @@ const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
 export function HeroSection() {
   return (
-    <div className="relative flex min-h-[80vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-48 pb-12 text-center sm:pt-56 md:pt-64">
+    <div className="relative flex min-h-[80vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-64 pb-12 text-center sm:pt-72 md:pt-80">
       {/* animated brand gradient with grain texture, sits directly on the fallback bg colour */}
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
@@ -49,7 +49,7 @@ export function HeroSection() {
         duration={400}
         easing="ease-out"
         extraScale={1}
-        className="absolute inset-0 flex flex-col items-center justify-start px-4 pt-32 text-center sm:pt-40 md:pt-48"
+        className="absolute inset-0 flex flex-col items-center justify-start px-4 pt-64 text-center sm:pt-72 md:pt-80"
       >
         <div className="flex flex-nowrap items-center justify-center" style={{ gap: "2em" }}>
           <h1 className={TEXT_CLASSES}>CHOOSE</h1>
