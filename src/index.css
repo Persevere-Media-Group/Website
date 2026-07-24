@@ -140,6 +140,15 @@ body {
   display: none;
 }
 
+@keyframes section-wave-roll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .staggered-menu-header {
   justify-content: flex-end;
 }
