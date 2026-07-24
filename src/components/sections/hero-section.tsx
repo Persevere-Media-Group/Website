@@ -29,7 +29,7 @@ const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
 export function HeroSection() {
   return (
-    <div className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 py-12 text-center">
+    <div className="relative flex min-h-[80vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-48 pb-12 text-center sm:pt-56 md:pt-64">
       {/* animated brand gradient with grain texture, sits directly on the fallback bg colour */}
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
@@ -48,14 +48,9 @@ export function HeroSection() {
         duration={400}
         easing="ease-out"
         extraScale={1}
-        className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center"
+        className="absolute inset-0 flex flex-col items-center justify-start px-4 pt-32 text-center sm:pt-40 md:pt-48"
       >
-        {/* small upward nudge so the text block sits slightly above dead centre, rather than
-            being perfectly centred in the viewport */}
-        <div
-          className="flex flex-nowrap items-center justify-center -translate-y-8 sm:-translate-y-12 md:-translate-y-16"
-          style={{ gap: "2em" }}
-        >
+        <div className="flex flex-nowrap items-center justify-center" style={{ gap: "2em" }}>
           <h1 className={TEXT_CLASSES}>CHOOSE</h1>
 
           <div className="grid">
@@ -81,6 +76,16 @@ export function HeroSection() {
               />
             </div>
           </div>
+        </div>
+
+        <div className="mt-10 sm:mt-14 md:mt-20 max-w-2xl space-y-8 px-4">
+          <p
+            className="text-[clamp(1.05rem,2.2vw,1.4rem)] font-normal leading-relaxed tracking-normal text-(--color-oxblood)"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            Camera to campaign, all under one roof.
+            <br />
+          </p>
         </div>
       </ClickSpark>
       {/* solid ivory curve capping the bottom of the hero, sits above all the animated layers

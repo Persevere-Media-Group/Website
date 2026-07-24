@@ -15,9 +15,8 @@ const MENU_ITEMS: StaggeredMenuItem[] = [
 ];
 
 const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [
-  { label: "Instagram", link: "#" },
-  { label: "LinkedIn", link: "#" },
-  { label: "Twitter", link: "#" },
+  { label: "Calum's Instagram", link: "#" },
+  { label: "Keir's Instagram", link: "#" },
 ];
 
 export function Navbar() {
@@ -28,9 +27,7 @@ export function Navbar() {
       socialItems={SOCIAL_ITEMS}
       displaySocials
       displayItemNumbering
-      // two brand tones for the staggered colour wipe, deep plum lands first, terracotta on top
       colors={["var(--color-deep-plum)", "var(--color-terracotta)"]}
-      logoUrl="/logo-placeholder.svg"
       menuButtonColor="var(--color-ivory)"
       openMenuButtonColor="var(--color-ivory)"
       changeMenuColorOnOpen={false}

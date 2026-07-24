@@ -136,6 +136,14 @@ body {
   --color-oxblood: #4a1f1d;
 }
 
+.sm-logo {
+  display: none;
+}
+
+.staggered-menu-header {
+  justify-content: flex-end;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
