@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PopupModal } from "react-calendly";
 import { CylinderTextRotate } from "@/components/ui/cylinder-text-rotate";
 import { ClickSpark } from "@/components/ui/click-spark";
 import { Grainient } from "@/components/ui/grainient";
@@ -29,8 +31,13 @@ const TEXT_CLASSES =
 
 const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
+// TODO: replace with your real Calendly scheduling link once it's set up,
+// e.g. "https://calendly.com/persevere-media/discovery-call"
+const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
+
 export function HeroSection() {
   const navigate = useNavigate();
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   return (
     <div className="relative flex min-h-[80vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-64 pb-12 text-center sm:pt-72 md:pt-80">
@@ -114,7 +121,15 @@ export function HeroSection() {
             Our Services
           </SpecularButton>
 
-          {/* placeholder, swap onClick for a Calendly link/embed once that's set up */}
+          {/* opens Calendly as an overlay on top of the current page, rather than
+              navigating away to calendly.com, so the visitor never leaves the site.
+              deliberately still glass, not solid, so it doesn't out-compete the brand
+              name for attention. emphasis comes from: autoAnimate keeping a gentle shine
+              always moving, a stronger (but still translucent) amber tint, and a soft
+              amber glow around the edge, rather than from size or a dark fill.
+              note: lineColor/baseColor are parsed by ogl's own Color class in JS, not
+              real CSS, so var(--color-amber-gold) doesn't resolve here the way it does
+              for tint (which IS a real inline CSS custom property). literal hex only. */}
           <SpecularButton
             size="lg"
             radius={18}
@@ -122,17 +137,18 @@ export function HeroSection() {
             tintOpacity={0.3}
             blur={0}
             textColor="#f5f5f5"
-            lineColor="#ffffff"
+            lineColor="#edb03e"
             baseColor="#525252"
-            intensity={1}
+            intensity={0.8}
             shineSize={10}
             shineFade={40}
             thickness={1}
             speed={0.35}
             followMouse
             proximity={250}
-            autoAnimate={false}
-            onClick={() => console.log("TODO: open Calendly link")}
+            autoAnimate
+            className="shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
+            onClick={() => setIsCalendlyOpen(true)}
           >
             Book a Call
           </SpecularButton>
@@ -141,6 +157,16 @@ export function HeroSection() {
       {/* solid ivory curve capping the bottom of the hero, sits above all the animated layers
           so it reads as a clean edge rather than picking up the grain or gradient underneath it */}
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />
+
+      {/* Calendly's own popup modal, only mounted/rendered while open, closes itself
+          via onModalClose. rootElement needs a real DOM node Calendly can portal into,
+          your app's root div works fine for this. */}
+      <PopupModal
+        url={CALENDLY_URL}
+        onModalClose={() => setIsCalendlyOpen(false)}
+        open={isCalendlyOpen}
+        rootElement={document.getElementById("root")!}
+      />
     </div>
   );
 }
