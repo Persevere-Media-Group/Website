@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // how far down from the very top of the viewport to sample, roughly matching
 // where the menu button's vertical centre sits inside the fixed header
@@ -29,8 +30,6 @@ function parseRgba(colorString: string): { r: number; g: number; b: number; a: n
 
 // walks down through transparent wrapper elements (animation wrappers, layout divs, etc.)
 // until it finds elements that actually paint a background colour, or gives up at MAX_DEPTH.
-// this is what makes the hook resilient to things like AnimatePresence/motion.div wrappers
-// getting inserted between <main> and the real page sections, now or in the future.
 function collectBackgroundCandidates(el: HTMLElement, depth = 0): HTMLElement[] {
   if (depth >= MAX_DEPTH) return [el];
 
@@ -46,15 +45,18 @@ function collectBackgroundCandidates(el: HTMLElement, depth = 0): HTMLElement[] 
 }
 
 /**
- * Watches scroll position and returns either `lightBgColor` or `darkBgColor` depending on
- * the actual background colour of whichever section currently sits behind the fixed header.
+ * Watches scroll position AND route changes, returning either `lightBgColor` or
+ * `darkBgColor` depending on the actual background colour of whichever section
+ * currently sits behind the fixed header.
  *
- * Starts from <main>'s direct children, then descends through any transparent wrapper
- * elements to find the nearest elements that actually paint a background, then checks which
- * of those covers the header's sample point, then reads its real computed background-color.
+ * The route-change awareness matters because the Navbar/header lives in a persistent
+ * layout that never unmounts between pages, without tracking location changes here,
+ * this would only ever check the background once on first load and then freeze,
+ * leaving stale colours behind whenever you navigate without also scrolling or resizing.
  */
 export function useHeaderContrast(lightBgTextColor: string, darkBgTextColor: string): string {
   const [color, setColor] = useState(darkBgTextColor);
+  const location = useLocation();
 
   useEffect(() => {
     const mainEl = document.querySelector("main");
@@ -75,7 +77,6 @@ export function useHeaderContrast(lightBgTextColor: string, darkBgTextColor: str
         const rgba = parseRgba(getComputedStyle(target).backgroundColor);
         if (rgba) {
           const luminance = getLuminance(rgba.r, rgba.g, rgba.b);
-          // above this threshold reads as a light background, needing dark text on top of it
           setColor(luminance > 0.55 ? lightBgTextColor : darkBgTextColor);
         }
       }
@@ -86,15 +87,23 @@ export function useHeaderContrast(lightBgTextColor: string, darkBgTextColor: str
       frame = requestAnimationFrame(check);
     };
 
+    // re-run on mount AND on every route change, with a couple of retries just after
+    // navigation, since the incoming page's AnimatePresence transition means its final
+    // layout position/background isn't necessarily settled the instant this effect fires
     check();
+    const settleTimeout1 = setTimeout(check, 50);
+    const settleTimeout2 = setTimeout(check, 400);
+
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize);
     return () => {
       cancelAnimationFrame(frame);
+      clearTimeout(settleTimeout1);
+      clearTimeout(settleTimeout2);
       window.removeEventListener("scroll", onScrollOrResize);
       window.removeEventListener("resize", onScrollOrResize);
     };
-  }, [lightBgTextColor, darkBgTextColor]);
+  }, [lightBgTextColor, darkBgTextColor, location.pathname]);
 
   return color;
 }

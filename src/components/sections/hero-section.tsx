@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { CylinderTextRotate } from "@/components/ui/cylinder-text-rotate";
 import { ClickSpark } from "@/components/ui/click-spark";
 import { Grainient } from "@/components/ui/grainient";
@@ -29,6 +30,8 @@ const TEXT_CLASSES =
 const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
 export function HeroSection() {
+  const navigate = useNavigate();
+
   return (
     <div className="relative flex min-h-[80vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-64 pb-12 text-center sm:pt-72 md:pt-80">
       {/* animated brand gradient with grain texture, sits directly on the fallback bg colour */}
@@ -87,8 +90,8 @@ export function HeroSection() {
           </h3>
         </div>
 
-        <div className="mt-8 sm:mt-10 md:mt-12">
-          {/* placeholder glass button, same component now used for the nav toggle, swap copy/props once real CTA is decided */}
+        <div className="mt-8 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:gap-6 md:mt-12">
+          {/* navigates to the services page, same glass button used for the nav toggle */}
           <SpecularButton
             size="lg"
             radius={18}
@@ -106,9 +109,32 @@ export function HeroSection() {
             followMouse
             proximity={250}
             autoAnimate={false}
-            onClick={() => console.log("clicked")}
+            onClick={() => navigate("/services")}
           >
-            Get Started
+            Our Services
+          </SpecularButton>
+
+          {/* placeholder, swap onClick for a Calendly link/embed once that's set up */}
+          <SpecularButton
+            size="lg"
+            radius={18}
+            tint="#ffffff"
+            tintOpacity={0}
+            blur={0}
+            textColor="#f5f5f5"
+            lineColor="#ffffff"
+            baseColor="#525252"
+            intensity={1}
+            shineSize={10}
+            shineFade={40}
+            thickness={1}
+            speed={0.35}
+            followMouse
+            proximity={250}
+            autoAnimate={false}
+            onClick={() => console.log("TODO: open Calendly link")}
+          >
+            Book a Call
           </SpecularButton>
         </div>
       </ClickSpark>
