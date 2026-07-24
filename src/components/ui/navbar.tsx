@@ -15,8 +15,9 @@ const MENU_ITEMS: StaggeredMenuItem[] = [
 ];
 
 const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [
-  { label: "Calum's Instagram", link: "#" },
-  { label: "Keir's Instagram", link: "#" },
+  { label: "@perseveremedia", link: "https://www.instagram.com/persevere.media/" },
+  { label: "@calummakesvideos", link: "https://www.instagram.com/calummakesvideos/" },
+  { label: "@keirdoesads", link: "https://www.instagram.com/keirdoesads/" },
 ];
 
 export function Navbar() {
