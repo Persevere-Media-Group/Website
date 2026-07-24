@@ -241,8 +241,8 @@ export function OrbitCarousel({ items, className }: OrbitCarouselProps) {
                     item={item}
                     className={`h-full w-full rounded-full object-cover transition-all duration-300 ${
                       i === realIndex
-                        ? "border-4 border-(--color-deep-plum) shadow-lg"
-                        : "border-2 border-(--color-deep-plum)/20 hover:border-(--color-deep-plum)/60"
+                        ? "border-4 border-(--color-terracotta) shadow-lg"
+                        : "border-2 border-(--color-terracotta)/20 hover:border-(--color-terracotta)/60"
                     }`}
                   />
                 </motion.button>
