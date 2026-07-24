@@ -319,9 +319,17 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     if (toggleBtnRef.current) {
       if (changeMenuColorOnOpen) {
         const targetColor = openRef.current ? openMenuButtonColor : menuButtonColor;
-        gsap.set(toggleBtnRef.current, { "--sb-text-color": targetColor });
+        gsap.to(toggleBtnRef.current, {
+          "--sb-text-color": targetColor,
+          duration: 0.3,
+          ease: "power2.out",
+        });
       } else {
-        gsap.set(toggleBtnRef.current, { "--sb-text-color": menuButtonColor });
+        gsap.to(toggleBtnRef.current, {
+          "--sb-text-color": menuButtonColor,
+          duration: 0.3,
+          ease: "power2.out",
+        });
       }
     }
   }, [changeMenuColorOnOpen, menuButtonColor, openMenuButtonColor]);

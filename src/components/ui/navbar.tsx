@@ -3,6 +3,7 @@ import {
   type StaggeredMenuItem,
   type StaggeredMenuSocialItem,
 } from "@/components/ui/staggered-menu";
+import { useHeaderContrast } from "@/hooks/useHeaderContrast";
 
 // placeholder tabs, structured to match StaggeredMenuItem's shape, swap these for your real site sections
 const MENU_ITEMS: StaggeredMenuItem[] = [
@@ -21,6 +22,10 @@ const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [
 ];
 
 export function Navbar() {
+  // reads the actual background colour behind the fixed header as the page scrolls,
+  // ivory sections need oxblood text, everything else (terracotta hero, etc) needs ivory text
+  const buttonColor = useHeaderContrast("var(--color-oxblood)", "var(--color-ivory)");
+
   return (
     <StaggeredMenu
       position="right"
@@ -29,9 +34,9 @@ export function Navbar() {
       displaySocials
       displayItemNumbering
       colors={["var(--color-deep-plum)", "var(--color-terracotta)"]}
-      menuButtonColor="var(--color-ivory)"
+      menuButtonColor={buttonColor}
       openMenuButtonColor="var(--color-ivory)"
-      changeMenuColorOnOpen={false}
+      changeMenuColorOnOpen
       accentColor="var(--color-amber-gold)"
       isFixed
     />
