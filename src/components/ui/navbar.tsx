@@ -5,14 +5,13 @@ import {
 } from "@/components/ui/staggered-menu";
 import { useHeaderContrast } from "@/hooks/useHeaderContrast";
 
-// placeholder tabs, structured to match StaggeredMenuItem's shape, swap these for your real site sections
 const MENU_ITEMS: StaggeredMenuItem[] = [
-  { label: "Home", ariaLabel: "Go to home page", link: "#" },
-  { label: "About", ariaLabel: "Learn about us", link: "#" },
-  { label: "Services", ariaLabel: "View our services", link: "#" },
-  { label: "Case Studies", ariaLabel: "View our case studies", link: "#" },
-  { label: "Blog", ariaLabel: "Read our blog", link: "#" },
-  { label: "Contact", ariaLabel: "Get in touch", link: "#" },
+  { label: "Home", ariaLabel: "Go to home page", link: "/" },
+  { label: "About", ariaLabel: "Learn about us", link: "/about" },
+  { label: "Services", ariaLabel: "View our services", link: "/services" },
+  { label: "Case Studies", ariaLabel: "View our case studies", link: "/case-studies" },
+  { label: "Blog", ariaLabel: "Read our blog", link: "/blog" },
+  { label: "Contact", ariaLabel: "Get in touch", link: "/contact" },
 ];
 
 const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [
@@ -22,8 +21,6 @@ const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [
 ];
 
 export function Navbar() {
-  // reads the actual background colour behind the fixed header as the page scrolls,
-  // ivory sections need oxblood text, everything else (terracotta hero, etc) needs ivory text
   const buttonColor = useHeaderContrast("var(--color-oxblood)", "var(--color-ivory)");
 
   return (
