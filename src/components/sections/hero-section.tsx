@@ -137,7 +137,7 @@ export function HeroSection() {
             tintOpacity={0.3}
             blur={0}
             textColor="#f5f5f5"
-            lineColor="#edb03e"
+            lineColor="#ffffff"
             baseColor="#525252"
             intensity={0.8}
             shineSize={10}
