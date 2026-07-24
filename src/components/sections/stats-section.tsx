@@ -18,7 +18,7 @@ const BLOCKS = [
 
 export function StatsSection() {
   return (
-    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 pt-24 pb-48 text-center">
+    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 py-24 text-center">
       {BLOCKS.map((block, i) => (
         <AnimatedContent
           key={block.heading}
