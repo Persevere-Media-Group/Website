@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 // where the menu button's vertical centre sits inside the fixed header
 const SAMPLE_Y = 48;
 
+// safety cap on how deep to descend through wrapper elements, prevents runaway
+// recursion if something unexpected happens with the DOM structure
+const MAX_DEPTH = 8;
+
 function getLuminance(r: number, g: number, b: number): number {
   const [rl, gl, bl] = [r, g, b].map((c) => {
     const s = c / 255;
@@ -23,15 +27,31 @@ function parseRgba(colorString: string): { r: number; g: number; b: number; a: n
   return { r: parts[0], g: parts[1], b: parts[2], a: parts[3] ?? 1 };
 }
 
+// walks down through transparent wrapper elements (animation wrappers, layout divs, etc.)
+// until it finds elements that actually paint a background colour, or gives up at MAX_DEPTH.
+// this is what makes the hook resilient to things like AnimatePresence/motion.div wrappers
+// getting inserted between <main> and the real page sections, now or in the future.
+function collectBackgroundCandidates(el: HTMLElement, depth = 0): HTMLElement[] {
+  if (depth >= MAX_DEPTH) return [el];
+
+  const rgba = parseRgba(getComputedStyle(el).backgroundColor);
+  const isTransparent = !rgba || rgba.a === 0;
+
+  if (!isTransparent) return [el];
+
+  const children = Array.from(el.children) as HTMLElement[];
+  if (children.length === 0) return [el];
+
+  return children.flatMap((child) => collectBackgroundCandidates(child, depth + 1));
+}
+
 /**
  * Watches scroll position and returns either `lightBgColor` or `darkBgColor` depending on
  * the actual background colour of whichever section currently sits behind the fixed header.
  *
- * Works by checking the direct children of <main> (each of your page sections), finding the
- * one whose bounding rect currently covers the header's sample point, then reading its real
- * computed background-color. This deliberately skips any element with a transparent
- * background (like the staggered menu's own fixed-position wrapper, which spans the whole
- * viewport and would otherwise always "win" the check).
+ * Starts from <main>'s direct children, then descends through any transparent wrapper
+ * elements to find the nearest elements that actually paint a background, then checks which
+ * of those covers the header's sample point, then reads its real computed background-color.
  */
 export function useHeaderContrast(lightBgTextColor: string, darkBgTextColor: string): string {
   const [color, setColor] = useState(darkBgTextColor);
@@ -43,16 +63,12 @@ export function useHeaderContrast(lightBgTextColor: string, darkBgTextColor: str
     let frame = 0;
 
     const check = () => {
-      const candidates = Array.from(mainEl.children) as HTMLElement[];
+      const topLevel = Array.from(mainEl.children) as HTMLElement[];
+      const candidates = topLevel.flatMap((el) => collectBackgroundCandidates(el));
 
       const target = candidates.find((el) => {
         const rect = el.getBoundingClientRect();
-        if (!(rect.top <= SAMPLE_Y && rect.bottom >= SAMPLE_Y)) return false;
-
-        const rgba = parseRgba(getComputedStyle(el).backgroundColor);
-        // skip transparent elements (e.g. the fixed nav wrapper itself), we only want
-        // to match a section that actually paints a background behind the header
-        return rgba !== null && rgba.a > 0.5;
+        return rect.top <= SAMPLE_Y && rect.bottom >= SAMPLE_Y;
       });
 
       if (target) {
