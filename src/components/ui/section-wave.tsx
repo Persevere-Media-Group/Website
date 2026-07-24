@@ -40,6 +40,12 @@ export function SectionWave({
           style={{ fill: resolvedFill }}
         />
       </svg>
+      {/* a static, non-animated strip pinned to the very bottom edge, covers any subpixel
+          rendering gap the rolling animation can leave along the seam on some mobile browsers */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-0.5"
+        style={{ backgroundColor: resolvedFill }}
+      />
     </div>
   );
 }
