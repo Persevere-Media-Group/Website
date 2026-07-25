@@ -1,9 +1,10 @@
-// gtag is loaded as a plain global script in index.html, not an npm package, so
-// TypeScript has no idea it exists on `window` unless we tell it here.
+// gtag and fbq are both loaded as plain global scripts in index.html, not npm packages,
+// so TypeScript has no idea they exist on `window` unless we tell it here.
 declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
+    fbq?: (...args: unknown[]) => void;
   }
 }
 
@@ -24,4 +25,25 @@ export function trackPageview(path: string) {
     page_location: window.location.href,
     page_title: document.title,
   });
+}
+
+/**
+ * Sends a PageView event to Meta Pixel for the given path, same reasoning as
+ * trackPageview above: the base snippet in index.html only fires once, on the
+ * very first real browser page load, client-side route changes need this called
+ * explicitly or Meta never sees any navigation beyond the first page.
+ */
+export function trackMetaPageview() {
+  if (typeof window === "undefined" || !window.fbq) return;
+
+  window.fbq("track", "PageView");
+}
+
+/**
+ * Convenience wrapper: fires both Google Analytics and Meta Pixel pageview events
+ * together, call this once per route change rather than the two individually.
+ */
+export function trackPageviewAll(path: string) {
+  trackPageview(path);
+  trackMetaPageview();
 }

@@ -4,14 +4,14 @@ import { useEffect } from "react";
 import { Navbar } from "@/components/ui/navbar";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { FloatingCta } from "@/components/sections/floating-cta";
-import { trackPageview } from "@/lib/analytics";
+import { trackPageviewAll } from "@/lib/analytics";
 
 export function Layout() {
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
-    trackPageview(location.pathname);
+    trackPageviewAll(location.pathname);
   }, [location.pathname]);
 
   return (
