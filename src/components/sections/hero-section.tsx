@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { CylinderTextRotate } from "@/components/ui/cylinder-text-rotate";
@@ -25,10 +25,12 @@ const WORD_SEQUENCE = toUpperCaseWords([
 // the one word on the drum that gets its own colour and lingers longer, drawing the eye each time it comes round
 const HIGHLIGHT_WORD = "PERSEVERE";
 
-// shared ivory colour, matches CHOOSE and every rotating word except the highlighted one.
-// floor lowered from 2.25rem to 1.6rem: "CHOOSE" plus the longest rotating word
-// (CONNECTION/EXPERTISE/PERSEVERE) needs to stay on one line down to ~320px wide phones,
-// and 2.25rem was too large to guarantee that without overflowing off-screen.
+// this is the IDEAL/preferred size, clamp() alone can't guarantee "CHOOSE" plus every
+// possible rotating word actually fits at this size on every screen width, since it has
+// no idea how wide any given word renders, it's a blind guess based purely on viewport
+// width. the useAutoFitScale hook below measures the real rendered width and shrinks
+// this down live (via a CSS transform: scale) whenever it would otherwise overflow,
+// which is what actually guarantees no overflow, on any screen, for any word.
 const TEXT_CLASSES =
   "text-[clamp(1.6rem,7.5vw,7rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
 
@@ -36,9 +38,66 @@ const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
 const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
+/**
+ * Measures the natural (unscaled) width of `ref`'s element against its parent's
+ * available width, and returns a scale factor (never above 1) to shrink it down by if
+ * it would otherwise overflow. Re-measures on mount, on resize, and when the parent's
+ * own size changes (e.g. from a layout shift elsewhere on the page).
+ *
+ * transform: scale() doesn't affect scrollWidth/clientWidth, so this can safely read
+ * the element's true natural size on every check without needing to reset anything first.
+ */
+function useAutoFitScale(ref: React.RefObject<HTMLElement | null>) {
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    let cancelled = false;
+
+    const fit = () => {
+      if (cancelled) return;
+      const parent = el.parentElement;
+      if (!parent) return;
+      const naturalWidth = el.scrollWidth;
+      const availableWidth = parent.clientWidth;
+      const nextScale =
+        availableWidth > 0 && naturalWidth > 0 ? Math.min(1, availableWidth / naturalWidth) : 1;
+      setScale(nextScale);
+    };
+
+    fit();
+
+    // the very first fit() above can run before the real webfont has finished loading,
+    // measuring against a fallback system font with different character widths gives an
+    // inaccurate scale that nothing else would otherwise correct. re-check once the real
+    // font is confirmed loaded, plus a couple of short delayed re-checks as a safety net
+    // for any other late layout settling (images, animations, etc).
+    document.fonts.ready.then(fit);
+    const settleTimeout1 = setTimeout(fit, 150);
+    const settleTimeout2 = setTimeout(fit, 500);
+
+    const ro = new ResizeObserver(fit);
+    ro.observe(el.parentElement ?? el);
+    window.addEventListener("resize", fit);
+    return () => {
+      cancelled = true;
+      clearTimeout(settleTimeout1);
+      clearTimeout(settleTimeout2);
+      ro.disconnect();
+      window.removeEventListener("resize", fit);
+    };
+  }, [ref]);
+
+  return scale;
+}
+
 export function HeroSection() {
   const navigate = useNavigate();
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const wordRowRef = useRef<HTMLDivElement>(null);
+  const wordRowScale = useAutoFitScale(wordRowRef);
 
   return (
     <div className="relative flex min-h-[78vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-32 pb-20 text-center sm:min-h-[80vh] sm:pb-12 sm:pt-72 md:pt-80">
@@ -62,7 +121,11 @@ export function HeroSection() {
         extraScale={1}
         className="absolute inset-0 flex flex-col items-center justify-start px-4 pt-32 text-center sm:pt-72 md:pt-80"
       >
-        <div className="flex flex-row items-center justify-center gap-2 sm:gap-6 md:gap-8">
+        <div
+          ref={wordRowRef}
+          className="flex flex-row items-center justify-center gap-2 sm:gap-6 md:gap-8"
+          style={{ transform: `scale(${wordRowScale})`, transformOrigin: "center" }}
+        >
           <h1 className={TEXT_CLASSES}>CHOOSE</h1>
 
           <div className="grid">
