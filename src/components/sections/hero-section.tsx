@@ -129,7 +129,7 @@ export function HeroSection() {
         duration={400}
         easing="ease-out"
         extraScale={1}
-        className="relative z-10 flex w-full flex-col items-center justify-center text-center"
+        className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-28 pb-32 text-center sm:pt-32 sm:pb-40 md:pb-48"
       >
         <div
           ref={wordRowRef}
