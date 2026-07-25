@@ -1,4 +1,5 @@
 import { Highlighter } from "@/components/ui/highlighter";
+import { GrainWave } from "@/components/sections/grain-wave";
 
 // ---------------------------------------------------------------------------
 // Highlight/underline config
@@ -101,132 +102,138 @@ const AFTER = [
 // ---------------------------------------------------------------------------
 
 export function About() {
+  // NOTE: the <section> deliberately has no padding of its own. Any padding here would
+  // push GrainWave down from the top of the page and stop it reaching the screen edges,
+  // so the padding lives on the content wrapper below the band instead (same pattern
+  // used on the Contact page).
   return (
-    <section className="flex min-h-screen flex-col items-center bg-(--color-ivory) px-4 pt-32 pb-32 sm:pt-40">
-      <p
-        className="text-[clamp(0.75rem,1.6vw,0.95rem)] font-semibold uppercase tracking-[0.2em] text-(--color-oxblood)/60"
-        style={{ fontFamily: "var(--font-body)" }}
-      >
-        About
-      </p>
-      <h1 className="mt-3 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
-        Two of us. Everything you need.
-      </h1>
+    <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
+      <GrainWave height="24rem">
+        <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
+          About Us
+        </h1>
+      </GrainWave>
 
-      {/* the two halves side by side on desktop, stacked on mobile */}
-      <div className="mt-14 grid w-full max-w-3xl gap-8 text-left sm:grid-cols-2 sm:gap-10">
-        {ROLES.map((role) => (
-          <div key={role.title} className="flex flex-col gap-3">
-            <h2 className="text-[clamp(1.35rem,2.6vw,1.75rem)] font-black tracking-tight text-(--color-oxblood)">
-              {role.title}
+      <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
+        <h1 className="mt-3 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+          Two of us. Everything you need.
+        </h1>
+
+        {/* the two halves side by side on desktop, stacked on mobile */}
+        <div className="mt-14 grid w-full max-w-3xl gap-8 text-left sm:grid-cols-2 sm:gap-10">
+          {ROLES.map((role) => (
+            <div key={role.title} className="flex flex-col gap-3">
+              <h2 className="text-[clamp(1.35rem,2.6vw,1.75rem)] font-black tracking-tight text-(--color-oxblood)">
+                {role.title}
+              </h2>
+              <p
+                className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {role.lead}
+              </p>
+              <p
+                className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {role.body}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* divider into the monologue, gives the tonal shift somewhere to breathe */}
+        <div className="mt-24 h-px w-full max-w-xs bg-(--color-oxblood)/15" />
+
+        <div className="mt-20 flex w-full max-w-2xl flex-col gap-14 text-left">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
+              How it started
             </h2>
             <p
-              className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
+              className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              {role.lead}
+              Keir and Calum met over four years ago in the corporate marketing world. Calum behind
+              the camera as videographer and editor, Keir in front of it (and behind the strategy)
+              for businesses all over the world.
             </p>
             <p
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              {role.body}
+              For years we sharpened our craft on other people's payrolls, forever joking about what
+              we could build if we pooled two skillsets that so rarely live under one roof. Then we
+              actually moved in together, survived a year of flat-share life without falling out,
+              and figured: if we can manage that, we can manage this.
+            </p>
+            <p className="text-[clamp(1.15rem,2.2vw,1.4rem)] font-black tracking-tight text-(--color-oxblood)">
+              So we did. Persevere was born.
             </p>
           </div>
-        ))}
-      </div>
 
-      {/* divider into the monologue, gives the tonal shift somewhere to breathe */}
-      <div className="mt-24 h-px w-full max-w-xs bg-(--color-oxblood)/15" />
-
-      <div className="mt-20 flex w-full max-w-2xl flex-col gap-14 text-left">
-        <div className="flex flex-col gap-4">
-          <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
-            How it started
-          </h2>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Keir and Calum met over four years ago in the corporate marketing world. Calum behind
-            the camera as videographer and editor, Keir in front of it (and behind the strategy) for
-            businesses all over the world.
-          </p>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            For years we sharpened our craft on other people's payrolls, forever joking about what
-            we could build if we pooled two skillsets that so rarely live under one roof. Then we
-            actually moved in together, survived a year of flat-share life without falling out, and
-            figured: if we can manage that, we can manage this.
-          </p>
-          <p className="text-[clamp(1.15rem,2.2vw,1.4rem)] font-black tracking-tight text-(--color-oxblood)">
-            So we did. Persevere was born.
-          </p>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
+              Why “Persevere”?
+            </h2>
+            <p
+              className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              The name is Leith through and through. It's Leith's own word, its motto, and it's
+              meant something to Keir across the near-six years he's called the area home. It's
+              where he put down roots, and where he met his wife. (Calum, naturally, was the one on
+              camera for the wedding.)
+            </p>
+            <p
+              className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              It turns out to be a fitting word for a marketing partner, too. Growth is rarely one
+              lucky hit. It's showing up, testing, adjusting, and keeping at it until the results
+              start to build.
+            </p>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-4">
-          <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
-            Why “Persevere”?
-          </h2>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            The name is Leith through and through. It's Leith's own word, its motto, and it's meant
-            something to Keir across the near-six years he's called the area home. It's where he put
-            down roots, and where he met his wife. (Calum, naturally, was the one on camera for the
-            wedding.)
-          </p>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            It turns out to be a fitting word for a marketing partner, too. Growth is rarely one
-            lucky hit. It's showing up, testing, adjusting, and keeping at it until the results
-            start to build.
-          </p>
-        </div>
-      </div>
+        {/* divider into the monologue, gives the tonal shift somewhere to breathe */}
+        <div className="mt-24 h-px w-full max-w-xs bg-(--color-oxblood)/15" />
 
-      {/* divider into the monologue, gives the tonal shift somewhere to breathe */}
-      <div className="mt-24 h-px w-full max-w-xs bg-(--color-oxblood)/15" />
+        <h2 className="mt-24 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+          So, what's it going to be?
+        </h2>
 
-      <h2 className="mt-24 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
-        So, what's it going to be?
-      </h2>
-
-      {/* type scaled up from the previous version, short lines can carry more weight
+        {/* type scaled up from the previous version, short lines can carry more weight
           and it makes each block land as a statement rather than a paragraph */}
-      <div
-        className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)/80"
-        style={{ fontFamily: "var(--font-body)" }}
-      >
-        {BEFORE.map((line, i) => (
-          <p key={i}>{line}</p>
-        ))}
-      </div>
+        <div
+          className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)/80"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          {BEFORE.map((line, i) => (
+            <p key={i}>{line}</p>
+          ))}
+        </div>
 
-      {/* the hinge, deliberately given its own space and weight so the whole piece
+        {/* the hinge, deliberately given its own space and weight so the whole piece
           visibly turns here rather than the pivot getting lost mid-paragraph */}
-      <p className="mt-14 text-[clamp(2.5rem,7vw,4.5rem)] font-black leading-none tracking-tight text-(--color-terracotta)">
-        Or.
-      </p>
+        <p className="mt-14 text-[clamp(2.5rem,7vw,4.5rem)] font-black leading-none tracking-tight text-(--color-terracotta)">
+          Or.
+        </p>
 
-      <div
-        className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)"
-        style={{ fontFamily: "var(--font-body)" }}
-      >
-        {AFTER.map((line, i) => (
-          <p key={i}>{line}</p>
-        ))}
+        <div
+          className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          {AFTER.map((line, i) => (
+            <p key={i}>{line}</p>
+          ))}
+        </div>
+
+        {/* the payoff, scaled up to land as the closing beat */}
+        <p className="mt-16 text-center text-[clamp(2rem,6vw,4rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
+          Choose Persevere.
+        </p>
       </div>
-
-      {/* the payoff, scaled up to land as the closing beat */}
-      <p className="mt-16 text-center text-[clamp(2rem,6vw,4rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
-        Choose Persevere.
-      </p>
     </section>
   );
 }
