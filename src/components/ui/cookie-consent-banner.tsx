@@ -33,7 +33,7 @@ export function CookieConsentBanner() {
       role="dialog"
       aria-live="polite"
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-[60] flex justify-start px-4 pb-4 sm:pb-6"
+      className="fixed inset-x-0 bottom-0 z-60 flex justify-start px-4 pb-4 sm:pb-6"
     >
       <div className="flex w-full max-w-2xl flex-col gap-4 rounded-2xl border border-(--color-oxblood)/10 bg-(--color-ivory) p-5 text-left shadow-[0_12px_40px_rgba(0,0,0,0.25)] sm:flex-row sm:items-center sm:gap-6 sm:p-6">
         <p
@@ -48,7 +48,7 @@ export function CookieConsentBanner() {
           for details.
         </p>
 
-        <div className="flex flex-shrink-0 flex-col gap-2 sm:flex-row">
+        <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
           <button
             type="button"
             onClick={() => handleChoice("rejected")}

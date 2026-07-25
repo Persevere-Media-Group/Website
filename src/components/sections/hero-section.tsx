@@ -100,7 +100,7 @@ export function HeroSection() {
   const wordRowScale = useAutoFitScale(wordRowRef);
 
   return (
-    <div className="relative flex min-h-[78vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-32 pb-20 text-center sm:min-h-[80vh] sm:pb-12 sm:pt-72 md:pt-80">
+    <div className="relative flex min-h-[78vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-[min(20rem,26vh)] pb-20 text-center sm:min-h-[80vh] sm:pb-12">
       {/* animated brand gradient with grain texture, sits directly on the fallback bg colour */}
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
@@ -119,7 +119,7 @@ export function HeroSection() {
         duration={400}
         easing="ease-out"
         extraScale={1}
-        className="absolute inset-0 flex flex-col items-center justify-start px-4 pt-32 text-center sm:pt-72 md:pt-80"
+        className="absolute inset-0 flex flex-col items-center justify-start px-4 pt-[min(20rem,26vh)] text-center"
       >
         <div
           ref={wordRowRef}
@@ -155,9 +155,9 @@ export function HeroSection() {
 
         <div className="mt-6 sm:mt-14 md:mt-20 max-w-2xl space-y-8 px-4">
           <h3 className="text-[clamp(1.15rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
-            Creative and paid media,
+            From content to campaign,
             <br />
-            under one roof.
+            all under one roof.
           </h3>
         </div>
 
