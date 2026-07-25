@@ -2,23 +2,26 @@ import { Outlet, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect } from "react";
 import { Navbar } from "@/components/ui/navbar";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 export function Layout() {
   const location = useLocation();
 
-  // without this, navigating to a new page keeps whatever scroll position you were
-  // at on the previous page, which reads as broken alongside a polished transition
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [location.pathname]);
 
   return (
     <>
+      {/* fixed to the very top of the viewport, fills as the page scrolls,
+          sits above everything (including the nav) so it's always visible.
+          !bg-none strips the component's own default rainbow gradient
+          (a background-image, which always paints over a background-color,
+          so that has to be removed explicitly, not just covered with a solid class),
+          !bg-(--color-oxblood) then sets the actual solid fill colour */}
+      <ScrollProgress className="bg-none! bg-(--color-oxblood)! fixed top-0 z-50 h-1.5" />
+
       <Navbar />
-      {/* useHeaderContrast (used inside Navbar) queries document.querySelector("main")
-          and reads its direct children's background colours to decide the menu button's
-          text colour. without this wrapper, that query returns null on every page and the
-          button never updates from its initial colour. */}
       <main>
         <AnimatePresence mode="wait">
           <motion.div
