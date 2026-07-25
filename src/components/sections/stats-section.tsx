@@ -3,16 +3,16 @@ import AnimatedContent from "@/components/ui/AnimatedContent";
 // placeholder copy, swap each of these once the real service summary text is ready
 const BLOCKS = [
   {
-    heading: "Placeholder heading 1",
-    body: "Placeholder 1 body copy goes here, swap this out once the real content is ready.",
+    heading: "Choose the best of both worlds.",
+    body: "Content and paid ads, under one roof. No more choosing between a creative team and an ads agency.",
   },
   {
-    heading: "Placeholder heading 2",
-    body: "Placeholder 2 body copy goes here, swap this out once the real content is ready.",
+    heading: "Choose actual people.",
+    body: "You get Keir and Calum. The two actually doing the work. No account managers, no shareholders skimming the top.",
   },
   {
-    heading: "Placeholder heading 3",
-    body: "Placeholder 3 body copy goes here, swap this out once the real content is ready.",
+    heading: "Choose experience.",
+    body: "£20m+ in ad spend, 50+ brands, thousands of hours in the edit. The attitude comes with a track record.",
   },
 ];
 
