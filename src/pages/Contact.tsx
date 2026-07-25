@@ -88,7 +88,6 @@ export function Contact() {
       particleCount: 120,
       spread: 90,
       origin,
-      colors: ["#d5573b", "#edb03e", "#4a1f1d", "#594157", "#f7f3e3"],
     });
   };
 
@@ -151,7 +150,7 @@ export function Contact() {
               <div>
                 <p className="font-bold text-(--color-oxblood)">Where we are</p>
                 <p className="text-(--color-oxblood)/80" style={{ fontFamily: "var(--font-body)" }}>
-                  Leith, Edinburgh
+                  Leith & Dunfermline
                 </p>
               </div>
             </div>
@@ -177,7 +176,7 @@ export function Contact() {
                 <button
                   type="button"
                   onClick={() => setIsCalendlyOpen(true)}
-                  className="text-(--color-terracotta) underline underline-offset-2"
+                  className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
                   style={{ fontFamily: "var(--font-body)" }}
                 >
                   Book a call
@@ -199,10 +198,10 @@ export function Contact() {
             <div className="flex h-full flex-col" style={{ fontFamily: "var(--font-body)" }}>
               <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
                 <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
-                  Cheers!
+                  Message sent.
                 </h2>
                 <p className="max-w-sm text-(--color-oxblood)/80">
-                  Message sent. One of us will get back to you within a working day.
+                  Cheers for that. One of us will get back to you within a working day.
                 </p>
               </div>
 
@@ -211,10 +210,10 @@ export function Contact() {
                   type="button"
                   size="lg"
                   radius={18}
-                  tint="var(--color-terracotta)"
-                  tintOpacity={0.4}
+                  tint="var(--color-deep-plum)"
+                  tintOpacity={1}
                   blur={0}
-                  textColor="#4a1f1d"
+                  textColor="var(--color-ivory)"
                   lineColor="#ffffff"
                   baseColor="#525252"
                   intensity={0.8}
@@ -365,10 +364,10 @@ export function Contact() {
                   type="submit"
                   size="lg"
                   radius={18}
-                  tint="var(--color-terracotta)"
-                  tintOpacity={0.4}
+                  tint="var(--color-deep-plum)"
+                  tintOpacity={1}
                   blur={0}
-                  textColor="#4a1f1d"
+                  textColor="var(--color-ivory)"
                   lineColor="#ffffff"
                   baseColor="#525252"
                   intensity={0.8}

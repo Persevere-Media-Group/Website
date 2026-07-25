@@ -7,9 +7,8 @@ import { useLocation } from "react-router-dom";
 // where the menu button's vertical centre sits inside the fixed header
 const SAMPLE_Y = 48;
 
-// safety cap on how deep to descend through wrapper elements, prevents runaway
-// recursion if something unexpected happens with the DOM structure
-const MAX_DEPTH = 8;
+// safety cap on how deep to descend, prevents runaway recursion on odd DOM structures
+const MAX_DEPTH = 10;
 
 function getLuminance(r: number, g: number, b: number): number {
   const [rl, gl, bl] = [r, g, b].map((c) => {
@@ -28,31 +27,49 @@ function parseRgba(colorString: string): { r: number; g: number; b: number; a: n
   return { r: parts[0], g: parts[1], b: parts[2], a: parts[3] ?? 1 };
 }
 
-// walks down through transparent wrapper elements (animation wrappers, layout divs, etc.)
-// until it finds elements that actually paint a background colour, or gives up at MAX_DEPTH.
-function collectBackgroundCandidates(el: HTMLElement, depth = 0): HTMLElement[] {
-  if (depth >= MAX_DEPTH) return [el];
+interface PaintedEl {
+  el: HTMLElement;
+  depth: number;
+}
 
-  const rgba = parseRgba(getComputedStyle(el).backgroundColor);
-  const isTransparent = !rgba || rgba.a === 0;
+/**
+ * Walks the whole subtree collecting EVERY element that both paints a real background
+ * and covers the header's sample point.
+ *
+ * This deliberately keeps descending past elements that already have a background, an
+ * earlier version stopped at the first painted element it found, which broke on any
+ * page where a coloured band (e.g. GrainWave) sits inside a section that itself has a
+ * background: it would read the outer section's colour and never see the band actually
+ * rendered on top of it (exactly what happens on the Contact page: the ivory <section>
+ * wrapping GrainWave's terracotta band).
+ */
+function collectPainted(el: HTMLElement, depth = 0, found: PaintedEl[] = []): PaintedEl[] {
+  if (depth >= MAX_DEPTH) return found;
 
-  if (!isTransparent) return [el];
+  const rect = el.getBoundingClientRect();
+  const coversSamplePoint = rect.top <= SAMPLE_Y && rect.bottom >= SAMPLE_Y;
 
-  const children = Array.from(el.children) as HTMLElement[];
-  if (children.length === 0) return [el];
+  if (coversSamplePoint) {
+    const rgba = parseRgba(getComputedStyle(el).backgroundColor);
+    // only count meaningfully opaque backgrounds, a barely-there overlay isn't what
+    // the eye reads as "the background colour" behind the button
+    if (rgba && rgba.a > 0.5) {
+      found.push({ el, depth });
+    }
+  }
 
-  return children.flatMap((child) => collectBackgroundCandidates(child, depth + 1));
+  // keep descending regardless, a child may paint over this element
+  for (const child of Array.from(el.children) as HTMLElement[]) {
+    collectPainted(child, depth + 1, found);
+  }
+
+  return found;
 }
 
 /**
  * Watches scroll position AND route changes, returning either `lightBgColor` or
- * `darkBgColor` depending on the actual background colour of whichever section
- * currently sits behind the fixed header.
- *
- * The route-change awareness matters because the Navbar/header lives in a persistent
- * layout that never unmounts between pages, without tracking location changes here,
- * this would only ever check the background once on first load and then freeze,
- * leaving stale colours behind whenever you navigate without also scrolling or resizing.
+ * `darkBgColor` depending on the actual background colour of whatever is visually
+ * topmost behind the fixed header.
  */
 export function useHeaderContrast(lightBgTextColor: string, darkBgTextColor: string): string {
   const [color, setColor] = useState(darkBgTextColor);
@@ -65,20 +82,21 @@ export function useHeaderContrast(lightBgTextColor: string, darkBgTextColor: str
     let frame = 0;
 
     const check = () => {
-      const topLevel = Array.from(mainEl.children) as HTMLElement[];
-      const candidates = topLevel.flatMap((el) => collectBackgroundCandidates(el));
+      const painted = Array.from(mainEl.children).flatMap((child) =>
+        collectPainted(child as HTMLElement)
+      );
+      if (painted.length === 0) return;
 
-      const target = candidates.find((el) => {
-        const rect = el.getBoundingClientRect();
-        return rect.top <= SAMPLE_Y && rect.bottom >= SAMPLE_Y;
-      });
+      // the deepest match is the one actually painted on top, that's what the button
+      // is sitting against visually
+      const target = painted.reduce((deepest, candidate) =>
+        candidate.depth >= deepest.depth ? candidate : deepest
+      );
 
-      if (target) {
-        const rgba = parseRgba(getComputedStyle(target).backgroundColor);
-        if (rgba) {
-          const luminance = getLuminance(rgba.r, rgba.g, rgba.b);
-          setColor(luminance > 0.55 ? lightBgTextColor : darkBgTextColor);
-        }
+      const rgba = parseRgba(getComputedStyle(target.el).backgroundColor);
+      if (rgba) {
+        const luminance = getLuminance(rgba.r, rgba.g, rgba.b);
+        setColor(luminance > 0.55 ? lightBgTextColor : darkBgTextColor);
       }
     };
 
@@ -88,8 +106,8 @@ export function useHeaderContrast(lightBgTextColor: string, darkBgTextColor: str
     };
 
     // re-run on mount AND on every route change, with a couple of retries just after
-    // navigation, since the incoming page's AnimatePresence transition means its final
-    // layout position/background isn't necessarily settled the instant this effect fires
+    // navigation, since the incoming page's transition means its final layout position
+    // isn't necessarily settled the instant this effect fires
     check();
     const settleTimeout1 = setTimeout(check, 50);
     const settleTimeout2 = setTimeout(check, 400);

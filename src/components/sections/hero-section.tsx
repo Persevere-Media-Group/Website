@@ -206,14 +206,14 @@ export function HeroSection() {
             textColor="#f5f5f5"
             lineColor="#ffffff"
             baseColor="#525252"
-            intensity={0.8}
+            intensity={1}
             shineSize={10}
             shineFade={40}
             thickness={1}
             speed={0.35}
             followMouse
             proximity={250}
-            autoAnimate
+            autoAnimate={false}
             className="shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
             onClick={() => setIsCalendlyOpen(true)}
           >
