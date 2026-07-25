@@ -6,13 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Choose Persevere - Coming Soon</title>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4TYGQEZE43"></script>
+    <!-- Google Consent Mode: sets analytics/ad storage to denied by default, BEFORE
+         gtag.js even loads. gtag respects this internally, so no analytics data is
+         actually sent until the cookie banner calls gtag('consent','update', ...)
+         with 'granted'. This must come before the gtag.js script tag below. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
+      gtag("consent", "default", {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+      });
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4TYGQEZE43"></script>
+    <script>
       gtag("js", new Date());
       gtag("config", "G-4TYGQEZE43");
     </script>
@@ -36,6 +49,7 @@
         s.parentNode.insertBefore(t, s);
       })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
       fbq("init", "1541019407776705");
+      fbq("consent", "revoke");
       fbq("track", "PageView");
     </script>
     <noscript

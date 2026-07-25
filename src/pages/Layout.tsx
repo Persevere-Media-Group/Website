@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Navbar } from "@/components/ui/navbar";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { FloatingCta } from "@/components/sections/floating-cta";
+import { CookieConsentBanner } from "@/components/ui/cookie-consent-banner";
 import { trackPageviewAll } from "@/lib/analytics";
 
 export function Layout() {
@@ -42,6 +43,10 @@ export function Layout() {
       {/* fixed bottom-right, renders once here so it stays visible across every page,
           rather than needing to be added to each individual page */}
       <FloatingCta />
+
+      {/* shows once until the person makes a choice, then persists via localStorage.
+          gates whether gtag/fbq actually send data, not just a decorative banner */}
+      <CookieConsentBanner />
     </>
   );
 }
