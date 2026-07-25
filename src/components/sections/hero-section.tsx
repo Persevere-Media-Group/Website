@@ -163,13 +163,11 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="mt-6 max-w-2xl space-y-8 px-4 sm:mt-10 md:mt-12">
-          <h3 className="text-[clamp(1.15rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
-            From content to campaign,
-            <br />
-            all under one roof.
-          </h3>
-        </div>
+        <p className="mt-16 text-center text-[clamp(2rem,8vw,3rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
+          Contents and ads, done properly.
+          <br />
+          Nae faff.
+        </p>
 
         <div className="mt-8 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:gap-6">
           {/* navigates to the services page, same glass button used for the nav toggle */}

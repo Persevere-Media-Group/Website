@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
 import { Mail, MapPin, Clock, Phone } from "lucide-react";
 import SpecularButton from "@/components/ui/SpecularButton";
 import { Highlighter } from "@/components/ui/highlighter";
 import { GrainWave } from "@/components/sections/grain-wave";
+import confetti from "canvas-confetti";
 
 // same link used in HeroSection/FloatingCta, keep these in sync if it ever changes
 const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
@@ -43,6 +44,26 @@ const LABEL_CLASSES = "mb-2 block text-sm font-semibold text-(--color-oxblood)";
 export function Contact() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [cardHeight, setCardHeight] = useState<number | undefined>(undefined);
+
+  // measures the card's real rendered height WHILE THE FORM IS SHOWING, and locks that
+  // exact pixel value in via inline style. this is the only way to guarantee the card
+  // doesn't resize once the shorter success content replaces the form, guessing a rem
+  // value doesn't account for how tall the real form actually renders at a given
+  // viewport width. re-measures on resize too, but only while the form is visible, so
+  // switching to the success view never re-measures against its own (shorter) content.
+  useEffect(() => {
+    const measure = () => {
+      if (!submitted && cardRef.current) {
+        setCardHeight(cardRef.current.offsetHeight);
+      }
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [submitted]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,6 +72,24 @@ export function Contact() {
     // Getform, all of which give you an endpoint to POST this to and email you the
     // result. Until then this just shows the success state without sending anything.
     setSubmitted(true);
+
+    // confetti's origin is normalised 0-1 coordinates of the whole VIEWPORT, not the
+    // button, so it has to be computed from the button's actual on-screen position at
+    // the moment of click, same approach your own ConfettiButton variant uses
+    const rect = submitButtonRef.current?.getBoundingClientRect();
+    const origin = rect
+      ? {
+          x: (rect.left + rect.width / 2) / window.innerWidth,
+          y: (rect.top + rect.height / 2) / window.innerHeight,
+        }
+      : { x: 0.5, y: 0.6 };
+
+    confetti({
+      particleCount: 120,
+      spread: 90,
+      origin,
+      colors: ["#d5573b", "#edb03e", "#4a1f1d", "#594157", "#f7f3e3"],
+    });
   };
 
   // NOTE: the <section> deliberately has no padding of its own. Any padding here would
@@ -85,8 +124,7 @@ export function Contact() {
             >
               one of us, not a bot
             </Highlighter>
-            , within one working day. The more you tell us about the business and where you're
-            stuck, the more useful the reply.
+            , within one working day.
           </p>
 
           <div className="mt-12 flex flex-col gap-7">
@@ -149,19 +187,50 @@ export function Contact() {
           </div>
         </div>
 
-        {/* right: the form itself */}
-        <div className="rounded-3xl border border-(--color-oxblood)/10 bg-(--color-ivory) p-6 shadow-[0_18px_50px_-12px_rgba(74,31,29,0.18)] sm:p-9">
+        {/* right: the form itself. height is locked via JS measurement (see cardHeight
+            above) rather than a guessed CSS min-height, so the card is guaranteed not
+            to resize when swapping between the form and the success message below */}
+        <div
+          ref={cardRef}
+          className="relative overflow-hidden rounded-3xl border border-(--color-oxblood)/10 bg-(--color-ivory) p-6 shadow-[0_18px_50px_-12px_rgba(74,31,29,0.18)] sm:p-9"
+          style={{ minHeight: cardHeight ? `${cardHeight}px` : undefined }}
+        >
           {submitted ? (
-            <div className="flex min-h-100 flex-col items-center justify-center gap-4 text-center">
-              <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
-                Message sent.
-              </h2>
-              <p
-                className="max-w-sm text-(--color-oxblood)/80"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                Cheers for that. One of us will get back to you within a working day.
-              </p>
+            <div className="flex h-full flex-col" style={{ fontFamily: "var(--font-body)" }}>
+              <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
+                <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
+                  Cheers!
+                </h2>
+                <p className="max-w-sm text-(--color-oxblood)/80">
+                  Message sent. One of us will get back to you within a working day.
+                </p>
+              </div>
+
+              <div className="mt-8">
+                <SpecularButton
+                  type="button"
+                  size="lg"
+                  radius={18}
+                  tint="var(--color-terracotta)"
+                  tintOpacity={0.4}
+                  blur={0}
+                  textColor="#4a1f1d"
+                  lineColor="#ffffff"
+                  baseColor="#525252"
+                  intensity={0.8}
+                  shineSize={10}
+                  shineFade={40}
+                  thickness={1}
+                  speed={0.35}
+                  followMouse
+                  proximity={250}
+                  autoAnimate
+                  className="w-full"
+                  onClick={() => setSubmitted(false)}
+                >
+                  Submit another form
+                </SpecularButton>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ fontFamily: "var(--font-body)" }}>
@@ -292,6 +361,7 @@ export function Contact() {
 
               <div className="mt-8">
                 <SpecularButton
+                  ref={submitButtonRef}
                   type="submit"
                   size="lg"
                   radius={18}
