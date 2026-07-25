@@ -13,6 +13,21 @@ const UNDERLINE_COLOR = "#d5573b";
 // soft amber highlight for the good half, warm and positive rather than critical
 const HIGHLIGHT_COLOR = "rgba(237, 176, 62, 0.3)";
 
+// the two halves of the business, one each, deliberately presented side by side so the
+// "both under one roof" point is made visually before it's made in words
+const ROLES = [
+  {
+    title: "Content & Organic",
+    lead: "Led by Calum",
+    body: "The stuff that makes people follow you, trust you, and remember you. Video, organic social, and influencer partnerships built around your brand, not pulled off a template.",
+  },
+  {
+    title: "Paid & Performance",
+    lead: "Led by Keir",
+    body: "The engine that turns all that attention into sales. Paid social, Google and PPC, and conversion rate optimisation that squeezes more out of every click.",
+  },
+];
+
 // pared right back: short, staccato, repetitive. the power in the trainspotting
 // monologue is the hammering rhythm, not the detail, anything that needs a comma to
 // hold it together has been cut or split. marks stay sparing, three per half.
@@ -79,8 +94,92 @@ export function About() {
         About
       </p>
       <h1 className="mt-3 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
-        So, what's it going to be?
+        Two of us. Everything you need.
       </h1>
+
+      {/* the two halves side by side on desktop, stacked on mobile */}
+      <div className="mt-14 grid w-full max-w-3xl gap-8 text-left sm:grid-cols-2 sm:gap-10">
+        {ROLES.map((role) => (
+          <div key={role.title} className="flex flex-col gap-3">
+            <h2 className="text-[clamp(1.35rem,2.6vw,1.75rem)] font-black tracking-tight text-(--color-oxblood)">
+              {role.title}
+            </h2>
+            <p
+              className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              {role.lead}
+            </p>
+            <p
+              className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              {role.body}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* divider into the monologue, gives the tonal shift somewhere to breathe */}
+      <div className="mt-24 h-px w-full max-w-xs bg-(--color-oxblood)/15" />
+
+      <div className="mt-20 flex w-full max-w-2xl flex-col gap-14 text-left">
+        <div className="flex flex-col gap-4">
+          <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
+            How it started
+          </h2>
+          <p
+            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            Keir and Calum met over four years ago in the corporate marketing world. Calum behind
+            the camera as videographer and editor, Keir in front of it (and behind the strategy) for
+            businesses all over the world.
+          </p>
+          <p
+            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            For years we sharpened our craft on other people's payrolls, forever joking about what
+            we could build if we pooled two skillsets that so rarely live under one roof. Then we
+            actually moved in together, survived a year of flat-share life without falling out, and
+            figured: if we can manage that, we can manage this.
+          </p>
+          <p className="text-[clamp(1.15rem,2.2vw,1.4rem)] font-black tracking-tight text-(--color-oxblood)">
+            So we did. Persevere was born.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
+            Why “Persevere”?
+          </h2>
+          <p
+            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            The name is Leith through and through. It's Leith's own word, its motto, and it's meant
+            something to Keir across the near-six years he's called the area home. It's where he put
+            down roots, and where he met his wife. (Calum, naturally, was the one on camera for the
+            wedding.)
+          </p>
+          <p
+            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            It turns out to be a fitting word for a marketing partner, too. Growth is rarely one
+            lucky hit. It's showing up, testing, adjusting, and keeping at it until the results
+            start to build.
+          </p>
+        </div>
+      </div>
+
+      {/* divider into the monologue, gives the tonal shift somewhere to breathe */}
+      <div className="mt-24 h-px w-full max-w-xs bg-(--color-oxblood)/15" />
+
+      <h2 className="mt-24 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+        So, what's it going to be?
+      </h2>
 
       {/* type scaled up from the previous version, short lines can carry more weight
           and it makes each block land as a statement rather than a paragraph */}
