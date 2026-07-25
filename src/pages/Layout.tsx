@@ -5,6 +5,7 @@ import { Navbar } from "@/components/ui/navbar";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { FloatingCta } from "@/components/sections/floating-cta";
 import { CookieConsentBanner } from "@/components/ui/cookie-consent-banner";
+import { Footer } from "@/components/sections/footer";
 import { trackPageviewAll } from "@/lib/analytics";
 
 export function Layout() {
@@ -39,6 +40,10 @@ export function Layout() {
           </motion.div>
         </AnimatePresence>
       </main>
+
+      {/* outside the animated page content deliberately, so it stays fixed in place
+          while pages transition above it rather than fading in and out with them */}
+      <Footer />
 
       {/* fixed bottom-right, renders once here so it stays visible across every page,
           rather than needing to be added to each individual page */}
