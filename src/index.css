@@ -164,3 +164,15 @@ body {
     @apply font-sans;
   }
 }
+
+/* scrollbar hidden entirely for now, scrolling still works fine, just no visible bar.
+   thumb/hover rules removed since they have no effect once the bar itself is hidden. */
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
