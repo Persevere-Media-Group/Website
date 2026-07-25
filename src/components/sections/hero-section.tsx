@@ -100,8 +100,12 @@ export function HeroSection() {
   const wordRowScale = useAutoFitScale(wordRowRef);
 
   return (
-    <div className="relative flex min-h-[78vh] flex-col items-center justify-start overflow-hidden bg-(--color-terracotta) px-4 pt-[min(20rem,26vh)] pb-20 text-center sm:min-h-[80vh] sm:pb-12">
-      {/* animated brand gradient with grain texture, sits directly on the fallback bg colour */}
+    // min-h sets a FLOOR, not a fixed height, so on tall screens this fills nicely, and
+    // on short screens the content below can push it taller rather than being clipped.
+    // pb clears the SectionWave sitting at the bottom (see its h-* classes below).
+    <div className="relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-28 pb-32 text-center sm:min-h-[80vh] sm:pt-32 sm:pb-40 md:pb-48">
+      {/* animated brand gradient with grain texture, absolute so it fills whatever
+          height the hero ends up being, purely decorative, never affects layout */}
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
         speed={7}
@@ -110,7 +114,13 @@ export function HeroSection() {
         rotation={0}
         className="absolute inset-0"
       />
-      {/* fills the whole hero, so clicking anywhere across it triggers a burst of ivory sparks */}
+
+      {/* IMPORTANT: this is deliberately in NORMAL FLOW (relative, not absolute).
+          When it was absolute inset-0, it was removed from document flow, which meant
+          the content inside it could never push the hero taller, on short screens
+          (resized window, iPad, short laptop) the buttons simply overflowed past the
+          bottom and got clipped by overflow-hidden. Keeping it in flow means its height
+          counts toward the hero's height, so the container always grows to fit. */}
       <ClickSpark
         sparkColor="--color-ivory"
         sparkSize={10}
@@ -119,7 +129,7 @@ export function HeroSection() {
         duration={400}
         easing="ease-out"
         extraScale={1}
-        className="absolute inset-0 flex flex-col items-center justify-start px-4 pt-[min(20rem,26vh)] text-center"
+        className="relative z-10 flex w-full flex-col items-center justify-center text-center"
       >
         <div
           ref={wordRowRef}
@@ -153,7 +163,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="mt-6 sm:mt-14 md:mt-20 max-w-2xl space-y-8 px-4">
+        <div className="mt-6 max-w-2xl space-y-8 px-4 sm:mt-10 md:mt-12">
           <h3 className="text-[clamp(1.15rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
             From content to campaign,
             <br />
@@ -161,7 +171,7 @@ export function HeroSection() {
           </h3>
         </div>
 
-        <div className="mt-8 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:gap-6 md:mt-12">
+        <div className="mt-8 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:gap-6">
           {/* navigates to the services page, same glass button used for the nav toggle */}
           <SpecularButton
             size="lg"
@@ -187,13 +197,8 @@ export function HeroSection() {
 
           {/* opens Calendly as an overlay on top of the current page, rather than
               navigating away to calendly.com, so the visitor never leaves the site.
-              deliberately still glass, not solid, so it doesn't out-compete the brand
-              name for attention. emphasis comes from: autoAnimate keeping a gentle shine
-              always moving, a stronger (but still translucent) amber tint, and a soft
-              amber glow around the edge, rather than from size or a dark fill.
               note: lineColor/baseColor are parsed by ogl's own Color class in JS, not
-              real CSS, so var(--color-amber-gold) doesn't resolve here the way it does
-              for tint (which IS a real inline CSS custom property). literal hex only. */}
+              real CSS, so var(--color-amber-gold) doesn't resolve there, hex only. */}
           <SpecularButton
             size="lg"
             radius={18}
@@ -218,6 +223,7 @@ export function HeroSection() {
           </SpecularButton>
         </div>
       </ClickSpark>
+
       {/* solid ivory curve capping the bottom of the hero, sits above all the animated layers
           so it reads as a clean edge rather than picking up the grain or gradient underneath it */}
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />
