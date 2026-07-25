@@ -211,10 +211,17 @@ export function Contact() {
                   <label htmlFor="website" className={LABEL_CLASSES}>
                     Website
                   </label>
+                  {/* deliberately type="text", not type="url", type="url" rejects
+                      anything without an https:// prefix, which most people won't type.
+                      the pattern accepts bare domains, www prefixes, subdomains, paths,
+                      and an optional protocol if they do include one. */}
                   <input
                     id="website"
                     name="website"
-                    type="url"
+                    type="text"
+                    inputMode="url"
+                    pattern="(https?://)?([\w-]+\.)+[a-zA-Z]{2,}(/.*)?"
+                    title="Enter a website like example.com"
                     placeholder="example.com"
                     className={INPUT_CLASSES}
                   />
