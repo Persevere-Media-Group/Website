@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect } from "react";
 import { Navbar } from "@/components/ui/navbar";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { FloatingCta } from "@/components/sections/floating-cta";
 
 export function Layout() {
   const location = useLocation();
@@ -35,6 +36,10 @@ export function Layout() {
           </motion.div>
         </AnimatePresence>
       </main>
+
+      {/* fixed bottom-right, renders once here so it stays visible across every page,
+          rather than needing to be added to each individual page */}
+      <FloatingCta />
     </>
   );
 }
