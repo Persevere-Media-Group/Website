@@ -153,13 +153,22 @@ body {
   justify-content: flex-end;
 }
 
-/* Calendly's PopupWidget badge ships with fixed sizing baked into its own stylesheet,
-   there's no size prop on the component itself, so this overrides it directly.
-   !important is needed since Calendly's own CSS specificity is unknown from here. */
+/* Calendly's badge has fixed sizing in its own stylesheet and no size prop, so both
+   sizes have to be set here. !important beats their stylesheet and inline styles. */
+
+/* desktop, the enlarged size */
 .calendly-badge-widget .calendly-badge-content {
   font-size: 1.15rem !important;
   padding: 18px 30px !important;
   border-radius: 999px !important;
+}
+
+/* mobile only, scaled down so it doesn't dominate a small screen */
+@media (max-width: 640px) {
+  .calendly-badge-widget .calendly-badge-content {
+    font-size: 0.8rem !important;
+    padding: 10px 16px !important;
+  }
 }
 
 @layer base {
