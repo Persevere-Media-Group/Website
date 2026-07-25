@@ -341,7 +341,7 @@ const STATS_BLOCKS = [
 
 function StatsSection() {
   return (
-    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 pt-24 pb-40 text-center">
+    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 pt-24 pb-30 text-center">
       {STATS_BLOCKS.map((block, i) => (
         <AnimatedContent
           key={block.heading}
@@ -366,6 +366,36 @@ function StatsSection() {
         </AnimatedContent>
       ))}
     </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Divider
+// ---------------------------------------------------------------------------
+
+// a thin decorative pen-stroke break between the two ivory sections. deliberately NOT
+// built from SectionWave, that component is a solid FILLED shape meant to cap a full
+// section, squeezing it into a short container just clips most of the fill away and
+// leaves a thick flat-bottomed band rather than a line. this is a genuine stroked path,
+// no fill, so it reads as a single wavy line rather than a solid block.
+function SectionDivider() {
+  return (
+    <div className="flex w-full items-center justify-center bg-(--color-ivory) py-10">
+      <svg
+        viewBox="0 0 1440 80"
+        preserveAspectRatio="none"
+        className="h-14 w-150 max-w-5xl px-4"
+        aria-hidden
+      >
+        <path
+          d="M0,40 C120,5 240,75 360,40 C480,5 600,75 720,40 C840,5 960,75 1080,40 C1200,5 1320,75 1440,40"
+          fill="none"
+          stroke="var(--color-terracotta)"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+      </svg>
+    </div>
   );
 }
 
@@ -421,6 +451,7 @@ export function Home() {
     <>
       <HeroSection />
       <StatsSection />
+      <SectionDivider />
       <VideoSection />
     </>
   );
