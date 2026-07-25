@@ -4,12 +4,12 @@ import { Mail, MapPin, Clock, Phone } from "lucide-react";
 import SpecularButton from "@/components/ui/SpecularButton";
 import { Highlighter } from "@/components/ui/highlighter";
 import { GrainWave } from "@/components/sections/grain-wave";
+import AnimatedContent from "@/components/ui/AnimatedContent";
 import confetti from "canvas-confetti";
 
 // same link used in HeroSection/FloatingCta, keep these in sync if it ever changes
 const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
-// TODO: swap for the real address once it's set up
 const CONTACT_EMAIL = "hello@choosepersevere.com";
 
 const SERVICE_OPTIONS = [
@@ -105,84 +105,144 @@ export function Contact() {
       <div className="mx-auto grid w-full max-w-6xl gap-14 px-4 pb-32 pt-16 sm:pt-20 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
         {/* left: context, so the form doesn't arrive cold */}
         <div className="flex flex-col">
-          <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
-            Let's talk.
-          </h1>
-
-          <p
-            className="mt-6 max-w-md text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
+          <AnimatedContent
+            direction="vertical"
+            distance={40}
+            duration={0.7}
+            ease="power3.out"
+            threshold={0.2}
           >
-            Fill this in and you'll hear back from{" "}
-            <Highlighter
-              action="highlight"
-              color="rgba(237, 176, 62, 0.3)"
-              isView
-              animationDuration={1000}
-              iterations={2}
+            <div>
+              <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
+                Let's talk.
+              </h1>
+
+              <p
+                className="mt-6 max-w-md text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                Drop us a message and you'll hear back from
+                <Highlighter
+                  action="highlight"
+                  color="rgba(237, 176, 62, 0.3)"
+                  isView
+                  animationDuration={1000}
+                  iterations={2}
+                >
+                  one of us, not a bot
+                </Highlighter>
+                , within one working day.
+              </p>
+            </div>
+          </AnimatedContent>
+
+          {/* a vertical timeline instead of the usual icon-row list, a connecting line
+              down the left with each item as a stop along it, staggered in one at a
+              time on scroll rather than all appearing at once */}
+          <div className="relative mt-12 flex flex-col gap-9">
+            <div
+              className="absolute bottom-2 left-5 top-2 w-px bg-(--color-terracotta)/25"
+              aria-hidden
+            />
+
+            <AnimatedContent
+              direction="horizontal"
+              distance={30}
+              duration={0.6}
+              ease="power3.out"
+              threshold={0.3}
+              delay={0}
             >
-              one of us, not a bot
-            </Highlighter>
-            , within one working day.
-          </p>
-
-          <div className="mt-12 flex flex-col gap-7">
-            <div className="flex items-start gap-4">
-              <span className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-full bg-(--color-terracotta)/10 text-(--color-terracotta)">
-                <Mail size={18} />
-              </span>
-              <div>
-                <p className="font-bold text-(--color-oxblood)">Email</p>
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="text-(--color-terracotta) underline underline-offset-2"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {CONTACT_EMAIL}
-                </a>
+              <div className="relative flex items-start gap-4">
+                <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
+                  <Mail size={18} />
+                </span>
+                <div className="pt-1.5">
+                  <p className="font-bold text-(--color-oxblood)">Email</p>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="text-(--color-terracotta) underline underline-offset-2"
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                </div>
               </div>
-            </div>
+            </AnimatedContent>
 
-            <div className="flex items-start gap-4">
-              <span className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-full bg-(--color-terracotta)/10 text-(--color-terracotta)">
-                <MapPin size={18} />
-              </span>
-              <div>
-                <p className="font-bold text-(--color-oxblood)">Where we are</p>
-                <p className="text-(--color-oxblood)/80" style={{ fontFamily: "var(--font-body)" }}>
-                  Leith & Dunfermline
-                </p>
+            <AnimatedContent
+              direction="horizontal"
+              distance={30}
+              duration={0.6}
+              ease="power3.out"
+              threshold={0.3}
+              delay={0.12}
+            >
+              <div className="relative flex items-start gap-4">
+                <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
+                  <MapPin size={18} />
+                </span>
+                <div className="pt-1.5">
+                  <p className="font-bold text-(--color-oxblood)">Where we are</p>
+                  <p
+                    className="text-(--color-oxblood)/80"
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
+                    Leith & Dunfermline
+                  </p>
+                </div>
               </div>
-            </div>
+            </AnimatedContent>
 
-            <div className="flex items-start gap-4">
-              <span className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-full bg-(--color-terracotta)/10 text-(--color-terracotta)">
-                <Clock size={18} />
-              </span>
-              <div>
-                <p className="font-bold text-(--color-oxblood)">Response time</p>
-                <p className="text-(--color-oxblood)/80" style={{ fontFamily: "var(--font-body)" }}>
-                  Within one working day
-                </p>
+            <AnimatedContent
+              direction="horizontal"
+              distance={30}
+              duration={0.6}
+              ease="power3.out"
+              threshold={0.3}
+              delay={0.24}
+            >
+              <div className="relative flex items-start gap-4">
+                <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
+                  <Clock size={18} />
+                </span>
+                <div className="pt-1.5">
+                  <p className="font-bold text-(--color-oxblood)">Response time</p>
+                  <p
+                    className="text-(--color-oxblood)/80"
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
+                    Within one working day
+                  </p>
+                </div>
               </div>
-            </div>
+            </AnimatedContent>
 
-            <div className="flex items-start gap-4">
-              <span className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-full bg-(--color-terracotta)/10 text-(--color-terracotta)">
-                <Phone size={18} />
-              </span>
-              <div>
-                <p className="font-bold text-(--color-oxblood)">Rather just talk?</p>
-                <button
-                  type="button"
-                  onClick={() => setIsCalendlyOpen(true)}
-                  className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  Book a call
-                </button>
+            <AnimatedContent
+              direction="horizontal"
+              distance={30}
+              duration={0.6}
+              ease="power3.out"
+              threshold={0.3}
+              delay={0.36}
+            >
+              <div className="relative flex items-start gap-4">
+                <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
+                  <Phone size={18} />
+                </span>
+                <div className="pt-1.5">
+                  <p className="font-bold text-(--color-oxblood)">Rather just talk?</p>
+                  <button
+                    type="button"
+                    onClick={() => setIsCalendlyOpen(true)}
+                    className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
+                    Book a call
+                  </button>
+                </div>
               </div>
-            </div>
+            </AnimatedContent>
           </div>
         </div>
 
@@ -198,10 +258,12 @@ export function Contact() {
             <div className="flex h-full flex-col" style={{ fontFamily: "var(--font-body)" }}>
               <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
                 <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
-                  Message sent.
+                  Cheers!
                 </h2>
                 <p className="max-w-sm text-(--color-oxblood)/80">
-                  Cheers for that. One of us will get back to you within a working day.
+                  Message received.
+                  <br />
+                  We will get back to you within one working day.
                 </p>
               </div>
 
