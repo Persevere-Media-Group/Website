@@ -11,7 +11,7 @@ import {
 import { Renderer, Program, Mesh, Triangle, Color } from "ogl";
 import "./SpecularButton.css";
 
-type ButtonSize = "sm" | "md" | "lg";
+type ButtonSize = "sm" | "md" | "lg" | "xl";
 
 export interface SpecularButtonProps extends Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
