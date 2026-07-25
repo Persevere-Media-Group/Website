@@ -62,11 +62,15 @@ export function NotFound() {
         </p>
 
         <div className="mt-4 pointer-events-auto">
+          {/* size stays "lg" so mobile is untouched, the sm: overrides bump it up to
+              match .specular-button--xl's own font-size/padding values from the sm
+              breakpoint up, rather than switching the size prop itself (which has no
+              responsive concept, it's just one fixed string per render) */}
           <SpecularButton
             size="lg"
             radius={18}
             tint="var(--color-terracotta)"
-            tintOpacity={0.3}
+            tintOpacity={0.5}
             blur={0}
             textColor="#f5f5f5"
             lineColor="#ffffff"
@@ -79,6 +83,7 @@ export function NotFound() {
             followMouse
             proximity={250}
             autoAnimate
+            className="sm:text-[1.35rem]! sm:p-[24px_52px]!"
             onClick={() => navigate("/")}
           >
             Back to Home
