@@ -1,18 +1,92 @@
 import AnimatedContent from "@/components/ui/AnimatedContent";
+import { Highlighter } from "@/components/ui/highlighter";
 
-// placeholder copy, swap each of these once the real service summary text is ready
+// placeholder copy, swap each of these once the real service summary text is ready.
+// each body has two tiers of emphasis: one highlighted phrase (the concrete proof/stat,
+// amber-gold) and one underlined phrase (a secondary but still important idea, terracotta),
+// so the two treatments read as genuinely different weights, not the same effect twice
 const BLOCKS = [
   {
-    heading: "Choose the best of both worlds.",
-    body: "Content and paid ads, under one roof. No more choosing between a creative team and an ads agency.",
+    heading: "Proven industry experience.",
+    body: (
+      <>
+        <Highlighter
+          action="highlight"
+          color="rgba(237, 176, 62, 0.3)"
+          isView
+          animationDuration={1000}
+          iterations={2}
+        >
+          £20m+ in ad spend, 50+ brands
+        </Highlighter>
+        , thousands of hours in the edit. The attitude{" "}
+        <Highlighter
+          action="underline"
+          color="#d5573b"
+          isView
+          animationDuration={1000}
+          iterations={2}
+        >
+          comes with a track record
+        </Highlighter>
+        .
+      </>
+    ),
   },
   {
-    heading: "Choose actual people.",
-    body: "You get Keir and Calum. The two actually doing the work. No account managers, no shareholders skimming the top.",
+    heading: "The best of both worlds.",
+    body: (
+      <>
+        <Highlighter
+          action="highlight"
+          color="rgba(237, 176, 62, 0.3)"
+          isView
+          animationDuration={1000}
+          iterations={2}
+        >
+          Content and paid ads
+        </Highlighter>
+        , under one roof. No more choosing between a creative team and an{" "}
+        <Highlighter
+          action="underline"
+          color="#d5573b"
+          isView
+          animationDuration={1000}
+          iterations={2}
+        >
+          ads agency
+        </Highlighter>
+        .
+      </>
+    ),
   },
   {
-    heading: "Choose experience.",
-    body: "£20m+ in ad spend, 50+ brands, thousands of hours in the edit. The attitude comes with a track record.",
+    heading: "Just two of us to deal with.",
+    body: (
+      <>
+        You get{" "}
+        <Highlighter
+          action="highlight"
+          color="rgba(237, 176, 62, 0.3)"
+          isView
+          animationDuration={1000}
+          iterations={2}
+        >
+          Keir and Calum
+        </Highlighter>
+        . The two{" "}
+        <Highlighter
+          action="underline"
+          color="#d5573b"
+          isView
+          animationDuration={1000}
+          iterations={2}
+        >
+          actually doing the work
+        </Highlighter>
+        . No account managers, no shareholders skimming the top.
+      </>
+    ),
   },
 ];
 
