@@ -1,5 +1,9 @@
 import { Highlighter } from "@/components/ui/highlighter";
 
+// ---------------------------------------------------------------------------
+// Highlight/underline config
+// ---------------------------------------------------------------------------
+
 // shared props so every mark behaves identically, sketchy hand-drawn feel that draws
 // itself as it scrolls into view
 const MARK_PROPS = {
@@ -12,6 +16,10 @@ const MARK_PROPS = {
 const UNDERLINE_COLOR = "#d5573b";
 // soft amber highlight for the good half, warm and positive rather than critical
 const HIGHLIGHT_COLOR = "rgba(237, 176, 62, 0.3)";
+
+// ---------------------------------------------------------------------------
+// Roles
+// ---------------------------------------------------------------------------
 
 // the two halves of the business, one each, deliberately presented side by side so the
 // "both under one roof" point is made visually before it's made in words
@@ -27,6 +35,10 @@ const ROLES = [
     body: "The engine that turns all that attention into sales. Paid social, Google and PPC, and conversion rate optimisation that squeezes more out of every click.",
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Trainspotting monologue
+// ---------------------------------------------------------------------------
 
 // pared right back: short, staccato, repetitive. the power in the trainspotting
 // monologue is the hammering rhythm, not the detail, anything that needs a comma to
@@ -83,6 +95,10 @@ const AFTER = [
   </>,
   <>Choose craft. Choose good vibes. Choose growth. Choose a brighter future.</>,
 ];
+
+// ---------------------------------------------------------------------------
+// Page
+// ---------------------------------------------------------------------------
 
 export function About() {
   return (

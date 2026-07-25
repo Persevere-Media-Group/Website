@@ -7,6 +7,10 @@ import { GrainWave } from "@/components/sections/grain-wave";
 import AnimatedContent from "@/components/ui/AnimatedContent";
 import confetti from "canvas-confetti";
 
+// ---------------------------------------------------------------------------
+// Config
+// ---------------------------------------------------------------------------
+
 // same link used in HeroSection/FloatingCta, keep these in sync if it ever changes
 const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
@@ -40,6 +44,10 @@ const INPUT_CLASSES =
   "w-full rounded-xl border border-(--color-oxblood)/20 bg-(--color-ivory) px-4 py-3 text-(--color-oxblood) outline-none transition-colors placeholder:text-(--color-oxblood)/35 focus:border-(--color-terracotta)";
 
 const LABEL_CLASSES = "mb-2 block text-sm font-semibold text-(--color-oxblood)";
+
+// ---------------------------------------------------------------------------
+// Page
+// ---------------------------------------------------------------------------
 
 export function Contact() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
