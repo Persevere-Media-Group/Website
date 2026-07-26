@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 interface StatItem {
   value: number;
+  prefix?: string;
   suffix?: string;
   label: string;
   duration?: number;
@@ -43,12 +44,14 @@ const defaultTitle = "CREATE STUNNING INTERFACES WITH SCROLLX-UI COMPONENTS";
 
 function AnimatedCounter({
   value,
+  prefix = "",
   suffix = "",
   duration = 1,
   delay = 0,
   label,
 }: {
   value: number;
+  prefix?: string;
   suffix?: string;
   duration?: number;
   delay?: number;
@@ -116,6 +119,7 @@ function AnimatedCounter({
           stiffness: 100,
         }}
       >
+        {prefix}
         {displayValue}
         {suffix}
       </motion.div>
@@ -206,6 +210,7 @@ export default function StatsCount({
             >
               <AnimatedCounter
                 value={stat.value}
+                prefix={stat.prefix}
                 suffix={stat.suffix}
                 duration={stat.duration}
                 delay={index}

@@ -358,14 +358,14 @@ function SectionDivider() {
 // ---------------------------------------------------------------------------
 
 const STATS = [
-  { value: 20, suffix: "M+", label: "In ad spend managed" },
+  { value: 20, prefix: "£", suffix: "M+", label: "In ad spend managed" },
   { value: 12, suffix: "+", label: "Years combined experience" },
   { value: 100, suffix: "%", label: "Of your budget going where it should" },
 ];
 
 function StatsCountSection() {
   return (
-    <section className="bg-(--color-ivory) px-4 pb-24 text-center">
+    <section className="bg-(--color-ivory) px-4 py-24 text-center">
       {/* text-(--color-oxblood) is set once here and inherits down to the big numbers,
           which have NO colour class of their own in the real component source, that's
           exactly why they were rendering plain black before, nothing was overriding
@@ -377,7 +377,7 @@ function StatsCountSection() {
         stats={STATS}
         title="The numbers behind the attitude"
         showDividers
-        className="text-(--color-oxblood) [&_h2]:text-[clamp(1.5rem,3vw,2rem)]! [&_h2]:font-black! [&_h2]:tracking-tight!"
+        className="text-(--color-oxblood) [&_h2]:!text-[clamp(1.5rem,3vw,2rem)] [&_h2]:!font-black [&_h2]:!tracking-tight"
       />
     </section>
   );
