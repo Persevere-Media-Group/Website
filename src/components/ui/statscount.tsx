@@ -150,16 +150,13 @@ export default function StatsCount({
   return (
     <motion.section
       ref={containerRef}
-      className={cn(
-        "py-8 sm:py-12 lg:py-20 px-2 sm:px-4 md:px-8 w-full overflow-hidden",
-        className
-      )}
+      className={cn("py-2 sm:py-3 lg:py-4 px-2 sm:px-4 md:px-8 w-full overflow-hidden", className)}
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
       <motion.div
-        className={cn("text-center mb-8 sm:mb-12 lg:mb-16")}
+        className={cn("text-center mb-3 sm:mb-4 lg:mb-6")}
         initial={{ opacity: 0, y: -20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.8, delay: 0.2 }}

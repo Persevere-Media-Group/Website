@@ -334,7 +334,7 @@ function FactsSection() {
 // on this page, once above the Stats section and once below it, for symmetry.
 function SectionDivider() {
   return (
-    <div className="flex w-full items-center justify-center bg-(--color-ivory) py-10">
+    <div className="flex w-full items-center justify-center bg-(--color-ivory) py-4">
       <svg
         viewBox="0 0 1440 80"
         preserveAspectRatio="none"
@@ -365,7 +365,7 @@ const STATS = [
 
 function StatsCountSection() {
   return (
-    <section className="bg-(--color-ivory) px-4 py-24 text-center">
+    <section className="bg-(--color-ivory) px-4 py-8 text-center">
       {/* text-(--color-oxblood) is set once here and inherits down to the big numbers,
           which have NO colour class of their own in the real component source, that's
           exactly why they were rendering plain black before, nothing was overriding
@@ -375,9 +375,9 @@ function StatsCountSection() {
           isn't enough when the element already has its own conflicting utility classes */}
       <StatsCount
         stats={STATS}
-        title="The numbers behind the attitude"
+        title=" " // Blank on purpose
         showDividers
-        className="text-(--color-oxblood) [&_h2]:!text-[clamp(1.5rem,3vw,2rem)] [&_h2]:!font-black [&_h2]:!tracking-tight"
+        className="mt-10 text-(--color-oxblood) [&_h2]:text-[clamp(1.5rem,3vw,2rem)]! [&_h2]:font-black! [&_h2]:tracking-tight!"
       />
     </section>
   );
