@@ -358,9 +358,9 @@ function SectionDivider() {
 // ---------------------------------------------------------------------------
 
 const STATS = [
-  { value: 20, prefix: "£", suffix: "M+", label: "In ad spend managed" },
-  { value: 12, suffix: "+", label: "Years combined experience" },
-  { value: 100, suffix: "%", label: "Of your budget going where it should" },
+  { value: 20, prefix: "£", suffix: "M+", label: "in ad spend managed" },
+  { value: 12, suffix: "+", label: "years combined experience" },
+  { value: 100, suffix: "%", label: "of your budget going where it should" },
 ];
 
 function StatsCountSection() {
