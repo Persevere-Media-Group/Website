@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import "./staggered-menu.css";
 import { Instagram, Anchor } from "./svgs";
 import SpecularButton from "./SpecularButton";
+import { MadeByBadge } from "./madeby-badge";
 
 export interface StaggeredMenuItem {
   label: string;
@@ -319,17 +320,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     if (toggleBtnRef.current) {
       if (changeMenuColorOnOpen) {
         const targetColor = openRef.current ? openMenuButtonColor : menuButtonColor;
-        gsap.to(toggleBtnRef.current, {
-          "--sb-text-color": targetColor,
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        gsap.set(toggleBtnRef.current, { "--sb-text-color": targetColor });
       } else {
-        gsap.to(toggleBtnRef.current, {
-          "--sb-text-color": menuButtonColor,
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        gsap.set(toggleBtnRef.current, { "--sb-text-color": menuButtonColor });
       }
     }
   }, [changeMenuColorOnOpen, menuButtonColor, openMenuButtonColor]);
@@ -528,20 +521,30 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 <Instagram />
                 Find us on Instagram:
               </h3>
-              <ul className="sm-socials-list" role="list">
-                {socialItems.map((s, i) => (
-                  <li key={s.label + i} className="sm-socials-item">
-                    <a
-                      href={s.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="sm-socials-link"
-                    >
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {/* handles on the left, the "made by" sticker badge on the right,
+                  same row so the badge sits directly beside the usernames */}
+              <div className="flex items-center justify-between gap-4">
+                {/* min-w-0 is the important part here: without it, a flex item won't
+                    shrink below its content's natural width, which was pushing the
+                    badge past the panel's right edge, and since .staggered-menu-panel
+                    sets overflow-y without an explicit overflow-x, the browser was
+                    auto-setting overflow-x to clip/scroll rather than show overflow */}
+                <ul className="sm-socials-list min-w-0" role="list">
+                  {socialItems.map((s, i) => (
+                    <li key={s.label + i} className="sm-socials-item">
+                      <a
+                        href={s.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="sm-socials-link"
+                      >
+                        {s.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <MadeByBadge />
+              </div>
             </div>
           )}
         </div>

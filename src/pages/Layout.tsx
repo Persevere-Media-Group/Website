@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect } from "react";
-import { Navbar } from "@/components/ui/navbar";
+import { Navbar } from "@/components/sections/navbar";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { FloatingCta } from "@/components/sections/floating-cta";
 import { CookieConsentBanner } from "@/components/ui/cookie-consent-banner";
