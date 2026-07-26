@@ -9,15 +9,14 @@ import SpecularButton from "@/components/ui/SpecularButton";
 import AnimatedContent from "@/components/ui/AnimatedContent";
 import { Highlighter } from "@/components/ui/highlighter";
 import { Backlight } from "@/components/ui/backlight";
+import StatsCount from "@/components/ui/statscount";
 
 // ---------------------------------------------------------------------------
 // Hero
 // ---------------------------------------------------------------------------
 
-// keeps every word in the sequence uppercase, no matter how it's typed below
 const toUpperCaseWords = (words: string[]) => words.map((word) => word.toUpperCase());
 
-// a trainspotting "choose life" style run, cycling continuously through the list
 const WORD_SEQUENCE = toUpperCaseWords([
   "Expertise",
   "People",
@@ -29,15 +28,8 @@ const WORD_SEQUENCE = toUpperCaseWords([
   "Persevere",
 ]);
 
-// the one word on the drum that gets its own colour and lingers longer, drawing the eye each time it comes round
 const HIGHLIGHT_WORD = "PERSEVERE";
 
-// this is the IDEAL/preferred size, clamp() alone can't guarantee "CHOOSE" plus every
-// possible rotating word actually fits at this size on every screen width, since it has
-// no idea how wide any given word renders, it's a blind guess based purely on viewport
-// width. the useAutoFitScale hook below measures the real rendered width and shrinks
-// this down live (via a CSS transform: scale) whenever it would otherwise overflow,
-// which is what actually guarantees no overflow, on any screen, for any word.
 const TEXT_CLASSES =
   "text-[clamp(1.6rem,7.5vw,7rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
 
@@ -45,15 +37,6 @@ const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
 const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
-/**
- * Measures the natural (unscaled) width of `ref`'s element against its parent's
- * available width, and returns a scale factor (never above 1) to shrink it down by if
- * it would otherwise overflow. Re-measures on mount, on resize, and when the parent's
- * own size changes (e.g. from a layout shift elsewhere on the page).
- *
- * transform: scale() doesn't affect scrollWidth/clientWidth, so this can safely read
- * the element's true natural size on every check without needing to reset anything first.
- */
 function useAutoFitScale(ref: React.RefObject<HTMLElement | null>) {
   const [scale, setScale] = useState(1);
 
@@ -76,11 +59,6 @@ function useAutoFitScale(ref: React.RefObject<HTMLElement | null>) {
 
     fit();
 
-    // the very first fit() above can run before the real webfont has finished loading,
-    // measuring against a fallback system font with different character widths gives an
-    // inaccurate scale that nothing else would otherwise correct. re-check once the real
-    // font is confirmed loaded, plus a couple of short delayed re-checks as a safety net
-    // for any other late layout settling (images, animations, etc).
     document.fonts.ready.then(fit);
     const settleTimeout1 = setTimeout(fit, 150);
     const settleTimeout2 = setTimeout(fit, 500);
@@ -107,12 +85,7 @@ function HeroSection() {
   const wordRowScale = useAutoFitScale(wordRowRef);
 
   return (
-    // min-h sets a FLOOR, not a fixed height, so on tall screens this fills nicely, and
-    // on short screens the content below can push it taller rather than being clipped.
-    // pb clears the SectionWave sitting at the bottom (see its h-* classes below).
     <div className="relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-28 pb-32 text-center sm:min-h-[80vh] sm:pt-32 sm:pb-40 md:pb-48">
-      {/* animated brand gradient with grain texture, absolute so it fills whatever
-          height the hero ends up being, purely decorative, never affects layout */}
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
         speed={7}
@@ -122,12 +95,6 @@ function HeroSection() {
         className="absolute inset-0"
       />
 
-      {/* IMPORTANT: this is deliberately in NORMAL FLOW (relative, not absolute).
-          When it was absolute inset-0, it was removed from document flow, which meant
-          the content inside it could never push the hero taller, on short screens
-          (resized window, iPad, short laptop) the buttons simply overflowed past the
-          bottom and got clipped by overflow-hidden. Keeping it in flow means its height
-          counts toward the hero's height, so the container always grows to fit. */}
       <ClickSpark
         sparkColor="--color-ivory"
         sparkSize={10}
@@ -177,7 +144,6 @@ function HeroSection() {
         </p>
 
         <div className="mt-8 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:gap-6">
-          {/* navigates to the services page, same glass button used for the nav toggle */}
           <SpecularButton
             size="lg"
             radius={18}
@@ -200,10 +166,6 @@ function HeroSection() {
             Our Services
           </SpecularButton>
 
-          {/* opens Calendly as an overlay on top of the current page, rather than
-              navigating away to calendly.com, so the visitor never leaves the site.
-              note: lineColor/baseColor are parsed by ogl's own Color class in JS, not
-              real CSS, so var(--color-amber-gold) doesn't resolve there, hex only. */}
           <SpecularButton
             size="lg"
             radius={18}
@@ -229,13 +191,8 @@ function HeroSection() {
         </div>
       </ClickSpark>
 
-      {/* solid ivory curve capping the bottom of the hero, sits above all the animated layers
-          so it reads as a clean edge rather than picking up the grain or gradient underneath it */}
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />
 
-      {/* Calendly's own popup modal, only mounted/rendered while open, closes itself
-          via onModalClose. rootElement needs a real DOM node Calendly can portal into,
-          your app's root div works fine for this. */}
       <PopupModal
         url={CALENDLY_URL}
         onModalClose={() => setIsCalendlyOpen(false)}
@@ -247,14 +204,10 @@ function HeroSection() {
 }
 
 // ---------------------------------------------------------------------------
-// Stats
+// Facts
 // ---------------------------------------------------------------------------
 
-// placeholder copy, swap each of these once the real service summary text is ready.
-// each body has two tiers of emphasis: one highlighted phrase (the concrete proof/stat,
-// amber-gold) and one underlined phrase (a secondary but still important idea, terracotta),
-// so the two treatments read as genuinely different weights, not the same effect twice
-const STATS_BLOCKS = [
+const FACTS_BLOCKS = [
   {
     heading: "Proven industry experience.",
     body: (
@@ -339,10 +292,10 @@ const STATS_BLOCKS = [
   },
 ];
 
-function StatsSection() {
+function FactsSection() {
   return (
-    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 pt-24 pb-30 text-center">
-      {STATS_BLOCKS.map((block, i) => (
+    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 pt-24 pb-40 text-center">
+      {FACTS_BLOCKS.map((block, i) => (
         <AnimatedContent
           key={block.heading}
           direction="vertical"
@@ -373,25 +326,26 @@ function StatsSection() {
 // Divider
 // ---------------------------------------------------------------------------
 
-// a thin decorative pen-stroke break between the two ivory sections. deliberately NOT
+// a thin decorative pen-stroke break between two ivory sections. deliberately NOT
 // built from SectionWave, that component is a solid FILLED shape meant to cap a full
 // section, squeezing it into a short container just clips most of the fill away and
 // leaves a thick flat-bottomed band rather than a line. this is a genuine stroked path,
-// no fill, so it reads as a single wavy line rather than a solid block.
+// no fill, so it reads as a single wavy line rather than a solid block. reused twice
+// on this page, once above the Stats section and once below it, for symmetry.
 function SectionDivider() {
   return (
     <div className="flex w-full items-center justify-center bg-(--color-ivory) py-10">
       <svg
         viewBox="0 0 1440 80"
         preserveAspectRatio="none"
-        className="h-14 w-150 max-w-5xl px-4"
+        className="h-14 w-full max-w-5xl px-4"
         aria-hidden
       >
         <path
           d="M0,40 C120,5 240,75 360,40 C480,5 600,75 720,40 C840,5 960,75 1080,40 C1200,5 1320,75 1440,40"
           fill="none"
           stroke="var(--color-terracotta)"
-          strokeWidth="3"
+          strokeWidth="1.5"
           strokeLinecap="round"
         />
       </svg>
@@ -400,11 +354,39 @@ function SectionDivider() {
 }
 
 // ---------------------------------------------------------------------------
+// Stats
+// ---------------------------------------------------------------------------
+
+const STATS = [
+  { value: 20, suffix: "M+", label: "In ad spend managed" },
+  { value: 12, suffix: "+", label: "Years combined experience" },
+  { value: 100, suffix: "%", label: "Of your budget going where it should" },
+];
+
+function StatsCountSection() {
+  return (
+    <section className="bg-(--color-ivory) px-4 pb-24 text-center">
+      {/* text-(--color-oxblood) is set once here and inherits down to the big numbers,
+          which have NO colour class of their own in the real component source, that's
+          exactly why they were rendering plain black before, nothing was overriding
+          the browser default. the title is a real <h2> with its own explicit
+          text-sm/font-medium/tracking-wide classes, so matching it to the Facts
+          headings needs !important overrides to actually beat those, inheritance alone
+          isn't enough when the element already has its own conflicting utility classes */}
+      <StatsCount
+        stats={STATS}
+        title="The numbers behind the attitude"
+        showDividers
+        className="text-(--color-oxblood) [&_h2]:text-[clamp(1.5rem,3vw,2rem)]! [&_h2]:font-black! [&_h2]:tracking-tight!"
+      />
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Video
 // ---------------------------------------------------------------------------
 
-// TODO: swap for your real video once footage is ready, a YouTube/Vimeo embed URL
-// (the /embed/ path, not the normal watch URL) or a direct .mp4 source
 const PLACEHOLDER_VIDEO_SRC = "https://www.youtube.com/embed/dQw4w9WgXcQ";
 
 function VideoSection() {
@@ -423,8 +405,6 @@ function VideoSection() {
           </h2>
 
           <div className="mt-8 w-full max-w-350">
-            {/* video is baked directly into the page, no popup/dialog, so the glow
-                actually sits around the real playing video, not a separate thumbnail */}
             <Backlight blur={40} className="w-full">
               <iframe
                 className="aspect-video w-full rounded-2xl border-2 border-white"
@@ -450,7 +430,9 @@ export function Home() {
   return (
     <>
       <HeroSection />
-      <StatsSection />
+      <FactsSection />
+      <SectionDivider />
+      <StatsCountSection />
       <SectionDivider />
       <VideoSection />
     </>
