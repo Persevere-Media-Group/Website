@@ -1,0 +1,30 @@
+@font-face {
+  font-family: "TG Pixie Dust";
+  src: url("/fonts/TG-PixieDust.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.ik-logo {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: "TG Pixie Dust", sans-serif;
+  font-size: 3rem;
+  line-height: 1;
+  user-select: none;
+  cursor: default;
+}
+
+.ik-logo .letter-i {
+  position: relative;
+  top: -0.15em; /* nudge the i up slightly */
+  transform: rotate(-3deg);
+  margin-right: -0.03em; /* pull the letters closer together */
+}
+
+.ik-logo .letter-k {
+  position: relative;
+  top: 0.07em; /* nudge the k down slightly */
+  transform: rotate(2deg);
+}

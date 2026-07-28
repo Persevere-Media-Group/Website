@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import "./staggered-menu.css";
 import { Instagram, Anchor } from "./svgs";
 import SpecularButton from "./specular-button";
-import { MadeByBadge } from "./madeby-badge";
+import { MadeByBadge } from "../custom/madeby-badge";
 
 export interface StaggeredMenuItem {
   label: string;
