@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { MadeByBadge } from "./madeby-badge";
+import { SparkleHover } from "@/components/custom/sparkle";
 
 export function Footer() {
   return (
@@ -15,6 +17,10 @@ export function Footer() {
         >
           Privacy Policy
         </Link>
+
+        <SparkleHover>
+          <MadeByBadge />
+        </SparkleHover>
       </div>
     </footer>
   );

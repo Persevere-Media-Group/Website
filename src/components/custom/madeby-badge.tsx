@@ -16,7 +16,7 @@ export function MadeByBadge() {
       aria-label="Opens ionakate.uk in a new tab"
       className="group inline-flex shrink-0 cursor-pointer items-center text-(--color-ivory)/30 transition-colors duration-200 hover:text-(--color-ivory)/70"
     >
-      <span className="ik-logo" style={{ fontSize: "5rem" }}>
+      <span className="ik-logo" style={{ fontSize: "3rem" }}>
         <span className="letter-i">i</span>
         <span className="letter-k">k</span>
       </span>
