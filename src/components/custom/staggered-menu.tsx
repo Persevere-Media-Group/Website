@@ -113,11 +113,25 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       gsap.set(plusV, { transformOrigin: "50% 50%", rotate: 90 });
       gsap.set(icon, { rotate: 0, transformOrigin: "50% 50%" });
       gsap.set(textInner, { yPercent: 0 });
+      // initial color only - ongoing updates are handled by the effect below,
+      // which (unlike this one) knows to check openRef before picking a color
       if (toggleBtnRef.current)
         gsap.set(toggleBtnRef.current, { "--sb-text-color": menuButtonColor });
     });
     return () => ctx.revert();
-  }, [menuButtonColor, position]);
+    // deliberately NOT depending on menuButtonColor: this effect's job is one-time
+    // setup (closed/reset state for the panel, icon, and text), not a live color
+    // sync. menuButtonColor updates on nearly every scroll tick (useHeaderContrast
+    // recalculates it as the header crosses different backgrounds), and re-running
+    // this whole block on every tick was unconditionally snapping the panel shut
+    // and resetting the toggle text to "Menu" via gsap.set - regardless of whether
+    // the menu was actually open - without ever touching the React `open` state.
+    // That's exactly what produced the button-says-the-wrong-thing bug: open the
+    // menu, scroll (even a little, e.g. while reading a long services page), and
+    // the panel would silently snap shut on screen while `open` stayed true, so
+    // the very next click closed an already-closed panel instead of opening it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [position]);
 
   const buildOpenTimeline = useCallback(() => {
     const panel = panelRef.current;
