@@ -1,6 +1,7 @@
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import AnimatedContent from "@/components/primitive/animated-content";
+import { SectionDivider } from "@/components/custom/wiggly-divider";
 
 // ---------------------------------------------------------------------------
 // Highlight/underline config
@@ -205,8 +206,7 @@ export function About() {
           </div>
         </div>
 
-        {/* divider into the monologue, gives the tonal shift somewhere to breathe */}
-        <div className="mt-24 h-px w-full max-w-xs bg-(--color-oxblood)/15" />
+        <SectionDivider />
 
         <h2 className="mt-24 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
           So, what's it going to be?
