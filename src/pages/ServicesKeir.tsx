@@ -138,19 +138,6 @@ export function ServicesKeir() {
           and budgets managed from £1,000 a month to £500,000 a month. Whatever your niche, we've
           (probably) worked it.
         </p>
-        {/* mb-10 gives the button's own glow (a 28px blur radius, plus the pulse
-            ring on top of that) enough clearance to fade out before the wavy
-            divider starts, rather than looking abruptly cut off by it */}
-        <div className="mt-8 mb-10">
-          <PulsatingButton
-            pulseColor="var(--color-amber-gold)"
-            duration="1.8s"
-            className="rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
-            onClick={() => setIsCalendlyOpen(true)}
-          >
-            Book a free discovery call
-          </PulsatingButton>
-        </div>
 
         <SectionDivider />
 
@@ -375,6 +362,8 @@ export function ServicesKeir() {
             <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={10}>
               "good enough."
             </Highlighter>
+            <br />
+            <br />
           </p>
           <PulsatingButton
             pulseColor="var(--color-amber-gold)"

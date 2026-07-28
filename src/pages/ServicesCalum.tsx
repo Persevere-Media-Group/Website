@@ -214,19 +214,6 @@ export function ServicesCalum() {
           posts. Shoots, edits, strategy, and the actual posting, done properly, by people who care
           whether it works.
         </p>
-        {/* mb-10 gives the button's own glow (a 28px blur radius, plus the pulse
-            ring on top of that) enough clearance to fade out before the wavy
-            divider starts, rather than looking abruptly cut off by it */}
-        <div className="mt-8 mb-10">
-          <PulsatingButton
-            pulseColor="var(--color-amber-gold)"
-            duration="1.8s"
-            className="rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
-            onClick={() => setIsCalendlyOpen(true)}
-          >
-            Book a free discovery call
-          </PulsatingButton>
-        </div>
 
         <SectionDivider />
 
@@ -406,17 +393,6 @@ export function ServicesCalum() {
             platform mix. The best way to find out what that looks like for you is a conversation,
             not a price list.
           </p>
-          {/* mb-10 gives the button's own glow (a 28px blur radius, plus the pulse
-              ring on top of that) enough clearance to fade out before the wavy
-              divider starts, rather than looking abruptly cut off by it */}
-          <PulsatingButton
-            pulseColor="var(--color-amber-gold)"
-            duration="1.8s"
-            className="mb-10 rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
-            onClick={() => setIsCalendlyOpen(true)}
-          >
-            Book a free discovery call
-          </PulsatingButton>
         </div>
 
         <SectionDivider />
@@ -486,6 +462,7 @@ export function ServicesCalum() {
               "good enough."
             </Highlighter>
           </p>
+          <br />
           <PulsatingButton
             pulseColor="var(--color-amber-gold)"
             duration="1.8s"
