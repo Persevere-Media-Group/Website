@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ChevronDown } from "lucide-react";
 import "./staggered-menu.css";
-import { Instagram, Anchor } from "./svgs";
-import SpecularButton from "./specular-button";
+import { Instagram, Anchor } from "../primitive/svgs";
+import SpecularButton from "../primitive/specular-button";
 
 export interface StaggeredMenuItem {
   label: string;

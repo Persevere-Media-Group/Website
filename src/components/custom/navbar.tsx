@@ -2,7 +2,7 @@ import {
   StaggeredMenu,
   type StaggeredMenuItem,
   type StaggeredMenuSocialItem,
-} from "@/components/primitive/staggered-menu";
+} from "@/components/custom/staggered-menu";
 import { useHeaderContrast } from "@/hooks/use-header-contrast";
 
 const MENU_ITEMS: StaggeredMenuItem[] = [
@@ -14,12 +14,12 @@ const MENU_ITEMS: StaggeredMenuItem[] = [
     link: "/services",
     children: [
       {
-        label: "Keir",
+        label: "Ads",
         ariaLabel: "Paid Media & Performance Marketing",
         link: "/services/keir",
       },
       {
-        label: "Calum",
+        label: "Creative",
         ariaLabel: "Creative Strategy, Content Creation & Organic Social",
         link: "/services/calum",
       },
