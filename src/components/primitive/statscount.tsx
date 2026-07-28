@@ -58,7 +58,7 @@ function AnimatedCounter({
   label: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, {
@@ -149,7 +149,7 @@ export default function StatsCount({
   className = "",
 }: StatsCountProps) {
   const containerRef = useRef<HTMLElement>(null);
-  const isInView = useInView(containerRef, { margin: "-100px" });
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   return (
     <motion.section
