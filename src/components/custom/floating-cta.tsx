@@ -159,7 +159,7 @@ export function FloatingCta() {
         className="fixed z-60 cursor-grab touch-none select-none whitespace-nowrap rounded-full bg-(--color-amber-gold) px-5 py-3 text-sm font-bold text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-shadow active:cursor-grabbing active:shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
         style={position ? { left: position.x, top: position.y } : { visibility: "hidden" }}
       >
-        📞 Gee us a bell !
+        📞 Gie us a bell !
       </button>
 
       <PopupModal
