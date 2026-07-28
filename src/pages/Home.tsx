@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { motion, useInView } from "motion/react";
+import { ChevronDown } from "lucide-react";
 import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
 import { ClickSpark } from "@/components/primitive/click-spark";
 import { Grainient } from "@/components/primitive/grainient";
@@ -191,6 +192,15 @@ function HeroSection() {
           </SpecularButton>
         </div>
       </ClickSpark>
+
+      {/* nudges the visitor to keep scrolling, soft bounce rather than a sharp one
+          so it reads as a gentle hint, not an alert. absolutely positioned off the
+          hero's own bottom edge (not normal flow) so it can sit right above the
+          wave without adding to the section's height */}
+      <ChevronDown
+        aria-hidden
+        className="absolute bottom-40 left-1/2 z-20 h-7 w-7 -translate-x-1/2 animate-bounce text-(--color-oxblood) sm:bottom-57.5 md:bottom-75"
+      />
 
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />
 
