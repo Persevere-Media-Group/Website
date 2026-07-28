@@ -31,7 +31,7 @@ const WORD_SEQUENCE = toUpperCaseWords([
 const HIGHLIGHT_WORD = "PERSEVERE";
 
 const TEXT_CLASSES =
-  "text-[clamp(1.6rem,7.5vw,7rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
+  "text-[clamp(1.85rem,7.5vw,7rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
 
 const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
@@ -137,8 +137,8 @@ function HeroSection() {
           </div>
         </div>
 
-        <p className="mt-16 text-center text-[clamp(2rem,8vw,3rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
-          Contents and ads, done properly.
+        <p className="mt-16 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-black leading-none tracking-tighter text-(--color-oxblood) sm:text-[clamp(1.5rem,8vw,3rem)]">
+          Content and ads, done properly.
           <br />
           Nae faff.
         </p>
