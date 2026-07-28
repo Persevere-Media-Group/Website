@@ -10,10 +10,17 @@ import { SectionDivider } from "@/components/custom/wiggly-divider";
 // shared props so every mark behaves identically, sketchy hand-drawn feel that draws
 // itself as it scrolls into view
 const MARK_PROPS = {
-  isView: true,
+  triggerOnView: true,
   animationDuration: 1000,
   iterations: 2,
 } as const;
+
+// how long each "half" (grim or good) takes to float in as one block, and roughly
+// how long its marks then take to finish drawing themselves on afterwards - used to
+// time-offset the next beat (the marks, the Or, the other half) so the sequence
+// reads as show-the-text -> then-annotate-it rather than everything at once
+const BLOCK_REVEAL_DURATION = 0.8;
+const ANNOTATION_SETTLE = 1.1;
 
 // terracotta underline for the grim half, reads like a red pen marking up what's wrong
 const UNDERLINE_COLOR = "#d5573b";
@@ -213,66 +220,66 @@ export function About() {
         </h2>
 
         {/* type scaled up from the previous version, short lines can carry more weight
-          and it makes each block land as a statement rather than a paragraph */}
-        <div
-          className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)/80"
-          style={{ fontFamily: "var(--font-body)" }}
+          and it makes each block land as a statement rather than a paragraph. the
+          whole grim half floats in together (rather than line by line) so it reads
+          as one block to take in, then its marks draw themselves on top of it -
+          easier to digest than a slow staggered trickle */}
+        <AnimatedContent
+          direction="vertical"
+          distance={32}
+          duration={BLOCK_REVEAL_DURATION}
+          ease="power3.out"
+          threshold={0.2}
         >
-          {BEFORE.map((line, i) => (
-            <AnimatedContent
-              key={i}
-              direction="vertical"
-              distance={28}
-              duration={0.7}
-              ease="power3.out"
-              threshold={0.2}
-              delay={i * 0.12}
-            >
-              <p>{line}</p>
-            </AnimatedContent>
-          ))}
-        </div>
+          <div
+            className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)/80"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            {BEFORE.map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
+          </div>
+        </AnimatedContent>
 
         {/* the hinge, deliberately given its own space and weight so the whole piece
           visibly turns here rather than the pivot getting lost mid-paragraph. stays
-          mounted the whole time (like every other line here) rather than appearing
-          only once the last "Choose..." line is done - inserting it into the DOM
-          later would shift the AFTER list down after its ScrollTriggers already
-          measured their positions without it, throwing off exactly where they fire.
-          instead its delay is set past the last Choose line's own finish time
-          (that line's delay + duration), so it can never start floating in before
-          that line has, even in a worst case where both happen to scroll into view
-          on the same frame */}
+          mounted the whole time rather than appearing only once the grim half is
+          done - inserting it into the DOM later would shift the good half down
+          after its own ScrollTrigger already measured its position without it.
+          instead its delay is set past both the grim block's own float-in AND
+          its marks' draw-in time, so it can't appear before the block has shown
+          up and been annotated, even in a worst case where both are eligible to
+          fire in the same scroll tick */}
         <AnimatedContent
           direction="vertical"
           distance={28}
           duration={0.7}
           ease="power3.out"
-          delay={(BEFORE.length - 1) * 0.12 + 0.7}
+          delay={BLOCK_REVEAL_DURATION + ANNOTATION_SETTLE}
         >
           <p className="mt-14 text-[clamp(2.5rem,7vw,4.5rem)] font-black leading-none tracking-tight text-(--color-terracotta)">
             Or.
           </p>
         </AnimatedContent>
 
-        <div
-          className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)"
-          style={{ fontFamily: "var(--font-body)" }}
+        {/* the good half, same "show the block, then annotate" treatment, delayed
+          past the Or hinge's own reveal so it can't appear before that has */}
+        <AnimatedContent
+          direction="vertical"
+          distance={32}
+          duration={BLOCK_REVEAL_DURATION}
+          ease="power3.out"
+          delay={BLOCK_REVEAL_DURATION + ANNOTATION_SETTLE + 0.7}
         >
-          {AFTER.map((line, i) => (
-            <AnimatedContent
-              key={i}
-              direction="vertical"
-              distance={28}
-              duration={0.7}
-              ease="power3.out"
-              threshold={0.2}
-              delay={i * 0.12}
-            >
-              <p>{line}</p>
-            </AnimatedContent>
-          ))}
-        </div>
+          <div
+            className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            {AFTER.map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
+          </div>
+        </AnimatedContent>
 
         {/* the payoff, scaled up to land as the closing beat */}
         <p className="mt-16 text-center text-[clamp(2rem,6vw,4rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
