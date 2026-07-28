@@ -117,7 +117,10 @@ export function FloatingCta() {
     draggedRef.current = true;
   };
 
-  const handleDragEnd: (event: PointerEvent | MouseEvent | TouchEvent, info: PanInfo) => void = () => {
+  const handleDragEnd: (
+    event: PointerEvent | MouseEvent | TouchEvent,
+    info: PanInfo
+  ) => void = () => {
     const el = buttonRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -158,7 +161,7 @@ export function FloatingCta() {
         style={{ x, y, visibility: ready ? "visible" : "hidden" }}
       >
         <Phone className="h-4 w-4" />
-        Gie us a bell !
+        Give us a bell !
       </motion.button>
 
       <PopupModal
