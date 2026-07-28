@@ -46,14 +46,25 @@ const ROLES = [
 // hold it together has been cut or split. marks stay sparing, three per half.
 const BEFORE = [
   <>
-    Choose the wrong agency. Choose{" "}
-    <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
+    Choose the wrong agency. Choose
+    <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS}>
       Stockholm syndrome
     </Highlighter>
     .
   </>,
-  <>Choose “we're working on it.” Choose just a few more months.</>,
-  <>Choose lining shareholders' pockets. Choose being a retainer, not a client.</>,
+  <>
+    Choose
+    <Highlighter action="box" color={UNDERLINE_COLOR} {...MARK_PROPS} triggerOnView={false}>
+      "we're working on it."
+    </Highlighter>
+    Choose just a few more months.
+  </>,
+  <>
+    Choose lining shareholders' pockets. Choose being a retainer,
+    <Highlighter action="strike-through" color={UNDERLINE_COLOR} {...MARK_PROPS}>
+      not a client.
+    </Highlighter>
+  </>,
   <>
     Choose a manager who gets paid either way. Profit or loss.{" "}
     <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
@@ -62,7 +73,7 @@ const BEFORE = [
   </>,
   <>
     Choose paying for humans. Choose receiving{" "}
-    <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
+    <Highlighter action="box" color={UNDERLINE_COLOR} {...MARK_PROPS}>
       AI slop
     </Highlighter>
     .
@@ -231,7 +242,11 @@ export function About() {
 
         {/* the payoff, scaled up to land as the closing beat */}
         <p className="mt-16 text-center text-[clamp(2rem,6vw,4rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
-          Choose Persevere.
+          {/* wider padding than the shared MARK_PROPS default (2px) so the circle
+              sits further out from the letters instead of cutting across them */}
+          <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={28}>
+            Choose Persevere.
+          </Highlighter>
         </p>
       </div>
     </section>

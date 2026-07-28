@@ -1,4 +1,5 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import "./staggered-menu.css";
 import { Instagram, Anchor } from "./svgs";
@@ -494,17 +495,22 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             {items && items.length ? (
               items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <a
+                  {/* client-side route change (not a plain <a href>, which was
+                      forcing a full hard page reload on every nav click - that
+                      full-reload white flash was the real "flashes/clunky"
+                      culprit, not the AnimatePresence timing) */}
+                  <Link
                     className="sm-panel-item"
-                    href={it.link}
+                    to={it.link}
                     aria-label={it.ariaLabel}
                     data-index={idx + 1}
+                    onClick={closeMenu}
                   >
                     <span className="sm-panel-index" aria-hidden="true">
                       <Anchor />
                     </span>
                     <span className="sm-panel-itemLabel">{it.label}</span>
-                  </a>
+                  </Link>
                 </li>
               ))
             ) : (

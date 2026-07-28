@@ -28,13 +28,21 @@ export function Layout() {
 
       <Navbar />
       <main>
-        <AnimatePresence mode="wait">
+        {/* popLayout (not the default "wait") lets the incoming page start fading
+            in immediately instead of waiting for the outgoing one to fully finish
+            first — that gap was what read as a "flash": the old page's background
+            (e.g. Home's terracotta hero) disappears and the plain ivory body shows
+            through for a beat before the next page appears. popLayout also pulls
+            the exiting page out of layout flow as soon as it starts leaving, so
+            having both pages mounted briefly doesn't stack their heights and jump
+            the page underneath (the footer, this component's own scroll-to-top) */}
+        <AnimatePresence mode="popLayout">
           <motion.div
             key={location.pathname}
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
-            transition={{ duration: 0.35, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             <Outlet />
           </motion.div>
