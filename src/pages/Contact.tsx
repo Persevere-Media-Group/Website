@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
 import { Mail, MapPin, Clock, Phone } from "lucide-react";
-import SpecularButton from "@/components/ui/SpecularButton";
-import { Highlighter } from "@/components/ui/highlighter";
-import { GrainWave } from "@/components/sections/grain-wave";
-import AnimatedContent from "@/components/ui/AnimatedContent";
+import SpecularButton from "@/components/primitive/specular-button";
+import { Highlighter } from "@/components/primitive/highlighter";
+import { GrainWave } from "@/components/custom/grain-wave";
+import AnimatedContent from "@/components/primitive/animated-content";
 import confetti from "canvas-confetti";
 
 // ---------------------------------------------------------------------------

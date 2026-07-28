@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import FuzzyText from "@/components/ui/FuzzyText";
-import SpecularButton from "@/components/ui/SpecularButton";
-import DotField from "@/components/ui/DotField";
+import FuzzyText from "@/components/primitive/fuzzy-text";
+import SpecularButton from "@/components/primitive/specular-button";
+import DotField from "@/components/primitive/dot-field";
 
 export function NotFound() {
   const navigate = useNavigate();

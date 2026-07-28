@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
-import { CylinderTextRotate } from "@/components/ui/cylinder-text-rotate";
-import { ClickSpark } from "@/components/ui/click-spark";
-import { Grainient } from "@/components/ui/grainient";
-import { SectionWave } from "@/components/ui/section-wave";
-import SpecularButton from "@/components/ui/SpecularButton";
-import AnimatedContent from "@/components/ui/AnimatedContent";
-import { Highlighter } from "@/components/ui/highlighter";
-import { Backlight } from "@/components/ui/backlight";
-import StatsCount from "@/components/ui/statscount";
+import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
+import { ClickSpark } from "@/components/primitive/click-spark";
+import { Grainient } from "@/components/primitive/grainient";
+import { SectionWave } from "@/components/primitive/section-wave";
+import SpecularButton from "@/components/primitive/specular-button";
+import AnimatedContent from "@/components/primitive/animated-content";
+import { Highlighter } from "@/components/primitive/highlighter";
+import { Backlight } from "@/components/primitive/backlight";
+import StatsCount from "@/components/primitive/statscount";
 
 // ---------------------------------------------------------------------------
 // Hero

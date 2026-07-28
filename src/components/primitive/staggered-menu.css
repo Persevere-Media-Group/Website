@@ -1,0 +1,242 @@
+/* Reconstructed to match every class/attribute the StaggeredMenu.tsx logic references.
+   This is not the verified original file — compare against the live demo and adjust. */
+
+.staggered-menu-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.staggered-menu-wrapper.fixed-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.staggered-menu-wrapper.fixed-wrapper .staggered-menu-header,
+.staggered-menu-wrapper.fixed-wrapper .staggered-menu-panel {
+  pointer-events: auto;
+}
+
+/* the colour underlay layers that wipe in before the panel itself */
+.sm-prelayers {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: min(28rem, 92vw);
+  z-index: 41;
+  pointer-events: none;
+}
+
+[data-position="right"] .sm-prelayers {
+  right: 0;
+}
+
+[data-position="left"] .sm-prelayers {
+  left: 0;
+}
+
+.sm-prelayer {
+  position: absolute;
+  inset: 0;
+}
+
+/* top bar: logo + toggle, always visible regardless of open state */
+.staggered-menu-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+}
+
+.sm-logo-img {
+  display: block;
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+}
+
+.sm-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.sm-toggle-textWrap {
+  position: relative;
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+}
+
+.sm-toggle-textInner {
+  display: flex;
+  flex-direction: column;
+}
+
+.sm-toggle-line {
+  display: block;
+  height: 1em;
+  line-height: 1em;
+}
+
+.sm-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sm-icon-line {
+  position: absolute;
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.sm-icon-line-v {
+  transform: rotate(90deg);
+}
+
+/* the sliding content panel, sits above the colour layers once it lands */
+.staggered-menu-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: min(28rem, 92vw);
+  z-index: 42;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: var(--color-oxblood, #1a1a1a);
+  color: var(--color-ivory, #fff);
+}
+
+[data-position="right"] .staggered-menu-panel {
+  right: 0;
+}
+
+[data-position="left"] .staggered-menu-panel {
+  left: 0;
+}
+
+.sm-panel-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+  padding: 6.5rem 2rem 2.5rem;
+}
+
+.sm-panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sm-panel-itemWrap {
+  overflow: hidden;
+}
+
+.sm-panel-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.35rem 0;
+}
+
+/* numbering removed in favour of the anchor icon rendered via .sm-panel-index */
+.sm-panel-list[data-numbering] .sm-panel-item::before {
+  content: none;
+}
+
+.sm-panel-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4em;
+  opacity: var(--sm-num-opacity, 0);
+  color: var(--sm-accent, currentColor);
+}
+
+.sm-panel-index svg {
+  width: 0.85em;
+  height: 0.85em;
+}
+
+.sm-panel-itemLabel {
+  display: inline-block;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  transition: color 0.25s ease;
+  text-transform: uppercase;
+}
+
+.sm-panel-item:hover .sm-panel-itemLabel {
+  color: var(--sm-accent, currentColor);
+}
+
+.sm-socials-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sm-socials-title svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.sm-socials-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  padding-left: calc(22px + 0.5rem);
+}
+
+.sm-socials-link {
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  display: block;
+}
+
+.sm-socials-link:hover {
+  color: var(--sm-accent, currentColor);
+}

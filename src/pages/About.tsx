@@ -1,5 +1,5 @@
-import { Highlighter } from "@/components/ui/highlighter";
-import { GrainWave } from "@/components/sections/grain-wave";
+import { Highlighter } from "@/components/primitive/highlighter";
+import { GrainWave } from "@/components/custom/grain-wave";
 
 // ---------------------------------------------------------------------------
 // Highlight/underline config

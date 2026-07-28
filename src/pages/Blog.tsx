@@ -1,4 +1,4 @@
-import { GrainWave } from "@/components/sections/grain-wave";
+import { GrainWave } from "@/components/custom/grain-wave";
 
 // NOTE: the <section> deliberately has no padding of its own. Any padding here would
 // push GrainWave down from the top of the page and stop it reaching the screen edges,
