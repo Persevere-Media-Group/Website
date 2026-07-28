@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
+import { motion, useInView } from "motion/react";
 import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
 import { ClickSpark } from "@/components/primitive/click-spark";
 import { Grainient } from "@/components/primitive/grainient";
@@ -294,7 +295,7 @@ const FACTS_BLOCKS = [
 
 function FactsSection() {
   return (
-    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 pt-24 pb-40 text-center">
+    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 pt-24 pb-16 text-center">
       {FACTS_BLOCKS.map((block, i) => (
         <AnimatedContent
           key={block.heading}
@@ -333,20 +334,29 @@ function FactsSection() {
 // no fill, so it reads as a single wavy line rather than a solid block. reused twice
 // on this page, once above the Stats section and once below it, for symmetry.
 function SectionDivider() {
+  const svgRef = useRef<SVGSVGElement>(null);
+  // same trigger pattern as Highlighter: animate once, slightly before it's
+  // fully on screen, rather than replaying every time it scrolls into view
+  const isInView = useInView(svgRef, { once: true, margin: "-10%" });
+
   return (
     <div className="flex w-full items-center justify-center bg-(--color-ivory) py-4">
       <svg
+        ref={svgRef}
         viewBox="0 0 1440 80"
         preserveAspectRatio="none"
         className="h-14 w-full max-w-5xl px-4"
         aria-hidden
       >
-        <path
+        <motion.path
           d="M0,40 C120,5 240,75 360,40 C480,5 600,75 720,40 C840,5 960,75 1080,40 C1200,5 1320,75 1440,40"
           fill="none"
           stroke="var(--color-terracotta)"
           strokeWidth="1.5"
           strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={isInView ? { pathLength: 1 } : {}}
+          transition={{ duration: 1.1, ease: "easeInOut" }}
         />
       </svg>
     </div>
