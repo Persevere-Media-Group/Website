@@ -11,9 +11,6 @@ importers:
       '@base-ui/react':
         specifier: ^1.6.0
         version: 1.6.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@daformat/react-split-flap-display':
-        specifier: ^1.0.3
-        version: 1.0.3(react@19.2.7)
       '@fontsource-variable/inter':
         specifier: ^5.2.8
         version: 5.2.8
@@ -32,9 +29,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      framer-motion:
-        specifier: ^12.42.2
-        version: 12.42.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       gsap:
         specifier: ^3.13.0
         version: 3.15.0
@@ -279,11 +273,6 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
-
-  '@daformat/react-split-flap-display@1.0.3':
-    resolution: {integrity: sha512-QAp/KhQpRRWzVnAiEm4tT1f4pQIAAA1YkANMnHWwwT3/fI7SGtAxb2G4zRrkaCN5jrJcaKq15IV/iLVOs/OIPQ==}
-    peerDependencies:
-      react: '>=18'
 
   '@dotenvx/dotenvx@1.75.1':
     resolution: {integrity: sha512-/BITOC9dmS/edY2zQwZNicQ059O6RKabtQfyEafV0nGtfYRNHYy1DIPiYVcov40+tob9hfmBnbR963dS+EQ1DQ==}
@@ -2483,10 +2472,6 @@ snapshots:
       use-sync-external-store: 1.6.0(react@19.2.7)
     optionalDependencies:
       '@types/react': 19.2.17
-
-  '@daformat/react-split-flap-display@1.0.3(react@19.2.7)':
-    dependencies:
-      react: 19.2.7
 
   '@dotenvx/dotenvx@1.75.1':
     dependencies:
