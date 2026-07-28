@@ -141,7 +141,9 @@ function HeroSection() {
         </div>
 
         <p className="mt-16 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-black leading-none tracking-tighter text-(--color-oxblood) sm:text-[clamp(1.5rem,8vw,3rem)]">
-          Content and ads, done properly.
+          Content. Ads.
+          <br />
+          Done properly.
           <br />
           Nae faff.
         </p>

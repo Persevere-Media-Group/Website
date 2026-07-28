@@ -33,16 +33,23 @@ const HIGHLIGHT_COLOR = "rgba(237, 176, 62, 0.3)";
 
 // the two halves of the business, one each, deliberately presented side by side so the
 // "both under one roof" point is made visually before it's made in words
+// each body is a punchy bold hook followed by the supporting detail, rather than
+// one flat paragraph, so there's an immediate visual anchor before the reader
+// commits to the rest of the sentence
 const ROLES = [
   {
     title: "Content & Organic",
     lead: "Led by Calum",
-    body: "The stuff that makes people follow you, trust you, and remember you. Video, organic social, and influencer partnerships built around your brand, not pulled off a template.",
+    hook: "The stuff that makes people follow you, trust you, and remember you.",
+    detail:
+      "Video, organic social, and influencer partnerships built around your brand, not pulled off a template.",
   },
   {
     title: "Paid & Performance",
     lead: "Led by Keir",
-    body: "The engine that turns all that attention into sales. Paid social, Google and PPC, and conversion rate optimisation that squeezes more out of every click.",
+    hook: "The engine that turns all that attention into sales.",
+    detail:
+      "Paid social, Google and PPC, and conversion rate optimisation that squeezes more out of every click.",
   },
 ];
 
@@ -61,16 +68,10 @@ const BEFORE = [
     </Highlighter>
     .
   </>,
-  <>
-    Choose
-    <Highlighter action="box" color={UNDERLINE_COLOR} {...MARK_PROPS} triggerOnView={false}>
-      "we're working on it."
-    </Highlighter>
-    Choose just a few more months.
-  </>,
+  <>Choose "we're working on it." Choose just a few more months.</>,
   <>
     Choose lining shareholders' pockets. Choose being a retainer,
-    <Highlighter action="strike-through" color={UNDERLINE_COLOR} {...MARK_PROPS}>
+    <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
       not a client.
     </Highlighter>
   </>,
@@ -153,10 +154,16 @@ export function About() {
                 {role.lead}
               </p>
               <p
+                className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed font-semibold text-(--color-oxblood)"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {role.hook}
+              </p>
+              <p
                 className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
                 style={{ fontFamily: "var(--font-body)" }}
               >
-                {role.body}
+                {role.detail}
               </p>
             </div>
           ))}
@@ -171,9 +178,11 @@ export function About() {
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              Keir and Calum met over four years ago in the corporate marketing world. Calum behind
-              the camera as videographer and editor, Keir in front of it (and behind the strategy)
-              for businesses all over the world.
+              Keir and Calum met over four years ago in the corporate marketing world.{" "}
+              <strong className="font-bold text-(--color-oxblood)">
+                Calum behind the camera as videographer and editor, Keir in front of it
+              </strong>{" "}
+              (and behind the strategy) for businesses all over the world.
             </p>
             <p
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
@@ -182,7 +191,10 @@ export function About() {
               For years we sharpened our craft on other people's payrolls, forever joking about what
               we could build if we pooled two skillsets that so rarely live under one roof. Then we
               actually moved in together, survived a year of flat-share life without falling out,
-              and figured: if we can manage that, we can manage this.
+              and figured:{" "}
+              <strong className="font-bold text-(--color-oxblood)">
+                if we can manage that, we can manage this.
+              </strong>
             </p>
             <p className="text-[clamp(1.15rem,2.2vw,1.4rem)] font-black tracking-tight text-(--color-oxblood)">
               So we did. Persevere was born.
@@ -197,23 +209,33 @@ export function About() {
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              The name is Leith through and through. It's Leith's own word, its motto, and it's
-              meant something to Keir across the near-six years he's called the area home. It's
-              where he put down roots, and where he met his wife. (Calum, naturally, was the one on
-              camera for the wedding.)
+              <strong className="font-bold text-(--color-oxblood)">
+                The name is Leith through and through.
+              </strong>{" "}
+              It's Leith's own word, its motto, and it's meant something to Keir across the near-six
+              years he's called the area home. It's where he put down roots, and where he met his
+              wife. (Calum, naturally, was the one on camera for the wedding.)
             </p>
             <p
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
               style={{ fontFamily: "var(--font-body)" }}
             >
               It turns out to be a fitting word for a marketing partner, too. Growth is rarely one
-              lucky hit. It's showing up, testing, adjusting, and keeping at it until the results
-              start to build.
+              lucky hit. It's{" "}
+              <strong className="font-bold text-(--color-oxblood)">
+                showing up, testing, adjusting, and keeping at it
+              </strong>{" "}
+              until the results start to build.
             </p>
           </div>
         </div>
 
-        <SectionDivider />
+        {/* SectionDivider only has its own 1rem py-4, no outer margin - matching the
+          mt-24 the heading below already carries gives equal breathing room on both
+          sides of the wavy line instead of it sitting flush against the section above */}
+        <div className="mt-24">
+          <SectionDivider />
+        </div>
 
         <h2 className="mt-24 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
           So, what's it going to be?
