@@ -107,11 +107,29 @@ export function FloatingCta() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- x/y are stable MotionValue refs
   }, []);
 
+  // Motion's tap and drag gestures are recognised independently, so a real drag
+  // can still leave a trailing tap event on release. This flag is set the moment
+  // a drag actually starts and consumed by the next tap, so that a drag never
+  // also opens the popup, while a genuine click (no drag) still does
+  const draggedRef = useRef(false);
+
+  const handleDragStart = () => {
+    draggedRef.current = true;
+  };
+
   const handleDragEnd: (event: PointerEvent | MouseEvent | TouchEvent, info: PanInfo) => void = () => {
     const el = buttonRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
     snapTo(snapToNearestEdge({ x: rect.left, y: rect.top }, rect.width, rect.height));
+  };
+
+  const handleTap = () => {
+    if (draggedRef.current) {
+      draggedRef.current = false;
+      return;
+    }
+    setIsCalendlyOpen(true);
   };
 
   return (
@@ -127,10 +145,9 @@ export function FloatingCta() {
         dragConstraints={constraintsRef}
         dragElastic={0.12}
         dragMomentum={false}
+        onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
-        // Motion's tap gesture only fires when the pointer never really moved,
-        // so a genuine drag can't also register as an accidental click
-        onTap={() => setIsCalendlyOpen(true)}
+        onTap={handleTap}
         whileDrag={{ scale: 1.08 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
