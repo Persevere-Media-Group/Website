@@ -543,7 +543,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     </li>
                   ))}
                 </ul>
-                <MadeByBadge />
+                {/* shift to the left slightly */}
+                <div className="mr-7.5">
+                  <MadeByBadge />
+                </div>
               </div>
             </div>
           )}
