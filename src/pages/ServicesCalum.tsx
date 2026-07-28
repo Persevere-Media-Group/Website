@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { PopupModal } from "react-calendly";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
-import SpecularButton from "@/components/primitive/specular-button";
+import { PulsatingButton } from "@/components/primitive/pulsating-button";
+
+// same link used elsewhere on the site, keep these in sync if it ever changes
+const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
 // ---------------------------------------------------------------------------
 // Config
@@ -210,29 +214,18 @@ export function ServicesCalum() {
           posts. Shoots, edits, strategy, and the actual posting, done properly, by people who care
           whether it works.
         </p>
-        <div className="mt-8">
-          <SpecularButton
-            size="lg"
-            radius={18}
-            tint="var(--color-amber-gold)"
-            tintOpacity={0.3}
-            blur={0}
-            textColor="#f5f5f5"
-            lineColor="#ffffff"
-            baseColor="#525252"
-            intensity={1}
-            shineSize={10}
-            shineFade={40}
-            thickness={1}
-            speed={0.35}
-            followMouse
-            proximity={250}
-            autoAnimate={false}
-            className="shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
+        {/* mb-10 gives the button's own glow (a 28px blur radius, plus the pulse
+            ring on top of that) enough clearance to fade out before the wavy
+            divider starts, rather than looking abruptly cut off by it */}
+        <div className="mt-8 mb-10">
+          <PulsatingButton
+            pulseColor="var(--color-amber-gold)"
+            duration="1.8s"
+            className="rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
             onClick={() => setIsCalendlyOpen(true)}
           >
             Book a free discovery call
-          </SpecularButton>
+          </PulsatingButton>
         </div>
 
         <SectionDivider />
@@ -413,28 +406,17 @@ export function ServicesCalum() {
             platform mix. The best way to find out what that looks like for you is a conversation,
             not a price list.
           </p>
-          <SpecularButton
-            size="lg"
-            radius={18}
-            tint="var(--color-amber-gold)"
-            tintOpacity={0.3}
-            blur={0}
-            textColor="#f5f5f5"
-            lineColor="#ffffff"
-            baseColor="#525252"
-            intensity={1}
-            shineSize={10}
-            shineFade={40}
-            thickness={1}
-            speed={0.35}
-            followMouse
-            proximity={250}
-            autoAnimate={false}
-            className="shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
+          {/* mb-10 gives the button's own glow (a 28px blur radius, plus the pulse
+              ring on top of that) enough clearance to fade out before the wavy
+              divider starts, rather than looking abruptly cut off by it */}
+          <PulsatingButton
+            pulseColor="var(--color-amber-gold)"
+            duration="1.8s"
+            className="mb-10 rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
             onClick={() => setIsCalendlyOpen(true)}
           >
             Book a free discovery call
-          </SpecularButton>
+          </PulsatingButton>
         </div>
 
         <SectionDivider />
@@ -504,30 +486,23 @@ export function ServicesCalum() {
               "good enough."
             </Highlighter>
           </p>
-          <SpecularButton
-            size="lg"
-            radius={18}
-            tint="var(--color-amber-gold)"
-            tintOpacity={0.3}
-            blur={0}
-            textColor="#f5f5f5"
-            lineColor="#ffffff"
-            baseColor="#525252"
-            intensity={1}
-            shineSize={10}
-            shineFade={40}
-            thickness={1}
-            speed={0.35}
-            followMouse
-            proximity={250}
-            autoAnimate={false}
-            className="shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
+          <PulsatingButton
+            pulseColor="var(--color-amber-gold)"
+            duration="1.8s"
+            className="rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
             onClick={() => setIsCalendlyOpen(true)}
           >
             Book a free discovery call
-          </SpecularButton>
+          </PulsatingButton>
         </div>
       </div>
+
+      <PopupModal
+        url={CALENDLY_URL}
+        onModalClose={() => setIsCalendlyOpen(false)}
+        open={isCalendlyOpen}
+        rootElement={document.getElementById("root")!}
+      />
     </section>
   );
 }
