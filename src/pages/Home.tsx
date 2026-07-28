@@ -226,7 +226,7 @@ const FACTS_BLOCKS = [
         <Highlighter
           action="highlight"
           color="rgba(237, 176, 62, 0.3)"
-          isView
+          triggerOnView
           animationDuration={1000}
           iterations={2}
         >
@@ -236,7 +236,7 @@ const FACTS_BLOCKS = [
         <Highlighter
           action="underline"
           color="#d5573b"
-          isView
+          triggerOnView
           animationDuration={1000}
           iterations={2}
         >
@@ -253,7 +253,7 @@ const FACTS_BLOCKS = [
         <Highlighter
           action="highlight"
           color="rgba(237, 176, 62, 0.3)"
-          isView
+          triggerOnView
           animationDuration={1000}
           iterations={2}
         >
@@ -263,7 +263,7 @@ const FACTS_BLOCKS = [
         <Highlighter
           action="underline"
           color="#d5573b"
-          isView
+          triggerOnView
           animationDuration={1000}
           iterations={2}
         >
@@ -281,7 +281,7 @@ const FACTS_BLOCKS = [
         <Highlighter
           action="highlight"
           color="rgba(237, 176, 62, 0.3)"
-          isView
+          triggerOnView
           animationDuration={1000}
           iterations={2}
         >
@@ -291,7 +291,7 @@ const FACTS_BLOCKS = [
         <Highlighter
           action="underline"
           color="#d5573b"
-          isView
+          triggerOnView
           animationDuration={1000}
           iterations={2}
         >
@@ -352,6 +352,15 @@ function FactsSection() {
 const DIVIDER_PATH =
   "M0,40 C120,5 240,75 360,40 C480,5 600,75 720,40 C840,5 960,75 1080,40 C1200,5 1320,75 1440,40 C1560,5 1680,75 1800,40 C1920,5 2040,75 2160,40 C2280,5 2400,75 2520,40 C2640,5 2760,75 2880,40";
 
+// the exact same curve, traced from the opposite end (each segment's control
+// points swapped, points visited high-x to low-x). the roll animation only
+// ever transforms the whole <svg>, so it doesn't care which way the path is
+// wound, but the pathLength draw-in always grows from this string's first
+// point toward its last, so this is what lets the draw start on whichever
+// side the wave is about to scroll away from
+const DIVIDER_PATH_REVERSED =
+  "M2880,40 C2760,75 2640,5 2520,40 C2400,75 2280,5 2160,40 C2040,75 1920,5 1800,40 C1680,75 1560,5 1440,40 C1320,75 1200,5 1080,40 C960,75 840,5 720,40 C600,75 480,5 360,40 C240,75 120,5 0,40";
+
 function SectionDivider({ reverse = false }: { reverse?: boolean }) {
   const svgRef = useRef<SVGSVGElement>(null);
   // same trigger pattern as Highlighter: animate once, slightly before it's
@@ -376,7 +385,12 @@ function SectionDivider({ reverse = false }: { reverse?: boolean }) {
           aria-hidden
         >
           <motion.path
-            d={DIVIDER_PATH}
+            // section-wave-roll (no reverse) shifts the SVG left over time, so
+            // features travel right-to-left, meaning the draw-in should start
+            // from the right too, hence the reversed-order path; "reverse" plays
+            // that same animation backward (features travel left-to-right), so
+            // it draws in from the ordinary left-to-right path instead
+            d={reverse ? DIVIDER_PATH : DIVIDER_PATH_REVERSED}
             fill="none"
             stroke="var(--color-terracotta)"
             strokeWidth="1.5"

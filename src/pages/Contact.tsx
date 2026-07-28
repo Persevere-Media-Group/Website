@@ -133,7 +133,7 @@ export function Contact() {
                 <Highlighter
                   action="highlight"
                   color="rgba(237, 176, 62, 0.3)"
-                  isView
+                  triggerOnView
                   animationDuration={1000}
                   iterations={2}
                 >
