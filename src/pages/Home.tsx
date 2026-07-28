@@ -333,32 +333,51 @@ function FactsSection() {
 // leaves a thick flat-bottomed band rather than a line. this is a genuine stroked path,
 // no fill, so it reads as a single wavy line rather than a solid block. reused twice
 // on this page, once above the Stats section and once below it, for symmetry.
-function SectionDivider() {
+// the same wave unit (C120,5 240,75 360,40, a 360-wide period) repeated twice
+// back to back, so the two halves of this 2880-wide path tile seamlessly.
+// paired with the "section-wave-roll" keyframes (0% -> -50% translateX, the
+// same trick SectionWave uses for the ivory wave up top), that lets the line
+// scroll sideways forever without ever showing a seam, rather than morphing
+// or inverting in place
+const DIVIDER_PATH =
+  "M0,40 C120,5 240,75 360,40 C480,5 600,75 720,40 C840,5 960,75 1080,40 C1200,5 1320,75 1440,40 C1560,5 1680,75 1800,40 C1920,5 2040,75 2160,40 C2280,5 2400,75 2520,40 C2640,5 2760,75 2880,40";
+
+function SectionDivider({ reverse = false }: { reverse?: boolean }) {
   const svgRef = useRef<SVGSVGElement>(null);
   // same trigger pattern as Highlighter: animate once, slightly before it's
   // fully on screen, rather than replaying every time it scrolls into view
   const isInView = useInView(svgRef, { once: true, margin: "-10%" });
+  const [hasDrawn, setHasDrawn] = useState(false);
 
   return (
     <div className="flex w-full items-center justify-center bg-(--color-ivory) py-4">
-      <svg
-        ref={svgRef}
-        viewBox="0 0 1440 80"
-        preserveAspectRatio="none"
-        className="h-14 w-full max-w-5xl px-4"
-        aria-hidden
-      >
-        <motion.path
-          d="M0,40 C120,5 240,75 360,40 C480,5 600,75 720,40 C840,5 960,75 1080,40 C1200,5 1320,75 1440,40"
-          fill="none"
-          stroke="var(--color-terracotta)"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          animate={isInView ? { pathLength: 1 } : {}}
-          transition={{ duration: 1.1, ease: "easeInOut" }}
-        />
-      </svg>
+      <div className="h-14 w-full max-w-5xl overflow-hidden px-4">
+        <svg
+          ref={svgRef}
+          viewBox="0 0 2880 80"
+          preserveAspectRatio="none"
+          className="block h-full"
+          style={{
+            width: "200%",
+            animation: hasDrawn
+              ? `section-wave-roll 16s linear infinite${reverse ? " reverse" : ""}`
+              : undefined,
+          }}
+          aria-hidden
+        >
+          <motion.path
+            d={DIVIDER_PATH}
+            fill="none"
+            stroke="var(--color-terracotta)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            initial={{ pathLength: 0 }}
+            animate={isInView ? { pathLength: 1 } : {}}
+            transition={{ duration: 1.1, ease: "easeInOut" }}
+            onAnimationComplete={() => setHasDrawn(true)}
+          />
+        </svg>
+      </div>
     </div>
   );
 }
@@ -414,7 +433,7 @@ function VideoSection() {
             What we're all about
           </h2>
 
-          <div className="mt-8 w-full max-w-350">
+          <div className="mt-8 mb-14 w-full max-w-350">
             <Backlight blur={40} className="w-full">
               <iframe
                 className="aspect-video w-full rounded-2xl border-2 border-white"
@@ -443,7 +462,7 @@ export function Home() {
       <FactsSection />
       <SectionDivider />
       <StatsCountSection />
-      <SectionDivider />
+      <SectionDivider reverse />
       <VideoSection />
     </>
   );
