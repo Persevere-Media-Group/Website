@@ -131,7 +131,19 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     }
     itemEntranceTweenRef.current?.kill();
 
-    const itemEls = Array.from(panel.querySelectorAll(".sm-panel-itemLabel")) as HTMLElement[];
+    // grouped per top-level item (label, plus its chevron if it has one) rather
+    // than a flat list of labels, so a chevron animates as part of the same unit
+    // as its word instead of getting its own separate staggered entrance
+    const itemWraps = Array.from(panel.querySelectorAll(".sm-panel-itemWrap")) as HTMLElement[];
+    const itemGroups = itemWraps
+      .map((wrap) => {
+        const label = wrap.querySelector(".sm-panel-itemLabel") as HTMLElement | null;
+        if (!label) return null;
+        const chevron = wrap.querySelector(".sm-panel-item-chevron-wrap") as HTMLElement | null;
+        return chevron ? [label, chevron] : [label];
+      })
+      .filter((group): group is HTMLElement[] => group !== null);
+    const allItemAnimatedEls = itemGroups.flat();
     const numberEls = Array.from(
       panel.querySelectorAll(".sm-panel-list[data-numbering] .sm-panel-item")
     ) as HTMLElement[];
@@ -142,8 +154,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const layerStates = layers.map((el) => ({ el, start: offscreen }));
     const panelStart = offscreen;
 
-    if (itemEls.length) {
-      gsap.set(itemEls, { yPercent: 140, rotate: 10 });
+    if (allItemAnimatedEls.length) {
+      gsap.set(allItemAnimatedEls, { yPercent: 140, rotate: 10 });
     }
     if (numberEls.length) {
       gsap.set(numberEls, { "--sm-num-opacity": 0 });
@@ -175,20 +187,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       panelInsertTime
     );
 
-    if (itemEls.length) {
+    if (itemGroups.length) {
       const itemsStartRatio = 0.15;
       const itemsStart = panelInsertTime + panelDuration * itemsStartRatio;
-      tl.to(
-        itemEls,
-        {
-          yPercent: 0,
-          rotate: 0,
-          duration: 1,
-          ease: "power4.out",
-          stagger: { each: 0.1, from: "start" },
-        },
-        itemsStart
-      );
+      // same 0.1s-per-item offset the old flat stagger produced, just applied
+      // per group (label + its chevron together) instead of per element
+      itemGroups.forEach((group, i) => {
+        tl.to(
+          group,
+          { yPercent: 0, rotate: 0, duration: 1, ease: "power4.out" },
+          itemsStart + i * 0.1
+        );
+      });
       if (numberEls.length) {
         tl.to(
           numberEls,
@@ -239,7 +249,13 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   }, [position]);
 
   const playOpen = useCallback(() => {
-    if (busyRef.current) return;
+    // no busy guard here: buildOpenTimeline() already kills any in-flight open
+    // or close animation before building its own, so it's always safe to call.
+    // A guard here previously could get stuck (a close interrupting an open
+    // kills that timeline without ever firing its onComplete, so busyRef never
+    // reset), silently no-opping this call while toggleMenu had already flipped
+    // the button's label/state - a real desync between what the button said
+    // ("Close") and what was actually on screen (closed)
     busyRef.current = true;
     const tl = buildOpenTimeline();
     if (tl) {
@@ -270,7 +286,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       ease: "power3.in",
       overwrite: "auto",
       onComplete: () => {
-        const itemEls = Array.from(panel.querySelectorAll(".sm-panel-itemLabel")) as HTMLElement[];
+        const itemEls = Array.from(
+          panel.querySelectorAll(".sm-panel-itemLabel, .sm-panel-item-chevron-wrap")
+        ) as HTMLElement[];
         if (itemEls.length) {
           gsap.set(itemEls, { yPercent: 140, rotate: 10 });
         }
@@ -528,11 +546,17 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                           <Anchor />
                         </span>
                         <span className="sm-panel-itemLabel">{it.label}</span>
-                        <ChevronDown
-                          className="sm-panel-item-chevron"
-                          aria-hidden="true"
-                          data-expanded={expanded || undefined}
-                        />
+                        {/* GSAP drives this wrapper's entrance transform (translate/rotate,
+                            same as the label); the CSS-driven expand/collapse rotation lives
+                            on the icon itself instead of fighting for the same transform */}
+                        <span className="sm-panel-item-chevron-wrap">
+                          <ChevronDown
+                            className="sm-panel-item-chevron"
+                            strokeWidth={3}
+                            aria-hidden="true"
+                            data-expanded={expanded || undefined}
+                          />
+                        </span>
                       </button>
                     ) : (
                       // client-side route change (not a plain <a href>, which was

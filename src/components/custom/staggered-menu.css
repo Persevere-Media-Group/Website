@@ -208,12 +208,22 @@
   font: inherit;
 }
 
-.sm-panel-item-chevron {
-  width: 0.7em;
-  height: 0.7em;
+/* GSAP owns this wrapper's transform (the entrance slide-in, shared with the
+   label). Kept separate from .sm-panel-item-chevron itself so that animation
+   can't stomp the icon's own CSS-driven expand/collapse rotation - inline
+   styles (which is how GSAP applies its transforms) always win over a
+   stylesheet rule targeting the same element/property, so these two rotations
+   can't safely share one element */
+.sm-panel-item-chevron-wrap {
+  display: inline-flex;
   flex-shrink: 0;
+}
+
+.sm-panel-item-chevron {
+  width: 1.1em;
+  height: 1.1em;
   color: var(--sm-accent, currentColor);
-  opacity: 0.7;
+  opacity: 1;
   transition: transform 0.3s ease;
 }
 
