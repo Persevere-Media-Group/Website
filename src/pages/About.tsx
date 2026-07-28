@@ -1,5 +1,6 @@
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
+import AnimatedContent from "@/components/primitive/animated-content";
 
 // ---------------------------------------------------------------------------
 // Highlight/underline config
@@ -153,9 +154,6 @@ export function About() {
           ))}
         </div>
 
-        {/* divider into the monologue, gives the tonal shift somewhere to breathe */}
-        <div className="mt-24 h-px w-full max-w-xs bg-(--color-oxblood)/15" />
-
         <div className="mt-20 flex w-full max-w-2xl flex-col gap-14 text-left">
           <div className="flex flex-col gap-4">
             <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
@@ -221,22 +219,58 @@ export function About() {
           style={{ fontFamily: "var(--font-body)" }}
         >
           {BEFORE.map((line, i) => (
-            <p key={i}>{line}</p>
+            <AnimatedContent
+              key={i}
+              direction="vertical"
+              distance={28}
+              duration={0.7}
+              ease="power3.out"
+              threshold={0.2}
+              delay={i * 0.12}
+            >
+              <p>{line}</p>
+            </AnimatedContent>
           ))}
         </div>
 
         {/* the hinge, deliberately given its own space and weight so the whole piece
-          visibly turns here rather than the pivot getting lost mid-paragraph */}
-        <p className="mt-14 text-[clamp(2.5rem,7vw,4.5rem)] font-black leading-none tracking-tight text-(--color-terracotta)">
-          Or.
-        </p>
+          visibly turns here rather than the pivot getting lost mid-paragraph. stays
+          mounted the whole time (like every other line here) rather than appearing
+          only once the last "Choose..." line is done - inserting it into the DOM
+          later would shift the AFTER list down after its ScrollTriggers already
+          measured their positions without it, throwing off exactly where they fire.
+          instead its delay is set past the last Choose line's own finish time
+          (that line's delay + duration), so it can never start floating in before
+          that line has, even in a worst case where both happen to scroll into view
+          on the same frame */}
+        <AnimatedContent
+          direction="vertical"
+          distance={28}
+          duration={0.7}
+          ease="power3.out"
+          delay={(BEFORE.length - 1) * 0.12 + 0.7}
+        >
+          <p className="mt-14 text-[clamp(2.5rem,7vw,4.5rem)] font-black leading-none tracking-tight text-(--color-terracotta)">
+            Or.
+          </p>
+        </AnimatedContent>
 
         <div
           className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {AFTER.map((line, i) => (
-            <p key={i}>{line}</p>
+            <AnimatedContent
+              key={i}
+              direction="vertical"
+              distance={28}
+              duration={0.7}
+              ease="power3.out"
+              threshold={0.2}
+              delay={i * 0.12}
+            >
+              <p>{line}</p>
+            </AnimatedContent>
           ))}
         </div>
 
