@@ -26,14 +26,12 @@ const DIVIDER_PATH_REVERSED =
 
 export function SectionDivider({ reverse = false }: { reverse?: boolean }) {
   const svgRef = useRef<SVGSVGElement>(null);
-  // same trigger pattern as Highlighter: animate once, slightly before it's
-  // fully on screen, rather than replaying every time it scrolls into view
   const isInView = useInView(svgRef, { once: true, margin: "-10%" });
   const [hasDrawn, setHasDrawn] = useState(false);
 
   return (
-    <div className="flex w-full items-center justify-center bg-(--color-ivory) py-4">
-      <div className="h-14 w-full max-w-5xl overflow-hidden px-4">
+    <div className="relative w-screen ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] flex items-center justify-center bg-(--color-ivory) py-4">
+      <div className="h-14 w-full overflow-hidden">
         <svg
           ref={svgRef}
           viewBox="0 0 2880 80"
@@ -48,11 +46,6 @@ export function SectionDivider({ reverse = false }: { reverse?: boolean }) {
           aria-hidden
         >
           <motion.path
-            // section-wave-roll (no reverse) shifts the SVG left over time, so
-            // features travel right-to-left, meaning the draw-in should start
-            // from the right too, hence the reversed-order path; "reverse" plays
-            // that same animation backward (features travel left-to-right), so
-            // it draws in from the ordinary left-to-right path instead
             d={reverse ? DIVIDER_PATH : DIVIDER_PATH_REVERSED}
             fill="none"
             stroke="var(--color-terracotta)"
