@@ -1,15 +1,18 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
+import { ChevronDown } from "lucide-react";
 import "./staggered-menu.css";
 import { Instagram, Anchor } from "./svgs";
 import SpecularButton from "./specular-button";
-import { MadeByBadge } from "../custom/madeby-badge";
 
 export interface StaggeredMenuItem {
   label: string;
   ariaLabel: string;
   link: string;
+  // optional sub-items, rendered as a slide-down group under this item instead
+  // of navigating directly - only one level deep, not recursive
+  children?: StaggeredMenuItem[];
 }
 
 export interface StaggeredMenuSocialItem {
@@ -56,6 +59,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 }: StaggeredMenuProps) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
+  // which top-level items (by label) currently have their children slid open
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+  const toggleSubmenu = useCallback((label: string) => {
+    setExpandedItems((prev) => {
+      const next = new Set(prev);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
+  }, []);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const preLayersRef = useRef<HTMLDivElement | null>(null);
   const preLayerElsRef = useRef<HTMLElement[]>([]);
@@ -366,6 +379,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     } else {
       onMenuClose?.();
       playClose();
+      setExpandedItems(new Set());
     }
     animateIcon(target);
     animateColor(target);
@@ -381,6 +395,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       animateIcon(false);
       animateColor(false);
       animateText(false);
+      setExpandedItems(new Set());
     }
   }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
 
@@ -493,26 +508,75 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             data-numbering={displayItemNumbering || undefined}
           >
             {items && items.length ? (
-              items.map((it, idx) => (
-                <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  {/* client-side route change (not a plain <a href>, which was
-                      forcing a full hard page reload on every nav click - that
-                      full-reload white flash was the real "flashes/clunky"
-                      culprit, not the AnimatePresence timing) */}
-                  <Link
-                    className="sm-panel-item"
-                    to={it.link}
-                    aria-label={it.ariaLabel}
-                    data-index={idx + 1}
-                    onClick={closeMenu}
-                  >
-                    <span className="sm-panel-index" aria-hidden="true">
-                      <Anchor />
-                    </span>
-                    <span className="sm-panel-itemLabel">{it.label}</span>
-                  </Link>
-                </li>
-              ))
+              items.map((it, idx) => {
+                const hasChildren = !!it.children?.length;
+                const expanded = expandedItems.has(it.label);
+                return (
+                  <li className="sm-panel-itemWrap" key={it.label + idx}>
+                    {hasChildren ? (
+                      // a parent item slides its children open in place rather than
+                      // navigating anywhere itself, so it's a toggle button, not a link
+                      <button
+                        type="button"
+                        className="sm-panel-item sm-panel-item-toggle"
+                        aria-label={it.ariaLabel}
+                        aria-expanded={expanded}
+                        data-index={idx + 1}
+                        onClick={() => toggleSubmenu(it.label)}
+                      >
+                        <span className="sm-panel-index" aria-hidden="true">
+                          <Anchor />
+                        </span>
+                        <span className="sm-panel-itemLabel">{it.label}</span>
+                        <ChevronDown
+                          className="sm-panel-item-chevron"
+                          aria-hidden="true"
+                          data-expanded={expanded || undefined}
+                        />
+                      </button>
+                    ) : (
+                      // client-side route change (not a plain <a href>, which was
+                      // forcing a full hard page reload on every nav click - that
+                      // full-reload white flash was the real "flashes/clunky"
+                      // culprit, not the AnimatePresence timing)
+                      <Link
+                        className="sm-panel-item"
+                        to={it.link}
+                        aria-label={it.ariaLabel}
+                        data-index={idx + 1}
+                        onClick={closeMenu}
+                      >
+                        <span className="sm-panel-index" aria-hidden="true">
+                          <Anchor />
+                        </span>
+                        <span className="sm-panel-itemLabel">{it.label}</span>
+                      </Link>
+                    )}
+
+                    {hasChildren && (
+                      // grid-rows 0fr -> 1fr is the collapse trick: the child needs
+                      // min-height:0 (set in CSS) to actually shrink to nothing at
+                      // 0fr, rather than the row sizing to the content's natural height
+                      <div className="sm-panel-subwrap" data-expanded={expanded || undefined}>
+                        <ul className="sm-panel-sublist" role="list">
+                          {it.children!.map((sub) => (
+                            <li key={sub.label}>
+                              <Link
+                                className="sm-panel-subitem"
+                                to={sub.link}
+                                aria-label={sub.ariaLabel}
+                                onClick={closeMenu}
+                              >
+                                {sub.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </li>
+                );
+              })
             ) : (
               <li className="sm-panel-itemWrap" aria-hidden="true">
                 <span className="sm-panel-item">
@@ -549,10 +613,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     </li>
                   ))}
                 </ul>
-                {/* shift to the left slightly */}
-                <div className="mr-7.5">
-                  <MadeByBadge />
-                </div>
               </div>
             </div>
           )}

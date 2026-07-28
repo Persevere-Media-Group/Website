@@ -8,7 +8,23 @@ import { useHeaderContrast } from "@/hooks/use-header-contrast";
 const MENU_ITEMS: StaggeredMenuItem[] = [
   { label: "Home", ariaLabel: "Go to home page", link: "/" },
   { label: "About", ariaLabel: "Learn about us", link: "/about" },
-  { label: "Services", ariaLabel: "View our services", link: "/services" },
+  {
+    label: "Services",
+    ariaLabel: "View our services",
+    link: "/services",
+    children: [
+      {
+        label: "Keir",
+        ariaLabel: "Paid Media & Performance Marketing",
+        link: "/services/keir",
+      },
+      {
+        label: "Calum",
+        ariaLabel: "Creative Strategy, Content Creation & Organic Social",
+        link: "/services/calum",
+      },
+    ],
+  },
   { label: "Case Studies", ariaLabel: "View our case studies", link: "/case-studies" },
   { label: "Blog", ariaLabel: "Read our blog", link: "/blog" },
   { label: "Contact", ariaLabel: "Get in touch", link: "/contact" },

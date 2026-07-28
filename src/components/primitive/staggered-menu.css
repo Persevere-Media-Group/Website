@@ -200,6 +200,70 @@
   color: var(--sm-accent, currentColor);
 }
 
+.sm-panel-item-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.sm-panel-item-chevron {
+  width: 0.7em;
+  height: 0.7em;
+  margin-left: auto;
+  flex-shrink: 0;
+  color: var(--sm-accent, currentColor);
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+}
+
+.sm-panel-item-chevron[data-expanded] {
+  transform: rotate(180deg);
+}
+
+/* the actual slide-down: 0fr collapses the row to nothing, 1fr lets it grow to
+   the sublist's natural height, both animated by the grid-template-rows transition.
+   min-height: 0 on the child is what lets it actually reach zero at 0fr, a grid
+   item's default min-height:auto would otherwise keep it at its content height
+   regardless of the track size */
+.sm-panel-subwrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.sm-panel-subwrap[data-expanded] {
+  grid-template-rows: 1fr;
+}
+
+.sm-panel-sublist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sm-panel-subitem {
+  display: block;
+  padding: 0.35rem 0 0.35rem 2.15em;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.75;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.sm-panel-subitem:hover {
+  color: var(--sm-accent, currentColor);
+  opacity: 1;
+}
+
 .sm-socials-title {
   margin: 0 0 0.75rem;
   font-size: 0.75rem;
