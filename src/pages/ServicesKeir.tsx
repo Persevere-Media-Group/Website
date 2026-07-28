@@ -115,13 +115,13 @@ export function ServicesKeir() {
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
       <GrainWave height="24rem">
         <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
-          Keir
+          Paid Media & Performance Marketing
         </h1>
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
         <h2 className="text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
-          Paid Media & Performance Marketing
+          What can we do for you?
         </h2>
         <p
           className="mt-6 max-w-2xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
@@ -129,9 +129,9 @@ export function ServicesKeir() {
         >
           Paid social and PPC, built and run properly, not set and forgotten.{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
-            Ten-plus years of combined experience, £20m+ in ad spend
+            Ten-plus years of combined experience, £20m+ in ad spend,
           </Highlighter>
-          , and budgets managed from £1,000 a month to £500,000 a month. Whatever your niche, we've
+          and budgets managed from £1,000 a month to £500,000 a month. Whatever your niche, we've
           (probably) worked it.
         </p>
         <div className="mt-8">
