@@ -7,6 +7,7 @@ import { ServicesKeir } from "@/pages/ServicesKeir";
 import { ServicesCalum } from "@/pages/ServicesCalum";
 import { CaseStudies } from "@/pages/CaseStudies";
 import { Blog } from "@/pages/Blog";
+import { BlogPost } from "@/pages/BlogPost";
 import { Contact } from "@/pages/Contact";
 import { PrivacyPolicy } from "@/pages/PrivacyPolicy";
 import { NotFound } from "@/pages/NotFound";
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: "/services/calum", element: <ServicesCalum /> },
       { path: "/case-studies", element: <CaseStudies /> },
       { path: "/blog", element: <Blog /> },
+      { path: "/blog/:slug", element: <BlogPost /> },
       { path: "/contact", element: <Contact /> },
       { path: "/privacy-policy", element: <PrivacyPolicy /> },
       // catch-all: matches any path not explicitly defined above
