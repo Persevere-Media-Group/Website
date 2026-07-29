@@ -8,7 +8,7 @@ import {
 } from "@/lib/cookie-consent";
 
 export function CookieConsentBanner() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => !getStoredConsent());
 
   useEffect(() => {
     const stored = getStoredConsent();
@@ -16,8 +16,6 @@ export function CookieConsentBanner() {
       // returning visitor who already chose, sync that choice to gtag/fbq again
       // since both default back to denied/revoked on every fresh page load
       applyConsent(stored);
-    } else {
-      setVisible(true);
     }
   }, []);
 

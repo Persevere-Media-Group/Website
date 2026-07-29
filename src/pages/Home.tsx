@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
-import { useInView } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
 import { ClickSpark } from "@/components/primitive/click-spark";
