@@ -9,7 +9,6 @@ interface StatItem {
   prefix?: string;
   suffix?: string;
   label: string;
-  duration?: number;
 }
 
 interface StatsCountProps {
@@ -24,19 +23,16 @@ const defaultStats: StatItem[] = [
     value: 50,
     suffix: "+",
     label: "Handcrafted animated components",
-    duration: 5,
   },
   {
     value: 12,
     suffix: "K+",
     label: "Developers building with ScrollX-UI",
-    duration: 6,
   },
   {
     value: 99,
     suffix: "%",
     label: "Performance optimized for web",
-    duration: 5.5,
   },
 ];
 
@@ -46,14 +42,12 @@ function AnimatedCounter({
   value,
   prefix = "",
   suffix = "",
-  duration = 1,
   delay = 0,
   label,
 }: {
   value: number;
   prefix?: string;
   suffix?: string;
-  duration?: number;
   delay?: number;
   label: string;
 }) {
@@ -211,7 +205,6 @@ export default function StatsCount({
                 value={stat.value}
                 prefix={stat.prefix}
                 suffix={stat.suffix}
-                duration={stat.duration}
                 delay={index}
                 label={stat.label}
               />
