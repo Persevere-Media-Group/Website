@@ -162,31 +162,6 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
   );
 }
 
-// ---------------------------------------------------------------------------
-// Image placeholder
-// ---------------------------------------------------------------------------
-
-export function ImagePlaceholder({
-  label = "Image placeholder",
-  className = "",
-}: {
-  label?: string;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`flex w-full items-center justify-center rounded-2xl border-2 border-dashed border-(--color-oxblood)/25 bg-(--color-oxblood)/5 ${className}`}
-    >
-      <div className="flex flex-col items-center gap-2 py-16 text-(--color-oxblood)/40">
-        <ImageIcon className="h-10 w-10" />
-        <span className="text-sm font-medium" style={{ fontFamily: "var(--font-body)" }}>
-          {label}
-        </span>
-      </div>
-    </div>
-  );
-}
-
 // Same placeholder style used on the Home page's facts section, for the
 // person photos in the Keir/Calum intro banners.
 export function PhotoPlaceholder({ className = "" }: { className?: string }) {
@@ -194,7 +169,7 @@ export function PhotoPlaceholder({ className = "" }: { className?: string }) {
     <div
       className={`flex aspect-video w-full items-center justify-center rounded-2xl border-2 border-dashed border-(--color-oxblood)/20 bg-(--color-oxblood)/5 text-(--color-oxblood)/40 ${className}`}
     >
-      Placeholder image
+      Placeholder image(s) - maybe a gallery?
     </div>
   );
 }
@@ -203,22 +178,13 @@ export function PhotoPlaceholder({ className = "" }: { className?: string }) {
 // Intro banner ("Hi! I'm ___")
 // ---------------------------------------------------------------------------
 
-export function IntroBanner({
-  name,
-  flipTo,
-}: {
-  name: string;
-  flipTo: string;
-}) {
+export function IntroBanner({ name, flipTo }: { name: string; flipTo: string }) {
   return (
     <div className="flex w-full max-w-md flex-col items-center gap-8 pb-16 text-center">
-      <p className="text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood)">
-        Hi! I'm{" "}
-        <FlipWords
-          words={[name, flipTo]}
-          className="text-(--color-terracotta)"
-        />
-      </p>
+      <div className="flex flex-col items-center gap-1 text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood)">
+        <span className="whitespace-nowrap">Hi! I'm</span>
+        <FlipWords words={[name, flipTo]} className="text-(--color-terracotta)" />
+      </div>
       <PhotoPlaceholder className="max-w-sm" />
     </div>
   );

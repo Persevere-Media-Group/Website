@@ -13,7 +13,6 @@ import {
   FaqAccordion,
   AlwaysIncluded,
   ClosingCta,
-  ImagePlaceholder,
   IntroBanner,
 } from "@/pages/ServicesCombined";
 
@@ -155,7 +154,7 @@ export function ServicesCalum() {
         <IntroBanner name="Calum" flipTo="your photographer" />
 
         <h2 className="text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
-          What can we do for you?
+          My role in Persevere Media
         </h2>
         <p
           className="mt-6 max-w-xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
@@ -165,8 +164,6 @@ export function ServicesCalum() {
           posts. Shoots, edits, strategy, and the actual posting, done properly, by people who care
           whether it works.
         </p>
-
-        <ImagePlaceholder className="mt-12 max-w-3xl" />
 
         <SectionDivider />
 

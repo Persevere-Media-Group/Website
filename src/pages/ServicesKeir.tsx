@@ -13,7 +13,6 @@ import {
   FaqAccordion,
   AlwaysIncluded,
   ClosingCta,
-  ImagePlaceholder,
   IntroBanner,
 } from "@/pages/ServicesCombined";
 
@@ -146,7 +145,7 @@ export function ServicesKeir() {
         <IntroBanner name="Keir" flipTo="your ad manager" />
 
         <h2 className="text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
-          What can we do for you?
+          My role in Persevere Media
         </h2>
         <p
           className="mt-6 max-w-2xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
@@ -159,8 +158,6 @@ export function ServicesKeir() {
           and budgets managed from £1,000 a month to £500,000 a month. Whatever your niche, we've
           (probably) worked it.
         </p>
-
-        <ImagePlaceholder className="mt-12 max-w-3xl" />
 
         <SectionDivider />
 
