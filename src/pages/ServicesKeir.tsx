@@ -120,6 +120,27 @@ const FAQS = [
     q: "How long before I see results?",
     a: "The unfortunate and realistic answer is, it depends. We don't want to sit here and promise you the world just so you come onboard. But we can guarantee you that we will do everything in our power to make sure that results start flowing in as quickly as possible.",
   },
+  {
+    q: "Are there long-term contracts?",
+    a: "We ask for an initial three-month commitment. It takes time for the platforms to gather enough data to optimise properly, and chopping and changing every few weeks works against you, not for you. After three months, you're free to roll monthly (we'd love to have you!), no long lock-ins, no small print.",
+  },
+  {
+    q: "How do we get started?",
+    a: (
+      <>
+        Every plan is built around your budget, goals, and the platforms that actually make sense
+        for your business, not a one-size-fits-all package. The best way to find out what that
+        looks like for you is a conversation, not a price list.{" "}
+        <Link
+          to="/contact"
+          className="font-bold text-(--color-terracotta) underline underline-offset-2"
+        >
+          Send us a message to find out how we can help you!
+        </Link>
+        .
+      </>
+    ),
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -142,9 +163,9 @@ export function ServicesKeir() {
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
-        <IntroBanner name="Keir" flipTo="your ad manager" />
+        <IntroBanner words={["Keir", "your ad manager", "your numbers guy"]} />
 
-        <h2 className="text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+        <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
           My role in Persevere Media
         </h2>
         <p
@@ -165,8 +186,8 @@ export function ServicesKeir() {
         {/* The approach                                                    */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-5 text-left">
-          <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
-            The approach
+          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+            My approach
           </h2>
           <p
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
@@ -196,8 +217,8 @@ export function ServicesKeir() {
         {/* Five stages                                                     */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-3xl flex-col items-center">
-          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
-            How it works: our five stages
+          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+            How it all works
           </h2>
 
           <div className="mt-14 flex w-full flex-col gap-10">
@@ -238,7 +259,7 @@ export function ServicesKeir() {
         {/* What's included                                                 */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-8">
-          <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
+          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
             What's included in the Ads package?
           </h2>
           <ul className="flex flex-col gap-4 text-left">
@@ -275,7 +296,7 @@ export function ServicesKeir() {
         {/* FAQ                                                             */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-10">
-          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
+          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
             FAQ
           </h2>
           <FaqAccordion faqs={FAQS} />

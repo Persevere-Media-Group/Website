@@ -85,7 +85,7 @@ const FAQS = [
     a: "Nope! We handle all of it. Cameras, lighting, sound, the lot. You just need to show up.",
   },
   {
-    q: "I'm not comfortable in front of a camera, is that OK?",
+    q: "What if I'm not comfortable in front of a camera?",
     a: "Some founders love being the face of their brand. Others would rather not be. Either works. If you're happy on camera, we'll build content around you. If you're not as confident, we can help you become a natural in front of a camera lens, or discuss other ways to represent your brand.",
   },
   {
@@ -151,9 +151,9 @@ export function ServicesCalum() {
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
-        <IntroBanner name="Calum" flipTo="your photographer" />
+        <IntroBanner words={["Calum", "your photographer", "your videographer"]} />
 
-        <h2 className="text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+        <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
           My role in Persevere Media
         </h2>
         <p
@@ -171,8 +171,8 @@ export function ServicesCalum() {
         {/* The approach                                                    */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-5 text-left">
-          <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
-            The approach
+          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+            My approach
           </h2>
           <p
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
@@ -213,8 +213,8 @@ export function ServicesCalum() {
         {/* Five stages                                                     */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-3xl flex-col items-center">
-          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
-            How it works: our five stages
+          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+            How it all works
           </h2>
 
           <div className="mt-14 flex w-full flex-col gap-10">
@@ -255,7 +255,7 @@ export function ServicesCalum() {
         {/* What's included                                                 */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-8">
-          <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
+          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
             What's included in the Creative package?
           </h2>
           <ul className="flex flex-col gap-4 text-left">
@@ -292,7 +292,7 @@ export function ServicesCalum() {
         {/* FAQ                                                             */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-10">
-          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
+          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
             FAQ
           </h2>
           <FaqAccordion faqs={FAQS} />

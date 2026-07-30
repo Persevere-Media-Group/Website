@@ -96,7 +96,7 @@ export type AlwaysIncludedItem = {
 export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
   return (
     <div className="mt-20 flex w-full max-w-3xl flex-col items-center">
-      <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
+      <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
         By default, we provide you with
       </h2>
 
@@ -136,7 +136,7 @@ export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
 export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
   return (
     <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
-      <h2 className="text-[clamp(1.75rem,4.5vw,2.75rem)] font-black leading-tight tracking-tight text-(--color-oxblood)">
+      <h2 className="text-[clamp(1.75rem,4.5vw,2.75rem)] font-black leading-tight tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
         We're your growth partner.
       </h2>
       <p
@@ -178,12 +178,12 @@ export function PhotoPlaceholder({ className = "" }: { className?: string }) {
 // Intro banner ("Hi! I'm ___")
 // ---------------------------------------------------------------------------
 
-export function IntroBanner({ name, flipTo }: { name: string; flipTo: string }) {
+export function IntroBanner({ words }: { words: string[] }) {
   return (
     <div className="flex w-full max-w-md flex-col items-center gap-8 pb-16 text-center">
-      <div className="flex flex-col items-center gap-1 text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood)">
+      <div className="flex flex-col items-center gap-1 text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
         <span className="whitespace-nowrap">Hi! I'm</span>
-        <FlipWords words={[name, flipTo]} className="text-(--color-terracotta)" />
+        <FlipWords words={words} className="text-(--color-terracotta)" />
       </div>
       <PhotoPlaceholder className="max-w-sm" />
     </div>
