@@ -42,6 +42,8 @@ function Sparkle({
         delay,
         ease: "easeOut",
         times: [0, 0.35, 0.7, 1],
+        repeat: Infinity,
+        repeatDelay: 0.4,
       }}
     >
       <path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" />

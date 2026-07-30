@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
-import { ChevronDown } from "lucide-react";
 import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
 import { ClickSpark } from "@/components/primitive/click-spark";
 import { Grainient } from "@/components/primitive/grainient";
@@ -38,6 +36,8 @@ const TEXT_CLASSES =
 const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
 const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
+
+const OUR_SERVICES_ID = "our-services";
 
 function useAutoFitScale(ref: React.RefObject<HTMLElement | null>) {
   const [scale, setScale] = useState(1);
@@ -81,7 +81,6 @@ function useAutoFitScale(ref: React.RefObject<HTMLElement | null>) {
 }
 
 function HeroSection() {
-  const navigate = useNavigate();
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const wordRowRef = useRef<HTMLDivElement>(null);
   const wordRowScale = useAutoFitScale(wordRowRef);
@@ -165,7 +164,9 @@ function HeroSection() {
             followMouse
             proximity={250}
             autoAnimate={false}
-            onClick={() => navigate("/services")}
+            onClick={() =>
+              document.getElementById(OUR_SERVICES_ID)?.scrollIntoView({ behavior: "smooth" })
+            }
           >
             Our Services
           </SpecularButton>
@@ -194,15 +195,6 @@ function HeroSection() {
           </SpecularButton>
         </div>
       </ClickSpark>
-
-      {/* nudges the visitor to keep scrolling, soft bounce rather than a sharp one
-          so it reads as a gentle hint, not an alert. absolutely positioned off the
-          hero's own bottom edge (not normal flow) so it can sit right above the
-          wave without adding to the section's height */}
-      <ChevronDown
-        aria-hidden
-        className="absolute bottom-40 left-1/2 z-20 h-7 w-7 -translate-x-1/2 animate-bounce text-(--color-oxblood) sm:bottom-57.5 md:bottom-75"
-      />
 
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />
 
@@ -234,7 +226,7 @@ const FACTS_BLOCKS = [
         >
           £20m+ in ad spend, 50+ brands
         </Highlighter>
-        , thousands of hours in the edit. This attitude{" "}
+        , thousands of hours in the edit. This attitude
         <Highlighter
           action="underline"
           color="#d5573b"
@@ -331,6 +323,10 @@ function FactsSection() {
           </div>
         </AnimatedContent>
       ))}
+
+      <div className="flex aspect-video w-full max-w-3xl items-center justify-center rounded-2xl border-2 border-dashed border-(--color-oxblood)/20 bg-(--color-oxblood)/5 text-(--color-oxblood)/40">
+        Placeholder image
+      </div>
     </section>
   );
 }
@@ -357,8 +353,8 @@ function StatsCountSection() {
           isn't enough when the element already has its own conflicting utility classes */}
       <StatsCount
         stats={STATS}
-        title=" " // Blank on purpose
-        showDividers
+        title="" // Blank on purpose
+        showDividers={false}
         className="mt-10 text-(--color-oxblood) [&_h2]:text-[clamp(1.5rem,3vw,2rem)]! [&_h2]:font-black! [&_h2]:tracking-tight!"
       />
     </section>
@@ -386,7 +382,7 @@ function VideoSection() {
             What we're all about
           </h2>
 
-          <div className="mt-8 mb-14 w-full max-w-350">
+          <div className="mt-8 mb-14 flex w-full max-w-450 items-center justify-center gap-6 sm:gap-10 md:gap-14">
             <Backlight blur={40} className="w-full">
               <iframe
                 className="aspect-video w-full rounded-2xl border-2 border-white"
@@ -405,6 +401,20 @@ function VideoSection() {
 }
 
 // ---------------------------------------------------------------------------
+// Our Services
+// ---------------------------------------------------------------------------
+
+function OurServicesSection() {
+  return (
+    <section id={OUR_SERVICES_ID} className="bg-(--color-ivory) px-4 py-24 text-center">
+      <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
+        Our Services
+      </h2>
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
 
@@ -417,6 +427,7 @@ export function Home() {
       <StatsCountSection />
       <SectionDivider reverse />
       <VideoSection />
+      <OurServicesSection />
     </>
   );
 }

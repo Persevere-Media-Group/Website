@@ -18,9 +18,17 @@ export function Footer() {
           Privacy Policy
         </Link>
 
-        <SparkleHover>
-          <MadeByBadge />
-        </SparkleHover>
+        <div className="flex items-center gap-2">
+          <span
+            className="text-sm text-(--color-ivory)/30"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            Made with love by
+          </span>
+          <SparkleHover>
+            <MadeByBadge />
+          </SparkleHover>
+        </div>
       </div>
     </footer>
   );
