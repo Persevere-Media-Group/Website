@@ -1,5 +1,13 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
+import { ChevronRight } from "lucide-react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/core/accordion";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
@@ -88,11 +96,35 @@ const ALWAYS_INCLUDED = [
 const FAQS = [
   {
     q: "How much should I be spending to work with you?",
-    a: "We'd recommend a minimum of around £500 a month in ad spend to give the platforms enough to work with, though this varies by sector and goals. We're happy to talk it through on a call.",
+    a: (
+      <>
+        We work across a wide range of budgets, from four figures a month to six. As a starting
+        point, we'd recommend reserving at least{" "}
+        <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={8}>
+          £500 a month
+        </Highlighter>{" "}
+        for ad spend alone, on top of management, so the platform actually has enough to work with,
+        though this varies by sector and goals. Not sure what's realistic for you? That's exactly
+        what the discovery call is for.
+      </>
+    ),
   },
   {
     q: "Do you handle the creative too, or just the ads?",
-    a: "Both. Creative and paid are handled under one roof, from scripting and shooting through to the campaigns themselves, so nothing gets lost in translation between an ads agency and a separate content team.",
+    a: (
+      <>
+        Both. Creative and paid are handled under one roof, from scripting and shooting through to
+        the campaigns themselves, so nothing gets lost in translation between an ads agency and a
+        separate content team.{" "}
+        <Link
+          to="/services/calum"
+          className="font-bold text-(--color-terracotta) underline underline-offset-2"
+        >
+          Check out the Creative service for more details
+        </Link>
+        .
+      </>
+    ),
   },
   {
     q: "How often will I hear from you?",
@@ -103,6 +135,53 @@ const FAQS = [
     a: "The unfortunate and realistic answer is, it depends. We don't want to sit here and promise you the world just so you come onboard. But we can guarantee you that we will do everything in our power to make sure that results start flowing in as quickly as possible.",
   },
 ];
+
+function FaqAccordion() {
+  return (
+    <Accordion
+      className="flex w-full flex-col"
+      transition={{ type: "spring", stiffness: 120, damping: 20 }}
+      variants={{
+        expanded: { opacity: 1, scale: 1 },
+        collapsed: { opacity: 0, scale: 0.7 },
+      }}
+    >
+      {FAQS.map((faq, i) => (
+        <AnimatedContent
+          key={faq.q}
+          direction="vertical"
+          distance={20}
+          duration={0.6}
+          ease="power3.out"
+          threshold={0.2}
+          delay={i * 0.06}
+        >
+          <AccordionItem
+            value={faq.q}
+            className="border-b border-(--color-oxblood)/15 py-4 first:pt-0 last:border-b-0"
+          >
+            <AccordionTrigger className="w-full py-0.5 text-left">
+              <div className="flex items-center">
+                <ChevronRight className="h-5 w-5 shrink-0 text-(--color-terracotta) transition-transform duration-200 group-data-expanded:rotate-90" />
+                <div className="ml-3 text-[clamp(1.05rem,1.9vw,1.25rem)] font-black tracking-tight text-(--color-oxblood)">
+                  {faq.q}
+                </div>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="origin-top">
+              <p
+                className="pt-3 pr-2 pl-8 text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {faq.a}
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+        </AnimatedContent>
+      ))}
+    </Accordion>
+  );
+}
 
 // ---------------------------------------------------------------------------
 // Page
@@ -282,69 +361,16 @@ export function ServicesKeir() {
         <SectionDivider reverse />
 
         {/* --------------------------------------------------------------- */}
-        {/* Budget and getting started                                     */}
-        {/* --------------------------------------------------------------- */}
-        <div className="flex w-full max-w-2xl flex-col gap-4 text-center">
-          <h2 className="text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood)">
-            Budget and getting started
-          </h2>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            We work across a wide range of budgets, from four figures a month to six. As a starting
-            point, we'd recommend reserving at least{" "}
-            <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={8}>
-              £500 a month
-            </Highlighter>{" "}
-            for ad spend alone, on top of management, so the platform actually has enough to work
-            with.
-          </p>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Not sure what's realistic for you? That's exactly what the discovery call is for.
-          </p>
-        </div>
-
-        <SectionDivider />
-
-        {/* --------------------------------------------------------------- */}
         {/* FAQ                                                             */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-10">
           <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
             FAQ
           </h2>
-          <div className="flex flex-col gap-8 text-left">
-            {FAQS.map((faq, i) => (
-              <AnimatedContent
-                key={faq.q}
-                direction="vertical"
-                distance={20}
-                duration={0.6}
-                ease="power3.out"
-                threshold={0.2}
-                delay={i * 0.06}
-              >
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-[clamp(1.05rem,1.9vw,1.25rem)] font-black tracking-tight text-(--color-oxblood)">
-                    {faq.q}
-                  </h3>
-                  <p
-                    className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    {faq.a}
-                  </p>
-                </div>
-              </AnimatedContent>
-            ))}
-          </div>
+          <FaqAccordion />
         </div>
 
-        <SectionDivider reverse />
+        <SectionDivider />
 
         {/* --------------------------------------------------------------- */}
         {/* Closing CTA                                                     */}
