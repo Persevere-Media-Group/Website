@@ -30,22 +30,22 @@ const STAGES = [
   {
     number: "01",
     title: "Onboarding",
-    body: "We're sponges. Before a camera comes out, we want your business inside out, your customer avatars, their pain points, the problem you solve and how you solve it differently. You'll fill in an onboarding form, then we sit down together to go through it properly. Usually done within one to two days.",
+    body: "Before a camera comes out, we want to know your business inside out. Your customers, their pain points, the problem you solve and how you solve it differently. We’ll send you an onboarding form to fill, then we sit down together to go through it properly. Usually done within one to two days.",
   },
   {
     number: "02",
     title: "The Groundwork",
-    body: "The foundation, and we take it seriously. Scripting, planning the shoot day, working out which formats do which job for your brand. Skip this stage and everything after it wobbles. We don't rush it.",
+    body: "We take pre-production seriously. Scripting, planning the shoot day, working out which formats do which job for your brand. Skip this stage and everything after it is just guesswork. We don't rush it.",
   },
   {
     number: "03",
     title: "Create",
-    body: "Shoot day. We typically start with one half-day shoot a month, adaptable to what your business actually needs. Then the real craft: editing, colour grading, captioning, all done to a professional standard, not a rough cut and a hope.",
+    body: "Shoot day. One or two half-day shoots a month is a great place to start, but we’re adaptable to what your business actually needs. Then the real craft: editing, colour grading, captioning, all done professionally. No Capcut templates here.",
   },
   {
     number: "04",
     title: "Launch",
-    body: "Content goes live, and we manage the posting and the accounts ourselves, this isn't a \"here's your files, good luck\" handover. We're watching what lands and what doesn't from day one.",
+    body: "The content goes live. We manage the posting and the accounts ourselves, this isn't a 'here are your files, good luck!' handover. We're watching what lands and what doesn't from day one.",
   },
   {
     number: "05",
@@ -77,7 +77,7 @@ const ALWAYS_INCLUDED = [
   },
   {
     title: "Transparent reporting",
-    body: "Clear, honest reporting on the signals that actually matter, saves, shares, watch-time, not vanity numbers dressed up to look good.",
+    body: "Clear, honest reporting on the signals that actually matter. Saves, shares, watch-time - no vanity numbers dressed up to look good.",
   },
 ];
 
@@ -104,7 +104,7 @@ const FAQS = [
   },
   {
     q: "Do you handle paid ads too?",
-    a: "Yes, that's the other half of what we do. Content and paid media, under one roof, so nothing gets lost in translation between an ads agency and a separate content team.",
+    a: "Yes, that's the other half of what we do. Content and paid media, all under one roof, so nothing gets lost in translation between an ads agency and a separate content team.",
   },
 ];
 
@@ -372,9 +372,9 @@ export function ServicesCalum() {
             style={{ fontFamily: "var(--font-body)" }}
           >
             Some founders love being the face of their brand. Others would rather not be. Either
-            works. If you're happy on camera, we'll build content around you. If you'd rather we
-            handled that side too, we can talk through what that looks like on a call, no pressure
-            either way.
+            works. If you're happy on camera, we'll build content around you. If you’re not as
+            confident, we can help you become a natural in front of a camera lens, or discuss other
+            ways to represent your brand.
           </p>
         </div>
 
