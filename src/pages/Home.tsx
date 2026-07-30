@@ -376,14 +376,15 @@ function VideoSection() {
         duration={0.8}
         ease="power3.out"
         threshold={0.2}
+        className="w-full"
       >
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex w-full flex-col items-center gap-6">
           <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
             What we're all about
           </h2>
 
-          <div className="mt-8 mb-14 flex w-full max-w-450 items-center justify-center gap-6 sm:gap-10 md:gap-14">
-            <Backlight blur={40} className="w-full">
+          <div className="mx-auto mt-8 mb-14 w-full max-w-3xl">
+            <Backlight blur={40} className="block w-full">
               <iframe
                 className="aspect-video w-full rounded-2xl border-2 border-white"
                 src={PLACEHOLDER_VIDEO_SRC}
