@@ -81,17 +81,23 @@ const ALWAYS_INCLUDED = [
 
 const FAQS = [
   {
-    q: "How much should I be spending to work with you?",
+    q: "How much ad spend do you recommend?",
     a: (
       <>
-        We work across a wide range of budgets, from four figures a month to six. As a starting
-        point, we'd recommend reserving at least{" "}
+        Ad spend goes directly to the platforms themselves (Meta, Google, TikTok, wherever),
+        separate from our management fee. We work across a wide range of ad spend budgets, from four
+        figures a month to six. As a starting point, we'd recommend reserving at least{" "}
         <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={8}>
           £500 a month
         </Highlighter>{" "}
-        for ad spend alone, on top of management, so the platform actually has enough to work with,
-        though this varies by sector and goals. Not sure what's realistic for you? That's exactly
-        what the discovery call is for.
+        for that ad spend alone, so the platform actually has enough to work with, though this
+        varies by sector and goals. Not sure what's realistic for you?{" "}
+        <Link
+          to="/contact"
+          className="font-bold text-(--color-terracotta) underline underline-offset-2"
+        >
+          Get in touch and we can walk you through it!
+        </Link>
       </>
     ),
   },
@@ -129,8 +135,8 @@ const FAQS = [
     a: (
       <>
         Every plan is built around your budget, goals, and the platforms that actually make sense
-        for your business, not a one-size-fits-all package. The best way to find out what that
-        looks like for you is a conversation, not a price list.{" "}
+        for your business, not a one-size-fits-all package. The best way to find out what that looks
+        like for you is a conversation, not a price list.{" "}
         <Link
           to="/contact"
           className="font-bold text-(--color-terracotta) underline underline-offset-2"

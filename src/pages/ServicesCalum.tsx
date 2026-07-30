@@ -89,11 +89,12 @@ const FAQS = [
     a: "Some founders love being the face of their brand. Others would rather not be. Either works. If you're happy on camera, we'll build content around you. If you're not as confident, we can help you become a natural in front of a camera lens, or discuss other ways to represent your brand.",
   },
   {
-    q: "Do you handle the posting, or just the content?",
+    q: "Do you handle the ads too, or just the content?",
     a: (
       <>
-        Both. We manage the accounts and the posting ourselves, this isn't a drop-and-run content
-        delivery service.{" "}
+        Both. Content and paid are handled under one roof, from shoots and edits through to the
+        campaigns themselves, so nothing gets lost in translation between a content team and a
+        separate ads agency.{" "}
         <Link
           to="/services/keir"
           className="font-bold text-(--color-terracotta) underline underline-offset-2"
