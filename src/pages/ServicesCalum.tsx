@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { ChevronRight } from "lucide-react";
 import {
@@ -66,17 +67,17 @@ const STAGES = [
 // ---------------------------------------------------------------------------
 
 const WHATS_INCLUDED = [
-  "Shoots, for paid and organic use alike, starting at one half-day a month and scaling with your needs",
+  "Shoots for paid and organic content, starting at one half-day a month and scaling with your needs",
   "Full production: editing, colour grading, and captioning to a professional standard",
   "A full range of formats: short-form video, long-form, VSLs, static graphics, and reels",
-  "Organic social strategy and rollout, including the actual posting and account management, not just the content itself",
+  "Organic social strategy and rollout, including posting and account management, not just the content itself",
   "Platform strategy built around where your audience actually is, most often Instagram, TikTok, or YouTube",
 ];
 
 const ALWAYS_INCLUDED = [
   {
-    title: "Monthly reporting call and weekly check-ins",
-    body: "A proper call every month, going through what's working, what's changed, and what's next. We also check in with you every week so you're never left wondering how things are going.",
+    title: "Monthly calls, weekly check-ins",
+    body: "A proper call each month to cover what's working, what's changed, and what's next, plus a weekly check-in so you're never left wondering how things stand.",
   },
   {
     title: "Direct access to us",
@@ -84,7 +85,7 @@ const ALWAYS_INCLUDED = [
   },
   {
     title: "Transparent reporting",
-    body: "Clear, honest reporting on the signals that actually matter. Saves, shares, watch-time - no vanity numbers dressed up to look good.",
+    body: "Honest reporting on the signals that actually matter: saves, shares, watch-time. No vanity numbers dressed up to look good.",
   },
 ];
 
@@ -95,11 +96,27 @@ const ALWAYS_INCLUDED = [
 const FAQS = [
   {
     q: "Do I need any equipment?",
-    a: "No. We handle all of it, cameras, lighting, sound, the lot. You just need to show up.",
+    a: "Nope! We handle all of it. Cameras, lighting, sound, the lot. You just need to show up.",
+  },
+  {
+    q: "I'm not comfortable in front of a camera, is that OK?",
+    a: "Some founders love being the face of their brand. Others would rather not be. Either works. If you're happy on camera, we'll build content around you. If you're not as confident, we can help you become a natural in front of a camera lens, or discuss other ways to represent your brand.",
   },
   {
     q: "Do you handle the posting, or just the content?",
-    a: "Both. We manage the accounts and the posting ourselves, this isn't a drop-and-run content delivery service.",
+    a: (
+      <>
+        Both. We manage the accounts and the posting ourselves, this isn't a drop-and-run content
+        delivery service.{" "}
+        <Link
+          to="/services/keir"
+          className="font-bold text-(--color-terracotta) underline underline-offset-2"
+        >
+          Check out the Ads service for more details
+        </Link>
+        .
+      </>
+    ),
   },
   {
     q: "How long before I see results?",
@@ -108,6 +125,23 @@ const FAQS = [
   {
     q: "Are there long-term contracts?",
     a: "We ask for an initial three-month commitment, same as our paid media work, but for a different reason. Organic growth is about understanding your audience's signals and continually refining the strategy around them, and that takes a bit of runway to do properly. After three months, you're free to roll monthly (we'd love to have you!), no long lock-ins, no small print.",
+  },
+  {
+    q: "How do we get started?",
+    a: (
+      <>
+        Every plan is built around what your business actually needs, from shoot frequency to
+        platform mix. The best way to find out what that looks like for you is a conversation, not a
+        price list.{" "}
+        <Link
+          to="/contact"
+          className="font-bold text-(--color-terracotta) underline underline-offset-2"
+        >
+          Send us a message to find out how we can help you!
+        </Link>
+        .
+      </>
+    ),
   },
 ];
 
@@ -409,43 +443,6 @@ export function ServicesCalum() {
         </div>
 
         <SectionDivider reverse />
-
-        {/* --------------------------------------------------------------- */}
-        {/* On camera or not                                                */}
-        {/* --------------------------------------------------------------- */}
-        <div className="flex w-full max-w-2xl flex-col gap-4 text-center">
-          <h2 className="text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood)">
-            Comfortable on camera? Or want us to handle it?
-          </h2>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Some founders love being the face of their brand. Others would rather not be. Either
-            works. If you're happy on camera, we'll build content around you. If you’re not as
-            confident, we can help you become a natural in front of a camera lens, or discuss other
-            ways to represent your brand.
-          </p>
-        </div>
-
-        {/* --------------------------------------------------------------- */}
-        {/* Getting started                                                 */}
-        {/* --------------------------------------------------------------- */}
-        <div className="mt-20 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
-          <h2 className="text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood)">
-            Getting started
-          </h2>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Every plan is built around what your business actually needs, from shoot frequency to
-            platform mix. The best way to find out what that looks like for you is a conversation,
-            not a price list.
-          </p>
-        </div>
-
-        <SectionDivider />
 
         {/* --------------------------------------------------------------- */}
         {/* FAQ                                                             */}
