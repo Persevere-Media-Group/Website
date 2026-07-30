@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { PopupModal } from "react-calendly";
-import { AnimatePresence, LayoutGroup, motion } from "motion/react";
-import { X } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/core/accordion";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
@@ -104,107 +109,52 @@ const FAQS = [
     q: "Are there long-term contracts?",
     a: "We ask for an initial three-month commitment, same as our paid media work, but for a different reason. Organic growth is about understanding your audience's signals and continually refining the strategy around them, and that takes a bit of runway to do properly. After three months, you're free to roll monthly (we'd love to have you!), no long lock-ins, no small print.",
   },
-  {
-    q: "Do you handle paid ads too?",
-    a: "Yes, that's the other half of what we do. Content and paid media, all under one roof, so nothing gets lost in translation between an ads agency and a separate content team.",
-  },
 ];
 
-// bento grid: 3 cols, each card just a low-opacity coloured border until clicked open
-const FAQ_BORDER_COLORS = [
-  "border-(--color-oxblood)/30",
-  "border-(--color-clay-rose)/40",
-  "border-(--color-amber-gold)/40",
-  "border-(--color-terracotta)/40",
-  "border-(--color-deep-plum)/30",
-];
-
-const MORPH_TRANSITION = { type: "spring", stiffness: 280, damping: 30, mass: 0.9 } as const;
-
-function FaqBento() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
+function FaqAccordion() {
   return (
-    <LayoutGroup>
-      <div className="grid grid-cols-3 gap-3 sm:gap-4">
-        {FAQS.map((faq, i) => {
-          const isOpen = openIndex === i;
-          const borderColor = FAQ_BORDER_COLORS[i % FAQ_BORDER_COLORS.length];
-
-          return (
-            <AnimatedContent
-              key={faq.q}
-              direction="vertical"
-              distance={20}
-              duration={0.6}
-              ease="power3.out"
-              threshold={0.2}
-              delay={i * 0.06}
-              className={isOpen ? "col-span-3" : ""}
-            >
-              <motion.button
-                layout
-                transition={MORPH_TRANSITION}
-                type="button"
-                onClick={() => setOpenIndex(isOpen ? null : i)}
-                aria-expanded={isOpen}
-                className={`relative flex w-full flex-col overflow-hidden rounded-2xl border-2 bg-(--color-ivory) text-left shadow-sm sm:rounded-3xl ${borderColor} ${
-                  isOpen
-                    ? "min-h-32 gap-3 p-5 sm:min-h-40 sm:gap-4 sm:p-8"
-                    : "aspect-square items-center justify-center gap-0 p-3 text-center hover:-translate-y-1 hover:shadow-md sm:p-6"
-                }`}
-              >
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.span
-                      key="close"
-                      role="button"
-                      aria-label="Close"
-                      initial={{ opacity: 0, scale: 0.6 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.6 }}
-                      transition={{ duration: 0.15 }}
-                      onClick={(e: React.MouseEvent) => {
-                        e.stopPropagation();
-                        setOpenIndex(null);
-                      }}
-                      className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full text-(--color-oxblood)/60 transition-colors hover:bg-(--color-oxblood)/10 hover:text-(--color-oxblood)"
-                    >
-                      <X size={18} strokeWidth={2.5} />
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-                <motion.h3
-                  layout="position"
-                  className={`font-black tracking-tight text-(--color-oxblood) ${
-                    isOpen
-                      ? "pr-8 text-[clamp(1.1rem,2vw,1.4rem)]"
-                      : "text-[clamp(0.85rem,1.6vw,1.05rem)] leading-snug"
-                  }`}
-                >
+    <Accordion
+      className="flex w-full flex-col"
+      transition={{ type: "spring", stiffness: 120, damping: 20 }}
+      variants={{
+        expanded: { opacity: 1, scale: 1 },
+        collapsed: { opacity: 0, scale: 0.7 },
+      }}
+    >
+      {FAQS.map((faq, i) => (
+        <AnimatedContent
+          key={faq.q}
+          direction="vertical"
+          distance={20}
+          duration={0.6}
+          ease="power3.out"
+          threshold={0.2}
+          delay={i * 0.06}
+        >
+          <AccordionItem
+            value={faq.q}
+            className="border-b border-(--color-oxblood)/15 py-4 first:pt-0 last:border-b-0"
+          >
+            <AccordionTrigger className="w-full py-0.5 text-left">
+              <div className="flex items-center">
+                <ChevronRight className="h-5 w-5 shrink-0 text-(--color-terracotta) transition-transform duration-200 group-data-expanded:rotate-90" />
+                <div className="ml-3 text-[clamp(1.05rem,1.9vw,1.25rem)] font-black tracking-tight text-(--color-oxblood)">
                   {faq.q}
-                </motion.h3>
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.p
-                      key="answer"
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.25, delay: 0.05 }}
-                      className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
-                      style={{ fontFamily: "var(--font-body)" }}
-                    >
-                      {faq.a}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </motion.button>
-            </AnimatedContent>
-          );
-        })}
-      </div>
-    </LayoutGroup>
+                </div>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="origin-top">
+              <p
+                className="pt-3 pr-2 pl-8 text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {faq.a}
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+        </AnimatedContent>
+      ))}
+    </Accordion>
   );
 }
 
@@ -500,11 +450,12 @@ export function ServicesCalum() {
         {/* --------------------------------------------------------------- */}
         {/* FAQ                                                             */}
         {/* --------------------------------------------------------------- */}
-        <div className="flex w-full max-w-5xl flex-col gap-10">
+        <div className="flex w-full max-w-2xl flex-col gap-10">
           <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
             FAQ
           </h2>
-          <FaqBento />        </div>
+          <FaqAccordion />
+        </div>
 
         <SectionDivider reverse />
 
