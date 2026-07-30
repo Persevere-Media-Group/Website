@@ -5,6 +5,7 @@ import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
+import { ScrollOpacityText } from "@/components/primitive/text-reveal";
 import {
   CALENDLY_URL,
   UNDERLINE_COLOR,
@@ -239,9 +240,9 @@ export function ServicesKeir() {
                 delay={i * 0.08}
               >
                 <div className="flex items-start gap-6 text-left">
-                  <span className="shrink-0 text-[clamp(1.75rem,3.5vw,2.5rem)] font-black tracking-tight text-(--color-terracotta)/30">
+                  <ScrollOpacityText className="shrink-0 text-[clamp(1.75rem,3.5vw,2.5rem)] font-black tracking-tight text-(--color-terracotta)">
                     {stage.number}
-                  </span>
+                  </ScrollOpacityText>
                   <div className="flex flex-col gap-2">
                     <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood)">
                       {stage.title}
