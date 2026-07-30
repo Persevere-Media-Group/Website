@@ -26,9 +26,10 @@ export const ScrollOpacityText: FC<ScrollOpacityTextProps> = ({ children, classN
     offset: ["start 90%", "start 40%"],
   })
   const opacity = useTransform(scrollYProgress, [0, 1], [0.3, 1])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.3])
 
   return (
-    <motion.span ref={ref} style={{ opacity }} className={className}>
+    <motion.span ref={ref} style={{ opacity, scale }} className={className}>
       {children}
     </motion.span>
   )
