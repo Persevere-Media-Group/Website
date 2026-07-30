@@ -1,34 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
-import { ChevronRight } from "lucide-react";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/core/accordion";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
-import { PulsatingButton } from "@/components/primitive/pulsating-button";
-
-// same link used elsewhere on the site, keep these in sync if it ever changes
-const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
-
-// ---------------------------------------------------------------------------
-// Config
-// ---------------------------------------------------------------------------
-
-const UNDERLINE_COLOR = "#d5573b";
-const HIGHLIGHT_COLOR = "rgba(237, 176, 62, 0.3)";
-
-const MARK_PROPS = {
-  isView: true,
-  animationDuration: 1000,
-  iterations: 2,
-} as const;
+import {
+  CALENDLY_URL,
+  UNDERLINE_COLOR,
+  HIGHLIGHT_COLOR,
+  MARK_PROPS,
+  FaqAccordion,
+  AlwaysIncluded,
+  ClosingCta,
+  ImagePlaceholder,
+  IntroBanner,
+} from "@/pages/ServicesCombined";
 
 // ---------------------------------------------------------------------------
 // The five stages
@@ -136,53 +123,6 @@ const FAQS = [
   },
 ];
 
-function FaqAccordion() {
-  return (
-    <Accordion
-      className="flex w-full flex-col"
-      transition={{ type: "spring", stiffness: 120, damping: 20 }}
-      variants={{
-        expanded: { opacity: 1, scale: 1 },
-        collapsed: { opacity: 0, scale: 0.7 },
-      }}
-    >
-      {FAQS.map((faq, i) => (
-        <AnimatedContent
-          key={faq.q}
-          direction="vertical"
-          distance={20}
-          duration={0.6}
-          ease="power3.out"
-          threshold={0.2}
-          delay={i * 0.06}
-        >
-          <AccordionItem
-            value={faq.q}
-            className="border-b border-(--color-oxblood)/15 py-4 first:pt-0 last:border-b-0"
-          >
-            <AccordionTrigger className="w-full py-0.5 text-left">
-              <div className="flex items-center">
-                <ChevronRight className="h-5 w-5 shrink-0 text-(--color-terracotta) transition-transform duration-200 group-data-expanded:rotate-90" />
-                <div className="ml-3 text-[clamp(1.05rem,1.9vw,1.25rem)] font-black tracking-tight text-(--color-oxblood)">
-                  {faq.q}
-                </div>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="origin-top">
-              <p
-                className="pt-3 pr-2 pl-8 text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                {faq.a}
-              </p>
-            </AccordionContent>
-          </AccordionItem>
-        </AnimatedContent>
-      ))}
-    </Accordion>
-  );
-}
-
 // ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
@@ -203,6 +143,8 @@ export function ServicesKeir() {
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
+        <IntroBanner name="Keir" flipTo="your ad manager" />
+
         <h2 className="text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
           What can we do for you?
         </h2>
@@ -217,6 +159,8 @@ export function ServicesKeir() {
           and budgets managed from £1,000 a month to £500,000 a month. Whatever your niche, we've
           (probably) worked it.
         </p>
+
+        <ImagePlaceholder className="mt-12 max-w-3xl" />
 
         <SectionDivider />
 
@@ -298,7 +242,7 @@ export function ServicesKeir() {
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-8">
           <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
-            What's included
+            What's included in the Ads package?
           </h2>
           <ul className="flex flex-col gap-4 text-left">
             {WHATS_INCLUDED.map((item, i) => (
@@ -326,37 +270,7 @@ export function ServicesKeir() {
         {/* --------------------------------------------------------------- */}
         {/* Always included                                                 */}
         {/* --------------------------------------------------------------- */}
-        <div className="mt-20 flex w-full max-w-3xl flex-col items-center">
-          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
-            Always included
-          </h2>
-
-          <div className="mt-12 grid w-full gap-8 text-left sm:grid-cols-3">
-            {ALWAYS_INCLUDED.map((item, i) => (
-              <AnimatedContent
-                key={item.title}
-                direction="vertical"
-                distance={24}
-                duration={0.7}
-                ease="power3.out"
-                threshold={0.2}
-                delay={i * 0.1}
-              >
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-[clamp(1.1rem,2vw,1.3rem)] font-black tracking-tight text-(--color-oxblood)">
-                    {item.title}
-                  </h3>
-                  <p
-                    className="text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/80"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    {item.body}
-                  </p>
-                </div>
-              </AnimatedContent>
-            ))}
-          </div>
-        </div>
+        <AlwaysIncluded items={ALWAYS_INCLUDED} />
 
         <SectionDivider reverse />
 
@@ -367,7 +281,7 @@ export function ServicesKeir() {
           <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
             FAQ
           </h2>
-          <FaqAccordion />
+          <FaqAccordion faqs={FAQS} />
         </div>
 
         <SectionDivider />
@@ -375,31 +289,7 @@ export function ServicesKeir() {
         {/* --------------------------------------------------------------- */}
         {/* Closing CTA                                                     */}
         {/* --------------------------------------------------------------- */}
-        <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
-          <h2 className="text-[clamp(1.75rem,4.5vw,2.75rem)] font-black leading-tight tracking-tight text-(--color-oxblood)">
-            We're your growth partner.
-          </h2>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Not a quick campaign and a runaway. We scale with you, keep improving with you, and
-            never settle for{" "}
-            <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={10}>
-              "good enough."
-            </Highlighter>
-            <br />
-            <br />
-          </p>
-          <PulsatingButton
-            pulseColor="var(--color-amber-gold)"
-            duration="1.8s"
-            className="rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
-            onClick={() => setIsCalendlyOpen(true)}
-          >
-            Book a free discovery call
-          </PulsatingButton>
-        </div>
+        <ClosingCta onBookCall={() => setIsCalendlyOpen(true)} />
       </div>
 
       <PopupModal
