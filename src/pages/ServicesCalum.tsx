@@ -145,7 +145,7 @@ export function ServicesCalum() {
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
-        <IntroBanner name="Calum" words={["Calum", "your photographer", "your videographer"]} />
+        <IntroBanner name="Calum" words={["your photographer", "your videographer"]} />
 
         <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
           My role in Persevere Media

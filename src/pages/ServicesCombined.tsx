@@ -158,8 +158,9 @@ export function PhotoPlaceholder({ className = "" }: { className?: string }) {
 // Intro banner ("Hi! I'm ___")
 // ---------------------------------------------------------------------------
 
-// `name` must also appear in `words` - it's what the drum lingers on and plays the
-// glint over, so it reads as the standout word among the roles either side of it.
+// Reads as "Hi I'm <name>. I'm <rotating keyword>". The name is fixed copy and the
+// standout of the line; `words` holds only the rotating keywords, so it should not
+// include the name itself.
 export function IntroBanner({ name, words }: { name: string; words: string[] }) {
   const wordRowRef = useRef<HTMLDivElement>(null);
   const wordRowScale = useAutoFitScale(wordRowRef);
@@ -174,12 +175,14 @@ export function IntroBanner({ name, words }: { name: string; words: string[] }) 
           className="flex flex-row items-center justify-center gap-3 text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood) sm:gap-4"
           style={{ transform: `scale(${wordRowScale})`, transformOrigin: "center" }}
         >
-          <span className="whitespace-nowrap">Hi! I'm</span>
+          <span className="whitespace-nowrap">
+            Hi I'm <span className="text-(--color-terracotta)">{name}</span>. I'm
+          </span>
 
           {/* CylinderTextRotate lays its words out absolutely, so it carries no width
               of its own. These invisible copies share the one grid cell and size the
-              drum to the widest word, so "Hi! I'm" never shifts as the drum spins.
-              Same pattern as the home page hero. */}
+              drum to the widest keyword, so the fixed half of the sentence never
+              shifts as the drum spins. Same pattern as the home page hero. */}
           <div className="grid">
             {words.map((word) => (
               <span key={word} aria-hidden className="invisible whitespace-nowrap [grid-area:1/1]">
@@ -192,10 +195,7 @@ export function IntroBanner({ name, words }: { name: string; words: string[] }) 
                 words={words}
                 loop
                 duration={1800}
-                highlightDuration={3000}
-                className="text-left text-(--color-oxblood)/55"
-                highlightWord={name}
-                highlightClassName="text-(--color-terracotta)"
+                className="text-left text-(--color-oxblood)/60"
               />
             </div>
           </div>
