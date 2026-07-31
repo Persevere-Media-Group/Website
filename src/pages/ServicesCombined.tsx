@@ -195,7 +195,7 @@ export function IntroBanner({ name, words }: { name: string; words: string[] }) 
                 words={words}
                 loop
                 duration={1800}
-                className="text-left text-(--color-oxblood)/60"
+                className="text-left text-(--color-oxblood)"
               />
             </div>
           </div>
