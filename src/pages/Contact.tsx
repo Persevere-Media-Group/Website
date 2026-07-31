@@ -52,6 +52,8 @@ const LABEL_CLASSES = "mb-2 block text-sm font-semibold text-(--color-oxblood)";
 export function Contact() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [cardHeight, setCardHeight] = useState<number | undefined>(undefined);
@@ -73,14 +75,7 @@ export function Contact() {
     return () => window.removeEventListener("resize", measure);
   }, [submitted]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // TODO: wire this up to a real form handler. GitHub Pages is static hosting, so
-    // there's no server to post to, the usual options are Formspree, Web3Forms, or
-    // Getform, all of which give you an endpoint to POST this to and email you the
-    // result. Until then this just shows the success state without sending anything.
-    setSubmitted(true);
-
+  const fireConfetti = () => {
     // confetti's origin is normalised 0-1 coordinates of the whole VIEWPORT, not the
     // button, so it has to be computed from the button's actual on-screen position at
     // the moment of click, same approach your own ConfettiButton variant uses
@@ -97,6 +92,37 @@ export function Contact() {
       spread: 90,
       origin,
     });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSendError(null);
+    setIsSending(true);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = (await response.json().catch(() => null)) as { ok?: boolean } | null;
+
+      if (!response.ok || !result?.ok) {
+        setSendError("Something went wrong sending that. Please try again or email us directly.");
+        return;
+      }
+
+      setSubmitted(true);
+      fireConfetti();
+    } catch {
+      setSendError("Something went wrong sending that. Please try again or email us directly.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   // NOTE: the <section> deliberately has no padding of its own. Any padding here would
@@ -303,6 +329,23 @@ export function Contact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ fontFamily: "var(--font-body)" }}>
+              {/* Honeypot: real visitors never see or reach this field, so it should
+                  always submit empty. If it's filled in, the submission came from a bot
+                  and the API silently drops it. Positioned off-screen rather than
+                  display:none or visibility:hidden, since some bots skip filling in
+                  fields hidden that way, but still fill in anything technically visible
+                  to the layout. aria-hidden and tabIndex={-1} keep it out of the
+                  accessibility tree and tab order so screen reader and keyboard users
+                  never land on it. */}
+              <div className="absolute -left-[9999px] top-0" aria-hidden="true">
+                <input
+                  type="text"
+                  name="honeypot"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className={LABEL_CLASSES}>
@@ -428,10 +471,20 @@ export function Contact() {
                 </select>
               </div>
 
+              {sendError && (
+                <p
+                  className="mt-5 text-sm font-semibold text-(--color-terracotta)"
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  {sendError}
+                </p>
+              )}
+
               <div className="mt-8">
                 <SpecularButton
                   ref={submitButtonRef}
                   type="submit"
+                  disabled={isSending}
                   size="lg"
                   radius={18}
                   tint="var(--color-deep-plum)"
@@ -450,7 +503,7 @@ export function Contact() {
                   autoAnimate
                   className="w-full"
                 >
-                  Send it over!
+                  {isSending ? "Sending..." : "Send it over!"}
                 </SpecularButton>
               </div>
             </form>
