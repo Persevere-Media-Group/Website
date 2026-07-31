@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Navbar } from "@/components/custom/navbar";
 import { ScrollProgress } from "@/components/primitive/scroll-progress";
 import { FloatingCta } from "@/components/custom/floating-cta";
@@ -11,8 +11,20 @@ import { trackPageviewAll } from "@/lib/analytics";
 export function Layout() {
   const location = useLocation();
 
-  useEffect(() => {
+  // Reset scroll during render, not in an effect: effects fire child-before-parent,
+  // so a useEffect/useLayoutEffect here would still run AFTER the incoming page's own
+  // layout effects (e.g. ScrollStack measuring window.scrollY on mount). Landing on a
+  // page while window.scrollY still holds the previous page's scroll position makes
+  // window-scroll-driven components compute their initial layout against the wrong
+  // scroll offset. Doing it inline during render guarantees it happens before any
+  // child of Outlet mounts.
+  const prevPathname = useRef(location.pathname);
+  if (prevPathname.current !== location.pathname) {
+    prevPathname.current = location.pathname;
     window.scrollTo({ top: 0, behavior: "instant" });
+  }
+
+  useEffect(() => {
     trackPageviewAll(location.pathname);
   }, [location.pathname]);
 
