@@ -1,5 +1,4 @@
-import type { ReactNode } from "react";
-import { ChevronRight, ImageIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import {
   Accordion,
   AccordionItem,
@@ -10,32 +9,11 @@ import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { PulsatingButton } from "@/components/primitive/pulsating-button";
 import { FlipWords } from "@/components/primitive/word-swap";
-
-// ---------------------------------------------------------------------------
-// Shared config for the two services pages (ServicesKeir / ServicesCalum).
-// Single source of truth so the two counterpart pages don't drift apart.
-// ---------------------------------------------------------------------------
-
-// same link used elsewhere on the site, keep these in sync if it ever changes
-export const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
-
-export const UNDERLINE_COLOR = "#d5573b";
-export const HIGHLIGHT_COLOR = "rgba(237, 176, 62, 0.3)";
-
-export const MARK_PROPS = {
-  isView: true,
-  animationDuration: 1000,
-  iterations: 2,
-} as const;
+import { UNDERLINE_COLOR, MARK_PROPS, type Faq, type AlwaysIncludedItem } from "@/pages/services-shared";
 
 // ---------------------------------------------------------------------------
 // FAQ accordion
 // ---------------------------------------------------------------------------
-
-export type Faq = {
-  q: string;
-  a: ReactNode;
-};
 
 export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
   return (
@@ -87,11 +65,6 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
 // ---------------------------------------------------------------------------
 // "By default, we provide you with" section
 // ---------------------------------------------------------------------------
-
-export type AlwaysIncludedItem = {
-  title: string;
-  body: string;
-};
 
 export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
   return (

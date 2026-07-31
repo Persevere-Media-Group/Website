@@ -6,16 +6,8 @@ import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { ScrollOpacityText } from "@/components/primitive/text-reveal";
-import {
-  CALENDLY_URL,
-  UNDERLINE_COLOR,
-  HIGHLIGHT_COLOR,
-  MARK_PROPS,
-  FaqAccordion,
-  AlwaysIncluded,
-  ClosingCta,
-  IntroBanner,
-} from "@/pages/ServicesCombined";
+import { CALENDLY_URL, UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/pages/services-shared";
+import { FaqAccordion, AlwaysIncluded, ClosingCta, IntroBanner } from "@/pages/ServicesCombined";
 
 // ---------------------------------------------------------------------------
 // The five stages
