@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
@@ -7,7 +6,13 @@ import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { ScrollOpacityText } from "@/components/primitive/text-reveal";
 import { CALENDLY_URL, UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/pages/services-shared";
-import { FaqAccordion, AlwaysIncluded, ClosingCta, IntroBanner } from "@/pages/ServicesCombined";
+import {
+  FaqAccordion,
+  FaqLink,
+  AlwaysIncluded,
+  ClosingCta,
+  IntroBanner,
+} from "@/pages/ServicesCombined";
 
 // ---------------------------------------------------------------------------
 // The five stages
@@ -87,14 +92,8 @@ const FAQS = [
       <>
         Both. Content and paid are handled under one roof, from shoots and edits through to the
         campaigns themselves, so nothing gets lost in translation between a content team and a
-        separate ads agency.{" "}
-        <Link
-          to="/services/keir"
-          className="font-bold text-(--color-terracotta) underline underline-offset-2"
-        >
-          Check out the Ads service for more details
-        </Link>
-        .
+        separate ads agency.
+        <FaqLink to="/services/keir">Check out the Ads service for more details</FaqLink>
       </>
     ),
   },
@@ -112,14 +111,8 @@ const FAQS = [
       <>
         Every plan is built around what your business actually needs, from shoot frequency to
         platform mix. The best way to find out what that looks like for you is a conversation, not a
-        price list.{" "}
-        <Link
-          to="/contact"
-          className="font-bold text-(--color-terracotta) underline underline-offset-2"
-        >
-          Send us a message to find out how we can help you!
-        </Link>
-        .
+        price list.
+        <FaqLink to="/contact">Send us a message to find out how we can help you!</FaqLink>
       </>
     ),
   },

@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
+import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import {
   Accordion,
@@ -21,6 +22,20 @@ import {
 // ---------------------------------------------------------------------------
 // FAQ accordion
 // ---------------------------------------------------------------------------
+
+// Call-to-action link at the end of an FAQ answer. `block` drops it onto its own
+// line so the link text never wraps across two lines mid-sentence, and `w-fit`
+// keeps the underline hugging the text instead of stretching the paragraph width.
+export function FaqLink({ to, children }: { to: string; children: ReactNode }) {
+  return (
+    <Link
+      to={to}
+      className="mt-3 block w-fit font-bold text-(--color-terracotta) underline underline-offset-2"
+    >
+      {children}
+    </Link>
+  );
+}
 
 export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
   return (

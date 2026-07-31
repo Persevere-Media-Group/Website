@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
@@ -7,7 +6,13 @@ import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { ScrollOpacityText } from "@/components/primitive/text-reveal";
 import { CALENDLY_URL, UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/pages/services-shared";
-import { FaqAccordion, AlwaysIncluded, ClosingCta, IntroBanner } from "@/pages/ServicesCombined";
+import {
+  FaqAccordion,
+  FaqLink,
+  AlwaysIncluded,
+  ClosingCta,
+  IntroBanner,
+} from "@/pages/ServicesCombined";
 
 // ---------------------------------------------------------------------------
 // The five stages
@@ -84,13 +89,8 @@ const FAQS = [
           £500 a month
         </Highlighter>{" "}
         for that ad spend alone, so the platform actually has enough to work with, though this
-        varies by sector and goals. Not sure what's realistic for you?{" "}
-        <Link
-          to="/contact"
-          className="font-bold text-(--color-terracotta) underline underline-offset-2"
-        >
-          Get in touch and we can walk you through it!
-        </Link>
+        varies by sector and goals. Not sure what's realistic for you?
+        <FaqLink to="/contact">Get in touch and we can walk you through it!</FaqLink>
       </>
     ),
   },
@@ -100,14 +100,8 @@ const FAQS = [
       <>
         Both. Creative and paid are handled under one roof, from scripting and shooting through to
         the campaigns themselves, so nothing gets lost in translation between an ads agency and a
-        separate content team.{" "}
-        <Link
-          to="/services/calum"
-          className="font-bold text-(--color-terracotta) underline underline-offset-2"
-        >
-          Check out the Creative service for more details
-        </Link>
-        .
+        separate content team.
+        <FaqLink to="/services/calum">Check out the Creative service for more details</FaqLink>
       </>
     ),
   },
@@ -129,14 +123,8 @@ const FAQS = [
       <>
         Every plan is built around your budget, goals, and the platforms that actually make sense
         for your business, not a one-size-fits-all package. The best way to find out what that looks
-        like for you is a conversation, not a price list.{" "}
-        <Link
-          to="/contact"
-          className="font-bold text-(--color-terracotta) underline underline-offset-2"
-        >
-          Send us a message to find out how we can help you!
-        </Link>
-        .
+        like for you is a conversation, not a price list.
+        <FaqLink to="/contact">Send us a message to find out how we can help you!</FaqLink>
       </>
     ),
   },
