@@ -55,6 +55,12 @@
       fbq("consent", "revoke");
       fbq("track", "PageView");
     </script>
+    <!-- End Meta Pixel Code -->
+  </head>
+  <body>
+    <!-- Meta Pixel <noscript> fallback. Must live in <body>: inside <head>, a
+         <noscript> may only contain <link>, <style> and <meta>, so an <img>
+         there is disallowed content and fails HTML parsing. -->
     <noscript
       ><img
         height="1"
@@ -62,9 +68,6 @@
         style="display: none"
         src="https://www.facebook.com/tr?id=1541019407776705&ev=PageView&noscript=1"
     /></noscript>
-    <!-- End Meta Pixel Code -->
-  </head>
-  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
