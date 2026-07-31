@@ -151,6 +151,9 @@ body {
   --color-clay-rose: #df7d68;
   --color-deep-plum: #594157;
   --color-amber-gold: #edb03e;
+  /* lifted, slightly desaturated amber, for the pulsing ring on PulsatingButton
+     so the animation reads as distinct from the solid amber-gold button face */
+  --color-amber-gold-light: #f6ca79;
   --color-ivory: #f7f3e3;
   --color-warm-black: #241914;
   --color-oxblood: #4a1f1d;

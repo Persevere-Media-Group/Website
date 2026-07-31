@@ -162,7 +162,7 @@ export function ServicesKeir() {
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
-        <IntroBanner words={["Keir", "your ad manager", "your numbers guy"]} />
+        <IntroBanner name="Keir" words={["Keir", "your ad manager", "your numbers guy"]} />
 
         <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
           My role in Persevere Media

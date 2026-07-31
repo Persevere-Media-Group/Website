@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import {
   Accordion,
@@ -8,8 +9,14 @@ import {
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { PulsatingButton } from "@/components/primitive/pulsating-button";
-import { FlipWords } from "@/components/primitive/word-swap";
-import { UNDERLINE_COLOR, MARK_PROPS, type Faq, type AlwaysIncludedItem } from "@/pages/services-shared";
+import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
+import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
+import {
+  UNDERLINE_COLOR,
+  MARK_PROPS,
+  type Faq,
+  type AlwaysIncludedItem,
+} from "@/pages/services-shared";
 
 // ---------------------------------------------------------------------------
 // FAQ accordion
@@ -124,7 +131,7 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
       </p>
       <br />
       <PulsatingButton
-        pulseColor="var(--color-amber-gold)"
+        pulseColor="var(--color-amber-gold-light)"
         duration="1.8s"
         className="rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
         onClick={onBookCall}
@@ -151,12 +158,48 @@ export function PhotoPlaceholder({ className = "" }: { className?: string }) {
 // Intro banner ("Hi! I'm ___")
 // ---------------------------------------------------------------------------
 
-export function IntroBanner({ words }: { words: string[] }) {
+// `name` must also appear in `words` - it's what the drum lingers on and plays the
+// glint over, so it reads as the standout word among the roles either side of it.
+export function IntroBanner({ name, words }: { name: string; words: string[] }) {
+  const wordRowRef = useRef<HTMLDivElement>(null);
+  const wordRowScale = useAutoFitScale(wordRowRef);
+
   return (
-    <div className="flex w-full max-w-md flex-col items-center gap-8 pb-16 text-center">
-      <div className="flex flex-col items-center gap-1 text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
-        <span className="whitespace-nowrap">Hi! I'm</span>
-        <FlipWords words={words} className="text-(--color-terracotta)" />
+    <div className="flex w-full max-w-2xl flex-col items-center gap-8 pb-16 text-center">
+      {/* useAutoFitScale measures against the row's parent, so this wrapper is what
+          defines the width the row is allowed to occupy. */}
+      <div className="w-full">
+        <div
+          ref={wordRowRef}
+          className="flex flex-row items-center justify-center gap-3 text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood) sm:gap-4"
+          style={{ transform: `scale(${wordRowScale})`, transformOrigin: "center" }}
+        >
+          <span className="whitespace-nowrap">Hi! I'm</span>
+
+          {/* CylinderTextRotate lays its words out absolutely, so it carries no width
+              of its own. These invisible copies share the one grid cell and size the
+              drum to the widest word, so "Hi! I'm" never shifts as the drum spins.
+              Same pattern as the home page hero. */}
+          <div className="grid">
+            {words.map((word) => (
+              <span key={word} aria-hidden className="invisible whitespace-nowrap [grid-area:1/1]">
+                {word}
+              </span>
+            ))}
+
+            <div className="w-full [grid-area:1/1]">
+              <CylinderTextRotate
+                words={words}
+                loop
+                duration={1800}
+                highlightDuration={3000}
+                className="text-left text-(--color-oxblood)/55"
+                highlightWord={name}
+                highlightClassName="text-(--color-terracotta)"
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <PhotoPlaceholder className="max-w-sm" />
     </div>

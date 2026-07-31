@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
+import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
 import { ClickSpark } from "@/components/primitive/click-spark";
 import { Grainient } from "@/components/primitive/grainient";
@@ -39,46 +40,6 @@ const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
 const OUR_SERVICES_ID = "our-services";
 
-function useAutoFitScale(ref: React.RefObject<HTMLElement | null>) {
-  const [scale, setScale] = useState(1);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    let cancelled = false;
-
-    const fit = () => {
-      if (cancelled) return;
-      const parent = el.parentElement;
-      if (!parent) return;
-      const naturalWidth = el.scrollWidth;
-      const availableWidth = parent.clientWidth;
-      const nextScale =
-        availableWidth > 0 && naturalWidth > 0 ? Math.min(1, availableWidth / naturalWidth) : 1;
-      setScale(nextScale);
-    };
-
-    fit();
-
-    document.fonts.ready.then(fit);
-    const settleTimeout1 = setTimeout(fit, 150);
-    const settleTimeout2 = setTimeout(fit, 500);
-
-    const ro = new ResizeObserver(fit);
-    ro.observe(el.parentElement ?? el);
-    window.addEventListener("resize", fit);
-    return () => {
-      cancelled = true;
-      clearTimeout(settleTimeout1);
-      clearTimeout(settleTimeout2);
-      ro.disconnect();
-      window.removeEventListener("resize", fit);
-    };
-  }, [ref]);
-
-  return scale;
-}
 
 function HeroSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
