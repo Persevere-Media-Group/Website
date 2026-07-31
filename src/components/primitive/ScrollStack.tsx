@@ -83,11 +83,21 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     }
   }, [useWindowScroll]);
 
+  // Document-relative top from the offsetParent chain. Deliberately NOT
+  // getBoundingClientRect(): this component pins cards by applying a translateY to
+  // them, and getBoundingClientRect() includes that transform, so the measured top
+  // would feed back on the transform that produced it and the stack never settles.
+  // offsetTop is layout-only and unaffected by transforms, which is what we want.
   const getElementOffset = useCallback(
     (element: HTMLElement) => {
       if (useWindowScroll) {
-        const rect = element.getBoundingClientRect();
-        return rect.top + window.scrollY;
+        let top = 0;
+        let node: HTMLElement | null = element;
+        while (node) {
+          top += node.offsetTop;
+          node = node.offsetParent as HTMLElement | null;
+        }
+        return top;
       } else {
         return element.offsetTop;
       }

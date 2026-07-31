@@ -92,7 +92,7 @@ export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
   return (
     <div className="mt-20 flex w-full max-w-3xl flex-col items-center">
       <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
-        By default, we provide you with
+        By default, every service comes with
       </h2>
 
       <div className="mt-12 grid w-full gap-8 text-left sm:grid-cols-3">

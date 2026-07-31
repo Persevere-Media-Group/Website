@@ -222,24 +222,25 @@ export function ServicesKeir() {
             How it all works
           </h2>
 
-          {/* itemStackDistance is deliberately large: it's the sliver of each card
-              left showing once the next one stacks over it, so it has to clear the
-              card's top padding plus the number/title row to keep them readable. */}
+          {/* The header band is h-20 (80px) and itemStackDistance is 80 on purpose:
+              that band is exactly the strip left showing once the next card stacks
+              over this one, so the number and title survive and the body is covered.
+              Change one and you must change the other. */}
           <ScrollStack
             useWindowScroll
             className="mt-14 max-w-2xl"
             itemDistance={80}
-            itemStackDistance={76}
-            stackPosition="20%"
-            baseScale={0.88}
-            itemScale={0.02}
+            itemStackDistance={80}
+            stackPosition="18%"
+            baseScale={0.9}
+            itemScale={0.015}
           >
             {STAGES.map((stage) => (
               <ScrollStackItem
                 key={stage.number}
-                itemClassName="rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) px-7 pt-5 pb-7 text-left shadow-[0_12px_44px_-18px_rgba(74,31,29,0.55)]"
+                itemClassName="overflow-hidden rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) text-left shadow-[0_12px_44px_-18px_rgba(74,31,29,0.55)]"
               >
-                <div className="flex items-baseline gap-4">
+                <div className="flex h-20 items-center gap-4 px-7">
                   <span className="shrink-0 text-[clamp(1.35rem,2.8vw,1.9rem)] font-black tracking-tight text-(--color-terracotta)">
                     {stage.number}
                   </span>
@@ -248,7 +249,7 @@ export function ServicesKeir() {
                   </h3>
                 </div>
                 <p
-                  className="pt-3 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+                  className="px-7 pt-3 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
                   style={{ fontFamily: "var(--font-body)" }}
                 >
                   {stage.body}
