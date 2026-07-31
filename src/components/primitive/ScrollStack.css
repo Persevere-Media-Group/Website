@@ -1,41 +1,44 @@
 .scroll-stack-scroller {
   position: relative;
   width: 100%;
+}
+
+/* Mode A: the component owns its own scroll container (the standalone demo
+   layout). Kept intact so the component still works that way if needed. */
+.scroll-stack-scroller--internal {
   height: 100%;
   overflow-y: auto;
   overflow-x: visible;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   will-change: scroll-position;
 }
 
-.scroll-stack-inner {
+.scroll-stack-scroller--internal .scroll-stack-inner {
   padding: 20vh 5rem 50rem;
   min-height: 100vh;
 }
 
-.scroll-stack-card-wrapper {
-  position: relative;
+/* Mode B: driven by the page's own scroll, for use as a section inside a normal
+   page. The trailing space is what lets the last card finish stacking and unpin
+   before the next section scrolls into view. */
+.scroll-stack-scroller--window .scroll-stack-inner {
+  padding-bottom: 26rem;
 }
 
+/* Mechanics only. All visual styling (background, padding, radius, shadow) comes
+   from itemClassName so cards are themed with Tailwind like the rest of the site,
+   rather than being locked to a fixed height and look here. */
 .scroll-stack-card {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
   transform-origin: top center;
   will-change: transform, filter;
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-  height: 20rem;
-  width: 100%;
-  margin: 30px 0;
-  padding: 3rem;
-  border-radius: 40px;
-  box-sizing: border-box;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  position: relative;
 }
 
 .scroll-stack-end {

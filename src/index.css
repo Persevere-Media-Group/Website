@@ -155,6 +155,10 @@ body {
      so the animation reads as distinct from the solid amber-gold button face */
   --color-amber-gold-light: #f6ca79;
   --color-ivory: #f7f3e3;
+  /* raised surface that sits above --color-ivory. Fully opaque on purpose: the
+     stacked cards overlap each other, so any alpha here would let the card
+     behind show through the text. */
+  --color-ivory-raised: #fffdf5;
   --color-warm-black: #241914;
   --color-oxblood: #4a1f1d;
 }

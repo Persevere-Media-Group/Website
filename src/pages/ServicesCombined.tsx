@@ -191,7 +191,7 @@ export function IntroBanner({ name, words }: { name: string; words: string[] }) 
           style={{ transform: `scale(${wordRowScale})`, transformOrigin: "center" }}
         >
           <span className="whitespace-nowrap">
-            Hi I'm <span className="text-(--color-terracotta)">{name}</span>. I'm
+            Hi I'm <span className="text-(--color-terracotta)">{name}</span>. I'm your
           </span>
 
           {/* CylinderTextRotate lays its words out absolutely, so it carries no width

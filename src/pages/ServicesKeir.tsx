@@ -4,8 +4,13 @@ import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
-import { ScrollOpacityText } from "@/components/primitive/text-reveal";
-import { CALENDLY_URL, UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/pages/services-shared";
+import ScrollStack, { ScrollStackItem } from "@/components/primitive/ScrollStack";
+import {
+  CALENDLY_URL,
+  UNDERLINE_COLOR,
+  HIGHLIGHT_COLOR,
+  MARK_PROPS,
+} from "@/pages/services-shared";
 import {
   FaqAccordion,
   FaqLink,
@@ -150,7 +155,16 @@ export function ServicesKeir() {
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
-        <IntroBanner name="Keir" words={["your ad manager", "your numbers guy"]} />
+        <IntroBanner
+          name="Keir"
+          words={[
+            "ad manager",
+            "creative strategist",
+            "PPC strategist",
+            "strategy designer",
+            "growth partner",
+          ]}
+        />
 
         <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
           My role in Persevere Media
@@ -208,36 +222,40 @@ export function ServicesKeir() {
             How it all works
           </h2>
 
-          <div className="mt-14 flex w-full flex-col gap-10">
-            {STAGES.map((stage, i) => (
-              <AnimatedContent
+          {/* itemStackDistance is deliberately large: it's the sliver of each card
+              left showing once the next one stacks over it, so it has to clear the
+              card's top padding plus the number/title row to keep them readable. */}
+          <ScrollStack
+            useWindowScroll
+            className="mt-14 max-w-2xl"
+            itemDistance={80}
+            itemStackDistance={76}
+            stackPosition="20%"
+            baseScale={0.88}
+            itemScale={0.02}
+          >
+            {STAGES.map((stage) => (
+              <ScrollStackItem
                 key={stage.number}
-                direction="vertical"
-                distance={28}
-                duration={0.7}
-                ease="power3.out"
-                threshold={0.2}
-                delay={i * 0.08}
+                itemClassName="rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) px-7 pt-5 pb-7 text-left shadow-[0_12px_44px_-18px_rgba(74,31,29,0.55)]"
               >
-                <div className="flex items-start gap-6 text-left">
-                  <ScrollOpacityText className="shrink-0 text-[clamp(1.75rem,3.5vw,2.5rem)] font-black tracking-tight text-(--color-terracotta)">
+                <div className="flex items-baseline gap-4">
+                  <span className="shrink-0 text-[clamp(1.35rem,2.8vw,1.9rem)] font-black tracking-tight text-(--color-terracotta)">
                     {stage.number}
-                  </ScrollOpacityText>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood)">
-                      {stage.title}
-                    </h3>
-                    <p
-                      className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                      style={{ fontFamily: "var(--font-body)" }}
-                    >
-                      {stage.body}
-                    </p>
-                  </div>
+                  </span>
+                  <h3 className="text-[clamp(1.1rem,2.2vw,1.45rem)] font-black tracking-tight text-(--color-oxblood)">
+                    {stage.title}
+                  </h3>
                 </div>
-              </AnimatedContent>
+                <p
+                  className="pt-3 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  {stage.body}
+                </p>
+              </ScrollStackItem>
             ))}
-          </div>
+          </ScrollStack>
         </div>
 
         <SectionDivider />
