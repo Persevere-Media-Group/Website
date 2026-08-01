@@ -24,7 +24,7 @@ const CONTACT_API_URL = "https://persevere-email-api.vercel.app/api/send-email";
 // site to Google, it isn't a secret. Get this from
 // https://www.google.com/recaptcha/admin after registering the domain.
 // The matching secret key lives server-side in email-api, not here.
-const RECAPTCHA_SITE_KEY = "REPLACE_WITH_RECAPTCHA_SITE_KEY";
+const RECAPTCHA_SITE_KEY = "6LfCS3AtAAAAADpEdfO4MoIBV5YS_dLxzHD3DHoN";
 
 const SERVICE_OPTIONS = [
   "Creative strategy & content creation",
