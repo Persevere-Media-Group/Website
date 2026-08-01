@@ -7,6 +7,7 @@ import AnimatedContent from "@/components/primitive/animated-content";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import SquigglyArrow from "@/components/primitive/squiggly-arrow";
 import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
+import { Testimonials, type Testimonial } from "@/components/primitive/testimonial";
 import { CALENDLY_URL } from "@/pages/services-shared";
 
 // ---------------------------------------------------------------------------
@@ -60,6 +61,31 @@ const ROLES = [
       "Paid social, Google and PPC, and conversion rate optimisation that squeezes more out of every click.",
     to: "/services/keir",
     linkLabel: "Learn more",
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Testimonials
+// ---------------------------------------------------------------------------
+
+// PLACEHOLDER content - swap these for real client quotes once we have some
+// to show. Left obviously fake rather than invented-but-plausible so nobody
+// mistakes this for a genuine review before it's replaced.
+const TESTIMONIALS: Testimonial[] = [
+  {
+    quote: "Placeholder testimonial - replace with a real client quote.",
+    name: "Client Name",
+    role: "Role, Company",
+  },
+  {
+    quote: "Placeholder testimonial - replace with a real client quote.",
+    name: "Client Name",
+    role: "Role, Company",
+  },
+  {
+    quote: "Placeholder testimonial - replace with a real client quote.",
+    name: "Client Name",
+    role: "Role, Company",
   },
 ];
 
@@ -276,7 +302,12 @@ export function About() {
           <SectionDivider />
         </div>
 
-        <h2 className="mt-24 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+        <Testimonials
+          testimonials={TESTIMONIALS}
+          heading="We could tell you we're great. Or you could just ask them."
+        />
+
+        <h2 className="mt-4 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
           So, what's it going to be?
         </h2>
 

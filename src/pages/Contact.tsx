@@ -73,7 +73,7 @@ const CONTACT_FAQS: Faq[] = [
   },
   {
     q: "I'm not sure which service I need, can I still get in touch?",
-    a: "Of course. Pick \"Nae clue, help me figure it out\" from the service dropdown, or book a call instead, and we'll help you figure out where to start.",
+    a: 'Of course. Pick "Nae clue, help me figure it out" from the service dropdown, or book a call instead, and we\'ll help you figure out where to start.',
   },
   {
     q: "Is there a minimum budget to work with you?",
@@ -81,7 +81,7 @@ const CONTACT_FAQS: Faq[] = [
   },
   {
     q: "Do I need to prepare anything before I get in touch?",
-    a: "Nope, just come as you are. If you'd rather talk it through than type it out, use the \"Book a call\" link instead of the form.",
+    a: 'Nope, just come as you are. If you\'d rather talk it through than type it out, use the "Book a call" link instead of the form.',
   },
 ];
 

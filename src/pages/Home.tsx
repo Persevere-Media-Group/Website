@@ -412,8 +412,7 @@ const SERVICES_BLOCKS = [
     heading: "Thumb-stopping creative, that converts, made by us.",
     body: (
       <>
-        We build out your customer avatars, script the copy, and shoot and edit creative designed
-        to{" "}
+        We build out your customer avatars, script the copy, and shoot and edit creative designed to{" "}
         <Highlighter
           action="highlight"
           color="rgba(237, 176, 62, 0.3)"
