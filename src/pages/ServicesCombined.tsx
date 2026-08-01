@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/core/accordion";
+} from "@/components/primitive/accordion";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { PulsatingButton } from "@/components/primitive/pulsating-button";
