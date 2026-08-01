@@ -2,10 +2,8 @@ import { useRef } from "react";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
-import {
-  CylinderTextRotate,
-  getCylinderSizeCompensation,
-} from "@/components/primitive/cylinder-text-rotate";
+import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
+import { getCylinderSizeCompensation } from "@/lib/cylinder-size-compensation";
 import { ImageGallery } from "@/components/primitive/image-gallery";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { UNDERLINE_COLOR, MARK_PROPS, type AlwaysIncludedItem } from "@/pages/services-shared";

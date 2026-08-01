@@ -2,10 +2,8 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
-import {
-  CylinderTextRotate,
-  getCylinderSizeCompensation,
-} from "@/components/primitive/cylinder-text-rotate";
+import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
+import { getCylinderSizeCompensation } from "@/lib/cylinder-size-compensation";
 import { ClickSpark } from "@/components/primitive/click-spark";
 import { Grainient } from "@/components/primitive/grainient";
 import { SectionWave } from "@/components/primitive/section-wave";
