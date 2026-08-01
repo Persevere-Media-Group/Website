@@ -4,22 +4,17 @@ import { Resend } from "resend";
 // REMINDER (before deploying):
 // 1. Set RESEND_API_KEY in this Vercel project's environment variables. Do not put the
 //    real key in this file or in any .env file that gets committed.
-// 2. Replace COMPANY_EMAIL below with the real address you want submissions sent to.
-// 3. Once you're ready for production, verify a sending domain in the Resend
+// 2. Once you're ready for production, verify a sending domain in the Resend
 //    dashboard, then update FROM_EMAIL to use it instead of the default
 //    onboarding@resend.dev address, which is fine for testing but looks less
 //    trustworthy to recipients and has lower deliverability limits.
-const COMPANY_EMAIL = "REPLACE_WITH_COMPANY_EMAIL@example.com";
+const COMPANY_EMAIL = "keir@choosepersevere.com";
 const FROM_EMAIL = "onboarding@resend.dev";
 
 // This function is deployed as its own Vercel project, separate from the main
 // GitHub Pages site, so cross-origin requests need explicit CORS headers.
 // Keep this in sync with the domains the contact form is actually served from.
-const ALLOWED_ORIGINS = new Set([
-  "https://choosepersevere.com",
-  "https://www.choosepersevere.com",
-  "http://localhost:5173",
-]);
+const ALLOWED_ORIGINS = new Set(["https://choosepersevere.com", "http://localhost:5173"]);
 
 const MAX_NAME_LENGTH = 100;
 const MAX_MESSAGE_LENGTH = 5000;
