@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "ci:local": "pnpm install --frozen-lockfile && pnpm lint && pnpm format && pnpm format:check && pnpm test && pnpm build"
+    "ci:local": "pnpm install --frozen-lockfile && pnpm lint && pnpm format && pnpm format:check && pnpm test && pnpm build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -50,6 +51,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
+    "husky": "^9.1.7",
     "prettier": "^3.9.4",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.62.0",
