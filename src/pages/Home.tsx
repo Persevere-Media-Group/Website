@@ -8,6 +8,7 @@ import { Grainient } from "@/components/primitive/grainient";
 import { SectionWave } from "@/components/primitive/section-wave";
 import SpecularButton from "@/components/primitive/specular-button";
 import { PulsatingButton } from "@/components/primitive/pulsating-button";
+import SquigglyArrow from "@/components/primitive/squiggly-arrow";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { Backlight } from "@/components/primitive/backlight";
@@ -374,12 +375,14 @@ const SERVICES_BLOCKS = [
     heading: "Paid social and PPC, built and run properly.",
     body: "£20m+ in ad spend managed across budgets from £1,000 a month to £500,000 a month. We design a bespoke strategy, test constantly, and evolve with the data, not an AI agent left on autopilot.",
     to: "/services/keir",
+    linkLabel: "Learn more about our ads services",
   },
   {
     eyebrow: "CREATIVE",
     heading: "Thumb-stopping creative, that converts, made by us.",
     body: "We build out your customer avatars, script the copy, and shoot and edit creative designed to stop the scroll. The ads are built by the same team running the campaigns so we learn, and innovate.",
     to: "/services/calum",
+    linkLabel: "Learn more about our creative services",
   },
 ];
 
@@ -434,9 +437,18 @@ function OurServicesSection() {
               </p>
               <Link
                 to={block.to}
-                className="mt-2 w-fit font-bold text-(--color-terracotta) underline underline-offset-2"
+                className="group mt-2 inline-flex w-fit items-center gap-1 font-bold text-(--color-terracotta) underline underline-offset-2"
               >
-                Learn more →
+                <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
+                  Learn more
+                </span>
+                <SquigglyArrow
+                  width={120}
+                  height={60}
+                  strokeWidth={4}
+                  variant="bouncy"
+                  className="text-current"
+                />
               </Link>
             </div>
           </AnimatedContent>

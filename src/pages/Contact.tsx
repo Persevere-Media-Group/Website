@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
-import { Mail, Clock, Phone } from "lucide-react";
+import { Clock, Phone } from "lucide-react";
 import SpecularButton from "@/components/primitive/specular-button";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
@@ -51,7 +51,7 @@ const TIMEFRAME_OPTIONS = [
 ];
 
 const INPUT_CLASSES =
-  "w-full rounded-xl border border-(--color-oxblood)/20 bg-(--color-ivory) px-4 py-3 text-(--color-oxblood) outline-none transition-colors placeholder:text-(--color-oxblood)/35 focus:border-(--color-terracotta)";
+  "w-full rounded-xl border border-(--color-oxblood)/20 bg-(--color-ivory-raised) px-4 py-3 text-(--color-oxblood) outline-none transition-colors placeholder:text-(--color-oxblood)/35 focus:border-(--color-terracotta)";
 
 const LABEL_CLASSES = "mb-2 block text-sm font-semibold text-(--color-oxblood)";
 
@@ -159,14 +159,14 @@ export function Contact() {
       const result = (await response.json().catch(() => null)) as { ok?: boolean } | null;
 
       if (!response.ok || !result?.ok) {
-        setSendError("Something went wrong sending that. Please try again or email us directly.");
+        setSendError(`Something went wrong sending that. Please try again or email us at ${CONTACT_EMAIL}.`);
         return;
       }
 
       setSubmitted(true);
       fireConfetti();
     } catch {
-      setSendError("Something went wrong sending that. Please try again or email us directly.");
+      setSendError(`Something went wrong sending that. Please try again or email us at ${CONTACT_EMAIL}.`);
     } finally {
       setIsSending(false);
     }
@@ -232,31 +232,6 @@ export function Contact() {
               duration={0.6}
               ease="power3.out"
               threshold={0.3}
-              delay={0}
-            >
-              <div className="relative flex items-start gap-4">
-                <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
-                  <Mail size={18} />
-                </span>
-                <div className="pt-1.5">
-                  <p className="font-bold text-(--color-oxblood)">Email Us</p>
-                  <a
-                    href={`mailto:${CONTACT_EMAIL}`}
-                    className="text-(--color-terracotta) underline underline-offset-2"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    {CONTACT_EMAIL}
-                  </a>
-                </div>
-              </div>
-            </AnimatedContent>
-
-            <AnimatedContent
-              direction="horizontal"
-              distance={30}
-              duration={0.6}
-              ease="power3.out"
-              threshold={0.3}
               delay={0.24}
             >
               <div className="relative flex items-start gap-4">
@@ -308,7 +283,7 @@ export function Contact() {
             to resize when swapping between the form and the success message below */}
         <div
           ref={cardRef}
-          className="relative overflow-hidden rounded-3xl border border-(--color-oxblood)/10 bg-(--color-ivory) p-6 shadow-[0_18px_50px_-12px_rgba(74,31,29,0.18)] sm:p-9"
+          className="relative overflow-hidden rounded-3xl border border-(--color-oxblood)/10 bg-(--color-ivory-raised) p-6 shadow-[0_18px_50px_-12px_rgba(74,31,29,0.18)] sm:p-9"
           style={{ minHeight: cardHeight ? `${cardHeight}px` : undefined }}
         >
           {submitted ? (
@@ -318,7 +293,7 @@ export function Contact() {
                   Cheers!
                 </h2>
                 <p className="max-w-sm text-(--color-oxblood)/80">
-                  Message received.
+                  Your message has been sent.
                   <br />
                   We will get back to you within one working day.
                 </p>
