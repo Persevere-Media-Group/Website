@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import AnimatedContent from "@/components/primitive/animated-content";
 
 // ---------------------------------------------------------------------------
@@ -23,7 +24,7 @@ function QuoteMark() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="text-(--color-terracotta)/60"
+      className="text-(--color-amber-gold)"
     >
       <path
         d="M33.172 5.469q2.555 0 4.547 1.547a7.4 7.4 0 0 1 2.695 4.007q.47 1.711.469 3.61 0 2.883-1.125 5.86a22.8 22.8 0 0 1-3.094 5.577 33 33 0 0 1-4.57 4.922A35 35 0 0 1 26.539 35l-3.398-3.398q5.296-4.243 7.218-6.563 1.946-2.32 2.016-4.617-2.86-.329-4.781-2.461-1.923-2.133-1.922-4.992 0-3.117 2.18-5.297 2.202-2.203 5.32-2.203m-20.625 0q2.555 0 4.547 1.547a7.4 7.4 0 0 1 2.695 4.007q.47 1.711.469 3.61 0 2.883-1.125 5.86a22.8 22.8 0 0 1-3.094 5.577 33 33 0 0 1-4.57 4.922A35 35 0 0 1 5.914 35l-3.398-3.398q5.296-4.243 7.218-6.563 1.946-2.32 2.016-4.617-2.86-.329-4.781-2.461-1.922-2.133-1.922-4.992 0-3.117 2.18-5.297 2.202-2.203 5.32-2.203"
@@ -117,7 +118,7 @@ export function Testimonials({
   className = "",
 }: {
   testimonials: Testimonial[];
-  heading?: string;
+  heading?: ReactNode;
   subheading?: string;
   className?: string;
 }) {

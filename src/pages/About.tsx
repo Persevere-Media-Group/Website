@@ -174,9 +174,9 @@ export function About() {
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-16 sm:pt-20">
-        <h1 className="mt-3 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+        <h2 className="mt-3 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
           Two of us. Everything you need.
-        </h1>
+        </h2>
 
         {/* the two halves side by side on desktop, stacked on mobile - same card
           treatment as the Our Services section on the homepage */}
@@ -199,9 +199,9 @@ export function About() {
                 >
                   {role.lead}
                 </p>
-                <h2 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood)">
+                <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood)">
                   {role.title}
-                </h2>
+                </h3>
                 <p
                   className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed font-semibold text-(--color-oxblood)"
                   style={{ fontFamily: "var(--font-body)" }}
@@ -304,10 +304,20 @@ export function About() {
 
         <Testimonials
           testimonials={TESTIMONIALS}
-          heading="We could tell you we're great. Or you could just ask them."
+          heading={
+            <>
+              We could tell you we're great.
+              <br />
+              Or you could just ask them.
+            </>
+          }
         />
 
-        <h2 className="mt-4 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+        <div className="mt-4">
+          <SectionDivider reverse />
+        </div>
+
+        <h2 className="mt-24 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
           So, what's it going to be?
         </h2>
 
