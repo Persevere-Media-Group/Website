@@ -468,8 +468,8 @@ function WhyChooseSection() {
           className="mx-auto mt-4 max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-ivory)/85"
           style={{ fontFamily: "var(--font-body)" }}
         >
-          A straight-talking team who'll tell you what you need to hear, not what you want to
-          hear. Ready to join the team?
+          A straight-talking team who'll tell you what you need to hear, not what you want to hear.
+          Ready to come aboard?
         </p>
 
         <div className="mt-8 flex justify-center">
