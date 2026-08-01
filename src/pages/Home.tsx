@@ -40,7 +40,6 @@ const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
 const OUR_SERVICES_ID = "our-services";
 
-
 function HeroSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const wordRowRef = useRef<HTMLDivElement>(null);
