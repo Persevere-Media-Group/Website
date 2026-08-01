@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "ci": "pnpm lint && pnpm format:check && pnpm test && pnpm build"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
