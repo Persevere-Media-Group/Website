@@ -4,8 +4,10 @@ import { Clock, Phone, Users } from "lucide-react";
 import SpecularButton from "@/components/primitive/specular-button";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
+import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Instagram, Linkedin } from "@/components/primitive/svgs";
+import { FaqSection, type Faq } from "@/components/custom/faq";
 import confetti from "canvas-confetti";
 
 // ---------------------------------------------------------------------------
@@ -61,6 +63,25 @@ const TEAM_SOCIALS = [
     name: "Calum",
     linkedin: "https://www.linkedin.com/in/calum-keelan-005a09173/",
     instagram: "https://www.instagram.com/calummakesvideos/",
+  },
+];
+
+const CONTACT_FAQS: Faq[] = [
+  {
+    q: "What happens after I submit the form?",
+    a: "You'll hear back from a real person on the team, not a bot, within one working day.",
+  },
+  {
+    q: "I'm not sure which service I need, can I still get in touch?",
+    a: "Of course. Pick \"Nae clue, help me figure it out\" from the service dropdown, or book a call instead, and we'll help you figure out where to start.",
+  },
+  {
+    q: "Is there a minimum budget to work with you?",
+    a: "There's no fixed minimum. We've managed budgets from £1,000 a month right up to £500,000 a month, so tell us what you've got and we'll be straight with you about what's realistic.",
+  },
+  {
+    q: "Do I need to prepare anything before I get in touch?",
+    a: "Nope, just come as you are. If you'd rather talk it through than type it out, use the \"Book a call\" link instead of the form.",
   },
 ];
 
@@ -201,7 +222,7 @@ export function Contact() {
         </h1>
       </GrainWave>
 
-      <div className="mx-auto grid w-full max-w-6xl gap-14 px-4 pb-32 pt-16 sm:pt-20 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
+      <div className="mx-auto grid w-full max-w-6xl gap-14 px-4 pt-16 pb-16 sm:pt-20 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
         {/* left: context, so the form doesn't arrive cold */}
         <div className="flex flex-col">
           <AnimatedContent
@@ -595,6 +616,12 @@ export function Contact() {
             </form>
           )}
         </div>
+      </div>
+
+      <SectionDivider reverse />
+
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-4 pb-32 pt-16">
+        <FaqSection faqs={CONTACT_FAQS} />
       </div>
 
       <PopupModal

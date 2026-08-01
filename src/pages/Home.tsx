@@ -7,7 +7,7 @@ import { ClickSpark } from "@/components/primitive/click-spark";
 import { Grainient } from "@/components/primitive/grainient";
 import { SectionWave } from "@/components/primitive/section-wave";
 import SpecularButton from "@/components/primitive/specular-button";
-import { PulsatingButton } from "@/components/primitive/pulsating-button";
+import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
 import SquigglyArrow from "@/components/primitive/squiggly-arrow";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
@@ -373,14 +373,63 @@ const SERVICES_BLOCKS = [
   {
     eyebrow: "ADS",
     heading: "Paid social and PPC, built and run properly.",
-    body: "£20m+ in ad spend managed across budgets from £1,000 a month to £500,000 a month. We design a bespoke strategy, test constantly, and evolve with the data, not an AI agent left on autopilot.",
+    body: (
+      <>
+        <Highlighter
+          action="highlight"
+          color="rgba(237, 176, 62, 0.3)"
+          triggerOnView
+          animationDuration={1000}
+          iterations={2}
+        >
+          £20m+ in ad spend
+        </Highlighter>{" "}
+        managed across budgets from £1,000 a month to £500,000 a month. We design a bespoke
+        strategy, test constantly, and evolve with the data, not{" "}
+        <Highlighter
+          action="underline"
+          color="#d5573b"
+          triggerOnView
+          animationDuration={1000}
+          iterations={2}
+        >
+          an AI agent left on autopilot
+        </Highlighter>
+        .
+      </>
+    ),
     to: "/services/keir",
     linkLabel: "Learn more about our ads services",
   },
   {
     eyebrow: "CREATIVE",
     heading: "Thumb-stopping creative, that converts, made by us.",
-    body: "We build out your customer avatars, script the copy, and shoot and edit creative designed to stop the scroll. The ads are built by the same team running the campaigns so we learn, and innovate.",
+    body: (
+      <>
+        We build out your customer avatars, script the copy, and shoot and edit creative designed
+        to{" "}
+        <Highlighter
+          action="highlight"
+          color="rgba(237, 176, 62, 0.3)"
+          triggerOnView
+          animationDuration={1000}
+          iterations={2}
+        >
+          stop the scroll
+        </Highlighter>
+        . The ads are built by{" "}
+        <Highlighter
+          action="underline"
+          color="#d5573b"
+          triggerOnView
+          animationDuration={1000}
+          iterations={2}
+        >
+          the same team running the campaigns
+        </Highlighter>{" "}
+        so we learn, and innovate.
+      </>
+    ),
     to: "/services/calum",
     linkLabel: "Learn more about our creative services",
   },
@@ -396,7 +445,7 @@ function OurServicesSection() {
         Our Services
       </p>
       <h2 className="mt-3 text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
-        The best of both worlds
+        The Best of Both Worlds
       </h2>
       <p
         className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
@@ -404,7 +453,7 @@ function OurServicesSection() {
       >
         Most agencies hand you one and leave you to find the other.
         <br />
-        We do both, under one roof,closing the feedback loop.
+        We do both, under one roof, closing the feedback loop.
       </p>
 
       <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">
@@ -486,14 +535,9 @@ function WhyChooseSection() {
         </p>
 
         <div className="mt-8 flex justify-center">
-          <PulsatingButton
-            pulseColor="color-mix(in srgb, var(--color-amber-gold) 50%, transparent)"
-            duration="1.8s"
-            className="rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
-            onClick={() => navigate("/contact")}
-          >
+          <YellowPulsatingButton onClick={() => navigate("/contact")}>
             Get Started
-          </PulsatingButton>
+          </YellowPulsatingButton>
         </div>
       </AnimatedContent>
     </GrainWave>

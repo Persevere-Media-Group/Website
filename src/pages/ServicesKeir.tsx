@@ -11,13 +11,8 @@ import {
   HIGHLIGHT_COLOR,
   MARK_PROPS,
 } from "@/pages/services-shared";
-import {
-  FaqAccordion,
-  FaqLink,
-  AlwaysIncluded,
-  ClosingCta,
-  IntroBanner,
-} from "@/pages/ServicesCombined";
+import { FaqAccordion, FaqLink } from "@/components/custom/faq";
+import { AlwaysIncluded, ClosingCta, IntroBanner } from "@/pages/ServicesCombined";
 
 // ---------------------------------------------------------------------------
 // The five stages

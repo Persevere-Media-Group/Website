@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 // ---------------------------------------------------------------------------
 // Shared config/types for the two services pages (ServicesKeir / ServicesCalum).
 // Kept in their own module (rather than ServicesCombined.tsx) since that file
@@ -17,11 +15,6 @@ export const MARK_PROPS = {
   animationDuration: 1000,
   iterations: 2,
 } as const;
-
-export type Faq = {
-  q: string;
-  a: ReactNode;
-};
 
 export type AlwaysIncludedItem = {
   title: string;
