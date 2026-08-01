@@ -138,7 +138,7 @@ export function IntroBanner({
           </div>
         </div>
       </div>
-      <ImageGallery images={placeholderImages(name)} className="max-w-sm" />
+      <ImageGallery images={placeholderImages(name)} className="mt-10 max-w-sm" />
       {note && (
         <p
           className="max-w-sm text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/70"
