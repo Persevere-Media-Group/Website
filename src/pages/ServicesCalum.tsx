@@ -170,7 +170,7 @@ export function ServicesCalum() {
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-5 text-left">
           <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
-            My approach
+            Our Approach
           </h2>
           <p
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
