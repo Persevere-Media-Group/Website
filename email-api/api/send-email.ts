@@ -8,8 +8,14 @@ import { Resend } from "resend";
 //    dashboard, then update FROM_EMAIL to use it instead of the default
 //    onboarding@resend.dev address, which is fine for testing but looks less
 //    trustworthy to recipients and has lower deliverability limits.
+// 3. Set RECAPTCHA_SECRET_KEY in this Vercel project's environment variables. It
+//    pairs with the site key hardcoded in src/pages/Contact.tsx on the main site.
 const COMPANY_EMAIL = "keir@choosepersevere.com";
 const FROM_EMAIL = "onboarding@resend.dev";
+
+// reCAPTCHA v3 returns a 0-1 score instead of a pass/fail challenge, lower means
+// more bot-like. Google's own docs suggest 0.5 as a starting threshold.
+const RECAPTCHA_MIN_SCORE = 0.5;
 
 // This function is deployed as its own Vercel project, separate from the main
 // GitHub Pages site, so cross-origin requests need explicit CORS headers.
@@ -30,6 +36,13 @@ interface ContactBody {
   message?: unknown;
   timeframe?: unknown;
   honeypot?: unknown;
+  recaptchaToken?: unknown;
+}
+
+interface RecaptchaVerifyResponse {
+  success: boolean;
+  score?: number;
+  action?: string;
 }
 
 function escapeHtml(value: string): string {
@@ -38,6 +51,26 @@ function escapeHtml(value: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+async function isHuman(token: string): Promise<boolean> {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  if (!secret) {
+    console.error("RECAPTCHA_SECRET_KEY is not set");
+    return false;
+  }
+
+  const params = new URLSearchParams({ secret, response: token });
+  const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params,
+  });
+  const result = (await verifyRes.json()) as RecaptchaVerifyResponse;
+
+  return (
+    result.success && result.action === "contact_form" && (result.score ?? 0) >= RECAPTCHA_MIN_SCORE
+  );
 }
 
 function applyCors(req: VercelRequest, res: VercelResponse) {
@@ -70,6 +103,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // stop, no error, no email, so the bot has no signal to adapt to.
   if (typeof body.honeypot === "string" && body.honeypot.trim() !== "") {
     res.status(200).json({ ok: true });
+    return;
+  }
+
+  const recaptchaToken = typeof body.recaptchaToken === "string" ? body.recaptchaToken : "";
+  if (!recaptchaToken || !(await isHuman(recaptchaToken))) {
+    res.status(400).json({ ok: false, error: "Verification failed. Please try again." });
     return;
   }
 

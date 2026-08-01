@@ -20,6 +20,12 @@ const CONTACT_EMAIL = "hello@choosepersevere.com";
 // (see email-api/), separate from this GitHub Pages site.
 const CONTACT_API_URL = "https://persevere-email-api.vercel.app/api/send-email";
 
+// reCAPTCHA v3 site key. Public by design, safe to hardcode, it identifies the
+// site to Google, it isn't a secret. Get this from
+// https://www.google.com/recaptcha/admin after registering the domain.
+// The matching secret key lives server-side in email-api, not here.
+const RECAPTCHA_SITE_KEY = "REPLACE_WITH_RECAPTCHA_SITE_KEY";
+
 const SERVICE_OPTIONS = [
   "Creative strategy & content creation",
   "Paid media & performance marketing",
@@ -79,6 +85,31 @@ export function Contact() {
     return () => window.removeEventListener("resize", measure);
   }, [submitted]);
 
+  // loaded lazily here rather than in index.html, since reCAPTCHA is only needed
+  // on this page. skips re-adding the script if it's already on the page, which
+  // matters in dev under React StrictMode where effects run twice.
+  useEffect(() => {
+    if (document.querySelector('script[data-recaptcha="true"]')) return;
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    script.dataset.recaptcha = "true";
+    document.head.appendChild(script);
+  }, []);
+
+  const getRecaptchaToken = () =>
+    new Promise<string>((resolve, reject) => {
+      if (!window.grecaptcha) {
+        reject(new Error("reCAPTCHA has not loaded"));
+        return;
+      }
+      window.grecaptcha.ready(() => {
+        window
+          .grecaptcha!.execute(RECAPTCHA_SITE_KEY, { action: "contact_form" })
+          .then(resolve, reject);
+      });
+    });
+
   const fireConfetti = () => {
     // confetti's origin is normalised 0-1 coordinates of the whole VIEWPORT, not the
     // button, so it has to be computed from the button's actual on-screen position at
@@ -107,10 +138,12 @@ export function Contact() {
     const payload = Object.fromEntries(formData.entries());
 
     try {
+      const recaptchaToken = await getRecaptchaToken();
+
       const response = await fetch(CONTACT_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, recaptchaToken }),
       });
 
       const result = (await response.json().catch(() => null)) as { ok?: boolean } | null;
