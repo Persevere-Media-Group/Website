@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "@/components/custom/navbar";
 import { ScrollProgress } from "@/components/primitive/scroll-progress";
 import { FloatingCta } from "@/components/custom/floating-cta";
@@ -17,10 +17,14 @@ export function Layout() {
   // page while window.scrollY still holds the previous page's scroll position makes
   // window-scroll-driven components compute their initial layout against the wrong
   // scroll offset. Doing it inline during render guarantees it happens before any
-  // child of Outlet mounts.
-  const prevPathname = useRef(location.pathname);
-  if (prevPathname.current !== location.pathname) {
-    prevPathname.current = location.pathname;
+  // child of Outlet mounts. Tracks the previous pathname in state rather than a ref:
+  // React allows adjusting state during render for this "value changed since last
+  // render" comparison, but reading/writing a ref's `.current` during render is not
+  // safe (the render may be thrown away or run twice) and is flagged by the
+  // react-hooks/refs lint rule.
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
+  if (prevPathname !== location.pathname) {
+    setPrevPathname(location.pathname);
     window.scrollTo({ top: 0, behavior: "instant" });
   }
 
