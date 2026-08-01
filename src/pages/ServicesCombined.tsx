@@ -146,7 +146,7 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
       </p>
       <br />
       <PulsatingButton
-        pulseColor="var(--color-amber-gold-light)"
+        pulseColor="color-mix(in srgb, var(--color-amber-gold) 50%, transparent)"
         duration="1.8s"
         className="rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
         onClick={onBookCall}

@@ -7,6 +7,7 @@ import { ClickSpark } from "@/components/primitive/click-spark";
 import { Grainient } from "@/components/primitive/grainient";
 import { SectionWave } from "@/components/primitive/section-wave";
 import SpecularButton from "@/components/primitive/specular-button";
+import { PulsatingButton } from "@/components/primitive/pulsating-button";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { Backlight } from "@/components/primitive/backlight";
@@ -473,27 +474,14 @@ function WhyChooseSection() {
         </p>
 
         <div className="mt-8 flex justify-center">
-          <SpecularButton
-            size="lg"
-            radius={18}
-            tint="#ffffff"
-            tintOpacity={0}
-            blur={0}
-            textColor="#f5f5f5"
-            lineColor="#ffffff"
-            baseColor="#525252"
-            intensity={1}
-            shineSize={10}
-            shineFade={40}
-            thickness={1}
-            speed={0.35}
-            followMouse
-            proximity={250}
-            autoAnimate
+          <PulsatingButton
+            pulseColor="color-mix(in srgb, var(--color-amber-gold) 50%, transparent)"
+            duration="1.8s"
+            className="rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
             onClick={() => navigate("/contact")}
           >
             Get Started
-          </SpecularButton>
+          </PulsatingButton>
         </div>
       </AnimatedContent>
     </GrainWave>
