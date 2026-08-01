@@ -307,8 +307,8 @@ export function About() {
                     className="pt-3 pl-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
                     style={{ fontFamily: "var(--font-body)" }}
                   >
-                    The word Persevere itself goes back further than most people realise. Leith was
-                    its own burgh for centuries, a proper port town in its own right. Trading,
+                    The word "Persevere" itself goes back further than most people realise. Leith
+                    was its own burgh for centuries, a proper port town in its own right. Trading,
                     shipbuilding, always a bit separate from Edinburgh next door even after the two
                     got merged in 1920. It was never an easy place. Leith took some real knocks over
                     the years; poverty, overcrowding, the docks declining... but it kept rebuilding
@@ -324,10 +324,12 @@ export function About() {
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              Turns out it's a decent word for how we work too. There's no single lucky campaign
-              that fixes everything. It's more about showing up, trying stuff, tweaking what
-              doesn't work, and sticking with it until it does. That's the whole game, really.
-              Persevere.
+              Turns out it's a decent word for how we work too. Leith took the knocks and rebuilt
+              anyway, and that's basically the job. There's no single lucky campaign that fixes
+              everything, no clever hack that skips the grind. It's more about showing up, testing,
+              adjusting, and sticking with it until the results start to build. A slow month doesn't
+              mean the strategy's wrong, it means you tweak it and go again. That's the whole ethos,
+              really. Persevere.
             </p>
           </div>
         </div>
