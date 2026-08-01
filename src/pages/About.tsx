@@ -1,7 +1,13 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { PopupModal } from "react-calendly";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
+import SquigglyArrow from "@/components/primitive/squiggly-arrow";
+import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
+import { CALENDLY_URL } from "@/pages/services-shared";
 
 // ---------------------------------------------------------------------------
 // Highlight/underline config
@@ -43,6 +49,8 @@ const ROLES = [
     hook: "The stuff that makes people follow you, trust you, and remember you.",
     detail:
       "Video, organic social, and influencer partnerships built around your brand, not pulled off a template.",
+    to: "/services/calum",
+    linkLabel: "Learn more",
   },
   {
     title: "Paid & Performance",
@@ -50,6 +58,8 @@ const ROLES = [
     hook: "The engine that turns all that attention into sales.",
     detail:
       "Paid social, Google and PPC, and conversion rate optimisation that squeezes more out of every click.",
+    to: "/services/keir",
+    linkLabel: "Learn more",
   },
 ];
 
@@ -123,6 +133,8 @@ const AFTER = [
 // ---------------------------------------------------------------------------
 
 export function About() {
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+
   // NOTE: the <section> deliberately has no padding of its own. Any padding here would
   // push GrainWave down from the top of the page and stop it reaching the screen edges,
   // so the padding lives on the content wrapper below the band instead (same pattern
@@ -135,37 +147,64 @@ export function About() {
         </h1>
       </GrainWave>
 
-      <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
+      <div className="flex w-full flex-col items-center px-4 pt-16 pb-16 sm:pt-20">
         <h1 className="mt-3 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
           Two of us. Everything you need.
         </h1>
 
-        {/* the two halves side by side on desktop, stacked on mobile */}
-        <div className="mt-14 grid w-full max-w-3xl gap-8 text-left sm:grid-cols-2 sm:gap-10">
-          {ROLES.map((role) => (
-            <div key={role.title} className="flex flex-col gap-3">
-              <h2 className="text-[clamp(1.35rem,2.6vw,1.75rem)] font-black tracking-tight text-(--color-oxblood)">
-                {role.title}
-              </h2>
-              <p
-                className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                {role.lead}
-              </p>
-              <p
-                className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed font-semibold text-(--color-oxblood)"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                {role.hook}
-              </p>
-              <p
-                className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                {role.detail}
-              </p>
-            </div>
+        {/* the two halves side by side on desktop, stacked on mobile - same card
+          treatment as the Our Services section on the homepage */}
+        <div className="mx-auto mt-14 grid w-full max-w-4xl gap-8 text-left sm:grid-cols-2">
+          {ROLES.map((role, i) => (
+            <AnimatedContent
+              key={role.title}
+              direction="vertical"
+              distance={40}
+              duration={0.7}
+              ease="power3.out"
+              threshold={0.2}
+              delay={i * 0.1}
+              className="h-full"
+            >
+              <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
+                <p
+                  className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  {role.lead}
+                </p>
+                <h2 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood)">
+                  {role.title}
+                </h2>
+                <p
+                  className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed font-semibold text-(--color-oxblood)"
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  {role.hook}
+                </p>
+                <p
+                  className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  {role.detail}
+                </p>
+                <Link
+                  to={role.to}
+                  className="group mt-2 inline-flex w-fit items-center gap-1 font-bold text-(--color-terracotta) underline underline-offset-2"
+                >
+                  <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
+                    {role.linkLabel}
+                  </span>
+                  <SquigglyArrow
+                    width={120}
+                    height={60}
+                    strokeWidth={4}
+                    variant="bouncy"
+                    className="text-current"
+                  />
+                </Link>
+              </div>
+            </AnimatedContent>
           ))}
         </div>
 
@@ -311,7 +350,20 @@ export function About() {
             Choose Persevere.
           </Highlighter>
         </p>
+
+        <div className="mt-20">
+          <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
+            Book a Call
+          </YellowPulsatingButton>
+        </div>
       </div>
+
+      <PopupModal
+        url={CALENDLY_URL}
+        onModalClose={() => setIsCalendlyOpen(false)}
+        open={isCalendlyOpen}
+        rootElement={document.getElementById("root")!}
+      />
     </section>
   );
 }
