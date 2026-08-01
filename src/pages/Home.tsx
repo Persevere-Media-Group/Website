@@ -46,6 +46,7 @@ const OUR_SERVICES_ID = "our-services";
 
 function HeroSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const navigate = useNavigate();
   const wordRowRef = useRef<HTMLDivElement>(null);
   const wordRowScale = useAutoFitScale(wordRowRef);
 
@@ -138,8 +139,8 @@ function HeroSection() {
           <SpecularButton
             size="lg"
             radius={18}
-            tint="var(--color-amber-gold)"
-            tintOpacity={0.3}
+            tint="#ffffff"
+            tintOpacity={0}
             blur={0}
             textColor="#f5f5f5"
             lineColor="#ffffff"
@@ -152,11 +153,16 @@ function HeroSection() {
             followMouse
             proximity={250}
             autoAnimate={false}
-            className="shadow-[0_0_28px_-6px_var(--color-amber-gold)]"
-            onClick={() => setIsCalendlyOpen(true)}
+            onClick={() => navigate("/about")}
           >
-            Book a Call
+            About Us
           </SpecularButton>
+        </div>
+
+        <div className="mt-6">
+          <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
+            Book a Call
+          </YellowPulsatingButton>
         </div>
       </ClickSpark>
 
