@@ -24,7 +24,7 @@ export function SectionWave({
   return (
     <div
       aria-hidden
-      className={`absolute inset-x-0 bottom-0 w-full overflow-hidden ${flip ? "rotate-180" : ""} ${className ?? ""}`}
+      className={`absolute inset-x-0 w-full overflow-hidden ${flip ? "top-0 rotate-180" : "bottom-0"} ${className ?? ""}`}
     >
       <svg
         viewBox="0 0 2880 120"
@@ -40,8 +40,10 @@ export function SectionWave({
           style={{ fill: resolvedFill }}
         />
       </svg>
-      {/* a static, non-animated strip pinned to the very bottom edge, covers any subpixel
-          rendering gap the rolling animation can leave along the seam on some mobile browsers */}
+      {/* a static, non-animated strip pinned to the wave's own outer edge (bottom
+          normally, top once flipped since the rotation carries this along with it),
+          covers any subpixel rendering gap the rolling animation can leave along the
+          seam on some mobile browsers */}
       <div
         className="absolute inset-x-0 bottom-0 h-0.5"
         style={{ backgroundColor: resolvedFill }}

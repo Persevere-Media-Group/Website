@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
@@ -12,6 +12,7 @@ import { Highlighter } from "@/components/primitive/highlighter";
 import { Backlight } from "@/components/primitive/backlight";
 import StatsCount from "@/components/primitive/statscount";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
+import { GrainWave } from "@/components/custom/grain-wave";
 
 // ---------------------------------------------------------------------------
 // Hero
@@ -445,6 +446,61 @@ function OurServicesSection() {
 }
 
 // ---------------------------------------------------------------------------
+// Why Choose Us
+// ---------------------------------------------------------------------------
+
+function WhyChooseSection() {
+  const navigate = useNavigate();
+
+  return (
+    <GrainWave height="22rem" waveClassName="h-16 sm:h-24 md:h-28" waveTop waveBottom={false}>
+      <AnimatedContent
+        direction="vertical"
+        distance={40}
+        duration={0.7}
+        ease="power3.out"
+        threshold={0.2}
+      >
+        <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-ivory)">
+          Why choose Persevere?
+        </h2>
+        <p
+          className="mx-auto mt-4 max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-ivory)/85"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          A straight-talking team who'll tell you what you need to hear, not what you want to
+          hear. Ready to join the team?
+        </p>
+
+        <div className="mt-8 flex justify-center">
+          <SpecularButton
+            size="lg"
+            radius={18}
+            tint="#ffffff"
+            tintOpacity={0}
+            blur={0}
+            textColor="#f5f5f5"
+            lineColor="#ffffff"
+            baseColor="#525252"
+            intensity={1}
+            shineSize={10}
+            shineFade={40}
+            thickness={1}
+            speed={0.35}
+            followMouse
+            proximity={250}
+            autoAnimate
+            onClick={() => navigate("/contact")}
+          >
+            Get Started
+          </SpecularButton>
+        </div>
+      </AnimatedContent>
+    </GrainWave>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
 
@@ -458,6 +514,7 @@ export function Home() {
       <SectionDivider reverse />
       <VideoSection />
       <OurServicesSection />
+      <WhyChooseSection />
     </>
   );
 }

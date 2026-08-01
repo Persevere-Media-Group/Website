@@ -20,6 +20,18 @@ interface GrainWaveProps {
   fillColor?: string;
   /** wave height, responsive by default and matching the hero's */
   waveClassName?: string;
+  /** whether to render the bottom wave, cutting down into `fillColor`. Default true,
+   * matching every existing use of this component as a page-top header band. Turn
+   * off when the gradient itself should run flush to whatever comes after it (e.g.
+   * the footer) instead of being capped by a curve. */
+  waveBottom?: boolean;
+  /** whether to render a mirrored wave at the top, cutting UP from `topFillColor` into
+   * the gradient - the inverse of the usual bottom wave, for bands placed mid-page
+   * that need to transition in from the section above rather than just starting flat. */
+  waveTop?: boolean;
+  /** the colour the top wave cuts up from, should match whatever section precedes this
+   * one. Defaults to `fillColor` since in practice both are usually ivory. */
+  topFillColor?: string;
   /** optional content to sit on top of the gradient, e.g. a page title */
   children?: ReactNode;
   className?: string;
@@ -37,6 +49,9 @@ export function GrainWave({
   noiseIntensity = 1.5,
   fillColor = "--color-ivory",
   waveClassName = "h-20 sm:h-28 md:h-36",
+  waveBottom = true,
+  waveTop = false,
+  topFillColor,
   children,
   className,
 }: GrainWaveProps) {
@@ -56,17 +71,29 @@ export function GrainWave({
         className="absolute inset-0"
       />
 
-      {/* optional content sits above the gradient but below the wave, padded so it
-          doesn't collide with the curve at the bottom */}
+      {/* optional content sits above the gradient but below the waves, padded so it
+          doesn't collide with whichever curves are actually enabled */}
       {children && (
-        <div className="relative z-10 w-full px-4 pb-24 pt-20 text-center sm:pb-28 md:pb-32">
+        <div
+          className={`relative z-10 w-full px-4 text-center ${waveTop ? "pt-24 sm:pt-28 md:pt-32" : "pt-20"} ${waveBottom ? "pb-24 sm:pb-28 md:pb-32" : "pb-16"}`}
+        >
           {children}
         </div>
       )}
 
+      {/* solid curve capping the top, mirrored so it reads as cutting UP from the
+          previous section into the gradient rather than down out of it */}
+      {waveTop && (
+        <SectionWave
+          fillColor={topFillColor ?? fillColor}
+          flip
+          className={`z-20 ${waveClassName}`}
+        />
+      )}
+
       {/* solid curve capping the bottom, sits above the animated layers so it reads as
           a clean edge rather than picking up the grain underneath it */}
-      <SectionWave fillColor={fillColor} className={`z-20 ${waveClassName}`} />
+      {waveBottom && <SectionWave fillColor={fillColor} className={`z-20 ${waveClassName}`} />}
     </div>
   );
 }
