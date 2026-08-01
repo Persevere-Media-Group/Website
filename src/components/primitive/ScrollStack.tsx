@@ -115,9 +115,12 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     const stackPositionPx = parsePercentage(stackPosition, containerHeight);
     const scaleEndPositionPx = parsePercentage(scaleEndPosition, containerHeight);
 
-    const endElement = useWindowScroll
-      ? (document.querySelector(".scroll-stack-end") as HTMLElement)
-      : (scrollerRef.current?.querySelector(".scroll-stack-end") as HTMLElement);
+    // scoped to this instance's own scroller even in window-scroll mode, not
+    // document.querySelector: during a route transition the outgoing page's
+    // ScrollStack can still be mounted (AnimatePresence's exit animation) at the
+    // same time this one mounts, and a document-wide query would grab whichever
+    // instance's end marker happens to come first in the DOM.
+    const endElement = scrollerRef.current?.querySelector(".scroll-stack-end") as HTMLElement;
 
     const endElementTop = endElement ? getElementOffset(endElement) : 0;
 
@@ -206,7 +209,6 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     baseScale,
     rotationAmount,
     blurAmount,
-    useWindowScroll,
     onStackComplete,
     calculateProgress,
     parsePercentage,
@@ -278,11 +280,10 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
-    const cards = Array.from(
-      useWindowScroll
-        ? document.querySelectorAll(".scroll-stack-card")
-        : scroller.querySelectorAll(".scroll-stack-card")
-    ) as HTMLElement[];
+    // scoped to this instance's own scroller, same reasoning as the .scroll-stack-end
+    // lookup below: a document-wide query would also pick up an outgoing instance's
+    // cards if one is still mid-exit-animation during a route transition.
+    const cards = Array.from(scroller.querySelectorAll(".scroll-stack-card")) as HTMLElement[];
 
     cardsRef.current = cards;
     const transformsCache = lastTransformsRef.current;
@@ -304,7 +305,20 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 
     updateCardTransforms();
 
+    // Cards are positioned from measurements taken right here, but anything that
+    // reflows the page after this line (web fonts swapping in, a sibling component
+    // that measures its own width post-mount, etc.) shifts where the cards actually
+    // sit without ever triggering a recalculation, since otherwise transforms only
+    // update on scroll. Recompute once fonts settle, and watch for any other late
+    // resize with a ResizeObserver as a general-purpose catch-all, belt-and-braces
+    // alongside the DOM-scoping fix above for the actual cross-instance bug.
+    document.fonts.ready.then(() => updateCardTransforms());
+
+    const resizeObserver = new ResizeObserver(() => updateCardTransforms());
+    resizeObserver.observe(useWindowScroll ? document.body : scroller);
+
     return () => {
+      resizeObserver.disconnect();
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
