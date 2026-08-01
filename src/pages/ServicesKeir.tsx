@@ -161,7 +161,6 @@ export function ServicesKeir() {
           ]}
           note="In my spare time you can find me at Edinburgh Filmhouse watching movies, running whilst listening to new albums, or trying to find a new coffee shop!"
         />
-
         <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
           My role in Persevere Media
         </h2>
@@ -169,16 +168,27 @@ export function ServicesKeir() {
           className="mt-6 max-w-2xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
           style={{ fontFamily: "var(--font-body)" }}
         >
-          Paid social and PPC, built and run properly, not set and forgotten.{" "}
+          I lead Paid social and PPC here. Where we build and run properly, not a set and forget
+          approach. We have{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
-            Ten-plus years of combined experience, £20m+ in ad spend,
+            10+ years of combined experience
           </Highlighter>
-          and budgets managed from £1,000 a month to £500,000 a month. Whatever your niche, we've
-          (probably) worked it.
+          , managed{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            £20m+ in ad spend
+          </Highlighter>
+          , and worked with budgets ranging from{" "}
+          <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
+            £1,000
+          </Highlighter>{" "}
+          a month to{" "}
+          <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
+            £500,000
+          </Highlighter>{" "}
+          a month. Whatever your niche, we've (probably) worked it.
         </p>
-
+        <br />
         <SectionDivider />
-
         {/* --------------------------------------------------------------- */}
         {/* The approach                                                    */}
         {/* --------------------------------------------------------------- */}
@@ -207,9 +217,7 @@ export function ServicesKeir() {
             gets run.
           </p>
         </div>
-
         <SectionDivider reverse />
-
         {/* --------------------------------------------------------------- */}
         {/* Five stages                                                     */}
         {/* --------------------------------------------------------------- */}
@@ -254,9 +262,7 @@ export function ServicesKeir() {
             ))}
           </ScrollStack>
         </div>
-
         <SectionDivider />
-
         {/* --------------------------------------------------------------- */}
         {/* What's included                                                 */}
         {/* --------------------------------------------------------------- */}
@@ -286,14 +292,11 @@ export function ServicesKeir() {
             ))}
           </ul>
         </div>
-
         {/* --------------------------------------------------------------- */}
         {/* Always included                                                 */}
         {/* --------------------------------------------------------------- */}
         <AlwaysIncluded items={ALWAYS_INCLUDED} />
-
         <SectionDivider reverse />
-
         {/* --------------------------------------------------------------- */}
         {/* FAQ                                                             */}
         {/* --------------------------------------------------------------- */}
@@ -303,9 +306,7 @@ export function ServicesKeir() {
           </h2>
           <FaqAccordion faqs={FAQS} />
         </div>
-
         <SectionDivider />
-
         {/* --------------------------------------------------------------- */}
         {/* Closing CTA                                                     */}
         {/* --------------------------------------------------------------- */}

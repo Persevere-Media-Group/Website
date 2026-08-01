@@ -162,7 +162,7 @@ export function ServicesCalum() {
           posts. Shoots, edits, strategy, and the actual posting, done properly, by people who care
           whether it works.
         </p>
-
+        <br />
         <SectionDivider />
 
         {/* --------------------------------------------------------------- */}
