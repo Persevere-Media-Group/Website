@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
-import { Clock, Phone, Users } from "lucide-react";
+import { HelpCircle, Phone, Users } from "lucide-react";
 import SpecularButton from "@/components/primitive/specular-button";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
@@ -275,16 +275,22 @@ export function Contact() {
             >
               <div className="relative flex items-start gap-4">
                 <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
-                  <Clock size={18} />
+                  <HelpCircle size={18} />
                 </span>
                 <div className="pt-1.5">
-                  <p className="font-bold text-(--color-oxblood)">Response time</p>
-                  <p
-                    className="text-(--color-oxblood)/80"
+                  <p className="font-bold text-(--color-oxblood)">Got a quick question?</p>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      document
+                        .getElementById("contact-faqs")
+                        ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                    }
+                    className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
                     style={{ fontFamily: "var(--font-body)" }}
                   >
-                    Within one working day
-                  </p>
+                    Check out the FAQs below
+                  </button>
                 </div>
               </div>
             </AnimatedContent>
@@ -620,7 +626,10 @@ export function Contact() {
 
       <SectionDivider reverse />
 
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-4 pb-32 pt-16">
+      <div
+        id="contact-faqs"
+        className="mx-auto flex w-full max-w-6xl scroll-mt-24 flex-col items-center px-4 pb-32 pt-16"
+      >
         <FaqSection faqs={CONTACT_FAQS} />
       </div>
 
