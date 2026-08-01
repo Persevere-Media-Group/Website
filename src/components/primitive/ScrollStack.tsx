@@ -226,7 +226,9 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
-        touchMultiplier: 2,
+        // Native mobile scrolling tracks the finger 1:1; a multiplier above 1 here
+        // makes a small swipe move the page much further and faster than expected.
+        touchMultiplier: 1,
         infinite: false,
         wheelMultiplier: 1,
         lerp: 0.1,
@@ -254,7 +256,8 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
-        touchMultiplier: 2,
+        // See touchMultiplier note above.
+        touchMultiplier: 1,
         infinite: false,
         gestureOrientation: "vertical",
         wheelMultiplier: 1,
