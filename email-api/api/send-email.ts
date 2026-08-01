@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { Resend } from "resend";
 
 // REMINDER (before deploying):
-// 1. Set RESEND_API_KEY in Vercel's project environment variables. Do not put the
+// 1. Set RESEND_API_KEY in this Vercel project's environment variables. Do not put the
 //    real key in this file or in any .env file that gets committed.
 // 2. Replace COMPANY_EMAIL below with the real address you want submissions sent to.
 // 3. Once you're ready for production, verify a sending domain in the Resend
@@ -12,6 +12,15 @@ import { Resend } from "resend";
 const COMPANY_EMAIL = "REPLACE_WITH_COMPANY_EMAIL@example.com";
 const FROM_EMAIL = "onboarding@resend.dev";
 
+// This function is deployed as its own Vercel project, separate from the main
+// GitHub Pages site, so cross-origin requests need explicit CORS headers.
+// Keep this in sync with the domains the contact form is actually served from.
+const ALLOWED_ORIGINS = new Set([
+  "https://choosepersevere.com",
+  "https://www.choosepersevere.com",
+  "http://localhost:5173",
+]);
+
 const MAX_NAME_LENGTH = 100;
 const MAX_MESSAGE_LENGTH = 5000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -19,7 +28,12 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 interface ContactBody {
   name?: unknown;
   email?: unknown;
+  business?: unknown;
+  website?: unknown;
+  service?: unknown;
+  budget?: unknown;
   message?: unknown;
+  timeframe?: unknown;
   honeypot?: unknown;
 }
 
@@ -31,7 +45,24 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
+function applyCors(req: VercelRequest, res: VercelResponse) {
+  const origin = req.headers.origin;
+  if (typeof origin === "string" && ALLOWED_ORIGINS.has(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+  }
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  applyCors(req, res);
+
+  if (req.method === "OPTIONS") {
+    res.status(204).end();
+    return;
+  }
+
   if (req.method !== "POST") {
     res.status(405).json({ ok: false, error: "Method not allowed" });
     return;
@@ -49,7 +80,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const name = typeof body.name === "string" ? body.name.trim() : "";
   const email = typeof body.email === "string" ? body.email.trim() : "";
+  const business = typeof body.business === "string" ? body.business.trim() : "";
+  const website = typeof body.website === "string" ? body.website.trim() : "";
+  const service = typeof body.service === "string" ? body.service.trim() : "";
+  const budget = typeof body.budget === "string" ? body.budget.trim() : "";
   const message = typeof body.message === "string" ? body.message.trim() : "";
+  const timeframe = typeof body.timeframe === "string" ? body.timeframe.trim() : "";
 
   if (!name || !email || !message) {
     res.status(400).json({ ok: false, error: "Name, email, and message are required" });
@@ -73,6 +109,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const resend = new Resend(process.env.RESEND_API_KEY);
 
+  // optional fields only render a row when the visitor actually filled them in
+  const optionalRows = [
+    ["Business", business],
+    ["Website", website],
+    ["What they're after", service],
+    ["Monthly ad spend", budget],
+    ["Timeframe", timeframe],
+  ]
+    .filter(([, value]) => value)
+    .map(([label, value]) => `<p><strong>${label}:</strong> ${escapeHtml(value)}</p>`)
+    .join("\n");
+
   try {
     const { error } = await resend.emails.send({
       from: `Website contact form <${FROM_EMAIL}>`,
@@ -82,6 +130,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       html: `
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        ${optionalRows}
         <p><strong>Message:</strong></p>
         <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
       `.trim(),

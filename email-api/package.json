@@ -1,0 +1,13 @@
+{
+  "name": "choose-persevere-email-api",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "dependencies": {
+    "resend": "^6.18.1"
+  },
+  "devDependencies": {
+    "@vercel/node": "^5.9.3",
+    "typescript": "~6.0.2"
+  }
+}

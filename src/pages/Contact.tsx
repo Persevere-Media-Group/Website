@@ -16,6 +16,11 @@ const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
 const CONTACT_EMAIL = "hello@choosepersevere.com";
 
+// The contact form's send endpoint lives in its own small Vercel project
+// (see email-api/), separate from this GitHub Pages site. Replace with that
+// project's actual deployment URL once it's created.
+const CONTACT_API_URL = "https://REPLACE_WITH_EMAIL_API_PROJECT.vercel.app/api/send-email";
+
 const SERVICE_OPTIONS = [
   "Creative strategy & content creation",
   "Paid media & performance marketing",
@@ -103,7 +108,7 @@ export function Contact() {
     const payload = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("/api/send-email", {
+      const response = await fetch(CONTACT_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
