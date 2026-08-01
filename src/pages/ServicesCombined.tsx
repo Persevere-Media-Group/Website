@@ -18,7 +18,7 @@ export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
         By default, every service comes with
       </h2>
 
-      <div className="mt-12 grid w-full gap-8 text-left sm:grid-cols-3">
+      <div className="mt-12 grid w-full gap-8 text-center sm:grid-cols-3">
         {items.map((item, i) => (
           <AnimatedContent
             key={item.title}
@@ -29,7 +29,10 @@ export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
             threshold={0.2}
             delay={i * 0.1}
           >
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col items-center gap-2">
+              <span className="mb-1 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
+                <item.icon size={18} />
+              </span>
               <h3 className="text-[clamp(1.1rem,2vw,1.3rem)] font-black tracking-tight text-(--color-oxblood)">
                 {item.title}
               </h3>

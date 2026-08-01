@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 // ---------------------------------------------------------------------------
 // Shared config/types for the two services pages (ServicesKeir / ServicesCalum).
 // Kept in their own module (rather than ServicesCombined.tsx) since that file
@@ -17,6 +19,7 @@ export const MARK_PROPS = {
 } as const;
 
 export type AlwaysIncludedItem = {
+  icon: LucideIcon;
   title: string;
   body: string;
 };

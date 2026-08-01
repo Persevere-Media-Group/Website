@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PopupModal } from "react-calendly";
+import { CalendarClock, MessagesSquare, BarChart3 } from "lucide-react";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
@@ -60,14 +61,17 @@ const WHATS_INCLUDED = [
 
 const ALWAYS_INCLUDED = [
   {
+    icon: CalendarClock,
     title: "Monthly reporting call",
     body: "A proper call, every month, going through what's working, what's changed, and what's next.",
   },
   {
+    icon: MessagesSquare,
     title: "Direct access to us",
     body: "A group chat with the two of us. Real access, not an account manager relaying messages. (Not at 11pm though, we've got lives too.)",
   },
   {
+    icon: BarChart3,
     title: "Transparent reporting tools",
     body: "We'll help you get set up with tools that keep the numbers clear and trustworthy, not vanity metrics dressed up to make us look good. We want your business to actually do well, not just look good on a slide.",
   },
