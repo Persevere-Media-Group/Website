@@ -90,7 +90,15 @@ function placeholderImages(name: string): { src: string; alt: string }[] {
 // Reads as "Hi I'm <name>. I'm <rotating keyword>". The name is fixed copy and the
 // standout of the line; `words` holds only the rotating keywords, so it should not
 // include the name itself.
-export function IntroBanner({ name, words }: { name: string; words: string[] }) {
+export function IntroBanner({
+  name,
+  words,
+  note,
+}: {
+  name: string;
+  words: string[];
+  note?: string;
+}) {
   const wordRowRef = useRef<HTMLDivElement>(null);
   const wordRowScale = useAutoFitScale(wordRowRef);
 
@@ -131,6 +139,14 @@ export function IntroBanner({ name, words }: { name: string; words: string[] }) 
         </div>
       </div>
       <ImageGallery images={placeholderImages(name)} className="max-w-sm" />
+      {note && (
+        <p
+          className="max-w-sm text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/70"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          {note}
+        </p>
+      )}
     </div>
   );
 }

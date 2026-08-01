@@ -159,6 +159,7 @@ export function ServicesKeir() {
             "strategy designer",
             "growth partner",
           ]}
+          note="In my spare time you can find me at Edinburgh Filmhouse watching movies, running whilst listening to new albums, or trying to find a new coffee shop!"
         />
 
         <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">

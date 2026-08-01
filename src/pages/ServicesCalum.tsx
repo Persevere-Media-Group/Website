@@ -148,6 +148,7 @@ export function ServicesCalum() {
             "content strategist",
             "growth partner",
           ]}
+          note="Calum will give me a sentence soon"
         />
 
         <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
