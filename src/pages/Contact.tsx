@@ -384,7 +384,7 @@ export function Contact() {
                   to the layout. aria-hidden and tabIndex={-1} keep it out of the
                   accessibility tree and tab order so screen reader and keyboard users
                   never land on it. */}
-              <div className="absolute -left-[9999px] top-0" aria-hidden="true">
+              <div className="absolute left-[-9999px] top-0" aria-hidden="true">
                 <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" />
               </div>
 

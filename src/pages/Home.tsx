@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
@@ -365,12 +366,79 @@ function VideoSection() {
 // Our Services
 // ---------------------------------------------------------------------------
 
+const SERVICES_BLOCKS = [
+  {
+    eyebrow: "ADS",
+    heading: "Paid social and PPC, built and run properly.",
+    body: "£20m+ in ad spend managed across budgets from £1,000 a month to £500,000 a month. We design a bespoke strategy, test constantly, and evolve with the data, not an AI agent left on autopilot.",
+    to: "/services/keir",
+  },
+  {
+    eyebrow: "CREATIVE",
+    heading: "Thumb-stopping creative, that converts, made by us.",
+    body: "We build out your customer avatars, script the copy, and shoot and edit creative designed to stop the scroll. The ads are built by the same team running the campaigns so we learn, and innovate.",
+    to: "/services/calum",
+  },
+];
+
 function OurServicesSection() {
   return (
     <section id={OUR_SERVICES_ID} className="bg-(--color-ivory) px-4 py-24 text-center">
-      <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
+      <p
+        className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
+        style={{ fontFamily: "var(--font-body)" }}
+      >
         Our Services
+      </p>
+      <h2 className="mt-3 text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
+        The best of both worlds
       </h2>
+      <p
+        className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
+        style={{ fontFamily: "var(--font-body)" }}
+      >
+        Most agencies hand you one and leave you to find the other. We do both, under one roof,
+        closing the feedback loop.
+      </p>
+
+      <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">
+        {SERVICES_BLOCKS.map((block, i) => (
+          <AnimatedContent
+            key={block.eyebrow}
+            direction="vertical"
+            distance={40}
+            duration={0.7}
+            ease="power3.out"
+            threshold={0.2}
+            delay={i * 0.1}
+            className="h-full"
+          >
+            <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
+              <p
+                className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {block.eyebrow}
+              </p>
+              <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood)">
+                {block.heading}
+              </h3>
+              <p
+                className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {block.body}
+              </p>
+              <Link
+                to={block.to}
+                className="mt-2 w-fit font-bold text-(--color-terracotta) underline underline-offset-2"
+              >
+                Learn more →
+              </Link>
+            </div>
+          </AnimatedContent>
+        ))}
+      </div>
     </section>
   );
 }
