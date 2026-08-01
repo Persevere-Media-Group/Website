@@ -9,8 +9,13 @@ import { useEffect, useState } from "react";
  *
  * Re-measures after fonts load and on resize, since a webfont swapping in changes
  * the natural width after first paint.
+ *
+ * `widthMultiplier` inflates the measured natural width before computing the fit.
+ * Use it when the element's content renders visually wider than its own layout box
+ * (e.g. CylinderTextRotate's drum applies an internal paint-only scale to
+ * compensate for 3D perspective, so its true on-screen width exceeds `scrollWidth`).
  */
-export function useAutoFitScale(ref: React.RefObject<HTMLElement | null>) {
+export function useAutoFitScale(ref: React.RefObject<HTMLElement | null>, widthMultiplier = 1) {
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
@@ -23,7 +28,7 @@ export function useAutoFitScale(ref: React.RefObject<HTMLElement | null>) {
       if (cancelled) return;
       const parent = el.parentElement;
       if (!parent) return;
-      const naturalWidth = el.scrollWidth;
+      const naturalWidth = el.scrollWidth * widthMultiplier;
       const availableWidth = parent.clientWidth;
       const nextScale =
         availableWidth > 0 && naturalWidth > 0 ? Math.min(1, availableWidth / naturalWidth) : 1;
@@ -46,7 +51,7 @@ export function useAutoFitScale(ref: React.RefObject<HTMLElement | null>) {
       ro.disconnect();
       window.removeEventListener("resize", fit);
     };
-  }, [ref]);
+  }, [ref, widthMultiplier]);
 
   return scale;
 }

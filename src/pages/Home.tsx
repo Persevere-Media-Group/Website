@@ -2,7 +2,10 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
-import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
+import {
+  CylinderTextRotate,
+  getCylinderSizeCompensation,
+} from "@/components/primitive/cylinder-text-rotate";
 import { ClickSpark } from "@/components/primitive/click-spark";
 import { Grainient } from "@/components/primitive/grainient";
 import { SectionWave } from "@/components/primitive/section-wave";
@@ -48,7 +51,7 @@ function HeroSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const navigate = useNavigate();
   const wordRowRef = useRef<HTMLDivElement>(null);
-  const wordRowScale = useAutoFitScale(wordRowRef);
+  const wordRowScale = useAutoFitScale(wordRowRef, getCylinderSizeCompensation());
 
   return (
     <div className="relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-28 pb-32 text-center sm:min-h-[80vh] sm:pt-32 sm:pb-40 md:pb-48">
@@ -127,11 +130,10 @@ function HeroSection() {
             followMouse
             proximity={250}
             autoAnimate={false}
-            onClick={() =>
-              document.getElementById(OUR_SERVICES_ID)?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={() => navigate("/about")}
+            className="sm:w-50"
           >
-            Our Services
+            About Us
           </SpecularButton>
 
           <SpecularButton
@@ -151,9 +153,12 @@ function HeroSection() {
             followMouse
             proximity={250}
             autoAnimate={false}
-            onClick={() => navigate("/about")}
+            onClick={() =>
+              document.getElementById(OUR_SERVICES_ID)?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="sm:w-50"
           >
-            About Us
+            Our Services
           </SpecularButton>
         </div>
 

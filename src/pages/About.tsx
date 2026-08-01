@@ -41,6 +41,15 @@ const UNDERLINE_COLOR = "#d5573b";
 // soft amber highlight for the good half, warm and positive rather than critical
 const HIGHLIGHT_COLOR = "rgba(237, 176, 62, 0.3)";
 
+// the good half's marks live in a block that only fades in on a delay (see
+// AnimatedContent's `delay` below), but triggerOnView fires as soon as the
+// (still-invisible) block enters the viewport, not when it actually appears - without
+// this, the marks finish drawing themselves while the block is still invisible, so by
+// the time it fades in, text and marks pop in together instead of the block
+// appearing and then getting annotated, like the grim half does
+const GOOD_BLOCK_REVEAL_DELAY_MS = (BLOCK_REVEAL_DURATION + ANNOTATION_SETTLE + 0.7) * 1000;
+const MARK_PROPS_GOOD = { ...MARK_PROPS, animationDelay: GOOD_BLOCK_REVEAL_DELAY_MS } as const;
+
 // ---------------------------------------------------------------------------
 // Roles
 // ---------------------------------------------------------------------------
@@ -138,7 +147,7 @@ const AFTER = [
   <>Choose making it right. Choose not getting burned again.</>,
   <>
     Choose working with{" "}
-    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS_GOOD}>
       actual people
     </Highlighter>
     . People who care about doing good work and paying the bills.
@@ -146,14 +155,14 @@ const AFTER = [
   <>Choose taking a chance on us. Choose bespoke content strategies.</>,
   <>
     Choose not deciding between an ads agency and a creative team. Choose{" "}
-    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS_GOOD}>
       the best of both worlds
     </Highlighter>
     .
   </>,
   <>
     Choose a team who actually care. Choose{" "}
-    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS_GOOD}>
       fair fees
     </Highlighter>
     .
@@ -314,8 +323,7 @@ export function About() {
                     the years; poverty, overcrowding, the docks declining... but it kept rebuilding
                     itself every time. Nobody's entirely sure when "Persevere" first got adopted as
                     the motto, it just seems to have been in use long before it was made official on
-                    the coat of arms back in 1889. That tells you something. It wasn't handed down
-                    from above, it came from the people first.
+                    the coat of arms back in 1889.
                   </p>
                 </AccordionContent>
               </AccordionItem>

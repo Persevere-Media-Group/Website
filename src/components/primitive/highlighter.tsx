@@ -31,8 +31,13 @@ interface HighlighterProps {
 
   /** svg only (wavy/zigzag) */
   opacity?: number;
-  animationDelay?: number;
   repeat?: boolean;
+
+  /** shared: ms to wait, once in view, before the mark starts drawing itself. Use
+   * this when the mark's parent is also being revealed on a delay (e.g. a scroll
+   * animation with its own `delay`), since triggerOnView fires as soon as the
+   * (still-invisible) element enters the viewport, not when it becomes visible. */
+  animationDelay?: number;
 
   /** shared: wait until scrolled into view before animating */
   triggerOnView?: boolean;
@@ -85,6 +90,7 @@ export function Highlighter({
       className={className}
       style={style}
       isView={triggerOnView}
+      animationDelay={animationDelay}
     >
       {children}
     </RoughHighlighter>
@@ -108,6 +114,7 @@ interface RoughHighlighterProps {
   className: string;
   style: React.CSSProperties;
   isView: boolean;
+  animationDelay: number;
 }
 
 function RoughHighlighter({
@@ -122,6 +129,7 @@ function RoughHighlighter({
   className,
   style,
   isView,
+  animationDelay,
 }: RoughHighlighterProps) {
   const elementRef = useRef<HTMLSpanElement>(null);
 
@@ -134,10 +142,12 @@ function RoughHighlighter({
 
   useLayoutEffect(() => {
     const element = elementRef.current;
+    if (!shouldShow || !element) return;
+
     let annotation: RoughAnnotation | null = null;
     let resizeObserver: ResizeObserver | null = null;
 
-    if (shouldShow && element) {
+    const showTimer = setTimeout(() => {
       const currentAnnotation = annotate(element, {
         type: action,
         color,
@@ -157,13 +167,24 @@ function RoughHighlighter({
 
       resizeObserver.observe(element);
       resizeObserver.observe(document.body);
-    }
+    }, animationDelay);
 
     return () => {
+      clearTimeout(showTimer);
       annotation?.remove();
       resizeObserver?.disconnect();
     };
-  }, [shouldShow, action, color, strokeWidth, animationDuration, iterations, padding, multiline]);
+  }, [
+    shouldShow,
+    action,
+    color,
+    strokeWidth,
+    animationDuration,
+    iterations,
+    padding,
+    multiline,
+    animationDelay,
+  ]);
 
   return (
     <span

@@ -2,7 +2,10 @@ import { useRef } from "react";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
-import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
+import {
+  CylinderTextRotate,
+  getCylinderSizeCompensation,
+} from "@/components/primitive/cylinder-text-rotate";
 import { ImageGallery } from "@/components/primitive/image-gallery";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { UNDERLINE_COLOR, MARK_PROPS, type AlwaysIncludedItem } from "@/pages/services-shared";
@@ -76,7 +79,7 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
         </Highlighter>
       </p>
       <YellowPulsatingButton onClick={onBookCall} className="mt-12">
-        Book a free discovery call
+        Book a call
       </YellowPulsatingButton>
     </div>
   );
@@ -109,7 +112,7 @@ export function IntroBanner({
   note?: string;
 }) {
   const wordRowRef = useRef<HTMLDivElement>(null);
-  const wordRowScale = useAutoFitScale(wordRowRef);
+  const wordRowScale = useAutoFitScale(wordRowRef, getCylinderSizeCompensation());
 
   return (
     <div className="flex w-full max-w-2xl flex-col items-center gap-8 pb-16 text-center">

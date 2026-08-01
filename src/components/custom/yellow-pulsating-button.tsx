@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { PulsatingButton } from "@/components/primitive/pulsating-button";
 
 // The site's one recurring CTA button style (amber-gold, pulsing), used for the
-// "Get Started" / "Book a free discovery call" buttons on Home and the services
+// "Get Started" / "Book a call" buttons on Home and the services
 // pages. Wraps the primitive with the shared styling so callers only supply the
 // label and onClick.
 export const YellowPulsatingButton = forwardRef<
