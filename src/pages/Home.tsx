@@ -397,8 +397,9 @@ function OurServicesSection() {
         className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
         style={{ fontFamily: "var(--font-body)" }}
       >
-        Most agencies hand you one and leave you to find the other. We do both, under one roof,
-        closing the feedback loop.
+        Most agencies hand you one and leave you to find the other.
+        <br />
+        We do both, under one roof,closing the feedback loop.
       </p>
 
       <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">

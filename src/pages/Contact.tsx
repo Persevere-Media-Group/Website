@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
-import { Mail, MapPin, Clock, Phone } from "lucide-react";
+import { Mail, Clock, Phone } from "lucide-react";
 import SpecularButton from "@/components/primitive/specular-button";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
@@ -14,7 +14,7 @@ import confetti from "canvas-confetti";
 // same link used in HeroSection/FloatingCta, keep these in sync if it ever changes
 const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
-const CONTACT_EMAIL = "hello@choosepersevere.com";
+const CONTACT_EMAIL = "keir@choosepersevere.com";
 
 // The contact form's send endpoint lives in its own small Vercel project
 // (see email-api/), separate from this GitHub Pages site.
@@ -239,7 +239,7 @@ export function Contact() {
                   <Mail size={18} />
                 </span>
                 <div className="pt-1.5">
-                  <p className="font-bold text-(--color-oxblood)">Email</p>
+                  <p className="font-bold text-(--color-oxblood)">Email Us</p>
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}
                     className="text-(--color-terracotta) underline underline-offset-2"
@@ -247,30 +247,6 @@ export function Contact() {
                   >
                     {CONTACT_EMAIL}
                   </a>
-                </div>
-              </div>
-            </AnimatedContent>
-
-            <AnimatedContent
-              direction="horizontal"
-              distance={30}
-              duration={0.6}
-              ease="power3.out"
-              threshold={0.3}
-              delay={0.12}
-            >
-              <div className="relative flex items-start gap-4">
-                <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
-                  <MapPin size={18} />
-                </span>
-                <div className="pt-1.5">
-                  <p className="font-bold text-(--color-oxblood)">Where we are</p>
-                  <p
-                    className="text-(--color-oxblood)/80"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    Leith & Dunfermline
-                  </p>
                 </div>
               </div>
             </AnimatedContent>

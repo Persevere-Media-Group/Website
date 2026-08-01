@@ -36,7 +36,12 @@ function Sparkle({
         scale: [0, 1.1, 1, 0.6],
         rotate: [-20, 10, 0, 15],
       }}
-      exit={{ opacity: 0, scale: 0 }}
+      // exit needs its own transition, not the shared one below: that one has
+      // repeat: Infinity, and since exit inherits the parent transition unless
+      // overridden, the fade-out itself would loop forever and never finish -
+      // which is why AnimatePresence never got to unmount these, leaving the
+      // sparkles animating even after the hover had ended.
+      exit={{ opacity: 0, scale: 0, transition: { duration: 0.2, ease: "easeOut" } }}
       transition={{
         duration: 0.9,
         delay,
