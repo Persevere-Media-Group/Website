@@ -153,7 +153,7 @@ export function ServicesKeir() {
         </h1>
       </GrainWave>
 
-      <div className="flex w-full flex-col items-center px-4 pt-16 pb-32 sm:pt-20">
+      <div className="flex w-full flex-col items-center px-4 pt-16 pb-20 sm:pt-20">
         <IntroBanner
           name="Keir"
           words={[

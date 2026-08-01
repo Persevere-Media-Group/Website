@@ -58,20 +58,26 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
   return (
     <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
       <h2 className="text-[clamp(1.75rem,4.5vw,2.75rem)] font-black leading-tight tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
-        We're your growth partner.
+        We are your growth partners.
       </h2>
       <p
         className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
         style={{ fontFamily: "var(--font-body)" }}
       >
-        Not a quick campaign and a runaway. We scale with you, keep improving with you, and never
-        settle for{" "}
-        <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={10}>
-          "good enough."
-        </Highlighter>
+        We’re not here to ghost you after signing you on. We want to scale with you, keep improving
+        with you, and never settle for "good enough."
       </p>
       <br />
-      <YellowPulsatingButton onClick={onBookCall}>Book a free discovery call</YellowPulsatingButton>
+      {/* same "payoff" treatment as the About page's closing beat: a big circled
+          wordmark between the copy and the CTA button */}
+      <p className="text-[clamp(1.75rem,4.5vw,2.75rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
+        <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={20}>
+          Choose Persevere.
+        </Highlighter>
+      </p>
+      <YellowPulsatingButton onClick={onBookCall} className="mt-12">
+        Book a free discovery call
+      </YellowPulsatingButton>
     </div>
   );
 }
