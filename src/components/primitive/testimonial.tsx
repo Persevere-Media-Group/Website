@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import AnimatedContent from "@/components/primitive/animated-content";
+import ThreeDCard from "@/components/primitive/3d-card";
 
 // ---------------------------------------------------------------------------
 // Generic testimonials grid. Carries no content of its own, callers supply
@@ -65,49 +66,57 @@ function initials(name: string) {
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="flex h-full w-80 flex-col items-start gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-6 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
-      <QuoteMark />
+    <ThreeDCard
+      className="h-full"
+      innerClassName="h-full w-80 rounded-3xl overflow-visible"
+      enableGlow={false}
+      enableShadow={false}
+      enableBorder={false}
+    >
+      <div className="flex h-full w-80 flex-col items-start gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-6 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
+        <QuoteMark />
 
-      {testimonial.rating != null && (
-        <div className="flex items-center gap-1">
-          {Array.from({ length: 5 }, (_, i) => (
-            <Star key={i} filled={i < testimonial.rating!} />
-          ))}
-        </div>
-      )}
-
-      <p
-        className="mt-1 text-[clamp(0.9rem,1.4vw,0.98rem)] leading-relaxed text-(--color-oxblood)/80"
-        style={{ fontFamily: "var(--font-body)" }}
-      >
-        {testimonial.quote}
-      </p>
-
-      <div className="mt-auto flex items-center gap-3 pt-3">
-        {testimonial.avatar ? (
-          <img
-            src={testimonial.avatar}
-            alt={testimonial.name}
-            className="size-11 shrink-0 rounded-full border border-(--color-oxblood)/15 object-cover"
-          />
-        ) : (
-          <span className="flex size-11 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-sm font-bold text-(--color-terracotta)">
-            {initials(testimonial.name)}
-          </span>
+        {testimonial.rating != null && (
+          <div className="flex items-center gap-1">
+            {Array.from({ length: 5 }, (_, i) => (
+              <Star key={i} filled={i < testimonial.rating!} />
+            ))}
+          </div>
         )}
-        <div>
-          <p className="font-bold text-(--color-oxblood)">{testimonial.name}</p>
-          {testimonial.role && (
-            <p
-              className="text-sm text-(--color-oxblood)/60"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {testimonial.role}
-            </p>
+
+        <p
+          className="mt-1 text-[clamp(0.9rem,1.4vw,0.98rem)] leading-relaxed text-(--color-oxblood)/80"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          {testimonial.quote}
+        </p>
+
+        <div className="mt-auto flex items-center gap-3 pt-3">
+          {testimonial.avatar ? (
+            <img
+              src={testimonial.avatar}
+              alt={testimonial.name}
+              className="size-11 shrink-0 rounded-full border border-(--color-oxblood)/15 object-cover"
+            />
+          ) : (
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-sm font-bold text-(--color-terracotta)">
+              {initials(testimonial.name)}
+            </span>
           )}
+          <div>
+            <p className="font-bold text-(--color-oxblood)">{testimonial.name}</p>
+            {testimonial.role && (
+              <p
+                className="text-sm text-(--color-oxblood)/60"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {testimonial.role}
+              </p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </ThreeDCard>
   );
 }
 

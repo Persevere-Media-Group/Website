@@ -1,9 +1,12 @@
 "use client";
 import React, { useState, useRef, useCallback, ReactNode, CSSProperties } from "react";
+import { cn } from "@/lib/utils";
 
 interface ThreeDCardProps {
   children: ReactNode;
   className?: string;
+  /** Classes for the tilting card surface itself (background, radius, overflow). */
+  innerClassName?: string;
   maxRotation?: number;
   glowOpacity?: number;
   shadowBlur?: number;
@@ -13,11 +16,13 @@ interface ThreeDCardProps {
   enableGlow?: boolean;
   enableShadow?: boolean;
   enableParallax?: boolean;
+  enableBorder?: boolean;
 }
 
 function ThreeDCard({
   children,
   className = "",
+  innerClassName = "bg-gray-800 rounded-2xl overflow-hidden",
   maxRotation = 10,
   glowOpacity = 0.2,
   shadowBlur = 30,
@@ -27,6 +32,7 @@ function ThreeDCard({
   enableGlow = true,
   enableShadow = true,
   enableParallax = true,
+  enableBorder = true,
 }: ThreeDCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -127,7 +133,7 @@ function ThreeDCard({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={cardStyle}
-        className="relative bg-gray-800 rounded-2xl overflow-hidden"
+        className={cn("relative", innerClassName)}
         role="img"
         tabIndex={0}
         onFocus={handleMouseEnter}
@@ -135,26 +141,28 @@ function ThreeDCard({
       >
         {backgroundImage && (
           <div
-            className="absolute inset-0 rounded-2xl"
+            className="absolute inset-0 rounded-[inherit]"
             style={backgroundStyle}
             aria-hidden="true"
           />
         )}
 
-        <div
-          className="absolute inset-0 border-2 border-white/10 rounded-2xl pointer-events-none"
-          aria-hidden="true"
-        />
+        {enableBorder && (
+          <div
+            className="absolute inset-0 rounded-[inherit] border-2 border-white/10 pointer-events-none"
+            aria-hidden="true"
+          />
+        )}
 
         {enableGlow && (
           <div
-            className="absolute inset-0 z-0 rounded-2xl pointer-events-none"
+            className="absolute inset-0 z-0 rounded-[inherit] pointer-events-none"
             style={glowStyle}
             aria-hidden="true"
           />
         )}
 
-        <div style={contentStyle} className="relative z-10">
+        <div style={contentStyle} className="relative z-10 h-full">
           {children}
         </div>
       </div>
