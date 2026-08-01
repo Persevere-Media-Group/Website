@@ -87,14 +87,24 @@ export function Contact() {
 
   // loaded lazily here rather than in index.html, since reCAPTCHA is only needed
   // on this page. skips re-adding the script if it's already on the page, which
-  // matters in dev under React StrictMode where effects run twice.
+  // matters in dev under React StrictMode where effects run twice. removed again
+  // on unmount, since this is a single-page app, navigating away from Contact
+  // doesn't reload the page, and the script otherwise stays loaded (and its
+  // badge in the DOM) on every other route too.
   useEffect(() => {
-    if (document.querySelector('script[data-recaptcha="true"]')) return;
-    const script = document.createElement("script");
-    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    script.dataset.recaptcha = "true";
-    document.head.appendChild(script);
+    const existing = document.querySelector('script[data-recaptcha="true"]');
+    if (!existing) {
+      const script = document.createElement("script");
+      script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+      script.async = true;
+      script.dataset.recaptcha = "true";
+      document.head.appendChild(script);
+    }
+
+    return () => {
+      document.querySelector('script[data-recaptcha="true"]')?.remove();
+      document.querySelector(".grecaptcha-badge")?.remove();
+    };
   }, []);
 
   const getRecaptchaToken = () =>
@@ -538,6 +548,33 @@ export function Contact() {
                   {isSending ? "Sending..." : "Send it over!"}
                 </SpecularButton>
               </div>
+
+              {/* required by Google's reCAPTCHA terms whenever the badge itself is
+                  hidden (see .grecaptcha-badge in index.css) */}
+              <p
+                className="mt-4 text-center text-xs text-(--color-oxblood)/50"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                This site is protected by reCAPTCHA and the Google{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2"
+                >
+                  Privacy Policy
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://policies.google.com/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2"
+                >
+                  Terms of Service
+                </a>{" "}
+                apply.
+              </p>
             </form>
           )}
         </div>

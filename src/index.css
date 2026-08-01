@@ -198,6 +198,14 @@ body {
   }
 }
 
+/* reCAPTCHA v3's floating badge clashes with the rest of the site and Google's
+   terms allow hiding it, but only if the required attribution text is shown
+   somewhere on the page instead, see the note next to the Contact form's
+   submit button. */
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
