@@ -3,6 +3,7 @@ import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
 import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
+import { ImageGallery } from "@/components/primitive/image-gallery";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { UNDERLINE_COLOR, MARK_PROPS, type AlwaysIncludedItem } from "@/pages/services-shared";
 
@@ -72,16 +73,14 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
   );
 }
 
-// Same placeholder style used on the Home page's facts section, for the
-// person photos in the Keir/Calum intro banners.
-export function PhotoPlaceholder({ className = "" }: { className?: string }) {
-  return (
-    <div
-      className={`flex aspect-video w-full items-center justify-center rounded-2xl border-2 border-dashed border-(--color-oxblood)/20 bg-(--color-oxblood)/5 text-(--color-oxblood)/40 ${className}`}
-    >
-      Placeholder image(s) - maybe a gallery?
-    </div>
-  );
+// Stand-in shoot images until Calum and Keir's photoshoot delivers real
+// content. Seeded per person so each intro banner gets a stable, distinct
+// set of placeholders rather than reshuffling on every reload.
+function placeholderImages(name: string): { src: string; alt: string }[] {
+  return Array.from({ length: 4 }, (_, i) => ({
+    src: `https://picsum.photos/seed/${encodeURIComponent(name.toLowerCase())}-${i}/1200/900`,
+    alt: `${name} placeholder photo ${i + 1}`,
+  }));
 }
 
 // ---------------------------------------------------------------------------
@@ -131,7 +130,7 @@ export function IntroBanner({ name, words }: { name: string; words: string[] }) 
           </div>
         </div>
       </div>
-      <PhotoPlaceholder className="max-w-sm" />
+      <ImageGallery images={placeholderImages(name)} className="max-w-sm" />
     </div>
   );
 }
