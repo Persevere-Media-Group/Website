@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
-import { Clock, Phone } from "lucide-react";
+import { Clock, Phone, Users } from "lucide-react";
 import SpecularButton from "@/components/primitive/specular-button";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import AnimatedContent from "@/components/primitive/animated-content";
+import { Instagram, Linkedin } from "@/components/primitive/svgs";
 import confetti from "canvas-confetti";
 
 // ---------------------------------------------------------------------------
@@ -48,6 +49,19 @@ const TIMEFRAME_OPTIONS = [
   "In 1 - 3 months",
   "In 3 - 6 months",
   "Just window shopping!",
+];
+
+const TEAM_SOCIALS = [
+  {
+    name: "Keir",
+    linkedin: "https://www.linkedin.com/in/keir-watson-472a01208/",
+    instagram: "https://www.instagram.com/keirdoesads/",
+  },
+  {
+    name: "Calum",
+    linkedin: "https://www.linkedin.com/in/calum-keelan-005a09173/",
+    instagram: "https://www.instagram.com/calummakesvideos/",
+  },
 ];
 
 const INPUT_CLASSES =
@@ -159,14 +173,18 @@ export function Contact() {
       const result = (await response.json().catch(() => null)) as { ok?: boolean } | null;
 
       if (!response.ok || !result?.ok) {
-        setSendError(`Something went wrong sending that. Please try again or email us at ${CONTACT_EMAIL}.`);
+        setSendError(
+          `Something went wrong sending that. Please try again or email us at ${CONTACT_EMAIL}.`
+        );
         return;
       }
 
       setSubmitted(true);
       fireConfetti();
     } catch {
-      setSendError(`Something went wrong sending that. Please try again or email us at ${CONTACT_EMAIL}.`);
+      setSendError(
+        `Something went wrong sending that. Please try again or email us at ${CONTACT_EMAIL}.`
+      );
     } finally {
       setIsSending(false);
     }
@@ -272,6 +290,54 @@ export function Contact() {
                   >
                     Book a call
                   </button>
+                </div>
+              </div>
+            </AnimatedContent>
+
+            <AnimatedContent
+              direction="horizontal"
+              distance={30}
+              duration={0.6}
+              ease="power3.out"
+              threshold={0.3}
+              delay={0.48}
+            >
+              <div className="relative flex items-start gap-4">
+                <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
+                  <Users size={18} />
+                </span>
+                <div className="pt-1.5">
+                  <p className="font-bold text-(--color-oxblood)">Connect with us</p>
+                  <div className="mt-2 flex flex-col gap-2">
+                    {TEAM_SOCIALS.map((person) => (
+                      <div key={person.name} className="flex items-center gap-3">
+                        <span
+                          className="w-12 text-(--color-oxblood)/80"
+                          style={{ fontFamily: "var(--font-body)" }}
+                        >
+                          {person.name}
+                        </span>
+                        <a
+                          href={person.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${person.name} on LinkedIn`}
+                          className="text-(--color-terracotta) transition-colors hover:text-(--color-oxblood)"
+                        >
+                          <Linkedin />
+                        </a>
+                        <a
+                          href={person.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${person.name} on Instagram`}
+                          className="text-(--color-terracotta) transition-colors hover:text-(--color-oxblood)"
+                        >
+                          <Instagram />
+                        </a>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </AnimatedContent>
