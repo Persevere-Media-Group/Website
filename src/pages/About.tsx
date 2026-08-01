@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
+import { ChevronRight } from "lucide-react";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import AnimatedContent from "@/components/primitive/animated-content";
@@ -8,6 +9,12 @@ import { SectionDivider } from "@/components/custom/wiggly-divider";
 import SquigglyArrow from "@/components/primitive/squiggly-arrow";
 import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
 import { Testimonials, type Testimonial } from "@/components/primitive/testimonial";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/primitive/accordion";
 import { CALENDLY_URL } from "@/pages/services-shared";
 
 // ---------------------------------------------------------------------------
@@ -274,23 +281,53 @@ export function About() {
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              <strong className="font-bold text-(--color-oxblood)">
-                The name is Leith through and through.
-              </strong>{" "}
-              It's Leith's own word, its motto, and it's meant something to Keir across the near-six
-              years he's called the area home. It's where he put down roots, and where he met his
-              wife. (Calum, naturally, was the one on camera for the wedding.)
+              It's Leith's word. You'll spot it on old buildings, on the crest, worked into the
+              fabric of the place. It's meant something to Keir across the near-six years he's
+              called the area home. It's where he put down roots, and where he met his wife. Calum,
+              naturally, was the one on camera duty for the wedding.
             </p>
+            <Accordion
+              transition={{ type: "spring", stiffness: 120, damping: 20 }}
+              variants={{
+                expanded: { opacity: 1, scale: 1 },
+                collapsed: { opacity: 0, scale: 0.7 },
+              }}
+            >
+              <AccordionItem value="history">
+                <AccordionTrigger className="w-full py-0.5 text-left">
+                  <div className="flex items-center">
+                    <ChevronRight className="h-5 w-5 shrink-0 text-(--color-terracotta) transition-transform duration-200 group-data-expanded:rotate-90" />
+                    <span className="ml-3 text-[clamp(1rem,1.6vw,1.1rem)] font-bold text-(--color-oxblood)">
+                      Want a quick history lesson?
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="origin-top">
+                  <p
+                    className="pt-3 pl-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
+                    The word Persevere itself goes back further than most people realise. Leith was
+                    its own burgh for centuries, a proper port town in its own right. Trading,
+                    shipbuilding, always a bit separate from Edinburgh next door even after the two
+                    got merged in 1920. It was never an easy place. Leith took some real knocks over
+                    the years; poverty, overcrowding, the docks declining... but it kept rebuilding
+                    itself every time. Nobody's entirely sure when "Persevere" first got adopted as
+                    the motto, it just seems to have been in use long before it was made official on
+                    the coat of arms back in 1889. That tells you something. It wasn't handed down
+                    from above, it came from the people first.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
             <p
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              It turns out to be a fitting word for a marketing partner, too. Growth is rarely one
-              lucky hit. It's{" "}
-              <strong className="font-bold text-(--color-oxblood)">
-                showing up, testing, adjusting, and keeping at it
-              </strong>{" "}
-              until the results start to build.
+              Turns out it's a decent word for how we work too. There's no single lucky campaign
+              that fixes everything. It's more about showing up, trying stuff, tweaking what
+              doesn't work, and sticking with it until it does. That's the whole game, really.
+              Persevere.
             </p>
           </div>
         </div>
