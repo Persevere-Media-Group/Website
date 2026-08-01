@@ -62,7 +62,13 @@ const WHATS_INCLUDED = [
 const ALWAYS_INCLUDED = [
   {
     icon: CalendarClock,
-    title: "Monthly calls, weekly check-ins",
+    title: (
+      <>
+        Monthly calls,
+        <br />
+        weekly check-ins
+      </>
+    ),
     body: "A proper call each month to cover what's working, what's changed, and what's next, plus a weekly check-in so you're never left wondering how things stand.",
   },
   {

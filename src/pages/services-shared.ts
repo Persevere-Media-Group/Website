@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 
 // ---------------------------------------------------------------------------
@@ -20,6 +21,6 @@ export const MARK_PROPS = {
 
 export type AlwaysIncludedItem = {
   icon: LucideIcon;
-  title: string;
+  title: ReactNode;
   body: string;
 };

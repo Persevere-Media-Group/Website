@@ -21,7 +21,7 @@ export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
       <div className="mt-12 grid w-full gap-8 text-center sm:grid-cols-3">
         {items.map((item, i) => (
           <AnimatedContent
-            key={item.title}
+            key={i}
             direction="vertical"
             distance={24}
             duration={0.7}
