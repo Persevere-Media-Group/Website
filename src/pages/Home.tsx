@@ -69,7 +69,7 @@ function HeroSection() {
         duration={400}
         easing="ease-out"
         extraScale={1}
-        className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-28 pb-32 text-center sm:pt-32 sm:pb-40 md:pb-48"
+        className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-28 pb-12 text-center sm:pt-32 sm:pb-16 md:pb-20"
       >
         <div
           ref={wordRowRef}
@@ -104,9 +104,7 @@ function HeroSection() {
         </div>
 
         <p className="mt-16 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-black leading-none tracking-tighter text-(--color-oxblood) sm:text-[clamp(1.5rem,8vw,3rem)]">
-          Content. Ads.
-          <br />
-          Done properly.
+          Content. Ads. Done properly.
           <br />
           Nae faff.
         </p>
