@@ -14,7 +14,7 @@ export function BlogPost() {
 
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
-      <GrainWave height="24rem">
+      <GrainWave height="24rem" logo>
         <h1 className="mt-3 text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-(--color-ivory)">
           {post.title}
         </h1>

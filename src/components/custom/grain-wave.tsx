@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import { Grainient } from "@/components/primitive/grainient";
 import { SectionWave } from "@/components/primitive/section-wave";
 
@@ -35,6 +36,10 @@ interface GrainWaveProps {
   /** optional content to sit on top of the gradient, e.g. a page title */
   children?: ReactNode;
   className?: string;
+  /** shows the site logo pinned top-left of the band, linking home. Only pass this on
+   * the `GrainWave` instance that acts as a page's actual top header — not on
+   * mid-page decorative uses of this same component. */
+  logo?: boolean;
 }
 
 /**
@@ -54,12 +59,24 @@ export function GrainWave({
   topFillColor,
   children,
   className,
+  logo = false,
 }: GrainWaveProps) {
   return (
     <div
       className={`relative flex w-full flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) ${className ?? ""}`}
       style={{ minHeight: height }}
     >
+      {logo && (
+        <Link to="/" aria-label="Go to home page" className="absolute top-4 left-4 z-[60]">
+          <img
+            src="/logos/persevere-logo.png"
+            alt="Persevere Media"
+            className="h-10 w-auto sm:h-12"
+            draggable={false}
+          />
+        </Link>
+      )}
+
       {/* absolute so it fills whatever height the band ends up being, purely
           decorative, never affects layout */}
       <Grainient
