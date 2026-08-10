@@ -61,7 +61,7 @@ function HeroSection() {
         <img
           src="/logos/persevere-logo.png"
           alt="Persevere Media"
-          className="h-10 w-auto sm:h-12 md:h-20 lg:h-32"
+          className="h-10 w-auto sm:h-12 md:h-24 lg:h-40"
           draggable={false}
         />
       </Link>

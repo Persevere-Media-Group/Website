@@ -67,11 +67,15 @@ export function GrainWave({
       style={{ minHeight: height }}
     >
       {logo && (
-        <Link to="/" aria-label="Go to home page" className="absolute top-4 left-4 z-[60]">
+        <Link
+          to="/"
+          aria-label="Go to home page"
+          className="absolute top-4 left-4 z-[60] lg:top-8 lg:left-10"
+        >
           <img
             src="/logos/persevere-logo.png"
             alt="Persevere Media"
-            className="h-10 w-auto sm:h-11"
+            className="h-10 w-auto sm:h-16 md:h-20 lg:h-28"
             draggable={false}
           />
         </Link>
