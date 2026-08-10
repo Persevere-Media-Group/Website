@@ -163,6 +163,18 @@ export function Contact() {
   const cardRef = useRef<HTMLDivElement>(null);
   const [cardHeight, setCardHeight] = useState<number | undefined>(undefined);
 
+  // the timeline's connecting line: measured (rather than spanning the whole flex
+  // container via a fixed top-2/bottom-2 inset) so it stops exactly at the last node's
+  // icon instead of running on through that node's own — variable-height — content
+  // below it (the "Connect with us" social rows), which made it look like a line
+  // leading nowhere.
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const firstNodeRef = useRef<HTMLSpanElement>(null);
+  const lastNodeRef = useRef<HTMLSpanElement>(null);
+  const [lineStyle, setLineStyle] = useState<{ top: number; height: number } | undefined>(
+    undefined
+  );
+
   const isLastStep = step === FORM_STEPS.length;
 
   // reportValidity() only surfaces required fields belonging to the CURRENT step:
@@ -211,6 +223,25 @@ export function Contact() {
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [submitted]);
+
+  // spans exactly from the first node's icon centre to the last node's icon centre.
+  // getBoundingClientRect is safe to use here (rather than layout-only measurements)
+  // because these nodes animate in horizontally, never vertically, so their Y position
+  // is stable even mid-animation.
+  useEffect(() => {
+    const measure = () => {
+      if (!timelineRef.current || !firstNodeRef.current || !lastNodeRef.current) return;
+      const containerTop = timelineRef.current.getBoundingClientRect().top;
+      const firstRect = firstNodeRef.current.getBoundingClientRect();
+      const lastRect = lastNodeRef.current.getBoundingClientRect();
+      const top = firstRect.top + firstRect.height / 2 - containerTop;
+      const bottom = lastRect.top + lastRect.height / 2 - containerTop;
+      setLineStyle({ top, height: bottom - top });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
   // loaded lazily here rather than in index.html, since reCAPTCHA is only needed
   // on this page. skips re-adding the script if it's already on the page, which
@@ -379,9 +410,14 @@ export function Contact() {
           {/* a vertical timeline instead of the usual icon-row list, a connecting line
               down the left with each item as a stop along it, staggered in one at a
               time on scroll rather than all appearing at once */}
-          <div className="relative mt-12 flex flex-col gap-9">
+          <div ref={timelineRef} className="relative mt-12 flex flex-col gap-9">
             <div
-              className="absolute bottom-2 left-5 top-2 w-px bg-(--color-terracotta)/25"
+              className="absolute left-5 w-px bg-(--color-terracotta)/25"
+              style={
+                lineStyle
+                  ? { top: `${lineStyle.top}px`, height: `${lineStyle.height}px` }
+                  : { top: "0.5rem", bottom: "0.5rem" }
+              }
               aria-hidden
             />
 
@@ -394,7 +430,10 @@ export function Contact() {
               delay={0.24}
             >
               <div className="relative flex items-start gap-4">
-                <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
+                <span
+                  ref={firstNodeRef}
+                  className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)"
+                >
                   <HelpCircle size={18} />
                 </span>
                 <div className="pt-1.5">
@@ -450,7 +489,10 @@ export function Contact() {
               delay={0.48}
             >
               <div className="relative flex items-start gap-4">
-                <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
+                <span
+                  ref={lastNodeRef}
+                  className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)"
+                >
                   <Users size={18} />
                 </span>
                 <div className="pt-1.5">
