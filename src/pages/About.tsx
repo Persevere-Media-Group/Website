@@ -183,7 +183,7 @@ export function About() {
   // used on the Contact page).
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
-      <GrainWave height="24rem">
+      <GrainWave height="24rem" logo>
         <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
           About Us
         </h1>

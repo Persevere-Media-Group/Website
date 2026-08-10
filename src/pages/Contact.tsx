@@ -216,7 +216,7 @@ export function Contact() {
   // so the padding lives on the content wrapper below the band instead.
   return (
     <section className="min-h-screen bg-(--color-ivory)">
-      <GrainWave height="24rem">
+      <GrainWave height="24rem" logo>
         <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
           Contact Us
         </h1>
