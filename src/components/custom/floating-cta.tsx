@@ -94,9 +94,18 @@ export function FloatingCta() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- x/y are stable MotionValue refs
   }, []);
 
-  // re-clamp on resize, so shrinking the window can't leave it stranded off-screen
+  // re-clamp on resize, so shrinking the window can't leave it stranded off-screen.
+  // Mobile browsers fire `resize` constantly while scrolling as the address bar
+  // collapses/expands, which only ever changes innerHeight, not innerWidth. Reacting
+  // to those made the button visibly jitter mid-scroll and, since the position was
+  // re-saved on every firing, could overwrite the user's placed spot with whatever
+  // got clamped during a transient (mid-scroll) viewport height. Only a genuine width
+  // change (window resize, orientation change) should trigger a re-snap.
+  const lastWidthRef = useRef(window.innerWidth);
   useEffect(() => {
     const onResize = () => {
+      if (window.innerWidth === lastWidthRef.current) return;
+      lastWidthRef.current = window.innerWidth;
       const el = buttonRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
