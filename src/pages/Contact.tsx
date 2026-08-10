@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
-import { HelpCircle, Phone, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, HelpCircle, Phone, Users } from "lucide-react";
 import SpecularButton from "@/components/primitive/specular-button";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
@@ -8,6 +8,16 @@ import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Instagram, Linkedin } from "@/components/primitive/svgs";
 import { FaqSection, type Faq } from "@/components/custom/faq";
+import {
+  Stepper,
+  StepperContent,
+  StepperIndicator,
+  StepperItem,
+  StepperNav,
+  StepperPanel,
+  StepperSeparator,
+  StepperTrigger,
+} from "@/components/primitive/stepper";
 import confetti from "canvas-confetti";
 
 // ---------------------------------------------------------------------------
@@ -95,6 +105,18 @@ const CONTACT_FAQS: Faq[] = [
   },
 ];
 
+// the form is split into categorised steps (via the Stepper primitive) rather than
+// one long scroll, each step's fields stay mounted at all times (StepperContent
+// forceMount) so values survive moving back and forth, and native required-field
+// validation still works per step since hidden steps are excluded from constraint
+// validation by the browser
+const FORM_STEPS = [
+  "What's your name, friend?",
+  "Tell us about your business",
+  "What are you after?",
+  "Anything else you want to tell us?",
+] as const;
+
 const INPUT_CLASSES =
   "w-full rounded-xl border border-(--color-oxblood)/20 bg-(--color-ivory-raised) px-4 py-3 text-(--color-oxblood) outline-none transition-colors placeholder:text-(--color-oxblood)/35 focus:border-(--color-terracotta)";
 
@@ -109,9 +131,23 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+  const [step, setStep] = useState(1);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [cardHeight, setCardHeight] = useState<number | undefined>(undefined);
+
+  const isLastStep = step === FORM_STEPS.length;
+
+  // reportValidity() only surfaces required fields belonging to the CURRENT step:
+  // the other steps' inputs sit under an ancestor with the `hidden` attribute, and
+  // the browser excludes anything not rendered from constraint validation, so this
+  // never blocks on a field the person hasn't reached yet
+  const goNext = () => {
+    if (!formRef.current?.reportValidity()) return;
+    setStep((s) => Math.min(s + 1, FORM_STEPS.length));
+  };
+  const goBack = () => setStep((s) => Math.max(s - 1, 1));
 
   // measures the card's real rendered height WHILE THE FORM IS SHOWING, and locks that
   // exact pixel value in via inline style. this is the only way to guarantee the card
@@ -128,7 +164,10 @@ export function Contact() {
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [submitted]);
+    // re-measure on step change too: each step renders a different amount of
+    // content, so locking the card to whichever step happened to be active on
+    // mount would leave taller steps' fields flush against the card edge
+  }, [submitted, step]);
 
   // loaded lazily here rather than in index.html, since reCAPTCHA is only needed
   // on this page. skips re-adding the script if it's already on the page, which
@@ -187,10 +226,24 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSendError(null);
-    setIsSending(true);
 
     const formData = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = Object.fromEntries(formData.entries()) as Record<string, string>;
+
+    // belt-and-braces check for the required fields living on earlier steps: the
+    // stepper indicators let people jump straight to the last step, and a hidden
+    // step's `required` inputs are exempt from the browser's own constraint
+    // validation, so an empty name/email could otherwise slip through on submit
+    if (!payload.name?.trim() || !payload.email?.trim()) {
+      setStep(1);
+      return;
+    }
+    if (!payload.message?.trim()) {
+      setStep(FORM_STEPS.length);
+      return;
+    }
+
+    setIsSending(true);
 
     try {
       const recaptchaToken = await getRecaptchaToken();
@@ -422,14 +475,17 @@ export function Contact() {
                   proximity={250}
                   autoAnimate
                   className="w-full"
-                  onClick={() => setSubmitted(false)}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setStep(1);
+                  }}
                 >
                   Submit another form
                 </SpecularButton>
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} style={{ fontFamily: "var(--font-body)" }}>
+            <form ref={formRef} onSubmit={handleSubmit} style={{ fontFamily: "var(--font-body)" }}>
               {/* Honeypot: real visitors never see or reach this field, so it should
                   always submit empty. If it's filled in, the submission came from a bot
                   and the API silently drops it. Positioned off-screen rather than
@@ -442,147 +498,201 @@ export function Contact() {
                 <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" />
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="name" className={LABEL_CLASSES}>
-                    Your name <span className="text-(--color-terracotta)">*</span>
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    placeholder="Your Name"
-                    className={INPUT_CLASSES}
-                  />
-                </div>
+              <Stepper value={step} onValueChange={setStep}>
+                <StepperNav className="mb-6">
+                  {FORM_STEPS.map((title, i) => {
+                    const stepNumber = i + 1;
+                    return (
+                      <StepperItem key={title} step={stepNumber}>
+                        <StepperTrigger>
+                          <StepperIndicator className="size-8 border-2 border-(--color-terracotta) bg-(--color-ivory) text-xs font-bold text-(--color-terracotta) data-[state=active]:bg-(--color-terracotta) data-[state=active]:text-(--color-ivory) data-[state=completed]:bg-(--color-terracotta) data-[state=completed]:text-(--color-ivory)">
+                            {stepNumber}
+                          </StepperIndicator>
+                        </StepperTrigger>
+                        {stepNumber < FORM_STEPS.length && (
+                          <StepperSeparator className="bg-(--color-terracotta)/20 data-[state=completed]:bg-(--color-terracotta)" />
+                        )}
+                      </StepperItem>
+                    );
+                  })}
+                </StepperNav>
 
-                <div>
-                  <label htmlFor="email" className={LABEL_CLASSES}>
-                    Email <span className="text-(--color-terracotta)">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="yourbusiness@email.com"
-                    className={INPUT_CLASSES}
-                  />
-                </div>
+                <h3 className="mb-5 text-[clamp(1.15rem,2.4vw,1.4rem)] font-black tracking-tight text-(--color-oxblood)">
+                  {FORM_STEPS[step - 1]}
+                </h3>
 
-                <div>
-                  <label htmlFor="business" className={LABEL_CLASSES}>
-                    Business name
-                  </label>
-                  <input
-                    id="business"
-                    name="business"
-                    type="text"
-                    placeholder="Your Business Ltd"
-                    className={INPUT_CLASSES}
-                  />
-                </div>
+                <StepperPanel>
+                  <StepperContent value={1} forceMount>
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label htmlFor="name" className={LABEL_CLASSES}>
+                          Your name <span className="text-(--color-terracotta)">*</span>
+                        </label>
+                        <input
+                          id="name"
+                          name="name"
+                          type="text"
+                          required={step === 1}
+                          placeholder="Your Name"
+                          className={INPUT_CLASSES}
+                        />
+                      </div>
 
-                <div>
-                  <label htmlFor="website" className={LABEL_CLASSES}>
-                    Website
-                  </label>
-                  {/* deliberately type="text", not type="url", type="url" rejects
-                      anything without an https:// prefix, which most people won't type.
-                      the pattern accepts bare domains, www prefixes, subdomains, paths,
-                      and an optional protocol if they do include one. */}
-                  <input
-                    id="website"
-                    name="website"
-                    type="text"
-                    inputMode="url"
-                    pattern="(https?://)?([\w-]+\.)+[a-zA-Z]{2,}(/.*)?"
-                    title="Enter a website like example.com"
-                    placeholder="example.com"
-                    className={INPUT_CLASSES}
-                  />
-                </div>
-              </div>
+                      <div>
+                        <label htmlFor="email" className={LABEL_CLASSES}>
+                          Email <span className="text-(--color-terracotta)">*</span>
+                        </label>
+                        <input
+                          id="email"
+                          name="email"
+                          type="email"
+                          required={step === 1}
+                          placeholder="yourbusiness@email.com"
+                          className={INPUT_CLASSES}
+                        />
+                      </div>
+                    </div>
+                  </StepperContent>
 
-              <div className="mt-5">
-                <label htmlFor="service" className={LABEL_CLASSES}>
-                  What are you after?
-                </label>
-                <select id="service" name="service" defaultValue="" className={INPUT_CLASSES}>
-                  <option value="" disabled>
-                    Pick one
-                  </option>
-                  {SERVICE_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  <StepperContent value={2} forceMount>
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label htmlFor="business" className={LABEL_CLASSES}>
+                          Business name{" "}
+                          <span className="font-normal opacity-60">(optional)</span>
+                        </label>
+                        <input
+                          id="business"
+                          name="business"
+                          type="text"
+                          placeholder="Your Business Ltd"
+                          className={INPUT_CLASSES}
+                        />
+                      </div>
 
-              <div className="mt-5">
-                <label htmlFor="budget" className={LABEL_CLASSES}>
-                  Monthly ad spend <span className="font-normal opacity-60">(optional)</span>
-                </label>
-                <select id="budget" name="budget" defaultValue="" className={INPUT_CLASSES}>
-                  <option value="" disabled>
-                    Select a range
-                  </option>
-                  {BUDGET_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                      <div>
+                        <label htmlFor="website" className={LABEL_CLASSES}>
+                          Website <span className="font-normal opacity-60">(optional)</span>
+                        </label>
+                        {/* deliberately type="text", not type="url", type="url" rejects
+                            anything without an https:// prefix, which most people won't type.
+                            the pattern accepts bare domains, www prefixes, subdomains, paths,
+                            and an optional protocol if they do include one. */}
+                        <input
+                          id="website"
+                          name="website"
+                          type="text"
+                          inputMode="url"
+                          pattern="(https?://)?([\w-]+\.)+[a-zA-Z]{2,}(/.*)?"
+                          title="Enter a website like example.com"
+                          placeholder="example.com"
+                          className={INPUT_CLASSES}
+                        />
+                      </div>
+                    </div>
+                  </StepperContent>
 
-              <div className="mt-5">
-                <label htmlFor="message" className={LABEL_CLASSES}>
-                  Tell us what's going on <span className="text-(--color-terracotta)">*</span>
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  placeholder="What you're working on, what's not landing, and what you'd like it to look like instead."
-                  className={`${INPUT_CLASSES} resize-none`}
-                />
-              </div>
+                  <StepperContent value={3} forceMount>
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label htmlFor="service" className={LABEL_CLASSES}>
+                          What service? <span className="font-normal opacity-60">(optional)</span>
+                        </label>
+                        <select
+                          id="service"
+                          name="service"
+                          defaultValue=""
+                          className={INPUT_CLASSES}
+                        >
+                          <option value="" disabled>
+                            Pick one
+                          </option>
+                          {SERVICE_OPTIONS.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
-              <div className="mt-5">
-                <label htmlFor="timeframe" className={LABEL_CLASSES}>
-                  When are you looking to start?
-                </label>
-                <select id="timeframe" name="timeframe" defaultValue="" className={INPUT_CLASSES}>
-                  <option value="" disabled>
-                    Select a timeframe
-                  </option>
-                  {TIMEFRAME_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                      <div>
+                        <label htmlFor="budget" className={LABEL_CLASSES}>
+                          Monthly ad spend{" "}
+                          <span className="font-normal opacity-60">(optional)</span>
+                        </label>
+                        <select id="budget" name="budget" defaultValue="" className={INPUT_CLASSES}>
+                          <option value="" disabled>
+                            Select a range
+                          </option>
+                          {BUDGET_OPTIONS.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
-              <div className="mt-5">
-                <label htmlFor="referral" className={LABEL_CLASSES}>
-                  How did you hear about us?{" "}
-                  <span className="font-normal opacity-60">(optional)</span>
-                </label>
-                <select id="referral" name="referral" defaultValue="" className={INPUT_CLASSES}>
-                  <option value="" disabled>
-                    Select an option
-                  </option>
-                  {REFERRAL_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                      <div>
+                        <label htmlFor="timeframe" className={LABEL_CLASSES}>
+                          Start timeframe{" "}
+                          <span className="font-normal opacity-60">(optional)</span>
+                        </label>
+                        <select
+                          id="timeframe"
+                          name="timeframe"
+                          defaultValue=""
+                          className={INPUT_CLASSES}
+                        >
+                          <option value="" disabled>
+                            Select a timeframe
+                          </option>
+                          {TIMEFRAME_OPTIONS.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label htmlFor="referral" className={LABEL_CLASSES}>
+                          How did you hear about us?{" "}
+                          <span className="font-normal opacity-60">(optional)</span>
+                        </label>
+                        <select
+                          id="referral"
+                          name="referral"
+                          defaultValue=""
+                          className={INPUT_CLASSES}
+                        >
+                          <option value="" disabled>
+                            Select an option
+                          </option>
+                          {REFERRAL_OPTIONS.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  </StepperContent>
+
+                  <StepperContent value={4} forceMount>
+                    <label htmlFor="message" className={LABEL_CLASSES}>
+                      Tell us what's going on <span className="text-(--color-terracotta)">*</span>
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required={step === 4}
+                      rows={6}
+                      placeholder="What you're working on, what's not landing, and what you'd like it to look like instead."
+                      className={`${INPUT_CLASSES} resize-none`}
+                    />
+                  </StepperContent>
+                </StepperPanel>
+              </Stepper>
 
               {sendError && (
                 <p
@@ -593,59 +703,102 @@ export function Contact() {
                 </p>
               )}
 
-              <div className="mt-8">
-                <SpecularButton
-                  ref={submitButtonRef}
-                  type="submit"
-                  disabled={isSending}
-                  size="lg"
-                  radius={18}
-                  tint="var(--color-deep-plum)"
-                  tintOpacity={1}
-                  blur={0}
-                  textColor="var(--color-ivory)"
-                  lineColor="#ffffff"
-                  baseColor="#525252"
-                  intensity={0.8}
-                  shineSize={10}
-                  shineFade={40}
-                  thickness={1}
-                  speed={0.35}
-                  followMouse
-                  proximity={250}
-                  autoAnimate
-                  className="w-full"
-                >
-                  {isSending ? "Sending..." : "Send it over!"}
-                </SpecularButton>
+              <div className="mt-8 flex items-center gap-3">
+                {step > 1 && (
+                  <button
+                    type="button"
+                    onClick={goBack}
+                    className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full border border-(--color-oxblood)/20 px-5 py-3 text-sm font-bold text-(--color-oxblood) transition-colors hover:bg-(--color-oxblood)/5"
+                  >
+                    <ArrowLeft size={16} />
+                    Back
+                  </button>
+                )}
+
+                {isLastStep ? (
+                  <SpecularButton
+                    ref={submitButtonRef}
+                    type="submit"
+                    disabled={isSending}
+                    size="lg"
+                    radius={18}
+                    tint="var(--color-deep-plum)"
+                    tintOpacity={1}
+                    blur={0}
+                    textColor="var(--color-ivory)"
+                    lineColor="#ffffff"
+                    baseColor="#525252"
+                    intensity={0.8}
+                    shineSize={10}
+                    shineFade={40}
+                    thickness={1}
+                    speed={0.35}
+                    followMouse
+                    proximity={250}
+                    autoAnimate
+                    className="flex-1"
+                  >
+                    {isSending ? "Sending..." : "Send it over!"}
+                  </SpecularButton>
+                ) : (
+                  <SpecularButton
+                    type="button"
+                    onClick={goNext}
+                    size="lg"
+                    radius={18}
+                    tint="var(--color-deep-plum)"
+                    tintOpacity={1}
+                    blur={0}
+                    textColor="var(--color-ivory)"
+                    lineColor="#ffffff"
+                    baseColor="#525252"
+                    intensity={0.8}
+                    shineSize={10}
+                    shineFade={40}
+                    thickness={1}
+                    speed={0.35}
+                    followMouse
+                    proximity={250}
+                    autoAnimate
+                    className="flex-1"
+                  >
+                    <span className="inline-flex items-center justify-center gap-2">
+                      Next
+                      <ArrowRight size={16} />
+                    </span>
+                  </SpecularButton>
+                )}
               </div>
 
               {/* required by Google's reCAPTCHA terms whenever the badge itself is
-                  hidden (see .grecaptcha-badge in index.css) */}
-              <p
-                className="mt-4 text-center text-xs text-(--color-oxblood)/50"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                This site is protected by reCAPTCHA and the Google{" "}
-                <a
-                  href="https://policies.google.com/privacy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-2"
+                  hidden (see .grecaptcha-badge in index.css). Only shown on the last
+                  step, right before the person actually submits. */}
+              {isLastStep && (
+                <p
+                  className="mt-4 text-center text-xs text-(--color-oxblood)/50"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
-                  Privacy Policy
-                </a>{" "}
-                and{" "}
-                <a
-                  href="https://policies.google.com/terms"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-2"
-                >
-                  Terms of Service
-                </a>{" "}
-                apply.
-              </p>
+                  This site is protected by reCAPTCHA and the Google{" "}
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2"
+                  >
+                    Privacy Policy
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="https://policies.google.com/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2"
+                  >
+                    Terms of Service
+                  </a>{" "}
+                  apply.
+                </p>
+              )}
             </form>
           )}
         </div>
