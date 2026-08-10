@@ -129,6 +129,23 @@ const FREE_TEXT_FIELDS: { key: "name" | "business" | "message"; step: number }[]
   { key: "message", step: FORM_STEPS.length },
 ];
 
+// every field in the form is required. This mirrors each field's own `required`
+// attribute (and is what goNext()'s reportValidity() call already enforces per step),
+// but the stepper indicators let people jump straight to the last step and land on
+// submit without ever triggering that per-step check, so this is the belt-and-braces
+// fallback that catches anything left empty regardless of how someone got there.
+const REQUIRED_FIELDS = [
+  { key: "name", step: 1 },
+  { key: "email", step: 1 },
+  { key: "business", step: 2 },
+  { key: "website", step: 2 },
+  { key: "service", step: 3 },
+  { key: "budget", step: 3 },
+  { key: "timeframe", step: 3 },
+  { key: "referral", step: 3 },
+  { key: "message", step: FORM_STEPS.length },
+] as const;
+
 const INPUT_CLASSES =
   "w-full rounded-xl border border-(--color-oxblood)/20 bg-(--color-ivory-raised) px-4 py-3 text-(--color-oxblood) outline-none transition-colors placeholder:text-(--color-oxblood)/35 focus:border-(--color-terracotta)";
 
@@ -304,16 +321,13 @@ export function Contact() {
     const formData = new FormData(e.currentTarget);
     const payload = Object.fromEntries(formData.entries()) as Record<string, string>;
 
-    // belt-and-braces check for the required fields living on earlier steps: the
-    // stepper indicators let people jump straight to the last step, and a hidden
-    // step's `required` inputs are exempt from the browser's own constraint
-    // validation, so an empty name/email could otherwise slip through on submit
-    if (!payload.name?.trim() || !payload.email?.trim()) {
-      setStep(1);
-      return;
-    }
-    if (!payload.message?.trim()) {
-      setStep(FORM_STEPS.length);
+    // belt-and-braces check for every required field: the stepper indicators let
+    // people jump straight to the last step, and a hidden step's `required` inputs
+    // are exempt from the browser's own constraint validation, so an empty field
+    // could otherwise slip through on submit
+    const missingField = REQUIRED_FIELDS.find((field) => !payload[field.key]?.trim());
+    if (missingField) {
+      setStep(missingField.step);
       return;
     }
 
@@ -684,12 +698,13 @@ export function Contact() {
                       <div className="grid gap-5 sm:grid-cols-2">
                         <div>
                           <label htmlFor="business" className={LABEL_CLASSES}>
-                            Business name
+                            Business name <span className="text-(--color-terracotta)">*</span>
                           </label>
                           <input
                             id="business"
                             name="business"
                             type="text"
+                            required={step === 2}
                             placeholder="Your Business Ltd"
                             className={INPUT_CLASSES}
                           />
@@ -697,7 +712,7 @@ export function Contact() {
 
                         <div>
                           <label htmlFor="website" className={LABEL_CLASSES}>
-                            Website
+                            Website <span className="text-(--color-terracotta)">*</span>
                           </label>
                           {/* deliberately type="text", not type="url", type="url" rejects
                             anything without an https:// prefix, which most people won't type.
@@ -707,8 +722,9 @@ export function Contact() {
                             id="website"
                             name="website"
                             type="text"
+                            required={step === 2}
                             inputMode="url"
-                            pattern="(https?://)?([\w-]+\.)+[a-zA-Z]{2,}(/.*)?"
+                            pattern="(https?://)?([\w\-]+\.)+[a-zA-Z]{2,}(/.*)?"
                             title="Enter a website like example.com"
                             placeholder="example.com"
                             className={INPUT_CLASSES}
@@ -721,11 +737,13 @@ export function Contact() {
                       <div className="grid gap-5 sm:grid-cols-2">
                         <div>
                           <label htmlFor="service" className={SELECT_LABEL_CLASSES}>
-                            What services do you require?
+                            What services do you require?{" "}
+                            <span className="text-(--color-terracotta)">*</span>
                           </label>
                           <select
                             id="service"
                             name="service"
+                            required={step === 3}
                             defaultValue=""
                             className={INPUT_CLASSES}
                           >
@@ -742,11 +760,13 @@ export function Contact() {
 
                         <div>
                           <label htmlFor="budget" className={SELECT_LABEL_CLASSES}>
-                            Monthly ad spend budget?
+                            Monthly ad spend budget?{" "}
+                            <span className="text-(--color-terracotta)">*</span>
                           </label>
                           <select
                             id="budget"
                             name="budget"
+                            required={step === 3}
                             defaultValue=""
                             className={INPUT_CLASSES}
                           >
@@ -763,11 +783,13 @@ export function Contact() {
 
                         <div>
                           <label htmlFor="timeframe" className={SELECT_LABEL_CLASSES}>
-                            When do you want to start?
+                            When do you want to start?{" "}
+                            <span className="text-(--color-terracotta)">*</span>
                           </label>
                           <select
                             id="timeframe"
                             name="timeframe"
+                            required={step === 3}
                             defaultValue=""
                             className={INPUT_CLASSES}
                           >
@@ -784,11 +806,13 @@ export function Contact() {
 
                         <div>
                           <label htmlFor="referral" className={SELECT_LABEL_CLASSES}>
-                            How did you hear about us?
+                            How did you hear about us?{" "}
+                            <span className="text-(--color-terracotta)">*</span>
                           </label>
                           <select
                             id="referral"
                             name="referral"
+                            required={step === 3}
                             defaultValue=""
                             className={INPUT_CLASSES}
                           >
