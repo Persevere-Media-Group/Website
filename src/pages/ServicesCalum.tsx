@@ -1,17 +1,11 @@
 import { useState } from "react";
 import { PopupModal } from "react-calendly";
 import { CalendarClock, MessagesSquare, BarChart3 } from "lucide-react";
-import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
 import ScrollStack, { ScrollStackItem } from "@/components/primitive/ScrollStack";
-import {
-  CALENDLY_URL,
-  UNDERLINE_COLOR,
-  HIGHLIGHT_COLOR,
-  MARK_PROPS,
-} from "@/pages/services-shared";
+import { CALENDLY_URL } from "@/pages/services-shared";
 import { FaqAccordion, FaqLink } from "@/components/custom/faq";
 import { AlwaysIncluded, ClosingCta, IntroBanner } from "@/pages/ServicesCombined";
 
@@ -22,28 +16,28 @@ import { AlwaysIncluded, ClosingCta, IntroBanner } from "@/pages/ServicesCombine
 const STAGES = [
   {
     number: "01",
-    title: "Onboarding",
-    body: "Before a camera comes out, we want to know your business inside out. Your customers, their pain points, the problem you solve and how you solve it differently. We’ll send you an onboarding form to fill, then we sit down together to go through it properly. Usually done within one to two days.",
+    title: "Welcome Aboard!",
+    body: "Before a camera comes out, we want to know your business inside out. Your customers, their pain points, the problem you solve and how you solve it differently.",
   },
   {
     number: "02",
     title: "The Groundwork",
-    body: "We take pre-production seriously. Scripting, planning the shoot day, working out which formats do which job for your brand. Skip this stage and everything after it is just guesswork. We don't rush it.",
+    body: "We take pre-production seriously. Scripting, planning the shoot day, working out which formats do which job for your brand.",
   },
   {
     number: "03",
-    title: "Create",
+    title: "Build",
     body: "Shoot day. One or two half-day shoots a month is a great place to start, but we’re adaptable to what your business actually needs. Then the real craft: editing, colour grading, captioning, all done professionally. No Capcut templates here.",
   },
   {
     number: "04",
     title: "Launch",
-    body: "The content goes live. We manage the posting and the accounts ourselves, this isn't a 'here are your files, good luck!' handover. We're watching what lands and what doesn't from day one.",
+    body: "The content goes live. We manage the posting and the accounts ourselves, this isn't a 'here are your files, good luck!' handover.",
   },
   {
     number: "05",
-    title: "Scale",
-    body: "When something's working, we lean into it. We keep sharpening the strategy as we learn what your specific audience actually responds to. We're your growth partner, not an agency that declares victory and coasts.",
+    title: "Growth",
+    body: "When something's working, we lean into it. We keep sharpening the strategy as we learn what your specific audience actually responds to. We're your growth partner.",
   },
 ];
 
@@ -55,7 +49,7 @@ const WHATS_INCLUDED = [
   "Shoots for paid and organic content, starting at one half-day a month and scaling with your needs",
   "Full production: editing, colour grading, and captioning to a professional standard",
   "A full range of formats: short-form video, long-form, VSLs, static graphics, and reels",
-  "Organic social strategy and rollout, including posting and account management, not just the content itself",
+  "Organic social strategy and rollout, including posting, not just the content itself",
   "Platform strategy built around where your audience actually is, most often Instagram, TikTok, or YouTube",
 ];
 
@@ -168,9 +162,9 @@ export function ServicesCalum() {
           className="mt-6 max-w-xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
           style={{ fontFamily: "var(--font-body)" }}
         >
-          Video, photography, and organic social, built as one system, not a pile of disconnected
-          posts. Shoots, edits, strategy, and the actual posting, done properly, by people who care
-          whether it works.
+          I lead video, photography, and organic social at Persevere, where we build content as one
+          system, not a pile of disconnected posts. Shoots, edits, strategy, done properly, by
+          people who care whether it works.
         </p>
         <br />
         <SectionDivider />
@@ -186,23 +180,16 @@ export function ServicesCalum() {
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
             style={{ fontFamily: "var(--font-body)" }}
           >
-            Organic growth isn't about posting more. The platforms don't care how many followers you
-            have, they care whether people save it, share it, and actually watch it.{" "}
-            <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
-              Likes barely count.
-            </Highlighter>{" "}
-            Chase likes and you're optimising for the wrong thing entirely.
+            Organic growth isn't about posting more or always hopping on the newest trend. The
+            platforms don't care how many followers you have, they care whether people save it,
+            share it, and actually watch it.
           </p>
           <p
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
             style={{ fontFamily: "var(--font-body)" }}
           >
             So we build for the signals that actually matter. This takes time. We're honest about
-            that from the start, real traction is usually a{" "}
-            <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
-              three to six month game
-            </Highlighter>
-            , not a three-week one. Any agency promising overnight virality is either guessing or
+            that from the start. Any agency promising overnight virality is either guessing or
             lying, and we'd rather tell you the truth and earn it properly.
           </p>
           <p
@@ -210,8 +197,7 @@ export function ServicesCalum() {
             style={{ fontFamily: "var(--font-body)" }}
           >
             This works best if you care about real growth, not just likes, and you're ready to give
-            it a proper runway. It's probably not for you if you're chasing a one-off viral moment
-            or a few strategy-less reels feel like enough.
+            it a proper runway. It's probably not for you if you're chasing a one-off viral moment.
           </p>
         </div>
 
