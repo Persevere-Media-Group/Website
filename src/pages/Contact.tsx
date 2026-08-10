@@ -53,6 +53,16 @@ const TIMEFRAME_OPTIONS = [
   "Just window shopping!",
 ];
 
+const REFERRAL_OPTIONS = [
+  "Instagram",
+  "TikTok",
+  "LinkedIn",
+  "Google search",
+  "Referred by a friend/colleague",
+  "Existing client",
+  "Other",
+];
+
 const TEAM_SOCIALS = [
   {
     name: "Keir",
@@ -550,6 +560,23 @@ export function Contact() {
                     Select a timeframe
                   </option>
                   {TIMEFRAME_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="mt-5">
+                <label htmlFor="referral" className={LABEL_CLASSES}>
+                  How did you hear about us?{" "}
+                  <span className="font-normal opacity-60">(optional)</span>
+                </label>
+                <select id="referral" name="referral" defaultValue="" className={INPUT_CLASSES}>
+                  <option value="" disabled>
+                    Select an option
+                  </option>
+                  {REFERRAL_OPTIONS.map((option) => (
                     <option key={option} value={option}>
                       {option}
                     </option>
