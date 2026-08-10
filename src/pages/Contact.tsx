@@ -122,6 +122,15 @@ const INPUT_CLASSES =
 
 const LABEL_CLASSES = "mb-2 block text-sm font-semibold text-(--color-oxblood)";
 
+// used for the 2x2 select grid: labels there vary in length ("What service?" vs
+// "How did you hear about us?"), and a wrapped 2-line label pushes just its own
+// select down, throwing the row out of alignment with its neighbour. A shared
+// min-height (flex + items-end to bottom-align the text against it) reserves the
+// same vertical space whether a label wraps or not, so every select in the grid
+// lines up both across its row and down its column.
+const SELECT_LABEL_CLASSES =
+  "mb-2 flex min-h-11 items-end gap-x-1 text-sm font-semibold text-(--color-oxblood)";
+
 // ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
@@ -465,7 +474,11 @@ export function Contact() {
                   blur={0}
                   textColor="var(--color-ivory)"
                   lineColor="#ffffff"
-                  baseColor="#525252"
+                  // matches `tint` rather than the usual neutral grey: with tintOpacity
+                  // at 1 the button is a solid fill, not real glass, so the WebGL base
+                  // coat needs to be the same colour as that fill or it shows through
+                  // as a mismatched grey patch instead of blending in
+                  baseColor="#594157"
                   intensity={0.8}
                   shineSize={10}
                   shineFade={40}
@@ -595,7 +608,7 @@ export function Contact() {
                   <StepperContent value={3} forceMount>
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div>
-                        <label htmlFor="service" className={LABEL_CLASSES}>
+                        <label htmlFor="service" className={SELECT_LABEL_CLASSES}>
                           What service? <span className="font-normal opacity-60">(optional)</span>
                         </label>
                         <select
@@ -616,7 +629,7 @@ export function Contact() {
                       </div>
 
                       <div>
-                        <label htmlFor="budget" className={LABEL_CLASSES}>
+                        <label htmlFor="budget" className={SELECT_LABEL_CLASSES}>
                           Monthly ad spend{" "}
                           <span className="font-normal opacity-60">(optional)</span>
                         </label>
@@ -633,7 +646,7 @@ export function Contact() {
                       </div>
 
                       <div>
-                        <label htmlFor="timeframe" className={LABEL_CLASSES}>
+                        <label htmlFor="timeframe" className={SELECT_LABEL_CLASSES}>
                           Start timeframe{" "}
                           <span className="font-normal opacity-60">(optional)</span>
                         </label>
@@ -655,7 +668,7 @@ export function Contact() {
                       </div>
 
                       <div>
-                        <label htmlFor="referral" className={LABEL_CLASSES}>
+                        <label htmlFor="referral" className={SELECT_LABEL_CLASSES}>
                           How did you hear about us?{" "}
                           <span className="font-normal opacity-60">(optional)</span>
                         </label>
