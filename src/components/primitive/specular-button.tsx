@@ -101,8 +101,18 @@ void main() {
 
   float base = (1.0 - smoothstep(0.0, uBaseWidth, abs(d))) * 0.45;
 
-  vec2 nEll = normalize(p / (uHalfSize * uHalfSize) + 1e-6);
-  float phi = acos(clamp(abs(dot(nEll, L)), 0.0, 1.0));
+  // True outward normal of the rounded-rect boundary (via the SDF's own gradient),
+  // not an elliptical approximation. An ellipse's normal only matches a rounded rect's
+  // near a square aspect ratio; on a wide pill button (this button is much wider than
+  // tall) the two curvatures diverge sharply right where it matters most, at the
+  // corners, so the old approximation made the shine's highlight visibly drift away
+  // from the button's actual rounded edge instead of hugging it.
+  vec2 e = vec2(1.0, 0.0);
+  vec2 nRect = normalize(vec2(
+    shapeSDF(p + e.xy) - shapeSDF(p - e.xy),
+    shapeSDF(p + e.yx) - shapeSDF(p - e.yx)
+  ));
+  float phi = acos(clamp(abs(dot(nRect, L)), 0.0, 1.0));
   float rim = 1.0 - smoothstep(uShineSize - uShineFade, uShineSize + uShineFade + 1e-4, phi);
   float line = gaussianLine(d, uThickness);
   float edgeClamp = 1.0 - smoothstep(0.5 * uPx, 3.0 * uPx, abs(d));

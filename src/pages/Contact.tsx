@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
-import { ArrowLeft, ArrowRight, HelpCircle, Phone, TriangleAlert, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, HelpCircle, Phone, TriangleAlert, Users, X } from "lucide-react";
 import SpecularButton from "@/components/primitive/specular-button";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
@@ -112,7 +112,7 @@ const CONTACT_FAQS: Faq[] = [
 // validation still works per step since hidden steps are excluded from constraint
 // validation by the browser
 const FORM_STEPS = [
-  "What's your name, friend?",
+  "What's your name, pal?",
   "Tell us about your business",
   "What are you after?",
   "Anything else you want to tell us?",
@@ -573,212 +573,225 @@ export function Contact() {
                   rather than the card growing the first time someone reaches that step. */}
               <div className="flex-1 min-h-[570px] sm:min-h-[330px]">
                 <Stepper value={step} onValueChange={setStep}>
-                <StepperNav className="mb-6">
-                  {FORM_STEPS.map((title, i) => {
-                    const stepNumber = i + 1;
-                    return (
-                      <StepperItem
-                        key={title}
-                        step={stepNumber}
-                        // ahead-of-progress dots are natively unclickable (and dimmed via
-                        // the trigger's own disabled:opacity-60), rather than just being
-                        // ignored in a click handler — steps already reached stay clickable
-                        // so people can freely jump back
-                        disabled={stepNumber > maxStepReached}
-                      >
-                        <StepperTrigger>
-                          <StepperIndicator className="size-8 border-2 border-(--color-terracotta) bg-(--color-ivory) text-xs font-bold text-(--color-terracotta) data-[state=active]:bg-(--color-terracotta) data-[state=active]:text-(--color-ivory) data-[state=completed]:bg-(--color-terracotta) data-[state=completed]:text-(--color-ivory)">
-                            {stepNumber}
-                          </StepperIndicator>
-                        </StepperTrigger>
-                        {stepNumber < FORM_STEPS.length && (
-                          <StepperSeparator className="bg-(--color-terracotta)/20 data-[state=completed]:bg-(--color-terracotta)" />
-                        )}
-                      </StepperItem>
-                    );
-                  })}
-                </StepperNav>
+                  <StepperNav className="mb-6">
+                    {FORM_STEPS.map((title, i) => {
+                      const stepNumber = i + 1;
+                      return (
+                        <StepperItem
+                          key={title}
+                          step={stepNumber}
+                          // ahead-of-progress dots are natively unclickable (and dimmed via
+                          // the trigger's own disabled:opacity-60), rather than just being
+                          // ignored in a click handler — steps already reached stay clickable
+                          // so people can freely jump back
+                          disabled={stepNumber > maxStepReached}
+                        >
+                          <StepperTrigger>
+                            <StepperIndicator className="size-8 border-2 border-(--color-terracotta) bg-(--color-ivory) text-xs font-bold text-(--color-terracotta) data-[state=active]:bg-(--color-terracotta) data-[state=active]:text-(--color-ivory) data-[state=completed]:bg-(--color-terracotta) data-[state=completed]:text-(--color-ivory)">
+                              {stepNumber}
+                            </StepperIndicator>
+                          </StepperTrigger>
+                          {stepNumber < FORM_STEPS.length && (
+                            <StepperSeparator className="bg-(--color-terracotta)/20 data-[state=completed]:bg-(--color-terracotta)" />
+                          )}
+                        </StepperItem>
+                      );
+                    })}
+                  </StepperNav>
 
-                <h3 className="mb-5 text-[clamp(1.15rem,2.4vw,1.4rem)] font-black tracking-tight text-(--color-oxblood)">
-                  {FORM_STEPS[step - 1]}
-                </h3>
+                  <h3 className="mb-5 text-[clamp(1.15rem,2.4vw,1.4rem)] font-black tracking-tight text-(--color-oxblood)">
+                    {FORM_STEPS[step - 1]}
+                  </h3>
 
-                <StepperPanel>
-                  <StepperContent value={1} forceMount>
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <div>
-                        <label htmlFor="name" className={LABEL_CLASSES}>
-                          Your name <span className="text-(--color-terracotta)">*</span>
-                        </label>
-                        <input
-                          id="name"
-                          name="name"
-                          type="text"
-                          required={step === 1}
-                          placeholder="Your Name"
-                          className={INPUT_CLASSES}
-                        />
+                  <StepperPanel>
+                    <StepperContent value={1} forceMount>
+                      <div className="grid gap-5 sm:grid-cols-2">
+                        <div>
+                          <label htmlFor="name" className={LABEL_CLASSES}>
+                            Your name <span className="text-(--color-terracotta)">*</span>
+                          </label>
+                          <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            required={step === 1}
+                            placeholder="Your Name"
+                            className={INPUT_CLASSES}
+                          />
+                        </div>
+
+                        <div>
+                          <label htmlFor="email" className={LABEL_CLASSES}>
+                            Email <span className="text-(--color-terracotta)">*</span>
+                          </label>
+                          <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            required={step === 1}
+                            placeholder="yourbusiness@email.com"
+                            className={INPUT_CLASSES}
+                          />
+                        </div>
                       </div>
+                    </StepperContent>
 
-                      <div>
-                        <label htmlFor="email" className={LABEL_CLASSES}>
-                          Email <span className="text-(--color-terracotta)">*</span>
-                        </label>
-                        <input
-                          id="email"
-                          name="email"
-                          type="email"
-                          required={step === 1}
-                          placeholder="yourbusiness@email.com"
-                          className={INPUT_CLASSES}
-                        />
-                      </div>
-                    </div>
-                  </StepperContent>
+                    <StepperContent value={2} forceMount>
+                      <div className="grid gap-5 sm:grid-cols-2">
+                        <div>
+                          <label htmlFor="business" className={LABEL_CLASSES}>
+                            Business name
+                          </label>
+                          <input
+                            id="business"
+                            name="business"
+                            type="text"
+                            placeholder="Your Business Ltd"
+                            className={INPUT_CLASSES}
+                          />
+                        </div>
 
-                  <StepperContent value={2} forceMount>
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <div>
-                        <label htmlFor="business" className={LABEL_CLASSES}>
-                          Business name
-                        </label>
-                        <input
-                          id="business"
-                          name="business"
-                          type="text"
-                          placeholder="Your Business Ltd"
-                          className={INPUT_CLASSES}
-                        />
-                      </div>
-
-                      <div>
-                        <label htmlFor="website" className={LABEL_CLASSES}>
-                          Website
-                        </label>
-                        {/* deliberately type="text", not type="url", type="url" rejects
+                        <div>
+                          <label htmlFor="website" className={LABEL_CLASSES}>
+                            Website
+                          </label>
+                          {/* deliberately type="text", not type="url", type="url" rejects
                             anything without an https:// prefix, which most people won't type.
                             the pattern accepts bare domains, www prefixes, subdomains, paths,
                             and an optional protocol if they do include one. */}
-                        <input
-                          id="website"
-                          name="website"
-                          type="text"
-                          inputMode="url"
-                          pattern="(https?://)?([\w-]+\.)+[a-zA-Z]{2,}(/.*)?"
-                          title="Enter a website like example.com"
-                          placeholder="example.com"
-                          className={INPUT_CLASSES}
-                        />
+                          <input
+                            id="website"
+                            name="website"
+                            type="text"
+                            inputMode="url"
+                            pattern="(https?://)?([\w-]+\.)+[a-zA-Z]{2,}(/.*)?"
+                            title="Enter a website like example.com"
+                            placeholder="example.com"
+                            className={INPUT_CLASSES}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </StepperContent>
+                    </StepperContent>
 
-                  <StepperContent value={3} forceMount>
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <div>
-                        <label htmlFor="service" className={SELECT_LABEL_CLASSES}>
-                          What service?
-                        </label>
-                        <select
-                          id="service"
-                          name="service"
-                          defaultValue=""
-                          className={INPUT_CLASSES}
-                        >
-                          <option value="" disabled>
-                            Pick one
-                          </option>
-                          {SERVICE_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                    <StepperContent value={3} forceMount>
+                      <div className="grid gap-5 sm:grid-cols-2">
+                        <div>
+                          <label htmlFor="service" className={SELECT_LABEL_CLASSES}>
+                            What services do you require?
+                          </label>
+                          <select
+                            id="service"
+                            name="service"
+                            defaultValue=""
+                            className={INPUT_CLASSES}
+                          >
+                            <option value="" disabled>
+                              Pick one
                             </option>
-                          ))}
-                        </select>
-                      </div>
+                            {SERVICE_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
 
-                      <div>
-                        <label htmlFor="budget" className={SELECT_LABEL_CLASSES}>
-                          Monthly ad spend
-                        </label>
-                        <select id="budget" name="budget" defaultValue="" className={INPUT_CLASSES}>
-                          <option value="" disabled>
-                            Select a range
-                          </option>
-                          {BUDGET_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                        <div>
+                          <label htmlFor="budget" className={SELECT_LABEL_CLASSES}>
+                            Monthly ad spend budget?
+                          </label>
+                          <select
+                            id="budget"
+                            name="budget"
+                            defaultValue=""
+                            className={INPUT_CLASSES}
+                          >
+                            <option value="" disabled>
+                              Select a range
                             </option>
-                          ))}
-                        </select>
-                      </div>
+                            {BUDGET_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
 
-                      <div>
-                        <label htmlFor="timeframe" className={SELECT_LABEL_CLASSES}>
-                          Start timeframe
-                        </label>
-                        <select
-                          id="timeframe"
-                          name="timeframe"
-                          defaultValue=""
-                          className={INPUT_CLASSES}
-                        >
-                          <option value="" disabled>
-                            Select a timeframe
-                          </option>
-                          {TIMEFRAME_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                        <div>
+                          <label htmlFor="timeframe" className={SELECT_LABEL_CLASSES}>
+                            When do you want to start?
+                          </label>
+                          <select
+                            id="timeframe"
+                            name="timeframe"
+                            defaultValue=""
+                            className={INPUT_CLASSES}
+                          >
+                            <option value="" disabled>
+                              Select a timeframe
                             </option>
-                          ))}
-                        </select>
-                      </div>
+                            {TIMEFRAME_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
 
-                      <div>
-                        <label htmlFor="referral" className={SELECT_LABEL_CLASSES}>
-                          How did you hear about us?
-                        </label>
-                        <select
-                          id="referral"
-                          name="referral"
-                          defaultValue=""
-                          className={INPUT_CLASSES}
-                        >
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          {REFERRAL_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                        <div>
+                          <label htmlFor="referral" className={SELECT_LABEL_CLASSES}>
+                            How did you hear about us?
+                          </label>
+                          <select
+                            id="referral"
+                            name="referral"
+                            defaultValue=""
+                            className={INPUT_CLASSES}
+                          >
+                            <option value="" disabled>
+                              Select an option
                             </option>
-                          ))}
-                        </select>
+                            {REFERRAL_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                  </StepperContent>
+                    </StepperContent>
 
-                  <StepperContent value={4} forceMount>
-                    <label htmlFor="message" className={LABEL_CLASSES}>
-                      Tell us what's going on <span className="text-(--color-terracotta)">*</span>
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required={step === 4}
-                      rows={6}
-                      placeholder="What you're working on, what's not landing, and what you'd like it to look like instead."
-                      className={`${INPUT_CLASSES} resize-none`}
-                    />
-                  </StepperContent>
-                </StepperPanel>
+                    <StepperContent value={4} forceMount>
+                      <label htmlFor="message" className={LABEL_CLASSES}>
+                        Tell us what's going on <span className="text-(--color-terracotta)">*</span>
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        required={step === 4}
+                        rows={6}
+                        placeholder="What you're working on, what's not landing, and what you'd like it to look like instead."
+                        className={`${INPUT_CLASSES} resize-none`}
+                      />
+                    </StepperContent>
+                  </StepperPanel>
                 </Stepper>
               </div>
 
               {sendError && (
                 <p
-                  className="mt-5 text-sm font-semibold text-(--color-terracotta)"
+                  className="mt-5 flex items-start justify-between gap-3 text-sm font-semibold text-(--color-terracotta)"
                   style={{ fontFamily: "var(--font-body)" }}
                 >
-                  {sendError}
+                  <span>{sendError}</span>
+                  <button
+                    type="button"
+                    onClick={() => setSendError(null)}
+                    aria-label="Dismiss error message"
+                    className="shrink-0 cursor-pointer rounded-full p-0.5 text-(--color-terracotta)/70 transition-colors hover:bg-(--color-terracotta)/10 hover:text-(--color-terracotta)"
+                  >
+                    <X size={16} />
+                  </button>
                 </p>
               )}
 
@@ -831,36 +844,18 @@ export function Contact() {
                     {isSending ? "Sending..." : "Send it over!"}
                   </SpecularButton>
                 ) : (
-                  <SpecularButton
-                    key="next-button"
+                  // plain button rather than SpecularButton: the WebGL shine didn't read
+                  // well on this button, so this just darkens on hover instead (same
+                  // "deeper shade" idea as the Back button's hover, via brightness so it
+                  // works regardless of the exact colour behind it)
+                  <button
                     type="button"
                     onClick={goNext}
-                    size="lg"
-                    radius={18}
-                    tint="var(--color-deep-plum)"
-                    tintOpacity={1}
-                    blur={0}
-                    textColor="var(--color-ivory)"
-                    lineColor="#ffffff"
-                    // matches `tint`: with tintOpacity at 1 the button is a solid fill,
-                    // not real glass, so the WebGL base coat needs to be the same
-                    // colour as that fill or it shows through as a mismatched patch
-                    baseColor="#594157"
-                    intensity={0.8}
-                    shineSize={10}
-                    shineFade={40}
-                    thickness={1}
-                    speed={0.35}
-                    followMouse
-                    proximity={250}
-                    autoAnimate
-                    className="flex-1"
+                    className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full bg-(--color-deep-plum) px-10 py-[18px] text-[1.15rem] font-bold text-(--color-ivory) transition-[filter] hover:brightness-90 active:brightness-75"
                   >
-                    <span className="inline-flex items-center justify-center gap-2">
-                      Next
-                      <ArrowRight size={16} />
-                    </span>
-                  </SpecularButton>
+                    Next
+                    <ArrowRight size={16} />
+                  </button>
                 )}
               </div>
 
@@ -926,15 +921,18 @@ export function Contact() {
             <span className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-(--color-terracotta)/15 text-(--color-terracotta)">
               <TriangleAlert size={22} />
             </span>
-            <h2 id="profanity-warning-title" className="text-xl font-black tracking-tight text-(--color-oxblood)">
+            <h2
+              id="profanity-warning-title"
+              className="text-xl font-black tracking-tight text-(--color-oxblood)"
+            >
               Let's keep it civil
             </h2>
             <p
               className="mt-3 text-sm leading-relaxed text-(--color-oxblood)/80"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              That message contains language we don't accept here. We're all for
-              directness, just not harassment, so please edit it and try again.
+              That message contains language we don't accept here. We're all for directness, just
+              not harassment, so please edit it and try again.
             </p>
             <button
               type="button"
