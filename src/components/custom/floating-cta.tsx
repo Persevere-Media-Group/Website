@@ -170,7 +170,7 @@ export function FloatingCta() {
         style={{ x, y, visibility: ready ? "visible" : "hidden" }}
       >
         <Phone className="h-4 w-4" />
-        Give us a bell !
+        Book a call !
       </motion.button>
 
       <PopupModal
