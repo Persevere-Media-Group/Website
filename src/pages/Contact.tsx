@@ -359,7 +359,9 @@ export function Contact() {
                 className="mt-6 max-w-md text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
                 style={{ fontFamily: "var(--font-body)" }}
               >
-                Drop us a message and you'll hear back from
+                Fill in our form to send us a message.
+                <br />
+                You'll hear back from {""}
                 <Highlighter
                   action="highlight"
                   color="rgba(237, 176, 62, 0.3)"
