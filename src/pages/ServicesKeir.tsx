@@ -22,28 +22,28 @@ import { AlwaysIncluded, ClosingCta, IntroBanner } from "@/pages/ServicesCombine
 const STAGES = [
   {
     number: "01",
-    title: "Onboarding",
-    body: "We're sponges. Before we touch a single campaign, we want to know your business inside out, your customers, their problems, what's actually stopping them from buying. You'll fill in an onboarding form, then we'll sit down together to go through it, ask the follow-up questions, and make sure we've got everything we need. Usually done within one to two days.",
+    title: "Welcome Aboard!",
+    body: "Before we touch a single campaign, we want to know your business inside out, your customers, their problems, what's actually stopping them from buying.",
   },
   {
     number: "02",
     title: "Groundwork",
-    body: "This is where the foundation gets built, and we take it seriously. Scripting ad copy, designing creative, building out hooks. Skip this stage or rush it, and everything after it wobbles. We don't rush it.",
+    body: "This is where we get to work building out your customer avatars. Then, scripting ad copy, designing your creative strategy to create thumb stopping creatives for your campaigns.",
   },
   {
     number: "03",
-    title: "Create",
-    body: "Shooting, editing, and building your bespoke strategy properly. And it doesn't stop once it's built. Strategy keeps evolving as we learn more, because we're driven by the data, not by what we planned on day one.",
+    title: "Build",
+    body: "Shooting, editing, and fine tuning your creatives. We will also get to work on designing your campaign strategy. It doesn't stop once it's built. Strategy keeps evolving as we learn more, because we're driven by the data, not by what we planned on day one.",
   },
   {
     number: "04",
     title: "Launch",
-    body: "We go live. This is where the real learning starts: absorbing everything the campaigns tell us and feeding it straight back into the strategy. Continuous improvement isn't a nice-to-have for us, it's the whole point.",
+    body: "This is where the real learning starts: absorbing everything the campaigns tell us and feeding it straight back into the strategy. Continuous improvement isn't a 'nice to have', it's the whole point.",
   },
   {
     number: "05",
-    title: "Scale",
-    body: "When it's working, we don't sit back. We scale it, and we keep improving as we go. We're your growth partner, not an agency that declares victory and coasts. We're not interested in settling, and neither should you be.",
+    title: "Growth",
+    body: "When it's working, we don't sit back. We scale it, and we keep improving as we go. We're your growth partner, We're not interested in settling.",
   },
 ];
 
@@ -52,28 +52,27 @@ const STAGES = [
 // ---------------------------------------------------------------------------
 
 const WHATS_INCLUDED = [
-  "Paid social management and strategy, built around your actual customers, not a generic template",
-  "PPC management and strategy",
-  "Creative direction, hooks, messaging, and format guidance built in Groundwork and refined in Create",
-  "Tracking set up properly from day one, so the data we act on is the data that's actually true",
-  "Continuous optimisation, not a set-and-check-in-a-month approach",
+  "A straight talking team who will tell you what you need to hear, not what you want to hear",
+  "Work with seasoned pros, who have been there and done it, time and again",
+  "Have both your creative and your performance under one roof, so you don't have to choose between one or the other",
+  "A team who genuinely cares about your business, and will stick around, not ghost you after you've onboarded",
 ];
 
 const ALWAYS_INCLUDED = [
   {
     icon: CalendarClock,
-    title: "Monthly reporting call",
-    body: "A proper call, every month, going through what's working, what's changed, and what's next.",
+    title: "Actual Communication",
+    body: "A check in every week. A proper call, every month, going through what's working, what's changed, and what's next. We are part of your team!",
   },
   {
     icon: MessagesSquare,
     title: "Direct access to us",
-    body: "A group chat with the two of us. Real access, not an account manager relaying messages. (Not at 11pm though, we've got lives too.)",
+    body: "A dedicated group chat with the two of us, to discuss day-to-day performance, and to feel like an extension of your team. We want to give you real access, not an account manager relaying messages. (Not at 11pm though, we've got lives too.)",
   },
   {
     icon: BarChart3,
     title: "Transparent reporting tools",
-    body: "We'll help you get set up with tools that keep the numbers clear and trustworthy, not vanity metrics dressed up to make us look good. We want your business to actually do well, not just look good on a slide.",
+    body: "We'll help you get set up with tools that keep the numbers clear and trustworthy, not vanity metrics dressed up to make us look good. We want your business to actually do well, not just make us look good.",
   },
 ];
 
@@ -172,16 +171,16 @@ export function ServicesKeir() {
           className="mt-6 max-w-2xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
           style={{ fontFamily: "var(--font-body)" }}
         >
-          I lead Paid social and PPC here. Where we build and run properly, not a set and forget
-          approach. We have{" "}
+          I lead all things Paid Media, such as Paid social and PPC. We build and run it properly,
+          not set-forget and take you for a ride. We have over{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
             10+ years of combined experience
           </Highlighter>
-          , managed{" "}
+          , managing{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
             £20m+ in ad spend
-          </Highlighter>
-          , and worked with budgets ranging from{" "}
+          </Highlighter>{" "}
+          across a huge variety of sectors and niches. We've managed budgets from{" "}
           <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
             £1,000
           </Highlighter>{" "}
@@ -204,21 +203,10 @@ export function ServicesKeir() {
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
             style={{ fontFamily: "var(--font-body)" }}
           >
-            Good paid media isn't a magic algorithm and a big budget. It's the fundamentals done
-            properly: real tracking, real strategy, real creative, and{" "}
-            <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
-              someone who's actually watching the account
-            </Highlighter>
-            , not letting it run on autopilot.
-          </p>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            We've managed millions of pounds across a wide range of sectors, from £1,000-a-month
-            starters to £500,000-a-month scale-ups. What we've learned along the way: no ego, follow
-            the data, and never stop trying to improve. That's not a slogan, it's how every account
-            gets run.
+            Getting strong results from your campaigns doesn't just come from a magic algorithm or
+            an AI agent. It comes from us. Real people with years of real experience, designing a
+            bespoke strategy, consistently testing, and learning from the data and constantly
+            evolving. We're not about leaving your account on autopilot.
           </p>
         </div>
         <SectionDivider reverse />
