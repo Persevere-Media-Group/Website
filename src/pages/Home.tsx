@@ -16,6 +16,7 @@ import { Backlight } from "@/components/primitive/backlight";
 import StatsCount from "@/components/primitive/statscount";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import { GrainWave } from "@/components/custom/grain-wave";
+import { ClosingCta } from "@/pages/ServicesCombined";
 
 // ---------------------------------------------------------------------------
 // Hero
@@ -210,7 +211,7 @@ const FACTS_BLOCKS = [
         >
           £20m+ in ad spend, 50+ brands
         </Highlighter>
-        , thousands of hours in the edit. This attitude
+        , thousands of hours of experience. We've been there and done it time and again, and{" "}
         <Highlighter
           action="underline"
           color="#d5573b"
@@ -218,7 +219,7 @@ const FACTS_BLOCKS = [
           animationDuration={1000}
           iterations={2}
         >
-          comes with a track record
+          have the results to show for it
         </Highlighter>
         .
       </>
@@ -265,7 +266,7 @@ const FACTS_BLOCKS = [
         >
           Keir and Calum
         </Highlighter>
-        . The two{" "}
+        . The two who are{" "}
         <Highlighter
           action="underline"
           color="#d5573b"
@@ -275,7 +276,8 @@ const FACTS_BLOCKS = [
         >
           actually doing the work
         </Highlighter>
-        . No account managers, no shareholders skimming the top.
+        . No account managers, no profit-skimming by shareholders, and 100% of your budget going
+        exactly where it should be.
       </>
     ),
   },
@@ -405,7 +407,7 @@ const SERVICES_BLOCKS = [
           £20m+ in ad spend
         </Highlighter>{" "}
         managed across budgets from £1,000 a month to £500,000 a month. We design a bespoke
-        strategy, test constantly, and evolve with the data, not{" "}
+        strategy, test constantly, and evolve with the data. We're not leaving you with{" "}
         <Highlighter
           action="underline"
           color="#d5573b"
@@ -426,7 +428,7 @@ const SERVICES_BLOCKS = [
     heading: "Thumb-stopping creative, that converts, made by us.",
     body: (
       <>
-        We build out your customer avatars, script the copy, and shoot and edit creative designed to{" "}
+        We build out your customer avatars, script the copy, and shoot and edit creative to make{" "}
         <Highlighter
           action="highlight"
           color="rgba(237, 176, 62, 0.3)"
@@ -434,9 +436,9 @@ const SERVICES_BLOCKS = [
           animationDuration={1000}
           iterations={2}
         >
-          stop the scroll
-        </Highlighter>
-        . The ads are built by{" "}
+          thumb stopping content
+        </Highlighter>{" "}
+        for your organic pages or your paid campaigns. Crafted by{" "}
         <Highlighter
           action="underline"
           color="#d5573b"
@@ -444,9 +446,9 @@ const SERVICES_BLOCKS = [
           animationDuration={1000}
           iterations={2}
         >
-          the same team running the campaigns
-        </Highlighter>{" "}
-        so we learn, and innovate.
+          the same team running your campaigns
+        </Highlighter>
+        , closing the feedback loop, learning and implementing change faster.
       </>
     ),
     to: "/services/calum",
@@ -464,15 +466,14 @@ function OurServicesSection() {
         Our Services
       </p>
       <h2 className="mt-3 text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
-        The Best of Both Worlds
+        The best of both worlds
       </h2>
       <p
         className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
         style={{ fontFamily: "var(--font-body)" }}
       >
-        Most agencies hand you one and leave you to find the other.
-        <br />
-        We do both, under one roof, closing the feedback loop.
+        Most agencies hand you one and leave you to find the other. We do both, under one roof, and
+        keep it simple. Ads, Content. More accessible and affordable.
       </p>
 
       <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">
@@ -550,7 +551,11 @@ function WhyChooseSection() {
           style={{ fontFamily: "var(--font-body)" }}
         >
           A straight-talking team who'll tell you what you need to hear, not what you want to hear.
-          Ready to come aboard?
+          Ready to join the team?
+        </p>
+
+        <p className="mt-6 text-[clamp(1.1rem,2vw,1.35rem)] font-black tracking-tight text-(--color-ivory)">
+          The proof is in the pudding…
         </p>
 
         <div className="mt-8 flex justify-center">
@@ -568,6 +573,8 @@ function WhyChooseSection() {
 // ---------------------------------------------------------------------------
 
 export function Home() {
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+
   return (
     <>
       <HeroSection />
@@ -578,6 +585,17 @@ export function Home() {
       <VideoSection />
       <OurServicesSection />
       <WhyChooseSection />
+
+      <div className="flex w-full flex-col items-center bg-(--color-ivory) px-4 py-24">
+        <ClosingCta onBookCall={() => setIsCalendlyOpen(true)} />
+      </div>
+
+      <PopupModal
+        url={CALENDLY_URL}
+        onModalClose={() => setIsCalendlyOpen(false)}
+        open={isCalendlyOpen}
+        rootElement={document.getElementById("root")!}
+      />
     </>
   );
 }
