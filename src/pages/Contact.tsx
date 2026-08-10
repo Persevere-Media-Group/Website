@@ -118,6 +118,17 @@ const FORM_STEPS = [
   "Anything else you want to tell us?",
 ] as const;
 
+// only the genuinely free-text fields are profanity-checked, not the dropdowns/email/
+// website, which are either constrained to preset options or structurally validated
+// already. Checked both per-step (so a rude name gets caught on step 1, not just at
+// the very end) and again in full on submit, since the step indicators let people
+// jump around and skip the per-step check entirely.
+const FREE_TEXT_FIELDS: { key: "name" | "business" | "message"; step: number }[] = [
+  { key: "name", step: 1 },
+  { key: "business", step: 2 },
+  { key: "message", step: FORM_STEPS.length },
+];
+
 const INPUT_CLASSES =
   "w-full rounded-xl border border-(--color-oxblood)/20 bg-(--color-ivory-raised) px-4 py-3 text-(--color-oxblood) outline-none transition-colors placeholder:text-(--color-oxblood)/35 focus:border-(--color-terracotta)";
 
@@ -156,6 +167,19 @@ export function Contact() {
   // never blocks on a field the person hasn't reached yet
   const goNext = () => {
     if (!formRef.current?.reportValidity()) return;
+
+    // catch a rude name/business as soon as someone tries to leave that step,
+    // rather than waiting until they've filled out the whole rest of the form
+    const formData = new FormData(formRef.current);
+    const payload = Object.fromEntries(formData.entries()) as Record<string, string>;
+    const offendingField = FREE_TEXT_FIELDS.find(
+      (field) => field.step === step && containsProfanity(payload[field.key])
+    );
+    if (offendingField) {
+      setShowProfanityWarning(true);
+      return;
+    }
+
     setStep((s) => Math.min(s + 1, FORM_STEPS.length));
   };
   const goBack = () => setStep((s) => Math.max(s - 1, 1));
@@ -256,14 +280,12 @@ export function Contact() {
       return;
     }
 
-    // only the genuinely free-text fields get checked, not the dropdowns/email/website,
-    // which are either constrained to preset options or structurally validated already
-    const freeTextFields: { key: "name" | "business" | "message"; step: number }[] = [
-      { key: "name", step: 1 },
-      { key: "business", step: 2 },
-      { key: "message", step: FORM_STEPS.length },
-    ];
-    const offendingField = freeTextFields.find((field) => containsProfanity(payload[field.key]));
+    // belt-and-braces re-check of every free-text field (not just the current step's):
+    // the per-step check in goNext() catches most cases as people move through the
+    // form, but the step indicators let them jump around and land on submit without
+    // ever triggering it, e.g. editing a clean name into something rude after already
+    // passing step 1
+    const offendingField = FREE_TEXT_FIELDS.find((field) => containsProfanity(payload[field.key]));
     if (offendingField) {
       setStep(offendingField.step);
       setShowProfanityWarning(true);
