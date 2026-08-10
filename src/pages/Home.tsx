@@ -17,6 +17,7 @@ import StatsCount from "@/components/primitive/statscount";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { ClosingCta } from "@/pages/ServicesCombined";
+import { Testimonials, type Testimonial } from "@/components/primitive/testimonial";
 
 // ---------------------------------------------------------------------------
 // Hero
@@ -388,6 +389,47 @@ function VideoSection() {
 }
 
 // ---------------------------------------------------------------------------
+// Testimonials
+// ---------------------------------------------------------------------------
+
+// PLACEHOLDER content - swap these for real client quotes once we have some
+// to show. Left obviously fake rather than invented-but-plausible so nobody
+// mistakes this for a genuine review before it's replaced.
+const TESTIMONIALS: Testimonial[] = [
+  {
+    quote: "Placeholder testimonial - replace with a real client quote.",
+    name: "Client Name",
+    role: "Role, Company",
+  },
+  {
+    quote: "Placeholder testimonial - replace with a real client quote.",
+    name: "Client Name",
+    role: "Role, Company",
+  },
+  {
+    quote: "Placeholder testimonial - replace with a real client quote.",
+    name: "Client Name",
+    role: "Role, Company",
+  },
+];
+
+function TestimonialsSection() {
+  return (
+    <Testimonials
+      testimonials={TESTIMONIALS}
+      heading={
+        <>
+          We could tell you we're great.
+          <br />
+          Or you could just ask them.
+        </>
+      }
+      className="bg-(--color-ivory)"
+    />
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Our Services
 // ---------------------------------------------------------------------------
 
@@ -583,6 +625,7 @@ export function Home() {
       <StatsCountSection />
       <SectionDivider reverse />
       <VideoSection />
+      <TestimonialsSection />
       <OurServicesSection />
       <WhyChooseSection />
 
