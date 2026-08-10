@@ -53,11 +53,15 @@ function HeroSection() {
 
   return (
     <div className="relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-28 pb-32 text-center sm:min-h-[80vh] sm:pt-32 sm:pb-40 md:pb-48">
-      <Link to="/" aria-label="Go to home page" className="absolute top-4 left-4 z-[60]">
+      <Link
+        to="/"
+        aria-label="Go to home page"
+        className="absolute top-4 left-4 z-[60] lg:top-10 lg:left-14"
+      >
         <img
           src="/logos/persevere-logo.png"
           alt="Persevere Media"
-          className="h-10 w-auto sm:h-12"
+          className="h-10 w-auto sm:h-12 md:h-20 lg:h-32"
           draggable={false}
         />
       </Link>

@@ -71,7 +71,7 @@ export function GrainWave({
           <img
             src="/logos/persevere-logo.png"
             alt="Persevere Media"
-            className="h-10 w-auto sm:h-12"
+            className="h-10 w-auto sm:h-11"
             draggable={false}
           />
         </Link>
