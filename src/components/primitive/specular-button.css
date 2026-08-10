@@ -9,6 +9,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  /* the fx canvas beneath is deliberately oversized (see .specular-button__fx) so its
+     rim glow can taper off softly instead of getting a hard cutoff right at the edge,
+     but that same oversizing let the glow bleed past the button's own rounded corners
+     as a visible halo on solid-tint buttons. Clipping to this element's own border-radius
+     keeps the falloff soft on the inside while never showing outside the button's shape. */
+  overflow: hidden;
   border: none;
   margin: 0;
   font-family: inherit;

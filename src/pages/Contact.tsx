@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
-import { ArrowLeft, ArrowRight, HelpCircle, Phone, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, HelpCircle, Phone, TriangleAlert, Users } from "lucide-react";
 import SpecularButton from "@/components/primitive/specular-button";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
@@ -8,6 +8,7 @@ import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Instagram, Linkedin } from "@/components/primitive/svgs";
 import { FaqSection, type Faq } from "@/components/custom/faq";
+import { containsProfanity } from "@/lib/profanity";
 import {
   Stepper,
   StepperContent,
@@ -140,6 +141,7 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+  const [showProfanityWarning, setShowProfanityWarning] = useState(false);
   const [step, setStep] = useState(1);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -158,12 +160,17 @@ export function Contact() {
   };
   const goBack = () => setStep((s) => Math.max(s - 1, 1));
 
-  // measures the card's real rendered height WHILE THE FORM IS SHOWING, and locks that
-  // exact pixel value in via inline style. this is the only way to guarantee the card
-  // doesn't resize once the shorter success content replaces the form, guessing a rem
-  // value doesn't account for how tall the real form actually renders at a given
-  // viewport width. re-measures on resize too, but only while the form is visible, so
-  // switching to the success view never re-measures against its own (shorter) content.
+  // measures the card's real rendered height WHILE THE FORM IS SHOWING (step 1, since
+  // the step-content area's own min-height already reserves enough room for whichever
+  // step ends up tallest — see the min-h-[...] wrapper below), and locks that exact
+  // pixel value in via inline style. This is the only way to guarantee the card doesn't
+  // resize once the shorter success content replaces the form; guessing a rem value
+  // doesn't account for how tall the real form actually renders at a given viewport
+  // width. Deliberately NOT re-measuring on step change: since every step already fits
+  // within that reserved min-height, remeasuring per step would just ratchet the card
+  // taller the first time it saw a step whose OTHER chrome (nav + title) plus content
+  // happened to exceed the previous measurement, which is exactly the "buttons keep
+  // moving" behaviour this is meant to prevent.
   useEffect(() => {
     const measure = () => {
       if (!submitted && cardRef.current) {
@@ -173,10 +180,7 @@ export function Contact() {
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-    // re-measure on step change too: each step renders a different amount of
-    // content, so locking the card to whichever step happened to be active on
-    // mount would leave taller steps' fields flush against the card edge
-  }, [submitted, step]);
+  }, [submitted]);
 
   // loaded lazily here rather than in index.html, since reCAPTCHA is only needed
   // on this page. skips re-adding the script if it's already on the page, which
@@ -249,6 +253,20 @@ export function Contact() {
     }
     if (!payload.message?.trim()) {
       setStep(FORM_STEPS.length);
+      return;
+    }
+
+    // only the genuinely free-text fields get checked, not the dropdowns/email/website,
+    // which are either constrained to preset options or structurally validated already
+    const freeTextFields: { key: "name" | "business" | "message"; step: number }[] = [
+      { key: "name", step: 1 },
+      { key: "business", step: 2 },
+      { key: "message", step: FORM_STEPS.length },
+    ];
+    const offendingField = freeTextFields.find((field) => containsProfanity(payload[field.key]));
+    if (offendingField) {
+      setStep(offendingField.step);
+      setShowProfanityWarning(true);
       return;
     }
 
@@ -448,11 +466,11 @@ export function Contact() {
             to resize when swapping between the form and the success message below */}
         <div
           ref={cardRef}
-          className="relative overflow-hidden rounded-3xl border border-(--color-oxblood)/10 bg-(--color-ivory-raised) p-6 shadow-[0_18px_50px_-12px_rgba(74,31,29,0.18)] sm:p-9"
+          className="relative flex flex-col overflow-hidden rounded-3xl border border-(--color-oxblood)/10 bg-(--color-ivory-raised) p-6 shadow-[0_18px_50px_-12px_rgba(74,31,29,0.18)] sm:p-9"
           style={{ minHeight: cardHeight ? `${cardHeight}px` : undefined }}
         >
           {submitted ? (
-            <div className="flex h-full flex-col" style={{ fontFamily: "var(--font-body)" }}>
+            <div className="flex flex-1 flex-col" style={{ fontFamily: "var(--font-body)" }}>
               <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
                 <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
                   Cheers!
@@ -498,7 +516,12 @@ export function Contact() {
               </div>
             </div>
           ) : (
-            <form ref={formRef} onSubmit={handleSubmit} style={{ fontFamily: "var(--font-body)" }}>
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="flex flex-1 flex-col"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
               {/* Honeypot: real visitors never see or reach this field, so it should
                   always submit empty. If it's filled in, the submission came from a bot
                   and the API silently drops it. Positioned off-screen rather than
@@ -511,7 +534,16 @@ export function Contact() {
                 <input type="text" name="honeypot" tabIndex={-1} autoComplete="off" />
               </div>
 
-              <Stepper value={step} onValueChange={setStep}>
+              {/* flex-1 so this block (not the button row below) absorbs the height
+                  difference between steps — the Back/Next/Send buttons and the
+                  reCAPTCHA note then always land in the same spot at the card's
+                  bottom edge instead of drifting up or down with each step's content.
+                  The min-height covers this whole block (nav + title + panel), sized
+                  to its tallest combination (step 3's four selects, measured at each
+                  breakpoint) so that height is reserved from the very first render,
+                  rather than the card growing the first time someone reaches that step. */}
+              <div className="flex-1 min-h-[570px] sm:min-h-[330px]">
+                <Stepper value={step} onValueChange={setStep}>
                 <StepperNav className="mb-6">
                   {FORM_STEPS.map((title, i) => {
                     const stepNumber = i + 1;
@@ -571,8 +603,7 @@ export function Contact() {
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div>
                         <label htmlFor="business" className={LABEL_CLASSES}>
-                          Business name{" "}
-                          <span className="font-normal opacity-60">(optional)</span>
+                          Business name
                         </label>
                         <input
                           id="business"
@@ -585,7 +616,7 @@ export function Contact() {
 
                       <div>
                         <label htmlFor="website" className={LABEL_CLASSES}>
-                          Website <span className="font-normal opacity-60">(optional)</span>
+                          Website
                         </label>
                         {/* deliberately type="text", not type="url", type="url" rejects
                             anything without an https:// prefix, which most people won't type.
@@ -609,7 +640,7 @@ export function Contact() {
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div>
                         <label htmlFor="service" className={SELECT_LABEL_CLASSES}>
-                          What service? <span className="font-normal opacity-60">(optional)</span>
+                          What service?
                         </label>
                         <select
                           id="service"
@@ -630,8 +661,7 @@ export function Contact() {
 
                       <div>
                         <label htmlFor="budget" className={SELECT_LABEL_CLASSES}>
-                          Monthly ad spend{" "}
-                          <span className="font-normal opacity-60">(optional)</span>
+                          Monthly ad spend
                         </label>
                         <select id="budget" name="budget" defaultValue="" className={INPUT_CLASSES}>
                           <option value="" disabled>
@@ -647,8 +677,7 @@ export function Contact() {
 
                       <div>
                         <label htmlFor="timeframe" className={SELECT_LABEL_CLASSES}>
-                          Start timeframe{" "}
-                          <span className="font-normal opacity-60">(optional)</span>
+                          Start timeframe
                         </label>
                         <select
                           id="timeframe"
@@ -669,8 +698,7 @@ export function Contact() {
 
                       <div>
                         <label htmlFor="referral" className={SELECT_LABEL_CLASSES}>
-                          How did you hear about us?{" "}
-                          <span className="font-normal opacity-60">(optional)</span>
+                          How did you hear about us?
                         </label>
                         <select
                           id="referral"
@@ -705,7 +733,8 @@ export function Contact() {
                     />
                   </StepperContent>
                 </StepperPanel>
-              </Stepper>
+                </Stepper>
+              </div>
 
               {sendError && (
                 <p
@@ -730,6 +759,14 @@ export function Contact() {
 
                 {isLastStep ? (
                   <SpecularButton
+                    // deliberately a different key from the "Next" button below: without
+                    // one, React sees the same component at the same tree position on the
+                    // step-3→4 transition and reuses that DOM node, mutating its type from
+                    // "button" to "submit" in place. That mutation can land before the
+                    // browser evaluates the click's default action, so the very click that
+                    // was meant to just advance the step ends up submitting the form. A
+                    // distinct key forces a real unmount/mount instead of an in-place update.
+                    key="submit-button"
                     ref={submitButtonRef}
                     type="submit"
                     disabled={isSending}
@@ -740,7 +777,10 @@ export function Contact() {
                     blur={0}
                     textColor="var(--color-ivory)"
                     lineColor="#ffffff"
-                    baseColor="#525252"
+                    // matches `tint`: with tintOpacity at 1 the button is a solid fill,
+                    // not real glass, so the WebGL base coat needs to be the same
+                    // colour as that fill or it shows through as a mismatched patch
+                    baseColor="#594157"
                     intensity={0.8}
                     shineSize={10}
                     shineFade={40}
@@ -755,6 +795,7 @@ export function Contact() {
                   </SpecularButton>
                 ) : (
                   <SpecularButton
+                    key="next-button"
                     type="button"
                     onClick={goNext}
                     size="lg"
@@ -764,7 +805,10 @@ export function Contact() {
                     blur={0}
                     textColor="var(--color-ivory)"
                     lineColor="#ffffff"
-                    baseColor="#525252"
+                    // matches `tint`: with tintOpacity at 1 the button is a solid fill,
+                    // not real glass, so the WebGL base coat needs to be the same
+                    // colour as that fill or it shows through as a mismatched patch
+                    baseColor="#594157"
                     intensity={0.8}
                     shineSize={10}
                     shineFade={40}
@@ -784,34 +828,31 @@ export function Contact() {
               </div>
 
               {/* required by Google's reCAPTCHA terms whenever the badge itself is
-                  hidden (see .grecaptcha-badge in index.css). Only shown on the last
-                  step, right before the person actually submits. */}
-              {isLastStep && (
-                <p
-                  className="mt-4 text-center text-xs text-(--color-oxblood)/50"
-                  style={{ fontFamily: "var(--font-body)" }}
+                  hidden (see .grecaptcha-badge in index.css) */}
+              <p
+                className="mt-4 text-center text-xs text-(--color-oxblood)/50"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                This site is protected by reCAPTCHA and the Google{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2"
                 >
-                  This site is protected by reCAPTCHA and the Google{" "}
-                  <a
-                    href="https://policies.google.com/privacy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline underline-offset-2"
-                  >
-                    Privacy Policy
-                  </a>{" "}
-                  and{" "}
-                  <a
-                    href="https://policies.google.com/terms"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline underline-offset-2"
-                  >
-                    Terms of Service
-                  </a>{" "}
-                  apply.
-                </p>
-              )}
+                  Privacy Policy
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://policies.google.com/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2"
+                >
+                  Terms of Service
+                </a>{" "}
+                apply.
+              </p>
             </form>
           )}
         </div>
@@ -832,6 +873,42 @@ export function Contact() {
         open={isCalendlyOpen}
         rootElement={document.getElementById("root")!}
       />
+
+      {showProfanityWarning && (
+        <div
+          className="fixed inset-0 z-70 flex items-center justify-center bg-(--color-oxblood)/50 p-4 backdrop-blur-sm"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="profanity-warning-title"
+          onClick={() => setShowProfanityWarning(false)}
+        >
+          <div
+            className="max-w-sm rounded-3xl bg-(--color-ivory-raised) p-8 text-center shadow-[0_18px_50px_-12px_rgba(74,31,29,0.4)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-(--color-terracotta)/15 text-(--color-terracotta)">
+              <TriangleAlert size={22} />
+            </span>
+            <h2 id="profanity-warning-title" className="text-xl font-black tracking-tight text-(--color-oxblood)">
+              Let's keep it civil
+            </h2>
+            <p
+              className="mt-3 text-sm leading-relaxed text-(--color-oxblood)/80"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              That message contains language we don't accept here. We're all for
+              directness, just not harassment, so please edit it and try again.
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowProfanityWarning(false)}
+              className="mt-6 w-full cursor-pointer rounded-full bg-(--color-deep-plum) px-5 py-3 text-sm font-bold text-(--color-ivory) transition-opacity hover:opacity-90"
+            >
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

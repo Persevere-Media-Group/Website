@@ -282,6 +282,11 @@ function StepperTrigger({
   }
 
   const defaultProps = {
+    // a plain <button> defaults to type="submit" inside a <form>, so without this a
+    // click on a step dot would attempt to submit the whole form (and get blocked by
+    // native validation on whatever's currently required) instead of just switching
+    // steps. Still overridable via props if a consumer really wants type="submit".
+    type: "button" as const,
     role: "tab",
     id,
     "aria-selected": isSelected,
