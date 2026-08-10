@@ -154,6 +154,10 @@ export function Contact() {
   const [sendError, setSendError] = useState<string | null>(null);
   const [showProfanityWarning, setShowProfanityWarning] = useState(false);
   const [step, setStep] = useState(1);
+  // the furthest step actually validated so far, so the stepper's numbered dots can
+  // let people jump BACK to anything they've already seen, but not ahead to a step
+  // they haven't earned yet by passing goNext()'s checks
+  const [maxStepReached, setMaxStepReached] = useState(1);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -180,7 +184,9 @@ export function Contact() {
       return;
     }
 
-    setStep((s) => Math.min(s + 1, FORM_STEPS.length));
+    const nextStep = Math.min(step + 1, FORM_STEPS.length);
+    setStep(nextStep);
+    setMaxStepReached((m) => Math.max(m, nextStep));
   };
   const goBack = () => setStep((s) => Math.max(s - 1, 1));
 
@@ -531,6 +537,7 @@ export function Contact() {
                   onClick={() => {
                     setSubmitted(false);
                     setStep(1);
+                    setMaxStepReached(1);
                   }}
                 >
                   Submit another form
@@ -570,7 +577,15 @@ export function Contact() {
                   {FORM_STEPS.map((title, i) => {
                     const stepNumber = i + 1;
                     return (
-                      <StepperItem key={title} step={stepNumber}>
+                      <StepperItem
+                        key={title}
+                        step={stepNumber}
+                        // ahead-of-progress dots are natively unclickable (and dimmed via
+                        // the trigger's own disabled:opacity-60), rather than just being
+                        // ignored in a click handler — steps already reached stay clickable
+                        // so people can freely jump back
+                        disabled={stepNumber > maxStepReached}
+                      >
                         <StepperTrigger>
                           <StepperIndicator className="size-8 border-2 border-(--color-terracotta) bg-(--color-ivory) text-xs font-bold text-(--color-terracotta) data-[state=active]:bg-(--color-terracotta) data-[state=active]:text-(--color-ivory) data-[state=completed]:bg-(--color-terracotta) data-[state=completed]:text-(--color-ivory)">
                             {stepNumber}

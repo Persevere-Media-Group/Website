@@ -23,6 +23,7 @@ const SUBSTRING_WORDS = [
   "tranny",
   "piss",
   "dick",
+  "fag",
 ];
 
 // Short enough that matching as a substring would also catch real words (ass -> "class",
