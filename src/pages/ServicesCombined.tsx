@@ -83,10 +83,16 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
   );
 }
 
-// Stand-in shoot images until Calum and Keir's photoshoot delivers real
-// content. Seeded per person so each intro banner gets a stable, distinct
-// set of placeholders rather than reshuffling on every reload.
+// Real shoot photos, keyed by name (lowercase). Falls back to stand-in
+// picsum placeholders for anyone whose photoshoot hasn't delivered yet.
+const REAL_IMAGES: Record<string, { src: string; alt: string }[]> = {
+  keir: [{ src: "/photos/keir/DSC06936.jpeg", alt: "Keir smiling at a table" }],
+};
+
 function placeholderImages(name: string): { src: string; alt: string }[] {
+  const real = REAL_IMAGES[name.toLowerCase()];
+  if (real) return real;
+
   return Array.from({ length: 4 }, (_, i) => ({
     src: `https://picsum.photos/seed/${encodeURIComponent(name.toLowerCase())}-${i}/1200/900`,
     alt: `${name} placeholder photo ${i + 1}`,

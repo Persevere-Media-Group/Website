@@ -397,17 +397,17 @@ function VideoSection() {
 // mistakes this for a genuine review before it's replaced.
 const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "Placeholder testimonial - replace with a real client quote.",
+    quote: "Placeholder for a real client quote.",
     name: "Client Name",
     role: "Role, Company",
   },
   {
-    quote: "Placeholder testimonial - replace with a real client quote.",
+    quote: "Placeholder for a real client quote.",
     name: "Client Name",
     role: "Role, Company",
   },
   {
-    quote: "Placeholder testimonial - replace with a real client quote.",
+    quote: "Placeholder for a real client quote.",
     name: "Client Name",
     role: "Role, Company",
   },
@@ -532,15 +532,17 @@ function OurServicesSection() {
             className="h-full"
           >
             <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
-              <p
-                className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                {block.eyebrow}
-              </p>
-              <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood)">
-                {block.heading}
-              </h3>
+              <Link to={block.to} className="group/header w-fit">
+                <p
+                  className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  {block.eyebrow}
+                </p>
+                <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
+                  {block.heading}
+                </h3>
+              </Link>
               <p
                 className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
                 style={{ fontFamily: "var(--font-body)" }}
@@ -549,7 +551,7 @@ function OurServicesSection() {
               </p>
               <Link
                 to={block.to}
-                className="group mt-2 inline-flex w-fit items-center gap-1 font-bold text-(--color-terracotta) underline underline-offset-2"
+                className="group mt-auto inline-flex w-fit items-center gap-1 font-bold text-(--color-terracotta) underline underline-offset-2"
               >
                 <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
                   Learn more
@@ -594,7 +596,7 @@ function WhyChooseSection() {
           style={{ fontFamily: "var(--font-body)" }}
         >
           A straight-talking team who'll tell you what you need to hear, not what you want to hear.
-          Ready to join the team?
+          Ready to come aboard?
         </p>
 
         <div className="mt-8 flex justify-center">
@@ -624,18 +626,16 @@ export function Home() {
       <VideoSection />
       <TestimonialsSection />
       <OurServicesSection />
-      <WhyChooseSection />
-
       <div className="flex w-full flex-col items-center bg-(--color-ivory) px-4 py-24">
         <ClosingCta onBookCall={() => setIsCalendlyOpen(true)} />
       </div>
-
       <PopupModal
         url={CALENDLY_URL}
         onModalClose={() => setIsCalendlyOpen(false)}
         open={isCalendlyOpen}
         rootElement={document.getElementById("root")!}
       />
+      <WhyChooseSection />
     </>
   );
 }
