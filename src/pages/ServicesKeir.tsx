@@ -61,8 +61,8 @@ const WHATS_INCLUDED = [
 const ALWAYS_INCLUDED = [
   {
     icon: CalendarClock,
-    title: "Actual Communication",
-    body: "A check in every week. A proper call, every month, going through what's working, what's changed, and what's next. We are part of your team!",
+    title: "Actual communication",
+    body: "A check in every week. A proper call every month, going through what's working, what's changed, and what's next. We are part of your team!",
   },
   {
     icon: MessagesSquare,
@@ -71,7 +71,7 @@ const ALWAYS_INCLUDED = [
   },
   {
     icon: BarChart3,
-    title: "Transparent reporting tools",
+    title: "Transparent reporting",
     body: "We'll help you get set up with tools that keep the numbers clear and trustworthy, not vanity metrics dressed up to make us look good. We want your business to actually do well, not just make us look good.",
   },
 ];
