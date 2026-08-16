@@ -424,6 +424,7 @@ function TestimonialsSection() {
           Or you could just ask them.
         </>
       }
+      subheading="The proof is in the pudding…"
       className="bg-(--color-ivory)"
     />
   );
@@ -594,10 +595,6 @@ function WhyChooseSection() {
         >
           A straight-talking team who'll tell you what you need to hear, not what you want to hear.
           Ready to join the team?
-        </p>
-
-        <p className="mt-6 text-[clamp(1.1rem,2vw,1.35rem)] font-black tracking-tight text-(--color-ivory)">
-          The proof is in the pudding…
         </p>
 
         <div className="mt-8 flex justify-center">
