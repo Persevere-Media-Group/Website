@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { PopupModal } from "react-calendly";
-import { CalendarClock, MessagesSquare, BarChart3 } from "lucide-react";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
@@ -58,22 +57,12 @@ const WHATS_INCLUDED = [
   "A team who genuinely cares about your business, and will stick around, not ghost you after you've onboarded",
 ];
 
-const ALWAYS_INCLUDED = [
-  {
-    icon: CalendarClock,
-    title: "Actual communication",
-    body: "A check in every week. A proper call every month, going through what's working, what's changed, and what's next. We are part of your team!",
-  },
-  {
-    icon: MessagesSquare,
-    title: "Direct access to us",
-    body: "A dedicated group chat with the two of us, to discuss day-to-day performance, and to feel like an extension of your team. We want to give you real access, not an account manager relaying messages. (Not at 11pm though, we've got lives too.)",
-  },
-  {
-    icon: BarChart3,
-    title: "Transparent reporting",
-    body: "We'll help you get set up with tools that keep the numbers clear and trustworthy, not vanity metrics dressed up to make us look good. We want your business to actually do well, not just make us look good.",
-  },
+// bodies are paired by index with the shared ALWAYS_INCLUDED_HEADINGS in
+// services-shared.tsx (monthly calls/weekly check-ins, direct access, reporting)
+const ALWAYS_INCLUDED_BODIES: [string, string, string] = [
+  "A check in every week. A proper call every month, going through what's working, what's changed, and what's next. We are part of your team!",
+  "A dedicated group chat with the two of us, to discuss day-to-day performance, and to feel like an extension of your team. We want to give you real access, not an account manager relaying messages. (Not at 11pm though, we've got lives too.)",
+  "We'll help you get set up with tools that keep the numbers clear and trustworthy, not vanity metrics dressed up to make us look good. We want your business to actually do well, not just make us look good.",
 ];
 
 // ---------------------------------------------------------------------------
@@ -287,7 +276,7 @@ export function ServicesKeir() {
         {/* --------------------------------------------------------------- */}
         {/* Always included                                                 */}
         {/* --------------------------------------------------------------- */}
-        <AlwaysIncluded items={ALWAYS_INCLUDED} />
+        <AlwaysIncluded bodies={ALWAYS_INCLUDED_BODIES} />
         <SectionDivider reverse />
         {/* --------------------------------------------------------------- */}
         {/* FAQ                                                             */}

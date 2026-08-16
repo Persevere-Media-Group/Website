@@ -28,26 +28,19 @@ const MARK_PROPS = {
   iterations: 2,
 } as const;
 
-// how long each "half" (grim or good) takes to float in as one block, and roughly
-// how long its marks then take to finish drawing themselves on afterwards - used to
-// time-offset the next beat (the marks, the Or, the other half) so the sequence
-// reads as show-the-text -> then-annotate-it rather than everything at once
-const BLOCK_REVEAL_DURATION = 0.8;
-const ANNOTATION_SETTLE = 1.1;
+// how long each "half" (grim, or, good) takes to float in as one block. Each one is
+// its own independent ScrollTrigger keyed to its own position on the page, not a
+// shared clock - so these are no longer chained into one another as offsets. The
+// grim block, the "Or", and the good block each just reveal themselves the moment
+// they're scrolled to, in that order, since that's also their order in the DOM. This
+// keeps things snappy on a fast scroll instead of leaving Choose Persevere sitting in
+// a blank page while a stale multi-second delay from an earlier block finishes.
+const BLOCK_REVEAL_DURATION = 0.6;
 
 // terracotta underline for the grim half, reads like a red pen marking up what's wrong
 const UNDERLINE_COLOR = "#d5573b";
 // soft amber highlight for the good half, warm and positive rather than critical
 const HIGHLIGHT_COLOR = "rgba(237, 176, 62, 0.3)";
-
-// the good half's marks live in a block that only fades in on a delay (see
-// AnimatedContent's `delay` below), but triggerOnView fires as soon as the
-// (still-invisible) block enters the viewport, not when it actually appears - without
-// this, the marks finish drawing themselves while the block is still invisible, so by
-// the time it fades in, text and marks pop in together instead of the block
-// appearing and then getting annotated, like the grim half does
-const GOOD_BLOCK_REVEAL_DELAY_MS = (BLOCK_REVEAL_DURATION + ANNOTATION_SETTLE + 0.7) * 1000;
-const MARK_PROPS_GOOD = { ...MARK_PROPS, animationDelay: GOOD_BLOCK_REVEAL_DELAY_MS } as const;
 
 // ---------------------------------------------------------------------------
 // Roles
@@ -88,7 +81,7 @@ const ROLES = [
 // hold it together has been cut or split. marks stay sparing, three per half.
 const BEFORE = [
   <>
-    Choose the wrong agency. Choose
+    Choose the wrong agency. Choose{" "}
     <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS}>
       Stockholm syndrome
     </Highlighter>
@@ -96,7 +89,7 @@ const BEFORE = [
   </>,
   <>Choose "we're working on it." Choose just a few more months.</>,
   <>
-    Choose lining shareholders' pockets. Choose being a retainer,
+    Choose lining shareholders' pockets. Choose being a retainer,{" "}
     <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
       not a client.
     </Highlighter>
@@ -121,7 +114,7 @@ const AFTER = [
   <>Choose making it right. Choose not getting burned again.</>,
   <>
     Choose working with{" "}
-    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS_GOOD}>
+    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
       actual people
     </Highlighter>
     . People who care about doing good work and paying the bills.
@@ -129,14 +122,14 @@ const AFTER = [
   <>Choose taking a chance on us. Choose bespoke content strategies.</>,
   <>
     Choose not deciding between an ads agency and a creative team. Choose{" "}
-    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS_GOOD}>
+    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
       the best of both worlds
     </Highlighter>
     .
   </>,
   <>
     Choose a team who actually care. Choose{" "}
-    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS_GOOD}>
+    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
       fair fees
     </Highlighter>
     .
@@ -183,15 +176,17 @@ export function About() {
               className="h-full"
             >
               <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
-                <p
-                  className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {role.lead}
-                </p>
-                <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood)">
-                  {role.title}
-                </h3>
+                <Link to={role.to} className="group/header w-fit">
+                  <p
+                    className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
+                    {role.lead}
+                  </p>
+                  <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
+                    {role.title}
+                  </h3>
+                </Link>
                 <p
                   className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed font-semibold text-(--color-oxblood)"
                   style={{ fontFamily: "var(--font-body)" }}
@@ -206,7 +201,7 @@ export function About() {
                 </p>
                 <Link
                   to={role.to}
-                  className="group mt-2 inline-flex w-fit items-center gap-1 font-bold text-(--color-terracotta) underline underline-offset-2"
+                  className="group mt-auto inline-flex w-fit items-center gap-1 font-bold text-(--color-terracotta) underline underline-offset-2"
                 >
                   <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
                     {role.linkLabel}
@@ -310,8 +305,8 @@ export function About() {
               anyway, and that's basically the job. There's no single lucky campaign that fixes
               everything, no clever hack that skips the grind. It's more about showing up, testing,
               adjusting, and sticking with it until the results start to build. A slow month doesn't
-              mean the strategy's wrong, it means you tweak it and go again. That's the whole ethos,
-              really. Persevere.
+              mean the strategy's wrong, it means you tweak it and go again. That's the whole ethos.
+              Persevere.
             </p>
           </div>
         </div>
@@ -350,34 +345,31 @@ export function About() {
         </AnimatedContent>
 
         {/* the hinge, deliberately given its own space and weight so the whole piece
-          visibly turns here rather than the pivot getting lost mid-paragraph. stays
-          mounted the whole time rather than appearing only once the grim half is
-          done - inserting it into the DOM later would shift the good half down
-          after its own ScrollTrigger already measured its position without it.
-          instead its delay is set past both the grim block's own float-in AND
-          its marks' draw-in time, so it can't appear before the block has shown
-          up and been annotated, even in a worst case where both are eligible to
-          fire in the same scroll tick */}
+          visibly turns here rather than the pivot getting lost mid-paragraph. it's
+          its own ScrollTrigger, keyed to its own position in the page, so it floats
+          in on its own the moment it's scrolled to - it can't appear before the grim
+          block since it sits below it in the DOM and can't be scrolled to first */}
         <AnimatedContent
           direction="vertical"
           distance={28}
-          duration={0.7}
+          duration={0.6}
           ease="power3.out"
-          delay={BLOCK_REVEAL_DURATION + ANNOTATION_SETTLE}
+          threshold={0.2}
         >
           <p className="mt-14 text-[clamp(2.5rem,7vw,4.5rem)] font-black leading-none tracking-tight text-(--color-terracotta)">
             Or.
           </p>
         </AnimatedContent>
 
-        {/* the good half, same "show the block, then annotate" treatment, delayed
-          past the Or hinge's own reveal so it can't appear before that has */}
+        {/* the good half, same "show the block, then annotate" treatment as the grim
+          half - its own ScrollTrigger fires only once scrolled to, which is always
+          after the Or hinge above it has already fired */}
         <AnimatedContent
           direction="vertical"
           distance={32}
           duration={BLOCK_REVEAL_DURATION}
           ease="power3.out"
-          delay={BLOCK_REVEAL_DURATION + ANNOTATION_SETTLE + 0.7}
+          threshold={0.2}
         >
           <div
             className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)"

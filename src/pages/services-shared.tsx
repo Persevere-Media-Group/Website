@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { LucideIcon } from "lucide-react";
+import { CalendarClock, MessagesSquare, BarChart3, type LucideIcon } from "lucide-react";
 
 // ---------------------------------------------------------------------------
 // Shared config/types for the two services pages (ServicesKeir / ServicesCalum).
@@ -19,8 +19,21 @@ export const MARK_PROPS = {
   iterations: 2,
 } as const;
 
-export type AlwaysIncludedItem = {
-  icon: LucideIcon;
-  title: ReactNode;
-  body: string;
-};
+// The "By default, every service comes with" block appears on both services
+// pages. The three headings/icons are the same guarantee regardless of
+// service, so they live here once - each page only supplies its own body
+// copy for each, via AlwaysIncluded's `bodies` prop.
+export const ALWAYS_INCLUDED_HEADINGS: { icon: LucideIcon; title: ReactNode }[] = [
+  {
+    icon: CalendarClock,
+    title: (
+      <>
+        Monthly calls,
+        <br />
+        weekly check-ins
+      </>
+    ),
+  },
+  { icon: MessagesSquare, title: "Direct access to us" },
+  { icon: BarChart3, title: "Transparent reporting" },
+];

@@ -6,13 +6,16 @@ import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate"
 import { getCylinderSizeCompensation } from "@/lib/cylinder-size-compensation";
 import { ImageGallery } from "@/components/primitive/image-gallery";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
-import { UNDERLINE_COLOR, MARK_PROPS, type AlwaysIncludedItem } from "@/pages/services-shared";
+import { UNDERLINE_COLOR, MARK_PROPS, ALWAYS_INCLUDED_HEADINGS } from "@/pages/services-shared";
 
 // ---------------------------------------------------------------------------
 // "By default, we provide you with" section
 // ---------------------------------------------------------------------------
 
-export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
+// Headings/icons are shared across both services pages (ALWAYS_INCLUDED_HEADINGS)
+// so the guarantee reads identically everywhere; only the body copy for each is
+// page-specific, passed in as `bodies` and paired with a heading by index.
+export function AlwaysIncluded({ bodies }: { bodies: [string, string, string] }) {
   return (
     <div className="mt-20 flex w-full max-w-3xl flex-col items-center">
       <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
@@ -20,7 +23,7 @@ export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
       </h2>
 
       <div className="mt-12 grid w-full gap-8 text-center sm:grid-cols-3">
-        {items.map((item, i) => (
+        {ALWAYS_INCLUDED_HEADINGS.map((heading, i) => (
           <AnimatedContent
             key={i}
             direction="vertical"
@@ -32,16 +35,16 @@ export function AlwaysIncluded({ items }: { items: AlwaysIncludedItem[] }) {
           >
             <div className="flex flex-col items-center gap-2">
               <span className="mb-1 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
-                <item.icon size={18} />
+                <heading.icon size={18} />
               </span>
               <h3 className="text-[clamp(1.1rem,2vw,1.3rem)] font-black tracking-tight text-(--color-oxblood)">
-                {item.title}
+                {heading.title}
               </h3>
               <p
                 className="text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/80"
                 style={{ fontFamily: "var(--font-body)" }}
               >
-                {item.body}
+                {bodies[i]}
               </p>
             </div>
           </AnimatedContent>
