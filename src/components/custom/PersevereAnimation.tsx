@@ -38,6 +38,14 @@ const VARIANT_MAP: Record<string, string[]> = {
 const TREMBLE_INTERVAL_MS = 90;
 const UPDATE_INTERVAL_MS = 900;
 
+// Font size (px) used when measuring glyph ink extents via canvas, chosen
+// large for precision; the resulting overshoot is expressed as a ratio of
+// this size, so it scales correctly to any rendered font size via `em`.
+const INK_MEASURE_FONT_PX = 200;
+// Fallback top-padding ratio (em) used before the canvas measurement
+// resolves, generous enough to avoid a flash of clipped ascenders.
+const FALLBACK_TOP_PAD_EM = 0.4;
+
 function randOf<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -98,11 +106,19 @@ export function PersevereAnimation({
   const currentRef = useRef(initial);
   const measureRefs = useRef<Record<string, (HTMLSpanElement | null)[]>>({});
   const [maxWidths, setMaxWidths] = useState<Record<string, number> | null>(null);
+  // How far the tallest glyph variant's ink rises above the font's normal
+  // ascent, as a fraction of font-size. Applied as top padding (in `em`, so
+  // it scales with sizeClassName) to every letter, so no variant's swash or
+  // flourish ever gets clipped by an overflow-hidden ancestor, no matter
+  // which letter happens to render tallest.
+  const [topPadEm, setTopPadEm] = useState(FALLBACK_TOP_PAD_EM);
 
   // Measure every variant of every letter off-screen and take the widest per
   // letter, so each letter's box can be sized to fit its widest variant up
-  // front. Re-measures after fonts load, and on resize since sizeClassName
-  // is typically a vw-based clamp().
+  // front. Also measures each variant's true ink extents via canvas to find
+  // how far the tallest one overshoots the font's normal ascent. Re-measures
+  // after fonts load, and on resize since sizeClassName is typically a
+  // vw-based clamp().
   useEffect(() => {
     const measure = () => {
       const widths: Record<string, number> = {};
@@ -111,6 +127,20 @@ export function PersevereAnimation({
         widths[ch] = Math.max(0, ...spans.map((el) => el?.offsetWidth ?? 0));
       }
       setMaxWidths(widths);
+
+      const ctx = document.createElement("canvas").getContext("2d");
+      if (ctx) {
+        ctx.font = `${INK_MEASURE_FONT_PX}px TGMotionSicknessSubset`;
+        let maxOvershoot = 0;
+        for (const ch of UNIQUE_LETTERS) {
+          for (const variant of VARIANT_MAP[ch]) {
+            const m = ctx.measureText(variant);
+            const overshoot = m.actualBoundingBoxAscent - m.fontBoundingBoxAscent;
+            if (Number.isFinite(overshoot)) maxOvershoot = Math.max(maxOvershoot, overshoot);
+          }
+        }
+        if (maxOvershoot > 0) setTopPadEm(maxOvershoot / INK_MEASURE_FONT_PX + 0.05);
+      }
     };
 
     measure();
@@ -158,7 +188,7 @@ export function PersevereAnimation({
       // rounded-[8px] used deliberately rather than rounded-lg, this repo's
       // rounded-lg is redefined to 0.625rem (10px) via --radius, not the
       // default Tailwind 8px, and the original design called for 8px exactly.
-      className={`relative inline-flex w-fit items-baseline justify-center leading-tight ${
+      className={`relative inline-flex w-fit items-baseline justify-center leading-none ${
         showBackground ? "rounded-[8px] bg-(--color-oxblood) px-16 py-12" : ""
       } ${className}`}
     >
@@ -191,6 +221,7 @@ export function PersevereAnimation({
             style={{
               transform: `translate(${t.dx}px, ${t.dy}px) rotate(${t.rot}deg)`,
               width: width !== undefined ? `${width}px` : undefined,
+              paddingTop: `${topPadEm}em`,
             }}
           >
             {char}
