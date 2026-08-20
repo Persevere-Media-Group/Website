@@ -39,7 +39,7 @@ const WORD_SEQUENCE = toUpperCaseWords([
 const HIGHLIGHT_WORD = "PERSEVERE";
 
 const TEXT_CLASSES =
-  "text-[clamp(1.85rem,7.5vw,7rem)] font-black leading-none tracking-tighter text-[var(--color-ivory)]";
+  "font-pomelo text-[clamp(1.85rem,7.5vw,7rem)] leading-none tracking-wide text-[var(--color-ivory)]";
 
 const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
 
@@ -54,8 +54,8 @@ function HeroSection() {
   const wordRowScale = useAutoFitScale(wordRowRef, getCylinderSizeCompensation());
 
   return (
-    <div className="relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-28 pb-32 text-center sm:min-h-[80vh] sm:pt-32 sm:pb-40 md:pb-48">
-      <Link
+    <div className="relative flex min-h-[58vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-10 pb-8 text-center sm:min-h-[60vh] sm:pt-14 sm:pb-10 md:pb-12">
+      {/* <Link
         to="/"
         aria-label="Go to home page"
         className="absolute top-4 left-4 z-[60] lg:top-10 lg:left-14"
@@ -66,7 +66,7 @@ function HeroSection() {
           className="h-10 w-auto sm:h-12 md:h-24 lg:h-40"
           draggable={false}
         />
-      </Link>
+      </Link> */}
 
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
@@ -85,7 +85,7 @@ function HeroSection() {
         duration={400}
         easing="ease-out"
         extraScale={1}
-        className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-28 pb-12 text-center sm:pt-32 sm:pb-16 md:pb-20"
+        className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-12 pb-4 text-center sm:pt-16 sm:pb-6 md:pb-8"
       >
         <div
           ref={wordRowRef}
@@ -119,8 +119,8 @@ function HeroSection() {
           </div>
         </div>
 
-        <p className="mt-16 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-black leading-none tracking-tighter text-(--color-oxblood) sm:text-[clamp(1.5rem,8vw,3rem)]">
-          Content. Ads. Done properly.
+        <p className="mt-16 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-pomelo-mono leading-none tracking-tighter text-(--color-oxblood) sm:text-[clamp(1.5rem,6vw,2.25rem)]">
+          Content & Ads. Done properly.
           <br />
           Nae faff.
         </p>
@@ -298,7 +298,7 @@ function FactsSection() {
           delay={i * 0.15}
         >
           <div className="max-w-xl">
-            <h3 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
+            <h3 className="font-pomelo-mono text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
               {block.heading}
             </h3>
             <p
