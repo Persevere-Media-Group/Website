@@ -135,7 +135,7 @@ export function ServicesKeir() {
 
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
-      <GrainWave height="24rem" logo>
+      <GrainWave height="24rem">
         <h1 className="mt-3 text-center text-[clamp(3.5rem,9vw,6rem)] font-pomelo leading-[0.85] tracking-wide text-(--color-ivory)">
           <span className="block">Performance</span>
           <span className="block ml-[2em]">Marketing</span>

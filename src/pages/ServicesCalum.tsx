@@ -118,7 +118,7 @@ export function ServicesCalum() {
 
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
-      <GrainWave height="24rem" logo>
+      <GrainWave height="24rem">
         <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
           Creative Strategy, Content Creation & Organic Social
         </h1>
@@ -135,7 +135,7 @@ export function ServicesCalum() {
             "content strategist",
             "growth partner",
           ]}
-          note="Calum will give me a sentence soon"
+          note="If I’m not shooting or editing new content for your brand, I’m probably out on a hill somewhere in my tent or training for my next race. Or reading or watching some sort of fantasy fiction. Massive nerd, lover of adventure."
         />
 
         <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
