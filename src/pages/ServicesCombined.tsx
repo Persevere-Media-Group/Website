@@ -74,7 +74,7 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
       <br />
       {/* same "payoff" treatment as the About page's closing beat: a big circled
           wordmark between the copy and the CTA button */}
-      <p className="text-[clamp(1.75rem,4.5vw,2.75rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
+      <p className="font-pomelo text-[clamp(2.25rem,5.5vw,3.5rem)] leading-none tracking-wide text-(--color-oxblood)">
         <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={20}>
           Choose Persevere.
         </Highlighter>

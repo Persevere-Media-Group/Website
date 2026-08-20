@@ -408,7 +408,7 @@ const SERVICES_BLOCKS = [
   },
   {
     eyebrow: "CREATIVE",
-    heading: "Thumb-stopping creative, that converts, made by us.",
+    heading: "Creative that converts, made by us.",
     body: (
       <>
         We build out your customer avatars, script the copy, and shoot and edit creative to make{" "}

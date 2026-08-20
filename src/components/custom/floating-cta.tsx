@@ -166,7 +166,7 @@ export function FloatingCta() {
         // z-[60] is deliberately higher than the fixed nav/header (z-50) and the
         // ScrollProgress bar, otherwise wherever this overlaps them, clicks get
         // intercepted by whatever's stacked on top rather than reaching this button
-        className="fixed top-0 left-0 z-60 flex cursor-grab touch-none items-center gap-2 rounded-full bg-(--color-amber-gold) px-5 py-3 text-sm font-bold whitespace-nowrap text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] select-none active:cursor-grabbing"
+        className="fixed top-0 left-0 z-60 flex cursor-grab touch-none items-center gap-2 rounded-full bg-(--color-amber-gold) px-5 py-3 text-sm font-pomelo-mono font-bold whitespace-nowrap text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] select-none active:cursor-grabbing"
         style={{ x, y, visibility: ready ? "visible" : "hidden" }}
       >
         <Phone className="h-4 w-4" />
