@@ -150,20 +150,30 @@ export function FloatingCta() {
           can never be dragged flush against the very edge of the screen */}
       <div ref={constraintsRef} className="pointer-events-none fixed inset-2" aria-hidden />
 
-      {/* `position: fixed` combined with an animated `transform` on the very same
-          element is what causes the jitter: iOS Safari re-derives a transformed
-          fixed element's position against the visual viewport on every scroll
-          frame (as the dynamic toolbar resizes it), and that recompute lags a
-          frame behind the transform, reading as jitter. Splitting the two roles
-          across two elements - an untransformed `fixed` wrapper pinned at (0,0),
-          with the drag transform applied to a plain (statically positioned) child
-          inside it - keeps the fixed element itself stable, so only the cheap,
-          ordinary transform is left animating; net position is identical since
-          the wrapper shrink-wraps to the button with no offset of its own. */}
+      {/* Two things fix iOS Safari's fixed-position scroll jitter here:
+          1. The drag transform lives on a plain (statically positioned) child
+             rather than on this `fixed` element itself, so this element's own
+             position is never recomputed frame-to-frame - just the child's
+             ordinary transform, which is cheap. Net position is identical either
+             way since this wrapper shrink-wraps to the button with no offset
+             of its own.
+          2. `translateZ(0)` below is a no-op visually, but it forces this fixed
+             element onto its own GPU compositing layer up front. Without it,
+             iOS Safari can leave a plain `position: fixed` element on the main
+             thread's paint layer, so it visibly lags behind the viewport by a
+             frame or two during scroll (worse as the dynamic toolbar
+             collapses/expands) instead of being pinned by the compositor. */}
       {/* z-60 is deliberately higher than the fixed nav/header (z-50) and the
           ScrollProgress bar, otherwise wherever this overlaps them, clicks get
           intercepted by whatever's stacked on top rather than reaching this button */}
-      <div className="fixed top-0 left-0 z-60" style={{ visibility: ready ? "visible" : "hidden" }}>
+      <div
+        className="fixed top-0 left-0 z-60"
+        style={{
+          visibility: ready ? "visible" : "hidden",
+          transform: "translateZ(0)",
+          willChange: "transform",
+        }}
+      >
         <motion.button
           ref={buttonRef}
           type="button"
