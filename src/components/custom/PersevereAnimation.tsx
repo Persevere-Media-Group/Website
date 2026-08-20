@@ -11,11 +11,11 @@ import "./PersevereAnimation.css";
 // - Every letter trembles continuously: a fraction of a degree of rotation and
 //   a fraction of a pixel of drift, refreshed on every tick, so the word feels
 //   hand-drawn even when no variant is changing, without being distracting.
-// - Roughly once every UPDATE_INTERVAL_MS, one letter swaps to a new variant.
+// - Roughly once every UPDATE_INTERVAL_MS, exactly one letter swaps to a new
+//   variant, forever, so it never needs to jump back to a starting state and
+//   never has more than one letter changing at a time.
 // - No two occurrences of the same letter (the four "e"s, the two "r"s) ever
 //   show the same variant at the same time.
-// - After CYCLE_LENGTH swaps the word resets to its starting assignment, so
-//   the loop has no visible jump.
 // - Each letter sits in a box sized to the widest of that letter's variants
 //   (measured off-screen up front), so no variant swap ever clips or shifts
 //   neighbouring letters, and the word's total width never changes.
@@ -37,8 +37,6 @@ const VARIANT_MAP: Record<string, string[]> = {
 
 const TREMBLE_INTERVAL_MS = 90;
 const UPDATE_INTERVAL_MS = 900;
-const LETTERS_PER_UPDATE = 1;
-const CYCLE_LENGTH = 12; // variant-swaps before looping back to the start
 
 function randOf<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -97,7 +95,6 @@ export function PersevereAnimation({
   const [trembles, setTrembles] = useState<Tremble[]>(() =>
     WORD.split("").map(() => ({ rot: 0, dx: 0, dy: 0 }))
   );
-  const updateCountRef = useRef(0);
   const currentRef = useRef(initial);
   const measureRefs = useRef<Record<string, (HTMLSpanElement | null)[]>>({});
   const [maxWidths, setMaxWidths] = useState<Record<string, number> | null>(null);
@@ -142,32 +139,18 @@ export function PersevereAnimation({
     return () => clearInterval(id);
   }, []);
 
-  // Slow, single-letter variant swapping, looping cleanly back to the start.
+  // Slow, single-letter variant swapping, forever, one letter per tick.
   useEffect(() => {
     const id = setInterval(() => {
-      if (updateCountRef.current >= CYCLE_LENGTH) {
-        currentRef.current = [...initial];
-        updateCountRef.current = 0;
-        setGlyphs(currentRef.current);
-        return;
-      }
-
+      const pos = Math.floor(Math.random() * WORD.length);
       const next = [...currentRef.current];
-      const positions = Array.from({ length: WORD.length }, (_, i) => i);
-      for (let i = positions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [positions[i], positions[j]] = [positions[j], positions[i]];
-      }
-      positions.slice(0, LETTERS_PER_UPDATE).forEach((pos) => {
-        next[pos] = pickNewVariant(next, pos);
-      });
+      next[pos] = pickNewVariant(next, pos);
 
       currentRef.current = next;
-      updateCountRef.current += 1;
       setGlyphs(next);
     }, UPDATE_INTERVAL_MS);
     return () => clearInterval(id);
-  }, [initial]);
+  }, []);
 
   return (
     <div
