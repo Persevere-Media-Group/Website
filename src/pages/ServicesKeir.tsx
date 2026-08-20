@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { PopupModal } from "react-calendly";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { GrainWave } from "@/components/custom/grain-wave";
@@ -22,22 +22,22 @@ const STAGES = [
   {
     number: "01",
     title: "Welcome Aboard!",
-    body: "Before we touch a single campaign, we want to know your business inside out, your customers, their problems, what's actually stopping them from buying.",
+    body: "Before we touch a single campaign, we want to know your business inside out; your customers, their problems and what's stopping them from buying.",
   },
   {
     number: "02",
     title: "Groundwork",
-    body: "This is where we get to work building out your customer avatars. Then, scripting ad copy, designing your creative strategy to create thumb stopping creatives for your campaigns.",
+    body: "We delve deeper into the technical details. We audit your current campaigns, your website and your analytics. We also set up your tracking to measure real results.",
   },
   {
     number: "03",
     title: "Build",
-    body: "Shooting, editing, and fine tuning your creatives. We will also get to work on designing your campaign strategy. It doesn't stop once it's built. Strategy keeps evolving as we learn more, because we're driven by the data, not by what we planned on day one.",
+    body: "Shooting, editing and fine tuning your creatives. We will also get to work on designing your campaign strategy. It doesn't stop once it's built- strategy keeps evolving as we learn more, because we're driven by the data, not by what we planned on day one.",
   },
   {
     number: "04",
     title: "Launch",
-    body: "This is where the real learning starts: absorbing everything the campaigns tell us and feeding it straight back into the strategy. Continuous improvement isn't a 'nice to have', it's the whole point.",
+    body: "This is where the real learning starts; absorbing everything the campaigns tell us and feeding it straight back into the strategy. Continuous improvement isn't a 'nice to have', it's essential!",
   },
   {
     number: "05",
@@ -51,17 +51,21 @@ const STAGES = [
 // ---------------------------------------------------------------------------
 
 const WHATS_INCLUDED = [
-  "A straight talking team who will tell you what you need to hear, not what you want to hear",
-  "Work with seasoned pros, who have been there and done it, time and again",
-  "Have both your creative and your performance under one roof, so you don't have to choose between one or the other",
-  "A team who genuinely cares about your business, and will stick around, not ghost you after you've onboarded",
+  "We are a no BS team who will tell you what you need to hear, not what you want to hear.",
+  "We are seasoned pros, if we do say so ourselves. We have been there and done it, time and again.",
+  "We have offer you creative and performance services under one roof, so you don't have to choose between one or the other.",
+  "A team who genuinely cares about your business, and will stick around, not ghost you after you've onboarded.",
 ];
 
 // bodies are paired by index with the shared ALWAYS_INCLUDED_HEADINGS in
 // services-shared.tsx (monthly calls/weekly check-ins, direct access, reporting)
-const ALWAYS_INCLUDED_BODIES: [string, string, string] = [
+const ALWAYS_INCLUDED_BODIES: [ReactNode, ReactNode, ReactNode] = [
   "A check in every week. A proper call every month, going through what's working, what's changed, and what's next. We are part of your team!",
-  "A dedicated group chat with the two of us, to discuss day-to-day performance, and to feel like an extension of your team. We want to give you real access, not an account manager relaying messages. (Not at 11pm though, we've got lives too.)",
+  <>
+    A dedicated group chat with the two of us, to discuss day-to-day performance, and to feel like
+    an extension of your team. We want to give you real access, not an account manager relaying
+    messages. <em>(Not at 11pm though, we've got lives too.)</em>
+  </>,
   "We'll help you get set up with tools that keep the numbers clear and trustworthy, not vanity metrics dressed up to make us look good. We want your business to actually do well, not just make us look good.",
 ];
 
@@ -152,24 +156,22 @@ export function ServicesKeir() {
             "strategy designer",
             "growth partner",
           ]}
-          note="In my spare time you can find me at Edinburgh Filmhouse watching movies, running whilst listening to new albums, or trying to find a new coffee shop!"
+          note="When I'm not working on your ad campaigns, you can find me at Edinburgh Filmhouse watching movies, running, listening to new albums, or trying out a new coffee shop!"
         />
         <h2 className="font-subtitle text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
           My role in Persevere Media
         </h2>
-        <p
-          className="mt-6 max-w-2xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-        >
-          I lead all things Paid Media, such as Paid social and PPC. We build and run it properly,
-          not set-forget and take you for a ride. We have over{" "}
+        <p className="mt-6 max-w-2xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
+          I lead all things Paid Media, such as Paid social and PPC. I build and run it properly; no
+          setting and forgetting here! I have over{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
-            10+ years of combined experience
+            5+ years of experience
           </Highlighter>
           , managing{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
             £20m+ in ad spend
           </Highlighter>{" "}
-          across a huge variety of sectors and niches. We've managed budgets from{" "}
+          across a huge variety of sectors and niches. I've managed budgets from{" "}
           <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
             £1,000
           </Highlighter>{" "}
@@ -177,7 +179,7 @@ export function ServicesKeir() {
           <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
             £500,000
           </Highlighter>{" "}
-          a month. Whatever your niche, we've (probably) worked it.
+          a month. Whatever your niche, I've (probably) worked it.
         </p>
         <br />
         <SectionDivider />
@@ -188,13 +190,12 @@ export function ServicesKeir() {
           <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
             Our Approach
           </h2>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-          >
-            Getting strong results from your campaigns doesn't just come from a magic algorithm or
-            an AI agent. It comes from us. Real people with years of real experience, designing a
-            bespoke strategy, consistently testing, and learning from the data and constantly
-            evolving. We're not about leaving your account on autopilot.
+          <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+            At Persevere, getting strong results from your campaigns doesn't just come from a magic
+            algorithm or an AI agent. <strong>It comes from us.</strong> Real people with years of
+            real experience, designing a bespoke strategy. We consistently test and learn from the
+            data and constantly evolve your campaign. We're not about leaving your account on
+            autopilot.
           </p>
         </div>
         <SectionDivider reverse />
@@ -232,9 +233,7 @@ export function ServicesKeir() {
                     {stage.title}
                   </h3>
                 </div>
-                <p
-                  className="px-7 pt-3 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                >
+                <p className="px-7 pt-3 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
                   {stage.body}
                 </p>
               </ScrollStackItem>
@@ -247,7 +246,7 @@ export function ServicesKeir() {
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-8">
           <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
-            What's included in the Ads package?
+            Business Partners (with Benefits)
           </h2>
           <ul className="flex flex-col gap-4 text-left">
             {WHATS_INCLUDED.map((item, i) => (
@@ -260,9 +259,7 @@ export function ServicesKeir() {
                 threshold={0.2}
                 delay={i * 0.06}
               >
-                <li
-                  className="flex items-start gap-3 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                >
+                <li className="flex items-start gap-3 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
                   <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-terracotta)" />
                   {item}
                 </li>

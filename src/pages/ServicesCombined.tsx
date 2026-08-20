@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
 import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
@@ -15,7 +15,11 @@ import { UNDERLINE_COLOR, MARK_PROPS, ALWAYS_INCLUDED_HEADINGS } from "@/pages/s
 // Headings/icons are shared across both services pages (ALWAYS_INCLUDED_HEADINGS)
 // so the guarantee reads identically everywhere; only the body copy for each is
 // page-specific, passed in as `bodies` and paired with a heading by index.
-export function AlwaysIncluded({ bodies }: { bodies: [string, string, string] }) {
+export function AlwaysIncluded({
+  bodies,
+}: {
+  bodies: [ReactNode, ReactNode, ReactNode];
+}) {
   return (
     <div className="mt-20 flex w-full max-w-3xl flex-col items-center">
       <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
