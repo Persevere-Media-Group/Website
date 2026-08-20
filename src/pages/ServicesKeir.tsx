@@ -136,7 +136,7 @@ export function ServicesKeir() {
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
       <GrainWave height="24rem">
-        <h1 className="mt-3 text-center text-[clamp(3.5rem,9vw,6rem)] font-pomelo leading-[0.85] tracking-wide text-(--color-ivory)">
+        <h1 className="mt-3 text-center text-[clamp(3.5rem,9vw,6rem)] font-heading leading-[0.85] tracking-wide text-(--color-ivory)">
           <span className="block">Performance</span>
           <span className="block ml-[2em]">Marketing</span>
         </h1>
@@ -159,7 +159,6 @@ export function ServicesKeir() {
         </h2>
         <p
           className="mt-6 max-w-2xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-          style={{ fontFamily: "var(--font-body)" }}
         >
           I lead all things Paid Media, such as Paid social and PPC. We build and run it properly,
           not set-forget and take you for a ride. We have over{" "}
@@ -191,7 +190,6 @@ export function ServicesKeir() {
           </h2>
           <p
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
           >
             Getting strong results from your campaigns doesn't just come from a magic algorithm or
             an AI agent. It comes from us. Real people with years of real experience, designing a
@@ -236,7 +234,6 @@ export function ServicesKeir() {
                 </div>
                 <p
                   className="px-7 pt-3 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {stage.body}
                 </p>
@@ -265,7 +262,6 @@ export function ServicesKeir() {
               >
                 <li
                   className="flex items-start gap-3 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-terracotta)" />
                   {item}

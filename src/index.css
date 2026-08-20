@@ -12,8 +12,11 @@ body {
 }
 
 /* custom brand fonts, self-hosted from public/fonts. registered as Tailwind
-   utilities below in @theme inline (font-pomelo, font-pomelo-mono, etc), so
-   use className="font-pomelo" rather than inline fontFamily styles. */
+   utilities below in @theme inline as the SEMANTIC roles (font-body,
+   font-subtitle, font-heading, font-accent, font-fun) — use those className
+   names in components rather than inline fontFamily styles or the raw font
+   family. To swap which physical font a role uses, change it in ONE place
+   below, it updates everywhere. */
 
 @font-face {
   font-family: "TG Pomelo";
@@ -48,15 +51,21 @@ body {
 }
 
 @theme inline {
-  --font-heading: var(--font-sans);
   --font-sans: "Inter Variable", sans-serif;
 
-  /* brand fonts, each generates a matching Tailwind utility class
-     (font-pomelo, font-pomelo-mono, font-motion-sickness, font-pixie-dust) */
-  --font-pomelo: "TG Pomelo", var(--font-sans);
-  --font-pomelo-mono: "TG Pomelo Mono", ui-monospace, monospace;
-  --font-motion-sickness: "TG Motion Sickness", var(--font-sans);
-  --font-pixie-dust: "TG Pixie Dust", var(--font-sans);
+  /* ---------------------------------------------------------------------
+     SEMANTIC FONT ROLES — the single place to change fonts site-wide.
+     Available options (self-hosted, see @font-face above): "Inter Variable",
+     "TG Pomelo", "TG Pomelo Mono", "TG Motion Sickness", "TG Pixie Dust"
+     (Pixie Dust is defined but not currently assigned to a role).
+     Each line generates a matching Tailwind utility class, use those in
+     components: font-body, font-subtitle, font-heading, font-accent, font-fun
+     --------------------------------------------------------------------- */
+  --font-body: var(--font-sans); /* paragraphs, general copy */
+  --font-subtitle: "TG Pomelo Mono", ui-monospace, monospace; /* eyebrows, taglines, section headings */
+  --font-heading: "TG Pomelo", var(--font-sans); /* page/hero titles */
+  --font-accent: "TG Pomelo", var(--font-sans); /* decorative wordmarks & accent text */
+  --font-fun: "TG Motion Sickness", var(--font-sans); /* playful, one-off flourishes */
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);

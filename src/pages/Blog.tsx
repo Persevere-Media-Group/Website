@@ -24,7 +24,6 @@ export function Blog() {
           </h2>
           <p
             className="max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
           >
             Real content goes here once it's ready.
           </p>
@@ -42,7 +41,6 @@ export function Blog() {
               </h2>
               <p
                 className="text-sm text-(--color-oxblood)/60"
-                style={{ fontFamily: "var(--font-body)" }}
               >
                 {new Date(post.date).toLocaleDateString(undefined, {
                   year: "numeric",
@@ -53,7 +51,6 @@ export function Blog() {
               {post.excerpt && (
                 <p
                   className="max-w-xl leading-relaxed text-(--color-oxblood)/80"
-                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {post.excerpt}
                 </p>

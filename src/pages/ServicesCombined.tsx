@@ -42,7 +42,6 @@ export function AlwaysIncluded({ bodies }: { bodies: [string, string, string] })
               </h3>
               <p
                 className="text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/80"
-                style={{ fontFamily: "var(--font-body)" }}
               >
                 {bodies[i]}
               </p>
@@ -69,12 +68,11 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
 
   return (
     <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
-      <h2 className="font-pomelo-mono text-[clamp(2.25rem,5.5vw,3.25rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
+      <h2 className="font-subtitle text-[clamp(2.25rem,5.5vw,3.25rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
         We are your growth partners.
       </h2>
       <p
         className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-        style={{ fontFamily: "var(--font-body)" }}
       >
         We’re not here to ghost you after signing you on. We want to scale with you, keep improving
         with you, and never settle for "good enough."
@@ -85,7 +83,7 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
       <div className="flex w-full items-center justify-center">
         <p
           ref={markRef}
-          className="font-pomelo text-[clamp(2.75rem,16vw,6.5rem)] leading-none tracking-wide whitespace-nowrap text-(--color-oxblood)"
+          className="font-accent text-[clamp(2.75rem,16vw,6.5rem)] leading-none tracking-wide whitespace-nowrap text-(--color-oxblood)"
           style={{ transform: `scale(${markScale})`, transformOrigin: "center" }}
         >
           {/* the ellipse rough-notation draws for "circle" is sized from the text's
@@ -185,7 +183,6 @@ export function IntroBanner({
       {note && (
         <p
           className="max-w-sm text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/70"
-          style={{ fontFamily: "var(--font-body)" }}
         >
           {note}
         </p>

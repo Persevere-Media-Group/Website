@@ -15,7 +15,7 @@ export const YellowPulsatingButton = forwardRef<
     pulseColor="color-mix(in srgb, var(--color-amber-gold) 50%, transparent)"
     duration="1.8s"
     className={cn(
-      "rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-pomelo-mono font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]",
+      "rounded-full bg-(--color-amber-gold) px-8 py-4 text-base font-subtitle font-bold text-(--color-oxblood) shadow-[0_0_28px_-6px_var(--color-amber-gold)]",
       className
     )}
     {...props}

@@ -105,7 +105,7 @@ function AnimatedCounter({
     >
       <motion.div
         className={cn(
-          "font-pomelo-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-none mb-1 sm:mb-2 whitespace-nowrap"
+          "font-subtitle text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-none mb-1 sm:mb-2 whitespace-nowrap"
         )}
         initial={{ scale: 0.8 }}
         animate={isInView ? { scale: 1 } : { scale: 0.8 }}
@@ -125,9 +125,6 @@ function AnimatedCounter({
         className={cn(
           "text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80 px-1 sm:px-2"
         )}
-        style={{
-          fontFamily: "var(--font-body)",
-        }}
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: delay * 0.2 + 0.6, duration: 0.6 }}

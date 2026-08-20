@@ -89,7 +89,7 @@ function HeroSection() {
         className="relative z-10 flex w-full flex-1 flex-col items-center justify-center gap-8 px-4 pt-12 pb-10 text-center sm:gap-8 sm:pt-16 sm:pb-14 md:pb-16"
       >
         <div className="flex w-full flex-col items-center gap-2">
-          <p className="font-pomelo-mono text-[clamp(1.3rem,4vw,2rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase">
+          <p className="font-subtitle text-[clamp(1.3rem,4vw,2rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase">
             Choose
           </p>
 
@@ -110,7 +110,7 @@ function HeroSection() {
           </div>
         </div>
 
-        <p className="text-center text-[clamp(1.25rem,5vw,1.6rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.4rem,4vw,1.85rem)]">
+        <p className="text-center text-[clamp(1.25rem,5vw,1.6rem)] font-subtitle font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.4rem,4vw,1.85rem)]">
           Content & Ads done properly. Nae faff.
         </p>
 
@@ -150,9 +150,29 @@ const FACTS_BLOCKS = [
           animationDuration={1000}
           iterations={2}
         >
-          £20m+ in ad spend, 50+ brands
+          £20m+
         </Highlighter>
-        , thousands of hours of experience. We've been there and done it time and again, and{" "}
+        in ad spend, across{" "}
+        <Highlighter
+          action="highlight"
+          color="rgba(237, 176, 62, 0.3)"
+          triggerOnView
+          animationDuration={1000}
+          iterations={2}
+        >
+          50+
+        </Highlighter>{" "}
+        brands managed,{" "}
+        <Highlighter
+          action="highlight"
+          color="rgba(237, 176, 62, 0.3)"
+          triggerOnView
+          animationDuration={1000}
+          iterations={2}
+        >
+          1000s
+        </Highlighter>{" "}
+        of hours of experience. We've been there and done it time and again, and{" "}
         <Highlighter
           action="underline"
           color="#d5573b"
@@ -238,12 +258,11 @@ function FactsSection() {
           delay={i * 0.15}
         >
           <div className="max-w-xl">
-            <h3 className="font-pomelo-mono text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
+            <h3 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
               {block.heading}
             </h3>
             <p
               className="mt-3 text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-              style={{ fontFamily: "var(--font-body)" }}
             >
               {block.body}
             </p>
@@ -306,7 +325,7 @@ function VideoSection() {
         className="w-full"
       >
         <div className="flex w-full flex-col items-center gap-6">
-          <h2 className="font-pomelo-mono text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
+          <h2 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
             What we're all about
           </h2>
 
@@ -442,12 +461,11 @@ const SERVICES_BLOCKS = [
 function OurServicesSection() {
   return (
     <section id={OUR_SERVICES_ID} className="bg-(--color-ivory) px-4 py-24 text-center">
-      <h2 className="mt-3 font-pomelo-mono text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
+      <h2 className="mt-3 font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
         The best of both worlds
       </h2>
       <p
         className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-        style={{ fontFamily: "var(--font-body)" }}
       >
         Most agencies offer you one service and leave you to find the other. We do both, under one
         roof. We keep it simple, accessible and affordable.
@@ -467,19 +485,18 @@ function OurServicesSection() {
           >
             <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
               <Link to={block.to} className="group/header w-fit">
-                <h3 className="font-pomelo-mono text-[clamp(1.75rem,3.4vw,2.1rem)] font-black tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
+                <h3 className="font-subtitle text-[clamp(1.75rem,3.4vw,2.1rem)] font-black tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
                   {block.heading}
                 </h3>
               </Link>
               <p
                 className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
-                style={{ fontFamily: "var(--font-body)" }}
               >
                 {block.body}
               </p>
               <Link
                 to={block.to}
-                className="group mt-auto inline-flex w-fit items-center gap-1 font-pomelo-mono font-bold text-(--color-terracotta) underline underline-offset-2"
+                className="group mt-auto inline-flex w-fit items-center gap-1 font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
               >
                 <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
                   Learn more
@@ -516,12 +533,11 @@ function WhyChooseSection() {
         ease="power3.out"
         threshold={0.2}
       >
-        <h2 className="font-pomelo-mono text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-ivory)">
+        <h2 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-ivory)">
           Why work with us?
         </h2>
         <p
           className="mx-auto mt-4 max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-ivory)/85"
-          style={{ fontFamily: "var(--font-body)" }}
         >
           We're a straight-talking team who'll tell you what you need to hear, not what you want to
           hear. Your wins are our wins.

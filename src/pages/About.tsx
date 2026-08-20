@@ -179,7 +179,6 @@ export function About() {
                 <Link to={role.to} className="group/header w-fit">
                   <p
                     className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
-                    style={{ fontFamily: "var(--font-body)" }}
                   >
                     {role.lead}
                   </p>
@@ -189,13 +188,11 @@ export function About() {
                 </Link>
                 <p
                   className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed font-semibold text-(--color-oxblood)"
-                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {role.hook}
                 </p>
                 <p
                   className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
-                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {role.detail}
                 </p>
@@ -226,7 +223,6 @@ export function About() {
             </h2>
             <p
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-              style={{ fontFamily: "var(--font-body)" }}
             >
               Keir and Calum met over four years ago in the corporate marketing world.{" "}
               <strong className="font-bold text-(--color-oxblood)">
@@ -236,7 +232,6 @@ export function About() {
             </p>
             <p
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-              style={{ fontFamily: "var(--font-body)" }}
             >
               For years we sharpened our craft on other people's payrolls, forever joking about what
               we could build if we pooled two skillsets that so rarely live under one roof. Then we
@@ -257,7 +252,6 @@ export function About() {
             </h2>
             <p
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-              style={{ fontFamily: "var(--font-body)" }}
             >
               It's Leith's word. You'll spot it on old buildings, on the crest, worked into the
               fabric of the place. It's meant something to Keir across the near-six years he's
@@ -283,7 +277,6 @@ export function About() {
                 <AccordionContent className="origin-top">
                   <p
                     className="pt-3 pl-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                    style={{ fontFamily: "var(--font-body)" }}
                   >
                     The word "Persevere" itself goes back further than most people realise. Leith
                     was its own burgh for centuries, a proper port town in its own right. Trading,
@@ -299,7 +292,6 @@ export function About() {
             </Accordion>
             <p
               className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-              style={{ fontFamily: "var(--font-body)" }}
             >
               Turns out it's a decent word for how we work too. Leith took the knocks and rebuilt
               anyway, and that's basically the job. There's no single lucky campaign that fixes
@@ -336,7 +328,6 @@ export function About() {
         >
           <div
             className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
           >
             {BEFORE.map((line, i) => (
               <p key={i}>{line}</p>
@@ -373,7 +364,6 @@ export function About() {
         >
           <div
             className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)"
-            style={{ fontFamily: "var(--font-body)" }}
           >
             {AFTER.map((line, i) => (
               <p key={i}>{line}</p>

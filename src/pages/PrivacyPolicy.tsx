@@ -20,7 +20,6 @@ export function PrivacyPolicy() {
 
         <div
           className="mt-10 max-w-2xl space-y-8 text-left text-(--color-oxblood)/90"
-          style={{ fontFamily: "var(--font-body)" }}
         >
           <p className="text-sm text-(--color-oxblood)/60">Last updated: 25th July 2026</p>
 

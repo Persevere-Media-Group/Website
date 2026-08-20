@@ -402,7 +402,6 @@ export function Contact() {
 
               <p
                 className="mt-6 max-w-md text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-                style={{ fontFamily: "var(--font-body)" }}
               >
                 Fill in our form to send us a message.
                 <br />
@@ -460,7 +459,6 @@ export function Contact() {
                         ?.scrollIntoView({ behavior: "smooth", block: "start" })
                     }
                     className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
-                    style={{ fontFamily: "var(--font-body)" }}
                   >
                     Check out the FAQs below
                   </button>
@@ -486,7 +484,6 @@ export function Contact() {
                     type="button"
                     onClick={() => setIsCalendlyOpen(true)}
                     className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
-                    style={{ fontFamily: "var(--font-body)" }}
                   >
                     Book a call
                   </button>
@@ -516,7 +513,6 @@ export function Contact() {
                       <div key={person.name} className="flex items-center gap-3">
                         <span
                           className="w-12 text-(--color-oxblood)/80"
-                          style={{ fontFamily: "var(--font-body)" }}
                         >
                           {person.name}
                         </span>
@@ -556,7 +552,7 @@ export function Contact() {
           style={{ minHeight: cardHeight ? `${cardHeight}px` : undefined }}
         >
           {submitted ? (
-            <div className="flex flex-1 flex-col" style={{ fontFamily: "var(--font-body)" }}>
+            <div className="flex flex-1 flex-col">
               <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
                 <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
                   Cheers!
@@ -607,7 +603,6 @@ export function Contact() {
               ref={formRef}
               onSubmit={handleSubmit}
               className="flex flex-1 flex-col"
-              style={{ fontFamily: "var(--font-body)" }}
             >
               {/* Honeypot: real visitors never see or reach this field, so it should
                   always submit empty. If it's filled in, the submission came from a bot
@@ -849,7 +844,6 @@ export function Contact() {
               {sendError && (
                 <p
                   className="mt-5 flex items-start justify-between gap-3 text-sm font-semibold text-(--color-terracotta)"
-                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   <span>{sendError}</span>
                   <button
@@ -931,7 +925,6 @@ export function Contact() {
                   hidden (see .grecaptcha-badge in index.css) */}
               <p
                 className="mt-4 text-center text-xs text-(--color-oxblood)/50"
-                style={{ fontFamily: "var(--font-body)" }}
               >
                 This site is protected by reCAPTCHA and the Google{" "}
                 <a
@@ -997,7 +990,6 @@ export function Contact() {
             </h2>
             <p
               className="mt-3 text-sm leading-relaxed text-(--color-oxblood)/80"
-              style={{ fontFamily: "var(--font-body)" }}
             >
               That message contains language we don't accept here. We're all for directness, just
               not harassment, so please edit it and try again.

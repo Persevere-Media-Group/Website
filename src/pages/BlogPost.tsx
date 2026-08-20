@@ -21,7 +21,7 @@ export function BlogPost() {
       </GrainWave>
 
       <div className="flex w-full max-w-2xl flex-col gap-6 px-4 pt-16 pb-24 sm:pt-20">
-        <p className="text-sm text-(--color-oxblood)/60" style={{ fontFamily: "var(--font-body)" }}>
+        <p className="text-sm text-(--color-oxblood)/60">
           {new Date(post.date).toLocaleDateString(undefined, {
             year: "numeric",
             month: "long",

@@ -36,7 +36,6 @@ export function CookieConsentBanner() {
       <div className="flex w-full max-w-2xl flex-col gap-4 rounded-2xl border border-(--color-oxblood)/10 bg-(--color-ivory) p-5 text-left shadow-[0_12px_40px_rgba(0,0,0,0.25)] sm:flex-row sm:items-center sm:gap-6 sm:p-6">
         <p
           className="flex-1 text-sm leading-relaxed text-(--color-oxblood)"
-          style={{ fontFamily: "var(--font-body)" }}
         >
           We use cookies for essential site function, and, with your permission, to understand how
           the site is used (Google Analytics) and to measure our ads (Meta Pixel). Read our{" "}

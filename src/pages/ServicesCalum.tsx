@@ -119,7 +119,7 @@ export function ServicesCalum() {
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
       <GrainWave height="24rem">
-        <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
+        <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-tighter text-(--color-ivory)">
           Creative Strategy, Content Creation & Organic Social
         </h1>
       </GrainWave>
@@ -143,7 +143,6 @@ export function ServicesCalum() {
         </h2>
         <p
           className="mt-6 max-w-xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-          style={{ fontFamily: "var(--font-body)" }}
         >
           I lead video, photography, and organic social at Persevere, where we build content as one
           system, not a pile of disconnected posts. Shoots, edits, strategy, done properly, by
@@ -161,7 +160,6 @@ export function ServicesCalum() {
           </h2>
           <p
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
           >
             Organic growth isn't about posting more or always hopping on the newest trend. The
             platforms don't care how many followers you have, they care whether people save it,
@@ -169,7 +167,6 @@ export function ServicesCalum() {
           </p>
           <p
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
           >
             So we build for the signals that actually matter. This takes time. We're honest about
             that from the start. Any agency promising overnight virality is either guessing or
@@ -177,7 +174,6 @@ export function ServicesCalum() {
           </p>
           <p
             className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            style={{ fontFamily: "var(--font-body)" }}
           >
             This works best if you care about real growth, not just likes, and you're ready to give
             it a proper runway. It's probably not for you if you're chasing a one-off viral moment.
@@ -222,7 +218,6 @@ export function ServicesCalum() {
                 </div>
                 <p
                   className="px-7 pt-3 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {stage.body}
                 </p>
@@ -253,7 +248,6 @@ export function ServicesCalum() {
               >
                 <li
                   className="flex items-start gap-3 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-terracotta)" />
                   {item}

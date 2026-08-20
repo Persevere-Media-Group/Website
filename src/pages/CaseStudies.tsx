@@ -19,7 +19,6 @@ export function CaseStudies() {
         </h2>
         <p
           className="max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-          style={{ fontFamily: "var(--font-body)" }}
         >
           Real content goes here once it's ready.
         </p>

@@ -48,13 +48,11 @@ export function NotFound() {
 
         <p
           className="text-[clamp(1.1rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-terracotta)"
-          style={{ fontFamily: "var(--font-body)" }}
         >
           Looks like this page wandered off the map.
         </p>
         <p
           className="max-w-md text-[clamp(0.95rem,1.6vw,1.05rem)] text-(--color-terracotta)/80"
-          style={{ fontFamily: "var(--font-body)" }}
         >
           Whatever you were looking for isn't here.
           <br />
