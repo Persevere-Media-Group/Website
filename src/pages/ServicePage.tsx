@@ -1,10 +1,50 @@
+import type { ReactNode } from "react";
 import { GrainWave } from "@/components/custom/grain-wave";
 import AnimatedContent from "@/components/primitive/animated-content";
 import ScrollStack, { ScrollStackItem } from "@/components/primitive/ScrollStack";
 import { FaqAccordion } from "@/components/custom/faq";
 import { AlwaysIncluded, IntroBanner } from "@/pages/ServicesCombined";
 import { getServiceData } from "@/pages/services-data";
-import type { SectionProps } from "@/pages/services-types";
+
+// ---------------------------------------------------------------------------
+// Types shared by the services pages (ServicesKeir / ServicesCalum), the
+// section components below, and their content (services-data.tsx).
+// ---------------------------------------------------------------------------
+
+export type ServicePersonName = "keir" | "calum";
+
+// A single "stage" in the "How it all works" ScrollStack.
+export interface ServiceStage {
+  number: string;
+  title: string;
+  body: ReactNode;
+}
+
+// The full set of person-specific content for one services page. Everything
+// that differs between ServicesKeir and ServicesCalum lives in services-data.tsx
+// under this shape; each section component below pulls out just its own slice.
+export interface ServicePageData {
+  hero: ReactNode;
+  intro: {
+    name: string;
+    words: string[];
+    note?: string;
+  };
+  role: {
+    paragraph: ReactNode;
+    maxWidthClassName?: string;
+  };
+  approach: ReactNode[];
+  stages: ServiceStage[];
+  included: {
+    heading: ReactNode;
+    items: string[];
+  };
+  alwaysIncludedBodies: [ReactNode, ReactNode, ReactNode];
+  faqs: { q: string; a: ReactNode }[];
+}
+
+type SectionProps = { name: ServicePersonName };
 
 // ---------------------------------------------------------------------------
 // Hero band ("Performance Marketing" / "Creative Strategy...")

@@ -1,7 +1,7 @@
 import { Highlighter } from "@/components/primitive/highlighter";
 import { UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/pages/services-shared";
 import { FaqLink } from "@/components/custom/faq";
-import type { ServicePageData, ServicePersonName } from "@/pages/services-types";
+import type { ServicePageData, ServicePersonName } from "@/pages/ServicePage";
 
 // ---------------------------------------------------------------------------
 // All copy for the two services pages, keyed by person. ServicesKeir/
@@ -168,6 +168,7 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
     ],
   },
 
+  // ---------------------------------------------------------------------------
   calum: {
     hero: (
       <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-tighter text-(--color-ivory)">
