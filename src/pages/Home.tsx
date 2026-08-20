@@ -110,11 +110,14 @@ function HeroSection() {
           </div>
         </div>
 
-        <p className="text-center text-[clamp(1.25rem,6vw,1.75rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.5rem,6vw,2.25rem)]">
+        <p className="text-center text-[clamp(1rem,4vw,1.35rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.15rem,3.5vw,1.6rem)]">
           Content & Ads done properly. Nae faff.
         </p>
 
-        <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
+        <YellowPulsatingButton
+          onClick={() => setIsCalendlyOpen(true)}
+          className="px-6 py-3 text-sm sm:px-7 sm:py-3.5 sm:text-base"
+        >
           Book a Call
         </YellowPulsatingButton>
       </ClickSpark>
