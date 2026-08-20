@@ -500,12 +500,6 @@ const SERVICES_BLOCKS = [
 function OurServicesSection() {
   return (
     <section id={OUR_SERVICES_ID} className="bg-(--color-ivory) px-4 py-24 text-center">
-      <p
-        className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
-        style={{ fontFamily: "var(--font-body)" }}
-      >
-        Our Services
-      </p>
       <h2 className="mt-3 text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
         The best of both worlds
       </h2>
