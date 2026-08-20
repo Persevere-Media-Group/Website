@@ -31,7 +31,7 @@ const STAGES = [
   {
     number: "04",
     title: "Launch",
-    body: "The content goes live. We manage the posting and the accounts ourselves, this isn't a 'here are your files, good luck!' handover.",
+    body: "The content goes live. We manage the posting ourselves, this isn't a 'here are your files, good luck!' handover.",
   },
   {
     number: "05",
@@ -141,12 +141,12 @@ export function ServicesCalum() {
         <h2 className="font-subtitle text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
           My role in Persevere Media
         </h2>
-        <p
-          className="mt-6 max-w-xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-        >
-          I lead video, photography, and organic social at Persevere, where we build content as one
-          system, not a pile of disconnected posts. Shoots, edits, strategy, done properly, by
-          people who care whether it works.
+        <p className="mt-6 max-w-xl text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
+          I lead video, photography and organic social at Persevere. I have been a photographer,
+          videographer and editor for over 7 years. I've worked with a diverse range of businesses
+          and industries. I've created content for local car dealerships and global conferences
+          alike. At Persevere, we build content as one unified system, not a pile of disconnected
+          posts.
         </p>
         <br />
         <SectionDivider />
@@ -158,23 +158,17 @@ export function ServicesCalum() {
           <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
             Our Approach
           </h2>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-          >
+          <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
             Organic growth isn't about posting more or always hopping on the newest trend. The
-            platforms don't care how many followers you have, they care whether people save it,
-            share it, and actually watch it.
+            platforms don't care how many followers you have- they care whether people save it,
+            share it and actually watch it.
           </p>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-          >
-            So we build for the signals that actually matter. This takes time. We're honest about
-            that from the start. Any agency promising overnight virality is either guessing or
-            lying, and we'd rather tell you the truth and earn it properly.
+          <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+            We build for the signals that actually matter. This takes time. We're honest about that
+            from the start. Any agency promising overnight virality is either guessing or lying and
+            we'd rather tell you the truth and earn your trust properly.
           </p>
-          <p
-            className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-          >
+          <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
             This works best if you care about real growth, not just likes, and you're ready to give
             it a proper runway. It's probably not for you if you're chasing a one-off viral moment.
           </p>
@@ -216,9 +210,7 @@ export function ServicesCalum() {
                     {stage.title}
                   </h3>
                 </div>
-                <p
-                  className="px-7 pt-3 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                >
+                <p className="px-7 pt-3 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
                   {stage.body}
                 </p>
               </ScrollStackItem>
@@ -246,9 +238,7 @@ export function ServicesCalum() {
                 threshold={0.2}
                 delay={i * 0.06}
               >
-                <li
-                  className="flex items-start gap-3 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                >
+                <li className="flex items-start gap-3 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
                   <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-terracotta)" />
                   {item}
                 </li>
