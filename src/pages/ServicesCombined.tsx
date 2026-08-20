@@ -59,6 +59,14 @@ export function AlwaysIncluded({ bodies }: { bodies: [string, string, string] })
 // ---------------------------------------------------------------------------
 
 export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
+  // Sized deliberately larger than any viewport can hold at 1:1 (up to
+  // 6.5rem), so it always wants to be as wide as its container; useAutoFitScale
+  // then shrinks it down only as much as needed to avoid overflow, which is
+  // what makes it span the full width on mobile while still scaling up on
+  // wider screens instead of being pinned to a small fixed size.
+  const markRef = useRef<HTMLParagraphElement>(null);
+  const markScale = useAutoFitScale(markRef);
+
   return (
     <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
       <h2 className="font-pomelo-mono text-[clamp(2.25rem,5.5vw,3.25rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
@@ -74,11 +82,17 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
       <br />
       {/* same "payoff" treatment as the About page's closing beat: a big circled
           wordmark between the copy and the CTA button */}
-      <p className="font-pomelo text-[clamp(2.25rem,5.5vw,3.5rem)] leading-none tracking-wide text-(--color-oxblood)">
-        <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={20}>
-          Choose Persevere.
-        </Highlighter>
-      </p>
+      <div className="flex w-full items-center justify-center">
+        <p
+          ref={markRef}
+          className="font-pomelo text-[clamp(2.75rem,16vw,6.5rem)] leading-none tracking-wide whitespace-nowrap text-(--color-oxblood)"
+          style={{ transform: `scale(${markScale})`, transformOrigin: "center" }}
+        >
+          <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={36}>
+            Choose Persevere.
+          </Highlighter>
+        </p>
+      </div>
       <YellowPulsatingButton onClick={onBookCall} className="mt-12">
         Book a call
       </YellowPulsatingButton>

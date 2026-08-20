@@ -377,7 +377,7 @@ function TestimonialsSection() {
 const SERVICES_BLOCKS = [
   {
     eyebrow: "ADS",
-    heading: "Paid social and PPC, built and run properly.",
+    heading: "PPC run properly.",
     body: (
       <>
         <Highlighter
@@ -408,7 +408,7 @@ const SERVICES_BLOCKS = [
   },
   {
     eyebrow: "CREATIVE",
-    heading: "Creative that converts, made by us.",
+    heading: "Creative that converts.",
     body: (
       <>
         We build out your customer avatars, script the copy, and shoot and edit creative to make{" "}
@@ -479,7 +479,7 @@ function OurServicesSection() {
               </p>
               <Link
                 to={block.to}
-                className="group mt-auto inline-flex w-fit items-center gap-1 font-bold text-(--color-terracotta) underline underline-offset-2"
+                className="group mt-auto inline-flex w-fit items-center gap-1 font-pomelo-mono font-bold text-(--color-terracotta) underline underline-offset-2"
               >
                 <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
                   Learn more
