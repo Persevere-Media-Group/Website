@@ -17,9 +17,7 @@ export function CaseStudies() {
         <h2 className="font-subtitle text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
           Case Studies page placeholder
         </h2>
-        <p
-          className="max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-        >
+        <p className="max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
           Real content goes here once it's ready.
         </p>
       </div>

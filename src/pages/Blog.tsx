@@ -22,9 +22,7 @@ export function Blog() {
           <h2 className="font-subtitle text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
             Blog page placeholder
           </h2>
-          <p
-            className="max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-          >
+          <p className="max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
             Real content goes here once it's ready.
           </p>
         </div>
@@ -39,9 +37,7 @@ export function Blog() {
               <h2 className="font-subtitle text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-wide text-(--color-oxblood)">
                 {post.title}
               </h2>
-              <p
-                className="text-sm text-(--color-oxblood)/60"
-              >
+              <p className="text-sm text-(--color-oxblood)/60">
                 {new Date(post.date).toLocaleDateString(undefined, {
                   year: "numeric",
                   month: "long",
@@ -49,11 +45,7 @@ export function Blog() {
                 })}
               </p>
               {post.excerpt && (
-                <p
-                  className="max-w-xl leading-relaxed text-(--color-oxblood)/80"
-                >
-                  {post.excerpt}
-                </p>
+                <p className="max-w-xl leading-relaxed text-(--color-oxblood)/80">{post.excerpt}</p>
               )}
             </Link>
           ))}

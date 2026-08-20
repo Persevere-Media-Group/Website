@@ -18,9 +18,7 @@ export function PrivacyPolicy() {
           The Legal Bits
         </h2>
 
-        <div
-          className="mt-10 max-w-2xl space-y-8 text-left text-(--color-oxblood)/90"
-        >
+        <div className="mt-10 max-w-2xl space-y-8 text-left text-(--color-oxblood)/90">
           <p className="text-sm text-(--color-oxblood)/60">Last updated: 25th July 2026</p>
 
           <div className="space-y-3">

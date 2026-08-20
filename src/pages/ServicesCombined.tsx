@@ -15,11 +15,7 @@ import { UNDERLINE_COLOR, MARK_PROPS, ALWAYS_INCLUDED_HEADINGS } from "@/pages/s
 // Headings/icons are shared across both services pages (ALWAYS_INCLUDED_HEADINGS)
 // so the guarantee reads identically everywhere; only the body copy for each is
 // page-specific, passed in as `bodies` and paired with a heading by index.
-export function AlwaysIncluded({
-  bodies,
-}: {
-  bodies: [ReactNode, ReactNode, ReactNode];
-}) {
+export function AlwaysIncluded({ bodies }: { bodies: [ReactNode, ReactNode, ReactNode] }) {
   return (
     <div className="mt-20 flex w-full max-w-3xl flex-col items-center">
       <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
@@ -44,9 +40,7 @@ export function AlwaysIncluded({
               <h3 className="font-subtitle text-[clamp(1.1rem,2vw,1.3rem)] font-black tracking-wide text-(--color-oxblood)">
                 {heading.title}
               </h3>
-              <p
-                className="text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/80"
-              >
+              <p className="text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/80">
                 {bodies[i]}
               </p>
             </div>
@@ -75,9 +69,7 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
       <h2 className="font-subtitle text-[clamp(2.25rem,5.5vw,3.25rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
         We are your growth partners.
       </h2>
-      <p
-        className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-      >
+      <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
         We’re not here to ghost you after signing you on. We want to scale with you, keep improving
         with you, and never settle for "good enough."
       </p>
@@ -185,9 +177,7 @@ export function IntroBanner({
       </div>
       <ImageGallery images={placeholderImages(name)} className="mt-10 max-w-sm" />
       {note && (
-        <p
-          className="max-w-sm text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/70"
-        >
+        <p className="max-w-sm text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/70">
           {note}
         </p>
       )}

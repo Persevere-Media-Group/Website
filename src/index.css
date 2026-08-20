@@ -62,7 +62,8 @@ body {
      components: font-body, font-subtitle, font-heading, font-accent, font-fun
      --------------------------------------------------------------------- */
   --font-body: var(--font-sans); /* paragraphs, general copy */
-  --font-subtitle: "TG Pomelo Mono", ui-monospace, monospace; /* eyebrows, taglines, section headings */
+  --font-subtitle:
+    "TG Pomelo Mono", ui-monospace, monospace; /* eyebrows, taglines, section headings */
   --font-heading: "TG Pomelo", var(--font-sans); /* page/hero titles */
   --font-accent: "TG Pomelo", var(--font-sans); /* decorative wordmarks & accent text */
   --font-fun: "TG Motion Sickness", var(--font-sans); /* playful, one-off flourishes */

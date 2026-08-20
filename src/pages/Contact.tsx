@@ -400,9 +400,7 @@ export function Contact() {
                 Let's talk.
               </h1>
 
-              <p
-                className="mt-6 max-w-md text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-              >
+              <p className="mt-6 max-w-md text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
                 Fill in our form to send us a message.
                 <br />
                 You'll hear back from {""}
@@ -511,11 +509,7 @@ export function Contact() {
                   <div className="mt-2 flex flex-col gap-2">
                     {TEAM_SOCIALS.map((person) => (
                       <div key={person.name} className="flex items-center gap-3">
-                        <span
-                          className="w-12 text-(--color-oxblood)/80"
-                        >
-                          {person.name}
-                        </span>
+                        <span className="w-12 text-(--color-oxblood)/80">{person.name}</span>
                         <a
                           href={person.linkedin}
                           target="_blank"
@@ -599,11 +593,7 @@ export function Contact() {
               </div>
             </div>
           ) : (
-            <form
-              ref={formRef}
-              onSubmit={handleSubmit}
-              className="flex flex-1 flex-col"
-            >
+            <form ref={formRef} onSubmit={handleSubmit} className="flex flex-1 flex-col">
               {/* Honeypot: real visitors never see or reach this field, so it should
                   always submit empty. If it's filled in, the submission came from a bot
                   and the API silently drops it. Positioned off-screen rather than
@@ -842,9 +832,7 @@ export function Contact() {
               </div>
 
               {sendError && (
-                <p
-                  className="mt-5 flex items-start justify-between gap-3 text-sm font-semibold text-(--color-terracotta)"
-                >
+                <p className="mt-5 flex items-start justify-between gap-3 text-sm font-semibold text-(--color-terracotta)">
                   <span>{sendError}</span>
                   <button
                     type="button"
@@ -923,9 +911,7 @@ export function Contact() {
 
               {/* required by Google's reCAPTCHA terms whenever the badge itself is
                   hidden (see .grecaptcha-badge in index.css) */}
-              <p
-                className="mt-4 text-center text-xs text-(--color-oxblood)/50"
-              >
+              <p className="mt-4 text-center text-xs text-(--color-oxblood)/50">
                 This site is protected by reCAPTCHA and the Google{" "}
                 <a
                   href="https://policies.google.com/privacy"
@@ -988,9 +974,7 @@ export function Contact() {
             >
               Let's keep it civil
             </h2>
-            <p
-              className="mt-3 text-sm leading-relaxed text-(--color-oxblood)/80"
-            >
+            <p className="mt-3 text-sm leading-relaxed text-(--color-oxblood)/80">
               That message contains language we don't accept here. We're all for directness, just
               not harassment, so please edit it and try again.
             </p>

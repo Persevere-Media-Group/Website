@@ -84,9 +84,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           </div>
         )}
 
-        <p
-          className="mt-1 text-[clamp(0.9rem,1.4vw,0.98rem)] leading-relaxed text-(--color-oxblood)/80"
-        >
+        <p className="mt-1 text-[clamp(0.9rem,1.4vw,0.98rem)] leading-relaxed text-(--color-oxblood)/80">
           {testimonial.quote}
         </p>
 
@@ -105,11 +103,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           <div>
             <p className="font-bold text-(--color-oxblood)">{testimonial.name}</p>
             {testimonial.role && (
-              <p
-                className="text-sm text-(--color-oxblood)/60"
-              >
-                {testimonial.role}
-              </p>
+              <p className="text-sm text-(--color-oxblood)/60">{testimonial.role}</p>
             )}
           </div>
         </div>
@@ -137,9 +131,7 @@ export function Testimonials({
         {heading}
       </h2>
       {subheading && (
-        <p
-          className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-        >
+        <p className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
           {subheading}
         </p>
       )}
