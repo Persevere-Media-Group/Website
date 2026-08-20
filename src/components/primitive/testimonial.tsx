@@ -134,13 +134,7 @@ export function Testimonials({
   if (testimonials.length === 0) return null;
 
   return (
-    <section className={`px-4 py-24 text-center ${className}`}>
-      <p
-        className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
-        style={{ fontFamily: "var(--font-body)" }}
-      >
-        Testimonials
-      </p>
+    <section className={`px-4 py-12 text-center ${className}`}>
       <h2 className="mt-3 text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
         {heading}
       </h2>

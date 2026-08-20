@@ -136,8 +136,9 @@ export function ServicesKeir() {
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
       <GrainWave height="24rem" logo>
-        <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
-          Paid Media & Performance Marketing
+        <h1 className="mt-3 text-center text-[clamp(3.5rem,9vw,6rem)] font-pomelo leading-[0.85] tracking-wide text-(--color-ivory)">
+          <span className="block">Performance</span>
+          <span className="block ml-[2em]">Marketing</span>
         </h1>
       </GrainWave>
 
