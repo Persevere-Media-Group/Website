@@ -11,9 +11,53 @@ body {
   background: var(--color-ivory);
 }
 
+/* custom brand fonts, self-hosted from public/fonts. registered as Tailwind
+   utilities below in @theme inline (font-pomelo, font-pomelo-mono, etc), so
+   use className="font-pomelo" rather than inline fontFamily styles. */
+
+@font-face {
+  font-family: "TG Pomelo";
+  src: url("/fonts/TG-Pomelo.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TG Pomelo Mono";
+  src: url("/fonts/TG-Pomelo-Mono.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TG Motion Sickness";
+  src: url("/fonts/TG-MotionSickness.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TG Pixie Dust";
+  src: url("/fonts/TG-PixieDust.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: "Inter Variable", sans-serif;
+
+  /* brand fonts, each generates a matching Tailwind utility class
+     (font-pomelo, font-pomelo-mono, font-motion-sickness, font-pixie-dust) */
+  --font-pomelo: "TG Pomelo", var(--font-sans);
+  --font-pomelo-mono: "TG Pomelo Mono", ui-monospace, monospace;
+  --font-motion-sickness: "TG Motion Sickness", var(--font-sans);
+  --font-pixie-dust: "TG Pixie Dust", var(--font-sans);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
