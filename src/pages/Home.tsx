@@ -64,20 +64,20 @@ function HeroSection() {
         extraScale={1}
         className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-12 pb-10 text-center sm:pt-16 sm:pb-14 md:pb-16"
       >
-        <p className="font-pomelo-mono text-lg font-black tracking-[0.3em] text-(--color-oxblood) uppercase sm:text-base">
+        <p className="font-pomelo-mono text-[clamp(1.1rem,3.5vw,1.85rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase">
           Choose
         </p>
 
         <div ref={wordRef} style={{ transform: `scale(${wordScale})`, transformOrigin: "center" }}>
           <PersevereAnimation
             showBackground={false}
-            textClassName="text-(--color-oxblood)"
+            textClassName="text-(--color-ivory)"
             sizeClassName="text-[clamp(64px,13vw,180px)]"
           />
         </div>
 
         <p className="mt-10 mb-10 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:mt-12 sm:mb-12 sm:text-[clamp(1.5rem,6vw,2.25rem)]">
-          Content & Ads. Done properly. Nae faff.
+          Content & Ads done properly. Nae faff.
         </p>
 
         <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
