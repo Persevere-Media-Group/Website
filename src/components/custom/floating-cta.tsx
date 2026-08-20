@@ -163,10 +163,7 @@ export function FloatingCta() {
       {/* z-60 is deliberately higher than the fixed nav/header (z-50) and the
           ScrollProgress bar, otherwise wherever this overlaps them, clicks get
           intercepted by whatever's stacked on top rather than reaching this button */}
-      <div
-        className="fixed top-0 left-0 z-60"
-        style={{ visibility: ready ? "visible" : "hidden" }}
-      >
+      <div className="fixed top-0 left-0 z-60" style={{ visibility: ready ? "visible" : "hidden" }}>
         <motion.button
           ref={buttonRef}
           type="button"
