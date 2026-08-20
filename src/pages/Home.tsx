@@ -261,9 +261,7 @@ function FactsSection() {
             <h3 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
               {block.heading}
             </h3>
-            <p
-              className="mt-3 text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-            >
+            <p className="mt-3 text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
               {block.body}
             </p>
           </div>
@@ -395,8 +393,7 @@ function TestimonialsSection() {
 
 const SERVICES_BLOCKS = [
   {
-    eyebrow: "ADS",
-    heading: "PPC run properly.",
+    heading: "Ads done right.",
     body: (
       <>
         <Highlighter
@@ -464,9 +461,7 @@ function OurServicesSection() {
       <h2 className="mt-3 font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
         The best of both worlds
       </h2>
-      <p
-        className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
-      >
+      <p className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
         Most agencies offer you one service and leave you to find the other. We do both, under one
         roof. We keep it simple, accessible and affordable.
       </p>
@@ -489,14 +484,12 @@ function OurServicesSection() {
                   {block.heading}
                 </h3>
               </Link>
-              <p
-                className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
-              >
+              <p className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80">
                 {block.body}
               </p>
               <Link
                 to={block.to}
-                className="group mt-auto inline-flex w-fit items-center gap-1 font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
+                className="group mt-auto inline-flex w-fit items-center gap-1 text-[clamp(0.95rem,1.5vw,1.05rem)] font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
               >
                 <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
                   Learn more
@@ -536,9 +529,7 @@ function WhyChooseSection() {
         <h2 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-ivory)">
           Why work with us?
         </h2>
-        <p
-          className="mx-auto mt-4 max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-ivory)/85"
-        >
+        <p className="mx-auto mt-4 max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-ivory)/85">
           We're a straight-talking team who'll tell you what you need to hear, not what you want to
           hear. Your wins are our wins.
           <br />

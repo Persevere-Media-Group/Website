@@ -151,13 +151,13 @@ export function About() {
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
       <GrainWave height="24rem">
-        <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
+        <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-tighter text-(--color-ivory)">
           About Us
         </h1>
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-16 sm:pt-20">
-        <h2 className="mt-3 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+        <h2 className="mt-3 font-subtitle text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
           Two of us. Everything you need.
         </h2>
 
@@ -178,11 +178,11 @@ export function About() {
               <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
                 <Link to={role.to} className="group/header w-fit">
                   <p
-                    className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
+                    className="font-subtitle text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
                   >
                     {role.lead}
                   </p>
-                  <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
+                  <h3 className="font-subtitle text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
                     {role.title}
                   </h3>
                 </Link>
@@ -198,7 +198,7 @@ export function About() {
                 </p>
                 <Link
                   to={role.to}
-                  className="group mt-auto inline-flex w-fit items-center gap-1 font-bold text-(--color-terracotta) underline underline-offset-2"
+                  className="group mt-auto inline-flex w-fit items-center gap-1 text-[clamp(0.95rem,1.5vw,1.05rem)] font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
                 >
                   <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
                     {role.linkLabel}
@@ -218,7 +218,7 @@ export function About() {
 
         <div className="mt-20 flex w-full max-w-2xl flex-col gap-14 text-left">
           <div className="flex flex-col gap-4">
-            <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
+            <h2 className="font-subtitle text-[clamp(1.5rem,3vw,2rem)] font-black tracking-wide text-(--color-oxblood)">
               How it started
             </h2>
             <p
@@ -247,7 +247,7 @@ export function About() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight text-(--color-oxblood)">
+            <h2 className="font-subtitle text-[clamp(1.5rem,3vw,2rem)] font-black tracking-wide text-(--color-oxblood)">
               Why “Persevere”?
             </h2>
             <p
@@ -310,7 +310,7 @@ export function About() {
           <SectionDivider />
         </div>
 
-        <h2 className="mt-24 text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+        <h2 className="mt-24 font-subtitle text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
           So, what's it going to be?
         </h2>
 
@@ -372,7 +372,7 @@ export function About() {
         </AnimatedContent>
 
         {/* the payoff, scaled up to land as the closing beat */}
-        <p className="mt-16 text-center text-[clamp(2rem,6vw,4rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
+        <p className="mt-16 font-accent text-center text-[clamp(2rem,6vw,4rem)] leading-none tracking-tighter text-(--color-oxblood)">
           {/* wider padding than the shared MARK_PROPS default (2px) so the circle
               sits further out from the letters instead of cutting across them */}
           <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={28}>
