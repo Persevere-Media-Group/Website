@@ -175,7 +175,7 @@ export function PersevereAnimation({
       // rounded-[8px] used deliberately rather than rounded-lg, this repo's
       // rounded-lg is redefined to 0.625rem (10px) via --radius, not the
       // default Tailwind 8px, and the original design called for 8px exactly.
-      className={`relative inline-flex w-fit items-baseline justify-center overflow-x-hidden leading-none ${
+      className={`relative inline-flex w-fit items-baseline justify-center leading-none ${
         showBackground ? "rounded-[8px] bg-(--color-oxblood) px-16 py-12" : ""
       } ${className}`}
     >
