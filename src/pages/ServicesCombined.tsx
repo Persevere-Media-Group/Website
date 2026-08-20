@@ -18,7 +18,7 @@ import { UNDERLINE_COLOR, MARK_PROPS, ALWAYS_INCLUDED_HEADINGS } from "@/pages/s
 export function AlwaysIncluded({ bodies }: { bodies: [string, string, string] }) {
   return (
     <div className="mt-20 flex w-full max-w-3xl flex-col items-center">
-      <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+      <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
         By default, every service comes with
       </h2>
 
@@ -37,7 +37,7 @@ export function AlwaysIncluded({ bodies }: { bodies: [string, string, string] })
               <span className="mb-1 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
                 <heading.icon size={18} />
               </span>
-              <h3 className="text-[clamp(1.1rem,2vw,1.3rem)] font-black tracking-tight text-(--color-oxblood)">
+              <h3 className="font-subtitle text-[clamp(1.1rem,2vw,1.3rem)] font-black tracking-wide text-(--color-oxblood)">
                 {heading.title}
               </h3>
               <p

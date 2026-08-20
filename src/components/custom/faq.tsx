@@ -59,7 +59,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
             <AccordionTrigger className="w-full py-0.5 text-left">
               <div className="flex items-center">
                 <ChevronRight className="h-5 w-5 shrink-0 text-(--color-terracotta) transition-transform duration-200 group-data-expanded:rotate-90" />
-                <div className="ml-3 text-[clamp(1.05rem,1.9vw,1.25rem)] font-black tracking-tight text-(--color-oxblood)">
+                <div className="ml-3 font-subtitle text-[clamp(1.05rem,1.9vw,1.25rem)] font-black tracking-wide text-(--color-oxblood)">
                   {faq.q}
                 </div>
               </div>
@@ -83,7 +83,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
 export function FaqSection({ faqs, heading = "FAQs" }: { faqs: Faq[]; heading?: string }) {
   return (
     <div className="flex w-full max-w-2xl flex-col gap-10">
-      <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+      <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
         {heading}
       </h2>
       <FaqAccordion faqs={faqs} />

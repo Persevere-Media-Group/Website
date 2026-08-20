@@ -56,17 +56,15 @@ const ROLES = [
     title: "Content & Organic",
     lead: "Led by Calum",
     hook: "The stuff that makes people follow you, trust you, and remember you.",
-    detail:
-      "Video, organic social, and influencer partnerships built around your brand, not pulled off a template.",
+    detail: "Video, organic social and performance creative built around your brand.",
     to: "/services/calum",
     linkLabel: "Learn more",
   },
   {
     title: "Paid & Performance",
     lead: "Led by Keir",
-    hook: "The engine that turns all that attention into sales.",
-    detail:
-      "Paid social, Google and PPC, and conversion rate optimisation that squeezes more out of every click.",
+    hook: "The stuff that makes people click, convert, and buy.",
+    detail: "Paid ads, designed intentionally to drive results and scale your business.",
     to: "/services/keir",
     linkLabel: "Learn more",
   },
@@ -177,23 +175,17 @@ export function About() {
             >
               <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
                 <Link to={role.to} className="group/header w-fit">
-                  <p
-                    className="font-subtitle text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
-                  >
+                  <p className="font-subtitle text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)">
                     {role.lead}
                   </p>
                   <h3 className="font-subtitle text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
                     {role.title}
                   </h3>
                 </Link>
-                <p
-                  className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed font-semibold text-(--color-oxblood)"
-                >
+                <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed font-semibold text-(--color-oxblood)">
                   {role.hook}
                 </p>
-                <p
-                  className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80"
-                >
+                <p className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80">
                   {role.detail}
                 </p>
                 <Link
@@ -221,21 +213,17 @@ export function About() {
             <h2 className="font-subtitle text-[clamp(1.5rem,3vw,2rem)] font-black tracking-wide text-(--color-oxblood)">
               How it started
             </h2>
-            <p
-              className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            >
+            <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
               Keir and Calum met over four years ago in the corporate marketing world.{" "}
               <strong className="font-bold text-(--color-oxblood)">
                 Calum behind the camera as videographer and editor, Keir in front of it
               </strong>{" "}
               (and behind the strategy) for businesses all over the world.
             </p>
-            <p
-              className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            >
-              For years we sharpened our craft on other people's payrolls, forever joking about what
-              we could build if we pooled two skillsets that so rarely live under one roof. Then we
-              actually moved in together, survived a year of flat-share life without falling out,
+            <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+              For years we earned our stripes working in-house and in agencies, often joking about
+              what we could build if we pooled two skillsets that rarely exist under one roof. Then
+              we actually moved in together, survived a year of flat-share life without falling out,
               and figured:{" "}
               <strong className="font-bold text-(--color-oxblood)">
                 if we can manage that, we can manage this.
@@ -250,13 +238,11 @@ export function About() {
             <h2 className="font-subtitle text-[clamp(1.5rem,3vw,2rem)] font-black tracking-wide text-(--color-oxblood)">
               Why “Persevere”?
             </h2>
-            <p
-              className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            >
-              It's Leith's word. You'll spot it on old buildings, on the crest, worked into the
-              fabric of the place. It's meant something to Keir across the near-six years he's
-              called the area home. It's where he put down roots, and where he met his wife. Calum,
-              naturally, was the one on camera duty for the wedding.
+            <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+              You'll spot it on architecture, the iconic coat of arms and in street art. It's meant
+              something to Keir over the years he's called the area home. It's where he put down
+              roots, and where he met his wife. Calum, naturally, was the one on camera duty for the
+              wedding.
             </p>
             <Accordion
               transition={{ type: "spring", stiffness: 120, damping: 20 }}
@@ -275,9 +261,7 @@ export function About() {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="origin-top">
-                  <p
-                    className="pt-3 pl-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-                  >
+                  <p className="pt-3 pl-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
                     The word "Persevere" itself goes back further than most people realise. Leith
                     was its own burgh for centuries, a proper port town in its own right. Trading,
                     shipbuilding, always a bit separate from Edinburgh next door even after the two
@@ -290,15 +274,11 @@ export function About() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-            <p
-              className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-            >
-              Turns out it's a decent word for how we work too. Leith took the knocks and rebuilt
-              anyway, and that's basically the job. There's no single lucky campaign that fixes
-              everything, no clever hack that skips the grind. It's more about showing up, testing,
-              adjusting, and sticking with it until the results start to build. A slow month doesn't
-              mean the strategy's wrong, it means you tweak it and go again. That's the whole ethos.
-              Persevere.
+            <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+              Turns out it's a decent word for how we work too. There's (sadly) no silver bullet
+              campaign that makes you millionaire, no clever hack that skips the grind. It's about
+              showing up, testing, learning, adjusting... and sticking with it until the results
+              start to build. We Persevere.
             </p>
           </div>
         </div>
@@ -326,9 +306,7 @@ export function About() {
           ease="power3.out"
           threshold={0.2}
         >
-          <div
-            className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)/80"
-          >
+          <div className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)/80">
             {BEFORE.map((line, i) => (
               <p key={i}>{line}</p>
             ))}
@@ -362,9 +340,7 @@ export function About() {
           ease="power3.out"
           threshold={0.2}
         >
-          <div
-            className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)"
-          >
+          <div className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)">
             {AFTER.map((line, i) => (
               <p key={i}>{line}</p>
             ))}

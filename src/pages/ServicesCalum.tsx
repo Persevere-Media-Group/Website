@@ -138,7 +138,7 @@ export function ServicesCalum() {
           note="If I’m not shooting or editing new content for your brand, I’m probably out on a hill somewhere in my tent or training for my next race. Or reading or watching some sort of fantasy fiction. Massive nerd, lover of adventure."
         />
 
-        <h2 className="text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+        <h2 className="font-subtitle text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
           My role in Persevere Media
         </h2>
         <p
@@ -155,7 +155,7 @@ export function ServicesCalum() {
         {/* The approach                                                    */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-5 text-left">
-          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+          <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
             Our Approach
           </h2>
           <p
@@ -186,7 +186,7 @@ export function ServicesCalum() {
         {/* Five stages                                                     */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-3xl flex-col items-center">
-          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+          <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
             How it all works
           </h2>
 
@@ -212,7 +212,7 @@ export function ServicesCalum() {
                   <span className="shrink-0 text-[clamp(1.35rem,2.8vw,1.9rem)] font-black tracking-tight text-(--color-terracotta)">
                     {stage.number}
                   </span>
-                  <h3 className="text-[clamp(1.1rem,2.2vw,1.45rem)] font-black tracking-tight text-(--color-oxblood)">
+                  <h3 className="font-subtitle text-[clamp(1.1rem,2.2vw,1.45rem)] font-black tracking-wide text-(--color-oxblood)">
                     {stage.title}
                   </h3>
                 </div>
@@ -232,7 +232,7 @@ export function ServicesCalum() {
         {/* What's included                                                 */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-8">
-          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+          <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
             What's included in the Creative package?
           </h2>
           <ul className="flex flex-col gap-4 text-left">
@@ -268,7 +268,7 @@ export function ServicesCalum() {
         {/* FAQ                                                             */}
         {/* --------------------------------------------------------------- */}
         <div className="flex w-full max-w-2xl flex-col gap-10">
-          <h2 className="text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+          <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
             FAQ
           </h2>
           <FaqAccordion faqs={FAQS} />

@@ -12,14 +12,14 @@ export function Blog() {
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
       <GrainWave height="24rem">
-        <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
+        <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-tighter text-(--color-ivory)">
           Blog
         </h1>
       </GrainWave>
 
       {posts.length === 0 ? (
         <div className="flex w-full flex-col items-center gap-4 px-4 pt-16 pb-24 text-center sm:pt-20">
-          <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+          <h2 className="font-subtitle text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
             Blog page placeholder
           </h2>
           <p
@@ -36,7 +36,7 @@ export function Blog() {
               to={`/blog/${post.slug}`}
               className="flex flex-col gap-2 text-left"
             >
-              <h2 className="text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-tight text-(--color-oxblood)">
+              <h2 className="font-subtitle text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-wide text-(--color-oxblood)">
                 {post.title}
               </h2>
               <p

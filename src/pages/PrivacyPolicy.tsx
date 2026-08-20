@@ -8,13 +8,13 @@ export function PrivacyPolicy() {
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
       <GrainWave height="24rem">
-        <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
+        <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-tighter text-(--color-ivory)">
           Privacy Policy
         </h1>
       </GrainWave>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-24 text-center sm:pt-20">
-        <h2 className="mt-2 text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood)">
+        <h2 className="mt-2 font-subtitle text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
           The Legal Bits
         </h2>
 

@@ -380,7 +380,7 @@ export function Contact() {
   return (
     <section className="min-h-screen bg-(--color-ivory)">
       <GrainWave height="24rem">
-        <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black tracking-tighter text-(--color-ivory)">
+        <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-tighter text-(--color-ivory)">
           Contact Us
         </h1>
       </GrainWave>
@@ -396,7 +396,7 @@ export function Contact() {
             threshold={0.2}
           >
             <div>
-              <h1 className="mt-3 text-[clamp(2.5rem,6vw,4rem)] font-black leading-none tracking-tighter text-(--color-oxblood)">
+              <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] leading-none tracking-tighter text-(--color-oxblood)">
                 Let's talk.
               </h1>
 
@@ -554,7 +554,7 @@ export function Contact() {
           {submitted ? (
             <div className="flex flex-1 flex-col">
               <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-                <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-tight text-(--color-oxblood)">
+                <h2 className="font-subtitle text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood)">
                   Cheers!
                 </h2>
                 <p className="max-w-sm text-(--color-oxblood)/80">
@@ -652,7 +652,7 @@ export function Contact() {
                     })}
                   </StepperNav>
 
-                  <h3 className="mb-5 text-[clamp(1.15rem,2.4vw,1.4rem)] font-black tracking-tight text-(--color-oxblood)">
+                  <h3 className="mb-5 font-subtitle text-[clamp(1.15rem,2.4vw,1.4rem)] font-black tracking-wide text-(--color-oxblood)">
                     {FORM_STEPS[step - 1]}
                   </h3>
 
@@ -984,7 +984,7 @@ export function Contact() {
             </span>
             <h2
               id="profanity-warning-title"
-              className="text-xl font-black tracking-tight text-(--color-oxblood)"
+              className="font-subtitle text-xl font-black tracking-wide text-(--color-oxblood)"
             >
               Let's keep it civil
             </h2>

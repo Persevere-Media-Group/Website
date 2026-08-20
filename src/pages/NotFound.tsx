@@ -36,6 +36,7 @@ export function NotFound() {
 
       <div className="relative z-10 flex flex-col items-center gap-6 pointer-events-none">
         <FuzzyText
+          className="font-fun"
           fontSize="clamp(4rem, 18vw, 12rem)"
           fontWeight={900}
           color="#d5573b"
@@ -47,7 +48,7 @@ export function NotFound() {
         </FuzzyText>
 
         <p
-          className="text-[clamp(1.1rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-terracotta)"
+          className="font-subtitle text-[clamp(1.1rem,2.4vw,1.6rem)] font-black tracking-wide text-(--color-terracotta)"
         >
           Looks like this page wandered off the map.
         </p>
