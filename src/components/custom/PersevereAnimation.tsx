@@ -216,7 +216,13 @@ export function PersevereAnimation({
         const width = maxWidths?.[WORD[i]];
         return (
           <span
-            key={i}
+            // Keyed on the variant, not just position, so a swap remounts a
+            // fresh DOM node instead of updating the existing one's text in
+            // place. Mobile Safari otherwise reuses the GPU-composited layer
+            // from will-change-transform without fully repainting it, so ink
+            // from the previous (sometimes taller) variant lingers as visible
+            // artefacts above the new glyph.
+            key={`${i}-${char}`}
             className={`inline-block text-center font-[TGMotionSicknessSubset] transition-transform duration-90 ease-linear will-change-transform ${sizeClassName} ${textClassName}`}
             style={{
               transform: `translate(${t.dx}px, ${t.dy}px) rotate(${t.rot}deg)`,

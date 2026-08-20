@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
@@ -29,6 +29,30 @@ function HeroSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const wordRef = useRef<HTMLDivElement>(null);
   const wordScale = useAutoFitScale(wordRef);
+
+  // `transform: scale()` only affects paint, not layout: the word's flex
+  // sibling gap is reserved against its full unscaled size, leaving extra
+  // invisible space above and below once shrunk. Track its natural
+  // (unscaled) height so the wrapper below can be given an explicit height
+  // matching the *scaled* size instead, keeping the surrounding flex gaps
+  // visually accurate.
+  const [wordNaturalHeight, setWordNaturalHeight] = useState(0);
+  useEffect(() => {
+    const el = wordRef.current;
+    if (!el) return;
+    const measure = () => setWordNaturalHeight(el.offsetHeight);
+    measure();
+    document.fonts.ready.then(measure);
+    const settleTimeout1 = setTimeout(measure, 150);
+    const settleTimeout2 = setTimeout(measure, 500);
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => {
+      clearTimeout(settleTimeout1);
+      clearTimeout(settleTimeout2);
+      ro.disconnect();
+    };
+  }, []);
 
   return (
     <div className="relative flex min-h-[58vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-10 pb-8 text-center sm:min-h-[60vh] sm:pt-14 sm:pb-10 md:pb-12">
@@ -64,17 +88,25 @@ function HeroSection() {
         extraScale={1}
         className="relative z-10 flex w-full flex-1 flex-col items-center justify-center gap-8 px-4 pt-12 pb-10 text-center sm:gap-8 sm:pt-16 sm:pb-14 md:pb-16"
       >
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex w-full flex-col items-center gap-2">
           <p className="font-pomelo-mono text-[clamp(1.1rem,3.5vw,1.85rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase">
             Choose
           </p>
 
-          <div ref={wordRef} style={{ transform: `scale(${wordScale})`, transformOrigin: "center" }}>
-            <PersevereAnimation
-              showBackground={false}
-              textClassName="text-(--color-ivory)"
-              sizeClassName="text-[clamp(64px,13vw,180px)]"
-            />
+          <div
+            className="flex w-full items-start justify-center"
+            style={{ height: wordNaturalHeight ? wordNaturalHeight * wordScale : undefined }}
+          >
+            <div
+              ref={wordRef}
+              style={{ transform: `scale(${wordScale})`, transformOrigin: "top center" }}
+            >
+              <PersevereAnimation
+                showBackground={false}
+                textClassName="text-(--color-ivory)"
+                sizeClassName="text-[clamp(64px,13vw,180px)]"
+              />
+            </div>
           </div>
         </div>
 
