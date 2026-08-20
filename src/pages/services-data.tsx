@@ -1,15 +1,13 @@
 import { Highlighter } from "@/components/primitive/highlighter";
 import { UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/pages/services-shared";
 import { FaqLink } from "@/components/custom/faq";
-import type { ServicePageData } from "@/pages/ServicePage";
+import type { ServicePageData, ServicePersonName } from "@/pages/services-types";
 
 // ---------------------------------------------------------------------------
 // All copy for the two services pages, keyed by person. ServicesKeir/
 // ServicesCalum just look themselves up here by name; ServicePage renders
 // whatever comes back.
 // ---------------------------------------------------------------------------
-
-export type ServicePersonName = "keir" | "calum";
 
 const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
   keir: {
