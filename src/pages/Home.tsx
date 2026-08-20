@@ -6,7 +6,6 @@ import { ClickSpark } from "@/components/primitive/click-spark";
 import { PersevereAnimation } from "@/components/custom/PersevereAnimation";
 import { Grainient } from "@/components/primitive/grainient";
 import { SectionWave } from "@/components/primitive/section-wave";
-import SpecularButton from "@/components/primitive/specular-button";
 import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
 import SquigglyArrow from "@/components/primitive/squiggly-arrow";
 import AnimatedContent from "@/components/primitive/animated-content";
@@ -28,7 +27,6 @@ const OUR_SERVICES_ID = "our-services";
 
 function HeroSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-  const navigate = useNavigate();
   const wordRef = useRef<HTMLDivElement>(null);
   const wordScale = useAutoFitScale(wordRef);
 
@@ -66,6 +64,10 @@ function HeroSection() {
         extraScale={1}
         className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-12 pb-10 text-center sm:pt-16 sm:pb-14 md:pb-16"
       >
+        <p className="font-pomelo-mono text-lg font-black tracking-[0.3em] text-(--color-oxblood) uppercase sm:text-base">
+          Choose
+        </p>
+
         <div ref={wordRef} style={{ transform: `scale(${wordScale})`, transformOrigin: "center" }}>
           <PersevereAnimation
             showBackground={false}
@@ -74,65 +76,13 @@ function HeroSection() {
           />
         </div>
 
-        <p className="mt-8 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.5rem,6vw,2.25rem)]">
+        <p className="mt-10 mb-10 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:mt-12 sm:mb-12 sm:text-[clamp(1.5rem,6vw,2.25rem)]">
           Content & Ads. Done properly. Nae faff.
         </p>
 
-        <div className="mt-4 flex flex-col items-center gap-4 sm:mt-6 sm:flex-row sm:gap-6">
-          <SpecularButton
-            size="lg"
-            radius={18}
-            tint="#ffffff"
-            tintOpacity={0}
-            blur={0}
-            textColor="#f5f5f5"
-            lineColor="#ffffff"
-            baseColor="#525252"
-            intensity={1}
-            shineSize={10}
-            shineFade={40}
-            thickness={1}
-            speed={0.35}
-            followMouse
-            proximity={250}
-            autoAnimate={false}
-            onClick={() => navigate("/about")}
-            className="sm:w-50"
-          >
-            About Us
-          </SpecularButton>
-
-          <SpecularButton
-            size="lg"
-            radius={18}
-            tint="#ffffff"
-            tintOpacity={0}
-            blur={0}
-            textColor="#f5f5f5"
-            lineColor="#ffffff"
-            baseColor="#525252"
-            intensity={1}
-            shineSize={10}
-            shineFade={40}
-            thickness={1}
-            speed={0.35}
-            followMouse
-            proximity={250}
-            autoAnimate={false}
-            onClick={() =>
-              document.getElementById(OUR_SERVICES_ID)?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="sm:w-50"
-          >
-            Our Services
-          </SpecularButton>
-        </div>
-
-        <div className="mt-6">
-          <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
-            Book a Call
-          </YellowPulsatingButton>
-        </div>
+        <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
+          Book a Call
+        </YellowPulsatingButton>
       </ClickSpark>
 
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />
