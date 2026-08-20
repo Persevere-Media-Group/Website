@@ -513,8 +513,8 @@ function OurServicesSection() {
         className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
         style={{ fontFamily: "var(--font-body)" }}
       >
-        Most agencies hand you one and leave you to find the other. We do both, under one roof, and
-        keep it simple. Ads, Content. More accessible and affordable.
+        Most agencies offer you one service and leave you to find the other. We do both, under one
+        roof. We keep it simple, accessible and affordable.
       </p>
 
       <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">
