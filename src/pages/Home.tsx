@@ -2,9 +2,8 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
-import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
-import { getCylinderSizeCompensation } from "@/lib/cylinder-size-compensation";
 import { ClickSpark } from "@/components/primitive/click-spark";
+import { PersevereAnimation } from "@/components/custom/PersevereAnimation";
 import { Grainient } from "@/components/primitive/grainient";
 import { SectionWave } from "@/components/primitive/section-wave";
 import SpecularButton from "@/components/primitive/specular-button";
@@ -23,26 +22,6 @@ import { Testimonials, type Testimonial } from "@/components/primitive/testimoni
 // Hero
 // ---------------------------------------------------------------------------
 
-const toUpperCaseWords = (words: string[]) => words.map((word) => word.toUpperCase());
-
-const WORD_SEQUENCE = toUpperCaseWords([
-  "Expertise",
-  "People",
-  "Ambition",
-  "Trust",
-  "Connection",
-  "Growth",
-  "Results",
-  "Persevere",
-]);
-
-const HIGHLIGHT_WORD = "PERSEVERE";
-
-const TEXT_CLASSES =
-  "font-pomelo text-[clamp(1.85rem,7.5vw,7rem)] leading-none tracking-wide text-[var(--color-ivory)]";
-
-const ROTATING_TEXT_CLASSES = `${TEXT_CLASSES} text-left`;
-
 const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
 const OUR_SERVICES_ID = "our-services";
@@ -50,8 +29,8 @@ const OUR_SERVICES_ID = "our-services";
 function HeroSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const navigate = useNavigate();
-  const wordRowRef = useRef<HTMLDivElement>(null);
-  const wordRowScale = useAutoFitScale(wordRowRef, getCylinderSizeCompensation());
+  const wordRef = useRef<HTMLDivElement>(null);
+  const wordScale = useAutoFitScale(wordRef);
 
   return (
     <div className="relative flex min-h-[58vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-10 pb-8 text-center sm:min-h-[60vh] sm:pt-14 sm:pb-10 md:pb-12">
@@ -87,36 +66,12 @@ function HeroSection() {
         extraScale={1}
         className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-12 pb-10 text-center sm:pt-16 sm:pb-14 md:pb-16"
       >
-        <div
-          ref={wordRowRef}
-          className="flex flex-row items-center justify-center gap-2 sm:gap-6 md:gap-8"
-          style={{ transform: `scale(${wordRowScale})`, transformOrigin: "center" }}
-        >
-          <h1 className={TEXT_CLASSES}>CHOOSE</h1>
-
-          <div className="grid">
-            {WORD_SEQUENCE.map((word) => (
-              <span
-                key={word}
-                aria-hidden
-                className={`${ROTATING_TEXT_CLASSES} invisible whitespace-nowrap [grid-area:1/1]`}
-              >
-                {word}
-              </span>
-            ))}
-
-            <div className="w-full [grid-area:1/1]">
-              <CylinderTextRotate
-                words={WORD_SEQUENCE}
-                duration={1300}
-                loop={true}
-                className={ROTATING_TEXT_CLASSES}
-                highlightWord={HIGHLIGHT_WORD}
-                highlightClassName="text-[var(--color-oxblood)]"
-                highlightDuration={2800}
-              />
-            </div>
-          </div>
+        <div ref={wordRef} style={{ transform: `scale(${wordScale})`, transformOrigin: "center" }}>
+          <PersevereAnimation
+            showBackground={false}
+            textClassName="text-(--color-oxblood)"
+            sizeClassName="text-[clamp(64px,13vw,180px)]"
+          />
         </div>
 
         <p className="mt-8 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.5rem,6vw,2.25rem)]">

@@ -8,14 +8,17 @@ import "./PersevereAnimation.css";
 // between its hand-drawn glyph variants (base + up to 4 alternates), mapped to
 // PUA codepoints baked into the embedded subset font in persevere-animation.css.
 //
-// - Every letter trembles continuously: a few degrees of rotation and a couple
-//   of pixels of drift, refreshed on every tick, so the word feels hand-drawn
-//   even when no variant is changing.
+// - Every letter trembles continuously: a fraction of a degree of rotation and
+//   a fraction of a pixel of drift, refreshed on every tick, so the word feels
+//   hand-drawn even when no variant is changing, without being distracting.
 // - Roughly once every UPDATE_INTERVAL_MS, one letter swaps to a new variant.
 // - No two occurrences of the same letter (the four "e"s, the two "r"s) ever
 //   show the same variant at the same time.
 // - After CYCLE_LENGTH swaps the word resets to its starting assignment, so
 //   the loop has no visible jump.
+// - Each letter sits in a box sized to the widest of that letter's variants
+//   (measured off-screen up front), so no variant swap ever clips or shifts
+//   neighbouring letters, and the word's total width never changes.
 
 const WORD = "persevere";
 
@@ -64,6 +67,8 @@ function buildInitialAssignment(): string[] {
   return assignment;
 }
 
+const UNIQUE_LETTERS = Object.keys(VARIANT_MAP);
+
 function pickNewVariant(current: string[], pos: number): string {
   const ch = WORD[pos];
   const sameLetterPositions = WORD.split("")
@@ -76,7 +81,17 @@ function pickNewVariant(current: string[], pos: number): string {
   return options.length === 0 ? current[pos] : randOf(options);
 }
 
-export function PersevereAnimation({ className = "" }: { className?: string }) {
+export function PersevereAnimation({
+  className = "",
+  textClassName = "text-(--color-ivory)",
+  sizeClassName = "text-[clamp(48px,9vw,140px)]",
+  showBackground = true,
+}: {
+  className?: string;
+  textClassName?: string;
+  sizeClassName?: string;
+  showBackground?: boolean;
+}) {
   const [initial] = useState(buildInitialAssignment);
   const [glyphs, setGlyphs] = useState(initial);
   const [trembles, setTrembles] = useState<Tremble[]>(() =>
@@ -84,15 +99,43 @@ export function PersevereAnimation({ className = "" }: { className?: string }) {
   );
   const updateCountRef = useRef(0);
   const currentRef = useRef(initial);
+  const measureRefs = useRef<Record<string, (HTMLSpanElement | null)[]>>({});
+  const [maxWidths, setMaxWidths] = useState<Record<string, number> | null>(null);
+
+  // Measure every variant of every letter off-screen and take the widest per
+  // letter, so each letter's box can be sized to fit its widest variant up
+  // front. Re-measures after fonts load, and on resize since sizeClassName
+  // is typically a vw-based clamp().
+  useEffect(() => {
+    const measure = () => {
+      const widths: Record<string, number> = {};
+      for (const ch of UNIQUE_LETTERS) {
+        const spans = measureRefs.current[ch] ?? [];
+        widths[ch] = Math.max(0, ...spans.map((el) => el?.offsetWidth ?? 0));
+      }
+      setMaxWidths(widths);
+    };
+
+    measure();
+    document.fonts.ready.then(measure);
+    const settleTimeout1 = setTimeout(measure, 150);
+    const settleTimeout2 = setTimeout(measure, 500);
+    window.addEventListener("resize", measure);
+    return () => {
+      clearTimeout(settleTimeout1);
+      clearTimeout(settleTimeout2);
+      window.removeEventListener("resize", measure);
+    };
+  }, [sizeClassName]);
 
   // Continuous trembling, every letter, every tick, independent of variant swaps.
   useEffect(() => {
     const id = setInterval(() => {
       setTrembles(
         WORD.split("").map(() => ({
-          rot: (Math.random() - 0.5) * 10, // -5deg .. 5deg
-          dx: (Math.random() - 0.5) * 6, // -3px .. 3px
-          dy: (Math.random() - 0.5) * 6,
+          rot: (Math.random() - 0.5) * 1, // -0.5deg .. 0.5deg
+          dx: (Math.random() - 0.5) * 0.8, // -0.4px .. 0.4px
+          dy: (Math.random() - 0.5) * 0.8,
         }))
       );
     }, TREMBLE_INTERVAL_MS);
@@ -132,15 +175,40 @@ export function PersevereAnimation({ className = "" }: { className?: string }) {
       // rounded-[8px] used deliberately rather than rounded-lg, this repo's
       // rounded-lg is redefined to 0.625rem (10px) via --radius, not the
       // default Tailwind 8px, and the original design called for 8px exactly.
-      className={`inline-flex w-fit items-baseline justify-center rounded-[8px] bg-(--color-oxblood) px-16 py-12 leading-none ${className}`}
+      className={`relative inline-flex w-fit items-baseline justify-center overflow-x-hidden leading-none ${
+        showBackground ? "rounded-[8px] bg-(--color-oxblood) px-16 py-12" : ""
+      } ${className}`}
     >
+      {/* Off-screen: every variant of every letter, rendered once to measure
+          natural widths. Never visible, positioned out of flow so it can't
+          affect layout or scroll. */}
+      <div aria-hidden className="pointer-events-none absolute -z-10 -translate-x-full opacity-0">
+        {UNIQUE_LETTERS.map((ch) =>
+          VARIANT_MAP[ch].map((variant, vi) => (
+            <span
+              key={variant}
+              ref={(el) => {
+                (measureRefs.current[ch] ??= [])[vi] = el;
+              }}
+              className={`inline-block font-[TGMotionSicknessSubset] whitespace-pre ${sizeClassName}`}
+            >
+              {variant}
+            </span>
+          ))
+        )}
+      </div>
+
       {glyphs.map((char, i) => {
         const t = trembles[i] ?? { rot: 0, dx: 0, dy: 0 };
+        const width = maxWidths?.[WORD[i]];
         return (
           <span
             key={i}
-            className="inline-block font-[TGMotionSicknessSubset] text-[clamp(48px,9vw,140px)] text-(--color-ivory) transition-transform duration-90 ease-linear will-change-transform"
-            style={{ transform: `translate(${t.dx}px, ${t.dy}px) rotate(${t.rot}deg)` }}
+            className={`inline-block text-center font-[TGMotionSicknessSubset] transition-transform duration-90 ease-linear will-change-transform ${sizeClassName} ${textClassName}`}
+            style={{
+              transform: `translate(${t.dx}px, ${t.dy}px) rotate(${t.rot}deg)`,
+              width: width !== undefined ? `${width}px` : undefined,
+            }}
           >
             {char}
           </span>
