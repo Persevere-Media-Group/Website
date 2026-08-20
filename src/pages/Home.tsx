@@ -85,7 +85,7 @@ function HeroSection() {
         duration={400}
         easing="ease-out"
         extraScale={1}
-        className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-12 pb-4 text-center sm:pt-16 sm:pb-6 md:pb-8"
+        className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 pt-12 pb-10 text-center sm:pt-16 sm:pb-14 md:pb-16"
       >
         <div
           ref={wordRowRef}
@@ -119,13 +119,11 @@ function HeroSection() {
           </div>
         </div>
 
-        <p className="mt-16 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-pomelo-mono leading-none tracking-tighter text-(--color-oxblood) sm:text-[clamp(1.5rem,6vw,2.25rem)]">
-          Content & Ads. Done properly.
-          <br />
-          Nae faff.
+        <p className="mt-8 text-center text-[clamp(1.25rem,6vw,1.75rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.5rem,6vw,2.25rem)]">
+          Content & Ads. Done properly. Nae faff.
         </p>
 
-        <div className="mt-8 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:gap-6">
+        <div className="mt-4 flex flex-col items-center gap-4 sm:mt-6 sm:flex-row sm:gap-6">
           <SpecularButton
             size="lg"
             radius={18}
