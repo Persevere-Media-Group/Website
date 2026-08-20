@@ -150,28 +150,43 @@ export function FloatingCta() {
           can never be dragged flush against the very edge of the screen */}
       <div ref={constraintsRef} className="pointer-events-none fixed inset-2" aria-hidden />
 
-      <motion.button
-        ref={buttonRef}
-        type="button"
-        drag
-        dragConstraints={constraintsRef}
-        dragElastic={0.12}
-        dragMomentum={false}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onTap={handleTap}
-        whileDrag={{ scale: 1.08 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        // z-[60] is deliberately higher than the fixed nav/header (z-50) and the
-        // ScrollProgress bar, otherwise wherever this overlaps them, clicks get
-        // intercepted by whatever's stacked on top rather than reaching this button
-        className="fixed top-0 left-0 z-60 flex cursor-grab touch-none items-center gap-2 rounded-full bg-(--color-amber-gold) px-5 py-3 text-sm font-pomelo-mono font-bold whitespace-nowrap text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] select-none active:cursor-grabbing"
-        style={{ x, y, visibility: ready ? "visible" : "hidden" }}
+      {/* `position: fixed` combined with an animated `transform` on the very same
+          element is what causes the jitter: iOS Safari re-derives a transformed
+          fixed element's position against the visual viewport on every scroll
+          frame (as the dynamic toolbar resizes it), and that recompute lags a
+          frame behind the transform, reading as jitter. Splitting the two roles
+          across two elements - an untransformed `fixed` wrapper pinned at (0,0),
+          with the drag transform applied to a plain (statically positioned) child
+          inside it - keeps the fixed element itself stable, so only the cheap,
+          ordinary transform is left animating; net position is identical since
+          the wrapper shrink-wraps to the button with no offset of its own. */}
+      {/* z-60 is deliberately higher than the fixed nav/header (z-50) and the
+          ScrollProgress bar, otherwise wherever this overlaps them, clicks get
+          intercepted by whatever's stacked on top rather than reaching this button */}
+      <div
+        className="fixed top-0 left-0 z-60"
+        style={{ visibility: ready ? "visible" : "hidden" }}
       >
-        <Phone className="h-4 w-4" />
-        Book a call !
-      </motion.button>
+        <motion.button
+          ref={buttonRef}
+          type="button"
+          drag
+          dragConstraints={constraintsRef}
+          dragElastic={0.12}
+          dragMomentum={false}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onTap={handleTap}
+          whileDrag={{ scale: 1.08 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="flex cursor-grab touch-none items-center gap-2 rounded-full bg-(--color-amber-gold) px-5 py-3 text-sm font-pomelo-mono font-bold whitespace-nowrap text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] select-none active:cursor-grabbing"
+          style={{ x, y }}
+        >
+          <Phone className="h-4 w-4" />
+          Book a call !
+        </motion.button>
+      </div>
 
       <PopupModal
         url={CALENDLY_URL}

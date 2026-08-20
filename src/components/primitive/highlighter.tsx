@@ -3,7 +3,7 @@
 import React, { useRef, useLayoutEffect, useState } from "react";
 import { motion, useInView, type Variants } from "motion/react";
 import { annotate } from "rough-notation";
-import type { RoughAnnotation } from "rough-notation/lib/model";
+import type { RoughAnnotation, RoughPadding } from "rough-notation/lib/model";
 import { cn } from "@/lib/utils";
 
 type RoughAction =
@@ -24,9 +24,12 @@ interface HighlighterProps {
   className?: string;
   style?: React.CSSProperties;
 
-  /** rough-notation only (highlight/underline/box/circle/strike-through/crossed-off/bracket) */
+  /** rough-notation only (highlight/underline/box/circle/strike-through/crossed-off/bracket).
+   * padding can be a single number, [x, y], or [top, right, bottom, left] - useful for
+   * "circle", whose ellipse otherwise clips the corners of a wide, short line of text
+   * unless given extra horizontal padding relative to vertical. */
   iterations?: number;
-  padding?: number;
+  padding?: RoughPadding;
   multiline?: boolean;
 
   /** svg only (wavy/zigzag) */
@@ -109,7 +112,7 @@ interface RoughHighlighterProps {
   strokeWidth: number;
   animationDuration: number;
   iterations: number;
-  padding: number;
+  padding: RoughPadding;
   multiline: boolean;
   className: string;
   style: React.CSSProperties;

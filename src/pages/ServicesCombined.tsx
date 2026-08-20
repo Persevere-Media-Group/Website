@@ -88,7 +88,17 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
           className="font-pomelo text-[clamp(2.75rem,16vw,6.5rem)] leading-none tracking-wide whitespace-nowrap text-(--color-oxblood)"
           style={{ transform: `scale(${markScale})`, transformOrigin: "center" }}
         >
-          <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={36}>
+          {/* the ellipse rough-notation draws for "circle" is sized from the text's
+              bounding box plus padding, but a wide/short line like this one still
+              has its corners poke outside a symmetric ellipse - extra horizontal
+              padding relative to vertical is what actually keeps the far-left/right
+              characters ("C", the trailing ".") safely inside the curve */}
+          <Highlighter
+            action="circle"
+            color={UNDERLINE_COLOR}
+            {...MARK_PROPS}
+            padding={[20, 64, 20, 64]}
+          >
             Choose Persevere.
           </Highlighter>
         </p>

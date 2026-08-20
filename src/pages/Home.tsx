@@ -89,7 +89,7 @@ function HeroSection() {
         className="relative z-10 flex w-full flex-1 flex-col items-center justify-center gap-8 px-4 pt-12 pb-10 text-center sm:gap-8 sm:pt-16 sm:pb-14 md:pb-16"
       >
         <div className="flex w-full flex-col items-center gap-2">
-          <p className="font-pomelo-mono text-[clamp(1.1rem,3.5vw,1.85rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase">
+          <p className="font-pomelo-mono text-[clamp(1.3rem,4vw,2rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase">
             Choose
           </p>
 
@@ -110,7 +110,7 @@ function HeroSection() {
           </div>
         </div>
 
-        <p className="text-center text-[clamp(1rem,4vw,1.35rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.15rem,3.5vw,1.6rem)]">
+        <p className="text-center text-[clamp(1.25rem,5vw,1.6rem)] font-pomelo-mono font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.4rem,4vw,1.85rem)]">
           Content & Ads done properly. Nae faff.
         </p>
 
