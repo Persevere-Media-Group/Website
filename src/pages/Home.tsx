@@ -264,7 +264,7 @@ function FactsSection() {
 
 const STATS = [
   { value: 20, prefix: "£", suffix: "M+", label: "in ad spend managed" },
-  { value: 12, suffix: "+", label: "years combined experience" },
+  { value: 12, suffix: "+", unit: "years", label: "of combined experience" },
   { value: 100, suffix: "%", label: "of your budget going where it should" },
 ];
 
@@ -306,7 +306,7 @@ function VideoSection() {
         className="w-full"
       >
         <div className="flex w-full flex-col items-center gap-6">
-          <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
+          <h2 className="font-pomelo-mono text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
             What we're all about
           </h2>
 
@@ -442,7 +442,7 @@ const SERVICES_BLOCKS = [
 function OurServicesSection() {
   return (
     <section id={OUR_SERVICES_ID} className="bg-(--color-ivory) px-4 py-24 text-center">
-      <h2 className="mt-3 text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
+      <h2 className="mt-3 font-pomelo-mono text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
         The best of both worlds
       </h2>
       <p
@@ -467,13 +467,7 @@ function OurServicesSection() {
           >
             <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
               <Link to={block.to} className="group/header w-fit">
-                <p
-                  className="text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {block.eyebrow}
-                </p>
-                <h3 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-tight text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
+                <h3 className="font-pomelo-mono text-[clamp(1.75rem,3.4vw,2.1rem)] font-black tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
                   {block.heading}
                 </h3>
               </Link>
@@ -522,7 +516,7 @@ function WhyChooseSection() {
         ease="power3.out"
         threshold={0.2}
       >
-        <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-ivory)">
+        <h2 className="font-pomelo-mono text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-ivory)">
           Why work with us?
         </h2>
         <p

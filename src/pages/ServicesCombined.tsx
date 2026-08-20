@@ -61,7 +61,7 @@ export function AlwaysIncluded({ bodies }: { bodies: [string, string, string] })
 export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
   return (
     <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
-      <h2 className="text-[clamp(1.75rem,4.5vw,2.75rem)] font-black leading-tight tracking-tight text-(--color-oxblood) sm:whitespace-nowrap">
+      <h2 className="font-pomelo-mono text-[clamp(2.25rem,5.5vw,3.25rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
         We are your growth partners.
       </h2>
       <p

@@ -8,6 +8,7 @@ interface StatItem {
   value: number;
   prefix?: string;
   suffix?: string;
+  unit?: string;
   label: string;
 }
 
@@ -42,12 +43,14 @@ function AnimatedCounter({
   value,
   prefix = "",
   suffix = "",
+  unit,
   delay = 0,
   label,
 }: {
   value: number;
   prefix?: string;
   suffix?: string;
+  unit?: string;
   delay?: number;
   label: string;
 }) {
@@ -116,6 +119,7 @@ function AnimatedCounter({
         {prefix}
         {displayValue}
         {suffix}
+        {unit && ` ${unit}`}
       </motion.div>
       <motion.p
         className={cn(
@@ -205,6 +209,7 @@ export default function StatsCount({
                 value={stat.value}
                 prefix={stat.prefix}
                 suffix={stat.suffix}
+                unit={stat.unit}
                 delay={index}
                 label={stat.label}
               />

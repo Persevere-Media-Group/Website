@@ -135,7 +135,7 @@ export function Testimonials({
 
   return (
     <section className={`px-4 py-12 text-center ${className}`}>
-      <h2 className="mt-3 text-[clamp(1.75rem,4vw,2.75rem)] font-black tracking-tight text-(--color-oxblood)">
+      <h2 className="mt-3 font-pomelo-mono text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
         {heading}
       </h2>
       {subheading && (
