@@ -3,7 +3,7 @@ import { PopupModal } from "react-calendly";
 import { ArrowLeft, ArrowRight, HelpCircle, Phone, TriangleAlert, Users, X } from "lucide-react";
 import SpecularButton from "@/components/primitive/specular-button";
 import { Highlighter } from "@/components/primitive/highlighter";
-import { GrainWave } from "@/components/custom/grain-wave";
+import { PageHero } from "@/components/custom/common-page-elements";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Instagram, Linkedin } from "@/components/primitive/svgs";
@@ -379,11 +379,7 @@ export function Contact() {
   // so the padding lives on the content wrapper below the band instead.
   return (
     <section className="min-h-screen bg-(--color-ivory)">
-      <GrainWave height="24rem">
-        <h1 className="mt-3 font-heading text-[clamp(4.5rem,10vw,7.5rem)] tracking-wide text-(--color-ivory)">
-          Contact
-        </h1>
-      </GrainWave>
+      <PageHero>Contact</PageHero>
 
       <div className="mx-auto grid w-full max-w-6xl gap-14 px-4 pt-16 pb-16 sm:pt-20 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
         {/* left: context, so the form doesn't arrive cold */}

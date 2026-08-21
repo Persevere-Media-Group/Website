@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { ChevronRight } from "lucide-react";
 import { Highlighter } from "@/components/primitive/highlighter";
-import { GrainWave } from "@/components/custom/grain-wave";
+import { PageHero } from "@/components/custom/common-page-elements";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import SquigglyArrow from "@/components/primitive/squiggly-arrow";
@@ -148,11 +148,7 @@ export function About() {
   // used on the Contact page).
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
-      <GrainWave height="24rem">
-        <h1 className="mt-3 font-heading text-[clamp(4.5rem,10vw,7.5rem)] tracking-wide text-(--color-ivory)">
-          About Us
-        </h1>
-      </GrainWave>
+      <PageHero>About Us</PageHero>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-16 sm:pt-20">
         <h2 className="mt-3 font-subtitle text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">

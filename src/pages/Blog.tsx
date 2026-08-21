@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { GrainWave } from "@/components/custom/grain-wave";
+import { PageHero } from "@/components/custom/common-page-elements";
 import { getAllPosts } from "@/lib/blog";
 
 // NOTE: the <section> deliberately has no padding of its own. Any padding here would
@@ -11,11 +11,7 @@ export function Blog() {
 
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
-      <GrainWave height="24rem">
-        <h1 className="mt-3 font-heading text-[clamp(4.5rem,10vw,7.5rem)] tracking-wide text-(--color-ivory)">
-          Blog
-        </h1>
-      </GrainWave>
+      <PageHero>Blog</PageHero>
 
       {posts.length === 0 ? (
         <div className="flex w-full flex-col items-center gap-4 px-4 pt-16 pb-24 text-center sm:pt-20">
