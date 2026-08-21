@@ -26,13 +26,7 @@ export const MARK_PROPS = {
 export const ALWAYS_INCLUDED_HEADINGS: { icon: LucideIcon; title: ReactNode }[] = [
   {
     icon: CalendarClock,
-    title: (
-      <>
-        Monthly calls,
-        <br />
-        weekly check-ins
-      </>
-    ),
+    title: <>Regular contact</>,
   },
   { icon: MessagesSquare, title: "Direct access to us" },
   { icon: BarChart3, title: "Transparent reporting" },

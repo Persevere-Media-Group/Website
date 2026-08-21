@@ -143,7 +143,7 @@ export function HowItWorks({ name }: SectionProps) {
                 {stage.title}
               </h3>
             </div>
-            <p className="px-7 pt-0 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+            <p className="px-7 pt-0 pb-8 text-[clamp(1.15rem,1.85vw,1.3rem)] leading-relaxed text-(--color-oxblood)/80">
               {stage.body}
             </p>
           </ScrollStackItem>

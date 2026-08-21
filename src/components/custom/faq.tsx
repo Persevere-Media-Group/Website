@@ -59,13 +59,13 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
             <AccordionTrigger className="w-full py-0.5 text-left">
               <div className="flex items-center">
                 <ChevronRight className="h-5 w-5 shrink-0 text-(--color-terracotta) transition-transform duration-200 group-data-expanded:rotate-90" />
-                <div className="ml-3 font-subtitle text-[clamp(1.05rem,1.9vw,1.25rem)] font-black tracking-wide text-(--color-oxblood)">
+                <div className="ml-3 font-subtitle text-[clamp(1.4rem,2.4vw,1.6rem)] font-black tracking-wide text-(--color-oxblood)">
                   {faq.q}
                 </div>
               </div>
             </AccordionTrigger>
             <AccordionContent className="origin-top">
-              <p className="pt-3 pr-2 pl-8 text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80">
+              <p className="pt-3 pr-2 pl-8 text-[clamp(1.1rem,1.9vw,1.25rem)] leading-relaxed text-(--color-oxblood)/80">
                 {faq.a}
               </p>
             </AccordionContent>
