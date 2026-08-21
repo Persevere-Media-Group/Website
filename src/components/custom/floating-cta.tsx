@@ -187,7 +187,7 @@ export function FloatingCta() {
           whileDrag={{ scale: 1.08 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex cursor-grab touch-none items-center gap-2 rounded-full bg-(--color-amber-gold) px-5 py-3 text-sm font-subtitle font-bold whitespace-nowrap text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] select-none active:cursor-grabbing"
+          className="flex cursor-grab touch-none items-center gap-2 rounded-full bg-(--color-amber-gold) px-5 py-3 text-base font-subtitle font-bold whitespace-nowrap text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] select-none active:cursor-grabbing md:text-lg"
           style={{ x, y }}
         >
           <Phone className="h-4 w-4" />
