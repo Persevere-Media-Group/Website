@@ -209,7 +209,7 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
       },
       {
         number: "2",
-        title: "The Groundwork",
+        title: "Groundwork",
         body: "We take pre-production seriously. Scripting, planning the shoot day, working out which formats do which job for your brand.",
       },
       {
