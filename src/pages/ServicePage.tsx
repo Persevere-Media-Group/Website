@@ -139,11 +139,11 @@ export function HowItWorks({ name }: SectionProps) {
               <span className="shrink-0 font-fun text-[clamp(2.75rem,5.2vw,3.5rem)] text-(--color-terracotta)">
                 {stage.number}
               </span>
-              <h3 className="font-subtitle text-[clamp(1.4rem,3vw,1.9rem)] font-black tracking-wide text-(--color-oxblood)">
+              <h3 className="font-subtitle text-[clamp(1.8rem,3.6vw,2.4rem)] font-black tracking-wide text-(--color-oxblood)">
                 {stage.title}
               </h3>
             </div>
-            <p className="px-7 pt-0 pb-8 text-[clamp(1.15rem,1.85vw,1.3rem)] leading-relaxed text-(--color-oxblood)/80">
+            <p className="px-7 pt-0 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
               {stage.body}
             </p>
           </ScrollStackItem>
