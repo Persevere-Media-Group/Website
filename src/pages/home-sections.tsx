@@ -229,7 +229,7 @@ const FACTS_BLOCKS = [
 
 export function FactsSection() {
   return (
-    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 pt-24 pb-16 text-center">
+    <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 py-4 text-center">
       {FACTS_BLOCKS.map((block, i) => (
         <AnimatedContent
           key={block.heading}
@@ -296,7 +296,7 @@ const PLACEHOLDER_VIDEO_SRC = "https://www.youtube.com/embed/dQw4w9WgXcQ";
 
 export function VideoSection() {
   return (
-    <section className="flex flex-col items-center gap-6 bg-(--color-ivory) px-4 py-24 text-center">
+    <section className="flex flex-col items-center gap-6 bg-(--color-ivory) px-4 py-4 text-center">
       <AnimatedContent
         direction="vertical"
         distance={50}
@@ -442,7 +442,7 @@ const SERVICES_BLOCKS = [
 
 export function OurServicesSection() {
   return (
-    <section id={OUR_SERVICES_ID} className="bg-(--color-ivory) px-4 py-24 text-center">
+    <section id={OUR_SERVICES_ID} className="bg-(--color-ivory) px-4 py-4 text-center">
       <h2 className="mt-3 font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
         The best of both worlds
       </h2>
@@ -474,14 +474,14 @@ export function OurServicesSection() {
               </p>
               <Link
                 to={block.to}
-                className="group mt-auto inline-flex w-fit items-center gap-1 text-[clamp(0.95rem,1.5vw,1.05rem)] font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
+                className="group mt-auto inline-flex w-fit items-center gap-1 text-[clamp(1.25rem,2.2vw,1.5rem)] font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
               >
                 <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
                   Learn more
                 </span>
                 <SquigglyArrow
-                  width={120}
-                  height={60}
+                  width={165}
+                  height={82}
                   strokeWidth={4}
                   variant="bouncy"
                   className="text-current"
@@ -503,7 +503,7 @@ export function ClosingCtaSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   return (
-    <div className="flex w-full flex-col items-center bg-(--color-ivory) px-4 py-24">
+    <div className="flex w-full flex-col items-center bg-(--color-ivory) px-4 py-4">
       <ClosingCta onBookCall={() => setIsCalendlyOpen(true)} />
       <PopupModal
         url={CALENDLY_URL}

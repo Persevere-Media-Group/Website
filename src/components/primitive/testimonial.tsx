@@ -126,7 +126,7 @@ export function Testimonials({
   if (testimonials.length === 0) return null;
 
   return (
-    <section className={`px-4 py-12 text-center ${className}`}>
+    <section className={`px-4 py-4 text-center ${className}`}>
       <h2 className="mt-3 font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
         {heading}
       </h2>
