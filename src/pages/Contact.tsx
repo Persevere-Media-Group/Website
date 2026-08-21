@@ -379,7 +379,7 @@ export function Contact() {
   // so the padding lives on the content wrapper below the band instead.
   return (
     <section className="min-h-screen bg-(--color-ivory)">
-      <PageHero>Contact</PageHero>
+      <PageHero grainy>Contact</PageHero>
 
       <div className="mx-auto grid w-full max-w-6xl gap-14 px-4 pt-16 pb-16 sm:pt-20 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
         {/* left: context, so the form doesn't arrive cold */}

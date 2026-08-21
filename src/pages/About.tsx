@@ -144,7 +144,7 @@ export function About() {
 
   return (
     <PageSection>
-      <PageHero>About Us</PageHero>
+      <PageHero grainy>About Us</PageHero>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-16 sm:pt-20">
         <SectionHeading size="lg" className="mt-3">

@@ -7,7 +7,7 @@ export function Blog() {
 
   return (
     <PageSection>
-      <PageHero>Blog</PageHero>
+      <PageHero grainy>Blog</PageHero>
 
       {posts.length === 0 ? (
         <Placeholder />

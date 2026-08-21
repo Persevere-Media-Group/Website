@@ -3,7 +3,7 @@ import { PageHero, PageSection, Placeholder } from "@/components/custom/common-p
 export function CaseStudies() {
   return (
     <PageSection>
-      <PageHero>Case Studies</PageHero>
+      <PageHero grainy>Case Studies</PageHero>
 
       <Placeholder />
     </PageSection>
