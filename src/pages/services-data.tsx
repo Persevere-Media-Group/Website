@@ -1,4 +1,5 @@
 import { Highlighter } from "@/components/primitive/highlighter";
+import { GrainText } from "@/components/primitive/grain-text";
 import { UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/pages/services-shared";
 import { FaqLink } from "@/components/custom/faq";
 import type { ServicePageData, ServicePersonName } from "@/pages/ServicePage";
@@ -12,9 +13,8 @@ import type { ServicePageData, ServicePersonName } from "@/pages/ServicePage";
 const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
   keir: {
     hero: (
-      <h1 className="mt-3 text-center text-[clamp(5rem,12vw,8.5rem)] font-heading leading-[0.85] tracking-wide text-(--color-ivory)">
-        <span className="block">Performance</span>
-        <span className="block ml-[2em]">Marketing</span>
+      <h1 className="mt-3 text-center font-fun text-[clamp(6rem,14vw,10rem)] tracking-[0.08em]">
+        <GrainText>Ads</GrainText>
       </h1>
     ),
 
@@ -171,9 +171,8 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
   // ---------------------------------------------------------------------------
   calum: {
     hero: (
-      <h1 className="mt-3 text-center text-[clamp(5rem,12vw,8.5rem)] font-heading leading-[0.85] tracking-wide text-(--color-ivory)">
-        <span className="block">Content &</span>
-        <span className="block ml-[2em]">Organic</span>
+      <h1 className="mt-3 text-center font-fun text-[clamp(6rem,14vw,10rem)] tracking-[0.08em]">
+        <GrainText>Creative</GrainText>
       </h1>
     ),
 
