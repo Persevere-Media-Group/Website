@@ -171,7 +171,7 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
   // ---------------------------------------------------------------------------
   calum: {
     hero: (
-      <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-tighter text-(--color-ivory)">
+      <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-wide text-(--color-ivory)">
         Creative Strategy, Content Creation & Organic Social
       </h1>
     ),

@@ -380,8 +380,8 @@ export function Contact() {
   return (
     <section className="min-h-screen bg-(--color-ivory)">
       <GrainWave height="24rem">
-        <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-tighter text-(--color-ivory)">
-          Contact Us
+        <h1 className="mt-3 font-heading text-[clamp(2.75rem,6.5vw,4.5rem)] tracking-wide text-(--color-ivory)">
+          Contact
         </h1>
       </GrainWave>
 
@@ -396,7 +396,7 @@ export function Contact() {
             threshold={0.2}
           >
             <div>
-              <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] leading-none tracking-tighter text-(--color-oxblood)">
+              <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] leading-none tracking-wide text-(--color-oxblood)">
                 Let's talk.
               </h1>
 
@@ -614,7 +614,7 @@ export function Contact() {
                   to its tallest combination (step 3's four selects, measured at each
                   breakpoint) so that height is reserved from the very first render,
                   rather than the card growing the first time someone reaches that step. */}
-              <div className="flex-1 min-h-[570px] sm:min-h-[330px]">
+              <div className="flex-1 min-h-142.5 sm:min-h-82.5">
                 <Stepper value={step} onValueChange={setStep}>
                   <StepperNav className="mb-6">
                     {FORM_STEPS.map((title, i) => {
