@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { ClickSpark } from "@/components/primitive/click-spark";
@@ -520,8 +520,6 @@ export function ClosingCtaSection() {
 // ---------------------------------------------------------------------------
 
 export function WhyChooseSection() {
-  const navigate = useNavigate();
-
   return (
     <GrainWave height="22rem" waveClassName="h-16 sm:h-24 md:h-28" waveTop waveBottom={false}>
       <AnimatedContent
@@ -540,12 +538,6 @@ export function WhyChooseSection() {
           <br />
           Ready to come aboard?
         </p>
-
-        <div className="mt-8 flex justify-center">
-          <YellowPulsatingButton onClick={() => navigate("/contact")}>
-            Get Started
-          </YellowPulsatingButton>
-        </div>
       </AnimatedContent>
     </GrainWave>
   );

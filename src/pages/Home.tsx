@@ -23,9 +23,9 @@ export function Home() {
       <VideoSection />
       <SectionDivider />
       <TestimonialsSection />
-      <SectionSpacer size="sm" />
+      <SectionSpacer size="md" />
       <OurServicesSection />
-      <SectionSpacer size="sm" />
+      <SectionSpacer size="md" />
       <ClosingCtaSection />
       <WhyChooseSection />
     </>
