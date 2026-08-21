@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { CalendarClock, MessagesSquare, BarChart3, type LucideIcon } from "lucide-react";
 
 // ---------------------------------------------------------------------------
-// Shared config/types for the two services pages (ServicesKeir / ServicesCalum).
+// Shared config/types for the two services pages (rendered by ServicePersonPage).
 // Kept in their own module (rather than ServicesCombined.tsx) since that file
 // only exports components, which Vite's fast-refresh requires.
 // ---------------------------------------------------------------------------

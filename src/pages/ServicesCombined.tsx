@@ -1,6 +1,7 @@
 import { useRef, type ReactNode } from "react";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { Highlighter } from "@/components/primitive/highlighter";
+import { SectionHeading } from "@/components/custom/common-page-elements";
 import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
 import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
 import { getCylinderSizeCompensation } from "@/lib/cylinder-size-compensation";
@@ -18,9 +19,7 @@ import { UNDERLINE_COLOR, MARK_PROPS, ALWAYS_INCLUDED_HEADINGS } from "@/pages/s
 export function AlwaysIncluded({ bodies }: { bodies: [ReactNode, ReactNode, ReactNode] }) {
   return (
     <div className="mt-20 flex w-full max-w-3xl flex-col items-center">
-      <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
-        By default, every service comes with
-      </h2>
+      <SectionHeading>By default, every service comes with</SectionHeading>
 
       <div className="mt-12 grid w-full gap-8 text-center sm:grid-cols-3">
         {ALWAYS_INCLUDED_HEADINGS.map((heading, i) => (

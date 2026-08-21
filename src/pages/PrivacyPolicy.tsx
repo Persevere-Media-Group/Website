@@ -1,18 +1,14 @@
-import { PageHero } from "@/components/custom/common-page-elements";
+import { PageHero, PageSection, SectionHeading } from "@/components/custom/common-page-elements";
 
-// NOTE: the <section> deliberately has no padding of its own. Any padding here would
-// push GrainWave down from the top of the page and stop it reaching the screen edges,
-// so the padding lives on the content wrapper below the band instead (same pattern
-// used on the Contact and About pages).
 export function PrivacyPolicy() {
   return (
-    <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
+    <PageSection>
       <PageHero size="md">Privacy Policy</PageHero>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-24 text-center sm:pt-20">
-        <h2 className="mt-2 font-subtitle text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
+        <SectionHeading size="lg" className="mt-2">
           The Legal Bits
-        </h2>
+        </SectionHeading>
 
         <div className="mt-10 max-w-2xl space-y-8 text-left text-(--color-oxblood)/90">
           <p className="text-sm text-(--color-oxblood)/60">Last updated: 25th July 2026</p>
@@ -98,6 +94,6 @@ export function PrivacyPolicy() {
           </div>
         </div>
       </div>
-    </section>
+    </PageSection>
   );
 }

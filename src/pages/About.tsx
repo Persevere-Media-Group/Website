@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { ChevronRight } from "lucide-react";
 import { Highlighter } from "@/components/primitive/highlighter";
-import { PageHero } from "@/components/custom/common-page-elements";
+import { PageHero, PageSection, SectionHeading } from "@/components/custom/common-page-elements";
 import AnimatedContent from "@/components/primitive/animated-content";
 import { SectionDivider } from "@/components/custom/wiggly-divider";
 import SquigglyArrow from "@/components/primitive/squiggly-arrow";
@@ -142,18 +142,14 @@ const AFTER = [
 export function About() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
-  // NOTE: the <section> deliberately has no padding of its own. Any padding here would
-  // push GrainWave down from the top of the page and stop it reaching the screen edges,
-  // so the padding lives on the content wrapper below the band instead (same pattern
-  // used on the Contact page).
   return (
-    <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
+    <PageSection>
       <PageHero>About Us</PageHero>
 
       <div className="flex w-full flex-col items-center px-4 pt-16 pb-16 sm:pt-20">
-        <h2 className="mt-3 font-subtitle text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
+        <SectionHeading size="lg" className="mt-3">
           Two of us. Everything you need.
-        </h2>
+        </SectionHeading>
 
         {/* the two halves side by side on desktop, stacked on mobile - same card
           treatment as the Our Services section on the homepage */}
@@ -286,9 +282,9 @@ export function About() {
           <SectionDivider />
         </div>
 
-        <h2 className="mt-24 font-subtitle text-center text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
+        <SectionHeading size="lg" className="mt-24">
           So, what's it going to be?
-        </h2>
+        </SectionHeading>
 
         {/* type scaled up from the previous version, short lines can carry more weight
           and it makes each block land as a statement rather than a paragraph. the
@@ -365,6 +361,6 @@ export function About() {
         open={isCalendlyOpen}
         rootElement={document.getElementById("root")!}
       />
-    </section>
+    </PageSection>
   );
 }

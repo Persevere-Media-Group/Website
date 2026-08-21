@@ -1,14 +1,18 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { PopupModal } from "react-calendly";
 import { GrainWave } from "@/components/custom/grain-wave";
+import { PageSection, SectionHeading } from "@/components/custom/common-page-elements";
 import AnimatedContent from "@/components/primitive/animated-content";
 import ScrollStack, { ScrollStackItem } from "@/components/primitive/ScrollStack";
 import { FaqAccordion } from "@/components/custom/faq";
-import { AlwaysIncluded, IntroBanner } from "@/pages/ServicesCombined";
+import { SectionDivider } from "@/components/custom/wiggly-divider";
+import { AlwaysIncluded, ClosingCta, IntroBanner } from "@/pages/ServicesCombined";
+import { CALENDLY_URL } from "@/pages/services-shared";
 import { getServiceData } from "@/pages/services-data";
 
 // ---------------------------------------------------------------------------
-// Types shared by the services pages (ServicesKeir / ServicesCalum), the
-// section components below, and their content (services-data.tsx).
+// Types shared by ServicePersonPage below (rendered for both the keir and
+// calum routes), its section components, and their content (services-data.tsx).
 // ---------------------------------------------------------------------------
 
 export type ServicePersonName = "keir" | "calum";
@@ -21,7 +25,7 @@ export interface ServiceStage {
 }
 
 // The full set of person-specific content for one services page. Everything
-// that differs between ServicesKeir and ServicesCalum lives in services-data.tsx
+// that differs between the keir and calum pages lives in services-data.tsx
 // under this shape; each section component below pulls out just its own slice.
 export interface ServicePageData {
   hero: ReactNode;
@@ -72,9 +76,7 @@ export function MyRole({ name }: SectionProps) {
   const data = getServiceData(name);
   return (
     <>
-      <h2 className="font-subtitle text-center text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
-        My role in Persevere Media
-      </h2>
+      <SectionHeading size="sm">My role in Persevere Media</SectionHeading>
       <p
         className={`mt-6 text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80 ${data.role.maxWidthClassName ?? "max-w-2xl"}`}
       >
@@ -92,9 +94,7 @@ export function Approach({ name }: SectionProps) {
   const data = getServiceData(name);
   return (
     <div className="flex w-full max-w-2xl flex-col gap-5 text-left">
-      <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
-        Our Approach
-      </h2>
+      <SectionHeading>Our Approach</SectionHeading>
       {data.approach.map((paragraph, i) => (
         <p
           key={i}
@@ -115,9 +115,7 @@ export function HowItWorks({ name }: SectionProps) {
   const data = getServiceData(name);
   return (
     <div className="flex w-full max-w-3xl flex-col items-center">
-      <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
-        How it all works
-      </h2>
+      <SectionHeading>How it all works</SectionHeading>
 
       {/* The header band is h-20 (80px) and itemStackDistance is 80 on purpose:
           that band is exactly the strip left showing once the next card stacks
@@ -163,9 +161,7 @@ export function WhatsIncluded({ name }: SectionProps) {
   const data = getServiceData(name);
   return (
     <div className="flex w-full max-w-2xl flex-col gap-8">
-      <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
-        {data.included.heading}
-      </h2>
+      <SectionHeading>{data.included.heading}</SectionHeading>
       <ul className="flex flex-col gap-4 text-left">
         {data.included.items.map((item, i) => (
           <AnimatedContent
@@ -205,10 +201,48 @@ export function Faqs({ name }: SectionProps) {
   const data = getServiceData(name);
   return (
     <div className="flex w-full max-w-2xl flex-col gap-10">
-      <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
-        FAQ
-      </h2>
+      <SectionHeading>FAQ</SectionHeading>
       <FaqAccordion faqs={data.faqs} />
     </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Full page - the single source of truth for both /services/keir and
+// /services/calum, which differ only in which name they pass down (all the
+// actual copy differences live in services-data.tsx).
+// ---------------------------------------------------------------------------
+
+export function ServicePersonPage({ name }: SectionProps) {
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+
+  return (
+    <PageSection>
+      <Hero name={name} />
+
+      <div className="flex w-full flex-col items-center px-4 pt-16 pb-20 sm:pt-20">
+        <AboutMe name={name} />
+        <MyRole name={name} />
+        <br />
+        <SectionDivider />
+        <Approach name={name} />
+        <SectionDivider reverse />
+        <HowItWorks name={name} />
+        <SectionDivider />
+        <WhatsIncluded name={name} />
+        <AlwaysIncludedSection name={name} />
+        <SectionDivider reverse />
+        <Faqs name={name} />
+        <SectionDivider />
+        <ClosingCta onBookCall={() => setIsCalendlyOpen(true)} />
+      </div>
+
+      <PopupModal
+        url={CALENDLY_URL}
+        onModalClose={() => setIsCalendlyOpen(false)}
+        open={isCalendlyOpen}
+        rootElement={document.getElementById("root")!}
+      />
+    </PageSection>
   );
 }

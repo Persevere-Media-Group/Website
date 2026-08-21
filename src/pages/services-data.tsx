@@ -4,8 +4,8 @@ import { FaqLink } from "@/components/custom/faq";
 import type { ServicePageData, ServicePersonName } from "@/pages/ServicePage";
 
 // ---------------------------------------------------------------------------
-// All copy for the two services pages, keyed by person. ServicesKeir/
-// ServicesCalum just look themselves up here by name; ServicePage renders
+// All copy for the two services pages, keyed by person. ServicePersonPage
+// (in ServicePage.tsx) just looks itself up here by name and renders
 // whatever comes back.
 // ---------------------------------------------------------------------------
 

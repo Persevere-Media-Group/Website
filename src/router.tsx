@@ -3,8 +3,7 @@ import { Layout } from "@/pages/Layout";
 import { Home } from "@/pages/Home";
 import { About } from "@/pages/About";
 import { Services } from "@/pages/Services";
-import { ServicesKeir } from "@/pages/ServicesKeir";
-import { ServicesCalum } from "@/pages/ServicesCalum";
+import { ServicePersonPage } from "@/pages/ServicePage";
 import { CaseStudies } from "@/pages/CaseStudies";
 import { Blog } from "@/pages/Blog";
 import { BlogPost } from "@/pages/BlogPost";
@@ -20,8 +19,8 @@ export const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/about", element: <About /> },
       { path: "/services", element: <Services /> },
-      { path: "/services/keir", element: <ServicesKeir /> },
-      { path: "/services/calum", element: <ServicesCalum /> },
+      { path: "/services/keir", element: <ServicePersonPage name="keir" /> },
+      { path: "/services/calum", element: <ServicePersonPage name="calum" /> },
       { path: "/case-studies", element: <CaseStudies /> },
       { path: "/blog", element: <Blog /> },
       { path: "/blog/:slug", element: <BlogPost /> },

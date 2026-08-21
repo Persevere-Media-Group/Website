@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { PageHero } from "@/components/custom/common-page-elements";
+import { PageHero, PageSection } from "@/components/custom/common-page-elements";
 import { NotFound } from "@/pages/NotFound";
 import { getPostBySlug } from "@/lib/blog";
 
@@ -13,7 +13,7 @@ export function BlogPost() {
   }
 
   return (
-    <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
+    <PageSection>
       <PageHero size="sm">{post.title}</PageHero>
 
       <div className="flex w-full max-w-2xl flex-col gap-6 px-4 pt-16 pb-24 sm:pt-20">
@@ -31,6 +31,6 @@ export function BlogPost() {
           <ReactMarkdown>{post.body}</ReactMarkdown>
         </div>
       </div>
-    </section>
+    </PageSection>
   );
 }
