@@ -149,7 +149,7 @@ export function About() {
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
       <GrainWave height="24rem">
-        <h1 className="mt-3 font-heading text-[clamp(2.75rem,6.5vw,4.5rem)] tracking-wide text-(--color-ivory)">
+        <h1 className="mt-3 font-heading text-[clamp(4.5rem,10vw,7.5rem)] tracking-wide text-(--color-ivory)">
           About Us
         </h1>
       </GrainWave>

@@ -8,7 +8,7 @@ export function Services() {
   return (
     <section className="flex min-h-screen flex-col items-center bg-(--color-ivory)">
       <GrainWave height="24rem">
-        <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-wide text-(--color-ivory)">
+        <h1 className="mt-3 font-heading text-[clamp(4rem,9vw,6.5rem)] tracking-wide text-(--color-ivory)">
           Our Services
         </h1>
       </GrainWave>
