@@ -136,10 +136,10 @@ export function HowItWorks({ name }: SectionProps) {
             itemClassName="overflow-hidden rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) text-left shadow-[0_12px_44px_-18px_rgba(74,31,29,0.55)]"
           >
             <div className="flex h-20 items-center gap-4 px-7">
-              <span className="shrink-0 text-[clamp(1.35rem,2.8vw,1.9rem)] font-black tracking-tight text-(--color-terracotta)">
+              <span className="shrink-0 font-fun text-[clamp(1.75rem,3.6vw,2.4rem)] text-(--color-terracotta)">
                 {stage.number}
               </span>
-              <h3 className="font-subtitle text-[clamp(1.1rem,2.2vw,1.45rem)] font-black tracking-wide text-(--color-oxblood)">
+              <h3 className="font-subtitle text-[clamp(1.4rem,3vw,1.9rem)] font-black tracking-wide text-(--color-oxblood)">
                 {stage.title}
               </h3>
             </div>

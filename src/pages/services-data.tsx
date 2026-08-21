@@ -66,27 +66,27 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
 
     stages: [
       {
-        number: "01",
+        number: "1",
         title: "Welcome Aboard!",
         body: "Before we touch a single campaign, we want to know your business inside out; your customers, their problems and what's stopping them from buying.",
       },
       {
-        number: "02",
+        number: "2",
         title: "Groundwork",
         body: "We delve deeper into the technical details. We audit your current campaigns, your website and your analytics. We also set up your tracking to measure real results.",
       },
       {
-        number: "03",
+        number: "3",
         title: "Build",
         body: "Shooting, editing and fine tuning your creatives. We will also get to work on designing your campaign strategy. It doesn't stop once it's built- strategy keeps evolving as we learn more, because we're driven by the data, not by what we planned on day one.",
       },
       {
-        number: "04",
+        number: "4",
         title: "Launch",
         body: "This is where the real learning starts; absorbing everything the campaigns tell us and feeding it straight back into the strategy. Continuous improvement isn't a 'nice to have', it's essential!",
       },
       {
-        number: "05",
+        number: "5",
         title: "Growth",
         body: "When it's working, we don't sit back. We scale it, and we keep improving as we go. We're your growth partner, We're not interested in settling.",
       },
@@ -203,27 +203,27 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
 
     stages: [
       {
-        number: "01",
+        number: "1",
         title: "Welcome Aboard!",
         body: "Before a camera comes out, we want to know your business inside out. Your customers, their pain points, the problem you solve and how you solve it differently.",
       },
       {
-        number: "02",
+        number: "2",
         title: "The Groundwork",
         body: "We take pre-production seriously. Scripting, planning the shoot day, working out which formats do which job for your brand.",
       },
       {
-        number: "03",
+        number: "3",
         title: "Build",
         body: "Shoot day. One or two half-day shoots a month is a great place to start, but we’re adaptable to what your business actually needs. Then the real craft: editing, colour grading, captioning, all done professionally. No Capcut templates here.",
       },
       {
-        number: "04",
+        number: "4",
         title: "Launch",
         body: "The content goes live. We manage the posting ourselves, this isn't a 'here are your files, good luck!' handover.",
       },
       {
-        number: "05",
+        number: "5",
         title: "Growth",
         body: "When something's working, we lean into it. We keep sharpening the strategy as we learn what your specific audience actually responds to. We're your growth partner.",
       },

@@ -36,7 +36,7 @@ export function AlwaysIncluded({ bodies }: { bodies: [ReactNode, ReactNode, Reac
               <span className="mb-1 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
                 <heading.icon size={18} />
               </span>
-              <h3 className="font-subtitle text-[clamp(1.1rem,2vw,1.3rem)] font-black tracking-wide text-(--color-oxblood)">
+              <h3 className="font-subtitle text-[clamp(1.3rem,2.4vw,1.55rem)] font-black tracking-wide text-(--color-oxblood)">
                 {heading.title}
               </h3>
               <p className="text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/80">
@@ -65,7 +65,7 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
 
   return (
     <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
-      <h2 className="font-subtitle text-[clamp(2.25rem,5.5vw,3.25rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
+      <h2 className="font-subtitle text-[clamp(2.6rem,6.4vw,3.75rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
         We are your growth partners.
       </h2>
       <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">

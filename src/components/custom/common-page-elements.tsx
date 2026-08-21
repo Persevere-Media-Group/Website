@@ -57,8 +57,8 @@ type SectionHeadingSize = "sm" | "md" | "lg";
 
 // Same reasoning as HERO_TEXT_SIZE above: static strings so Tailwind can see them.
 const SECTION_HEADING_STYLE: Record<SectionHeadingSize, string> = {
-  sm: "text-[clamp(1.5rem,3.5vw,2.25rem)] sm:whitespace-nowrap", // ServicePage's MyRole
-  md: "text-[clamp(1.75rem,4vw,2.5rem)] sm:whitespace-nowrap", // ServicePage's other sections, AlwaysIncluded
+  sm: "text-[clamp(1.85rem,4.2vw,2.75rem)] sm:whitespace-nowrap", // ServicePage's MyRole
+  md: "text-[clamp(2.1rem,4.8vw,3rem)] sm:whitespace-nowrap", // ServicePage's other sections, AlwaysIncluded
   lg: "text-[clamp(2rem,5vw,3.5rem)]", // About, Privacy Policy, Placeholder
 };
 
