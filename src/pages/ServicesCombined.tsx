@@ -145,7 +145,7 @@ export function IntroBanner({
       <div className="w-full">
         <div
           ref={wordRowRef}
-          className="flex flex-row items-center justify-center gap-3 text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tight text-(--color-oxblood) sm:gap-4"
+          className="flex flex-row items-center justify-center gap-3 font-subtitle text-[clamp(2.4rem,6vw,4.2rem)] font-black tracking-tight text-(--color-oxblood) sm:gap-4"
           style={{ transform: `scale(${wordRowScale})`, transformOrigin: "center" }}
         >
           <span className="whitespace-nowrap">
