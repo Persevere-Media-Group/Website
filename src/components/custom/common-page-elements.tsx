@@ -38,3 +38,18 @@ export function PageHero({ children, size = "lg" }: PageHeroProps) {
     </GrainWave>
   );
 }
+
+// Standard "this page isn't built yet" body, used below the PageHero on
+// pages that don't have real content yet.
+export function Placeholder() {
+  return (
+    <div className="flex w-full flex-col items-center gap-4 px-4 pt-16 pb-24 text-center sm:pt-20">
+      <h2 className="font-subtitle text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
+        Placeholder
+      </h2>
+      <p className="max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
+        Real content goes here once it's ready.
+      </p>
+    </div>
+  );
+}

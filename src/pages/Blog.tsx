@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PageHero } from "@/components/custom/common-page-elements";
+import { PageHero, Placeholder } from "@/components/custom/common-page-elements";
 import { getAllPosts } from "@/lib/blog";
 
 // NOTE: the <section> deliberately has no padding of its own. Any padding here would
@@ -14,14 +14,7 @@ export function Blog() {
       <PageHero>Blog</PageHero>
 
       {posts.length === 0 ? (
-        <div className="flex w-full flex-col items-center gap-4 px-4 pt-16 pb-24 text-center sm:pt-20">
-          <h2 className="font-subtitle text-[clamp(2rem,5vw,3.5rem)] font-black tracking-wide text-(--color-oxblood)">
-            Blog page placeholder
-          </h2>
-          <p className="max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
-            Real content goes here once it's ready.
-          </p>
-        </div>
+        <Placeholder />
       ) : (
         <div className="flex w-full max-w-3xl flex-col gap-10 px-4 pt-16 pb-24 sm:pt-20">
           {posts.map((post) => (
