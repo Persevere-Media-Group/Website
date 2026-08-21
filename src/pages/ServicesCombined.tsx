@@ -39,7 +39,7 @@ export function AlwaysIncluded({ bodies }: { bodies: [ReactNode, ReactNode, Reac
               <h3 className="font-subtitle text-[clamp(1.3rem,2.4vw,1.55rem)] font-black tracking-wide text-(--color-oxblood)">
                 {heading.title}
               </h3>
-              <p className="text-[clamp(1.1rem,1.6vw,1.2rem)] leading-relaxed text-(--color-oxblood)/80">
+              <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
                 {bodies[i]}
               </p>
             </div>

@@ -65,7 +65,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
               </div>
             </AccordionTrigger>
             <AccordionContent className="origin-top">
-              <p className="pt-3 pr-2 pl-8 text-[clamp(1.1rem,1.9vw,1.25rem)] leading-relaxed text-(--color-oxblood)/80">
+              <p className="pt-3 pr-2 pl-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
                 {faq.a}
               </p>
             </AccordionContent>

@@ -78,7 +78,7 @@ export function MyRole({ name }: SectionProps) {
     <>
       <SectionHeading size="sm">My role in Persevere Media</SectionHeading>
       <p
-        className={`mt-6 text-center text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80 ${data.role.maxWidthClassName ?? "max-w-2xl"}`}
+        className={`mt-6 text-center text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80 ${data.role.maxWidthClassName ?? "max-w-2xl"}`}
       >
         {data.role.paragraph}
       </p>
@@ -139,7 +139,7 @@ export function HowItWorks({ name }: SectionProps) {
               <span className="shrink-0 font-fun text-[clamp(2.75rem,5.2vw,3.5rem)] text-(--color-terracotta)">
                 {stage.number}
               </span>
-              <h3 className="translate-y-1 font-subtitle text-[clamp(1.8rem,3.6vw,2.4rem)] font-black tracking-wide text-(--color-oxblood)">
+              <h3 className="translate-y-1 font-subtitle text-[clamp(1.6rem,3.2vw,2.1rem)] font-black tracking-wide text-(--color-oxblood)">
                 {stage.title}
               </h3>
             </div>
