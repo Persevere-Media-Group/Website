@@ -2,19 +2,19 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { ChevronRight } from "lucide-react";
-import { Highlighter } from "@/components/primitive/highlighter";
-import { ChoosePersevereMark } from "@/components/custom/choose-persevere-mark";
-import { SectionHeading } from "@/components/custom/common-page-elements";
-import AnimatedContent from "@/components/primitive/animated-content";
-import SquigglyArrow from "@/components/primitive/squiggly-arrow";
-import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
+import { Highlighter } from "@/ui-components/primitive/highlighter";
+import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
+import { SectionHeading } from "@/ui-components/custom/common-page-elements";
+import AnimatedContent from "@/ui-components/primitive/animated-content";
+import SquigglyArrow from "@/ui-components/primitive/squiggly-arrow";
+import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/primitive/accordion";
-import { CALENDLY_URL } from "@/pages/services-shared";
+} from "@/ui-components/primitive/accordion";
+import { CALENDLY_URL } from "@/container-contents/services-shared";
 
 // ---------------------------------------------------------------------------
 // Highlight/underline config
@@ -336,8 +336,11 @@ export function ChooseSection() {
         </div>
       </AnimatedContent>
 
-      {/* the payoff, scaled up to land as the closing beat */}
-      <ChoosePersevereMark className="mt-16 text-[clamp(2rem,6vw,4rem)]" />
+      {/* the payoff, scaled up to land as the closing beat - same size as the
+          homepage footer's version of this mark */}
+      <div className="mt-16 flex w-full items-center justify-center">
+        <ChoosePersevereMark />
+      </div>
     </>
   );
 }

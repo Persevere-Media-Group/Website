@@ -1,13 +1,13 @@
 import { useRef, type ReactNode } from "react";
-import AnimatedContent from "@/components/primitive/animated-content";
-import { Highlighter } from "@/components/primitive/highlighter";
-import { SectionHeading } from "@/components/custom/common-page-elements";
-import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
-import { CylinderTextRotate } from "@/components/primitive/cylinder-text-rotate";
+import AnimatedContent from "@/ui-components/primitive/animated-content";
+import { SectionHeading } from "@/ui-components/custom/common-page-elements";
+import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
+import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
+import { CylinderTextRotate } from "@/ui-components/primitive/cylinder-text-rotate";
 import { getCylinderSizeCompensation } from "@/lib/cylinder-size-compensation";
-import { ImageGallery } from "@/components/primitive/image-gallery";
+import { ImageGallery } from "@/ui-components/primitive/image-gallery";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
-import { UNDERLINE_COLOR, MARK_PROPS, ALWAYS_INCLUDED_HEADINGS } from "@/pages/services-shared";
+import { ALWAYS_INCLUDED_HEADINGS } from "@/container-contents/services-shared";
 
 // ---------------------------------------------------------------------------
 // "By default, we provide you with" section
@@ -55,14 +55,6 @@ export function AlwaysIncluded({ bodies }: { bodies: [ReactNode, ReactNode, Reac
 // ---------------------------------------------------------------------------
 
 export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
-  // Sized deliberately larger than any viewport can hold at 1:1 (up to
-  // 6.5rem), so it always wants to be as wide as its container; useAutoFitScale
-  // then shrinks it down only as much as needed to avoid overflow, which is
-  // what makes it span the full width on mobile while still scaling up on
-  // wider screens instead of being pinned to a small fixed size.
-  const markRef = useRef<HTMLParagraphElement>(null);
-  const markScale = useAutoFitScale(markRef);
-
   return (
     <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
       <h2 className="font-subtitle text-[clamp(2.6rem,6.4vw,3.75rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
@@ -76,25 +68,7 @@ export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
       {/* same "payoff" treatment as the About page's closing beat: a big circled
           wordmark between the copy and the CTA button */}
       <div className="flex w-full items-center justify-center">
-        <p
-          ref={markRef}
-          className="font-accent text-[clamp(2.75rem,16vw,6.5rem)] leading-none tracking-wide whitespace-nowrap text-(--color-oxblood)"
-          style={{ transform: `scale(${markScale})`, transformOrigin: "center" }}
-        >
-          {/* the ellipse rough-notation draws for "circle" is sized from the text's
-              bounding box plus padding, but a wide/short line like this one still
-              has its corners poke outside a symmetric ellipse - extra horizontal
-              padding relative to vertical is what actually keeps the far-left/right
-              characters ("C", the trailing ".") safely inside the curve */}
-          <Highlighter
-            action="circle"
-            color={UNDERLINE_COLOR}
-            {...MARK_PROPS}
-            padding={[20, 64, 20, 64]}
-          >
-            Choose Persevere.
-          </Highlighter>
-        </p>
+        <ChoosePersevereMark />
       </div>
       <YellowPulsatingButton onClick={onBookCall} className="mt-12">
         Book a call
