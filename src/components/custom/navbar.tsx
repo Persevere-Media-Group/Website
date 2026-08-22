@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import {
   StaggeredMenu,
   type StaggeredMenuItem,
@@ -40,7 +39,6 @@ const SOCIAL_ITEMS: StaggeredMenuSocialItem[] = [
 
 export function Navbar() {
   const buttonColor = useHeaderContrast("var(--color-oxblood)", "var(--color-ivory)");
-  const isHome = useLocation().pathname === "/";
 
   return (
     <StaggeredMenu
@@ -55,7 +53,7 @@ export function Navbar() {
       changeMenuColorOnOpen
       accentColor="var(--color-amber-gold)"
       isFixed
-      headerActions={!isHome ? <HomeButton buttonColor={buttonColor} /> : undefined}
+      headerActions={<HomeButton buttonColor={buttonColor} />}
     />
   );
 }
