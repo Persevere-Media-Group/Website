@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { ChevronRight } from "lucide-react";
 import { Highlighter } from "@/components/primitive/highlighter";
+import { ChoosePersevereMark } from "@/components/custom/choose-persevere-mark";
 import { SectionHeading } from "@/components/custom/common-page-elements";
 import AnimatedContent from "@/components/primitive/animated-content";
 import SquigglyArrow from "@/components/primitive/squiggly-arrow";
@@ -155,7 +156,7 @@ export function OriginStorySection() {
             if we can manage that, we can manage this.
           </strong>
         </p>
-        <p className="text-[clamp(1.15rem,2.2vw,1.4rem)] font-black tracking-tight text-(--color-oxblood)">
+        <p className="font-subtitle text-[clamp(1.3rem,2.2vw,1.4rem)] font-black tracking-wide text-(--color-oxblood)">
           So we did. Persevere was born.
         </p>
       </div>
@@ -336,13 +337,7 @@ export function ChooseSection() {
       </AnimatedContent>
 
       {/* the payoff, scaled up to land as the closing beat */}
-      <p className="mt-16 font-accent text-center text-[clamp(2rem,6vw,4rem)] leading-none tracking-wide text-(--color-oxblood)">
-        {/* wider padding than the shared MARK_PROPS default (2px) so the circle
-            sits further out from the letters instead of cutting across them */}
-        <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={28}>
-          Choose Persevere.
-        </Highlighter>
-      </p>
+      <ChoosePersevereMark className="mt-16 text-[clamp(2rem,6vw,4rem)]" />
     </>
   );
 }
