@@ -40,7 +40,7 @@ export function Layout() {
           (a background-image, which always paints over a background-color,
           so that has to be removed explicitly, not just covered with a solid class),
           !bg-(--color-oxblood) then sets the actual solid fill colour */}
-      <ScrollProgress className="bg-none! bg-(--color-oxblood)! fixed top-0 z-50 h-1.5" />
+      <ScrollProgress className="pointer-events-none bg-none! bg-(--color-oxblood)! fixed top-0 z-50 h-1.5" />
 
       <Navbar />
       <main>

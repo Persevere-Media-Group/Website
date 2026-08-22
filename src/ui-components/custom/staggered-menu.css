@@ -13,7 +13,11 @@
   pointer-events: none;
 }
 
-.staggered-menu-wrapper.fixed-wrapper .staggered-menu-header,
+/* .staggered-menu-header is deliberately excluded here - it sets its own
+   pointer-events (none, with auto re-enabled only on its logo/header-actions
+   children) further down, so the empty space in its full-width flex bar
+   stays click-through. A selector this specific would otherwise always win
+   over that plain .staggered-menu-header rule regardless of source order. */
 .staggered-menu-wrapper.fixed-wrapper .staggered-menu-panel {
   pointer-events: auto;
 }
@@ -41,7 +45,12 @@
   inset: 0;
 }
 
-/* top bar: logo + toggle, always visible regardless of open state */
+/* top bar: logo + toggle, always visible regardless of open state. Spans the
+   full viewport width so the flex layout can space the logo and header
+   actions apart, but only the logo and header actions themselves should
+   actually catch clicks - the empty space between/around them (most of the
+   bar) needs to stay click-through so page content underneath it (e.g. a
+   hero's click-spark area) remains interactive. */
 .staggered-menu-header {
   position: fixed;
   top: 0;
@@ -52,6 +61,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1.5rem;
+  pointer-events: none;
+}
+
+.sm-logo,
+.sm-header-actions {
+  pointer-events: auto;
 }
 
 .sm-logo-img {

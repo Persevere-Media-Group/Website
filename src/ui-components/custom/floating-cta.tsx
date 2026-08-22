@@ -165,9 +165,14 @@ export function FloatingCta() {
              collapses/expands) instead of being pinned by the compositor. */}
       {/* z-60 is deliberately higher than the fixed nav/header (z-50) and the
           ScrollProgress bar, otherwise wherever this overlaps them, clicks get
-          intercepted by whatever's stacked on top rather than reaching this button */}
+          intercepted by whatever's stacked on top rather than reaching this button.
+          pointer-events-none here (re-enabled on the button below) because this
+          wrapper's own untransformed layout box sits at the top-left origin - the
+          button only ends up elsewhere visually via the drag/position transform - so
+          without this, that empty top-left box would silently swallow clicks meant
+          for whatever's underneath it. */}
       <div
-        className="fixed top-0 left-0 z-60"
+        className="pointer-events-none fixed top-0 left-0 z-60"
         style={{
           visibility: ready ? "visible" : "hidden",
           transform: "translateZ(0)",
@@ -187,7 +192,7 @@ export function FloatingCta() {
           whileDrag={{ scale: 1.08 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex cursor-grab touch-none items-center gap-2 rounded-full bg-(--color-amber-gold) px-5 py-3 text-base font-subtitle font-bold whitespace-nowrap text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] select-none active:cursor-grabbing md:text-lg"
+          className="pointer-events-auto flex cursor-grab touch-none items-center gap-2 rounded-full bg-(--color-amber-gold) px-5 py-3 text-base font-subtitle font-bold whitespace-nowrap text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] select-none active:cursor-grabbing md:text-lg"
           style={{ x, y }}
         >
           <Phone className="h-4 w-4" />
