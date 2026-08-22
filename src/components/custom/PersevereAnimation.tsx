@@ -1,5 +1,60 @@
 import { useEffect, useRef, useState } from "react";
+import { paintGrainOverlay, resolveColor } from "@/lib/grain-canvas";
 import "./PersevereAnimation.css";
+
+// Same gradient as GrainHeading (the About/Contact/Blog/Case Studies and
+// Ads/Creative page titles) - see that component for why the gradient matters
+// (Grainient's overlay-blend noise barely reads against flat ivory on its own).
+const GRAIN_LIGHT_COLOR = "--color-ivory";
+const GRAIN_DEEP_COLOR = "#e2d7b2";
+const GRAIN_NOISE_INTENSITY = 5;
+
+// How much taller than the font size each letter's texture canvas is, so a
+// glyph drawn at vertical-centre has generous headroom for any variant's
+// ascender/descender overshoot without needing to know the exact overshoot
+// up front.
+const GRAIN_CANVAS_HEIGHT_RATIO = 2.2;
+
+type GrainTexture = { url: string; width: number; height: number };
+
+// Renders one glyph variant's grain texture: the glyph shape is drawn as a
+// black mask, then a gradient+grain "paint" layer is composited into just
+// that mask via source-in (same two-canvas technique as GrainHeading), so
+// the resulting PNG is transparent everywhere except the glyph's own ink.
+// Called once per (letter, variant) up front - not on every render or swap -
+// so the actual grain noise is generated a fixed number of times and then
+// just reused, rather than regenerated continuously.
+function buildGrainTexture(variant: string, widthCss: number, fontSizePx: number): GrainTexture {
+  const dpr = window.devicePixelRatio || 1;
+  const heightCss = fontSizePx * GRAIN_CANVAS_HEIGHT_RATIO;
+  const width = Math.max(1, Math.ceil(widthCss * dpr));
+  const height = Math.max(1, Math.ceil(heightCss * dpr));
+
+  const paint = document.createElement("canvas");
+  paint.width = width;
+  paint.height = height;
+  const paintCtx = paint.getContext("2d")!;
+  const gradient = paintCtx.createLinearGradient(0, 0, width, height);
+  gradient.addColorStop(0, resolveColor(GRAIN_LIGHT_COLOR));
+  gradient.addColorStop(1, resolveColor(GRAIN_DEEP_COLOR));
+  paintCtx.fillStyle = gradient;
+  paintCtx.fillRect(0, 0, width, height);
+  paintGrainOverlay(paintCtx, width, height, GRAIN_NOISE_INTENSITY);
+
+  const glyphCanvas = document.createElement("canvas");
+  glyphCanvas.width = width;
+  glyphCanvas.height = height;
+  const ctx = glyphCanvas.getContext("2d")!;
+  ctx.font = `${fontSizePx * dpr}px TGMotionSicknessSubset`;
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "#000";
+  ctx.fillText(variant, 0, height / 2);
+  ctx.globalCompositeOperation = "source-in";
+  ctx.drawImage(paint, 0, 0);
+  ctx.globalCompositeOperation = "source-over";
+
+  return { url: glyphCanvas.toDataURL(), width: widthCss, height: heightCss };
+}
 
 // ---------------------------------------------------------------------------
 // Persevere animation
@@ -99,12 +154,24 @@ export function PersevereAnimation({
   textClassName = "text-(--color-ivory)",
   sizeClassName = "text-[clamp(48px,9vw,140px)]",
   showBackground = true,
+  grainy = false,
 }: {
   className?: string;
   textClassName?: string;
   sizeClassName?: string;
   showBackground?: boolean;
+  /** texture each glyph with the same ivory grain used elsewhere on the
+   * site, instead of a flat colour from `textClassName`. The grain itself is
+   * pre-rendered once per (letter, variant) and cached, not regenerated on
+   * every tremble/variant swap. */
+  grainy?: boolean;
 }) {
+  // One pre-rendered texture per glyph variant (25 for "persevere"'s 5
+  // unique letters x 5 variants each), keyed by variant codepoint/char.
+  // Rebuilt only when the measured letter widths or font size actually
+  // change (debounced on resize), never on the recurring variant-swap timer.
+  const [grainTextures, setGrainTextures] = useState<Record<string, GrainTexture> | null>(null);
+  const grainBuildTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [initial] = useState(buildInitialAssignment);
   const [glyphs, setGlyphs] = useState(initial);
   const [trembleTimings] = useState<TrembleTiming[]>(() => WORD.split("").map(randomTrembleTiming));
@@ -156,6 +223,29 @@ export function PersevereAnimation({
         if (maxDescentOvershoot > 0)
           setBottomPadEm(maxDescentOvershoot / INK_MEASURE_FONT_PX + 0.05);
       }
+
+      // Debounced: rebuilding 25 glyph textures (canvas draw + toDataURL
+      // each) is cheap once, but resize fires repeatedly while dragging, so
+      // only the settled size actually triggers a rebuild.
+      if (grainy) {
+        const firstSpan = measureRefs.current[UNIQUE_LETTERS[0]]?.[0];
+        const fontSizePx = firstSpan ? parseFloat(getComputedStyle(firstSpan).fontSize) : 0;
+        if (fontSizePx) {
+          if (grainBuildTimeoutRef.current) clearTimeout(grainBuildTimeoutRef.current);
+          grainBuildTimeoutRef.current = setTimeout(() => {
+            grainBuildTimeoutRef.current = null;
+            const textures: Record<string, GrainTexture> = {};
+            for (const ch of UNIQUE_LETTERS) {
+              const letterWidth = widths[ch];
+              if (!letterWidth) continue;
+              for (const variant of VARIANT_MAP[ch]) {
+                textures[variant] = buildGrainTexture(variant, letterWidth, fontSizePx);
+              }
+            }
+            setGrainTextures(textures);
+          }, 200);
+        }
+      }
     };
 
     measure();
@@ -166,9 +256,10 @@ export function PersevereAnimation({
     return () => {
       clearTimeout(settleTimeout1);
       clearTimeout(settleTimeout2);
+      if (grainBuildTimeoutRef.current) clearTimeout(grainBuildTimeoutRef.current);
       window.removeEventListener("resize", measure);
     };
-  }, [sizeClassName]);
+  }, [sizeClassName, grainy]);
 
   // Slow, single-letter variant swapping, forever, one letter per tick.
   useEffect(() => {
@@ -215,6 +306,7 @@ export function PersevereAnimation({
       {glyphs.map((char, i) => {
         const timing = trembleTimings[i];
         const width = maxWidths?.[WORD[i]];
+        const tex = grainy ? grainTextures?.[char] : undefined;
         return (
           <span
             // Keyed on the variant, not just position, so a swap remounts a
@@ -224,6 +316,7 @@ export function PersevereAnimation({
             // from the previous (sometimes taller) variant lingers as visible
             // artefacts above the new glyph.
             key={`${i}-${char}`}
+            aria-hidden="true"
             className={`inline-block text-center font-[TGMotionSicknessSubset] will-change-transform ${sizeClassName} ${textClassName}`}
             style={{
               animationName: "persevere-tremble",
@@ -234,6 +327,20 @@ export function PersevereAnimation({
               width: width !== undefined ? `${width}px` : undefined,
               paddingTop: `${topPadEm}em`,
               paddingBottom: `${bottomPadEm}em`,
+              // Pre-rendered texture (see buildGrainTexture): a plain
+              // background-image with the grain baked into its alpha, no
+              // background-clip: text mask needed at runtime. Falls back to
+              // the flat textClassName colour until the texture for this
+              // variant is ready.
+              ...(tex
+                ? {
+                    backgroundImage: `url(${tex.url})`,
+                    backgroundSize: `${tex.width}px ${tex.height}px`,
+                    backgroundPosition: "50% 50%",
+                    backgroundRepeat: "no-repeat",
+                    color: "transparent",
+                  }
+                : undefined),
             }}
           >
             {char}
