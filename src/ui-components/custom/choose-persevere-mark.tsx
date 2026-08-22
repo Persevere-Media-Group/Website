@@ -35,7 +35,7 @@ export function ChoosePersevereMark({ className }: ChoosePersevereMarkProps) {
     <p
       ref={markRef}
       className={cn(
-        "font-accent text-[clamp(2.75rem,16vw,6.5rem)] leading-none tracking-wide whitespace-nowrap text-(--color-oxblood)",
+        "w-fit mx-auto font-accent text-[clamp(2.75rem,16vw,6.5rem)] leading-none tracking-wide whitespace-nowrap text-(--color-oxblood)",
         className
       )}
       style={{ transform: `scale(${markScale})`, transformOrigin: "center" }}

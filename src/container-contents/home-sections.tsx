@@ -534,12 +534,10 @@ export function WhyChooseSection({ onBookCall }: { onBookCall: () => void }) {
         <p className="mx-auto mt-4 max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-ivory)/85">
           We're a straight-talking team who'll tell you what you need to hear, not what you want to
           hear. Your wins are our wins. We want to scale with you, keep improving with you, and
-          never settle for "good enough."
-          <br />
-          Ready to come aboard?
+          never settle for "good enough." Ready to come aboard?
         </p>
 
-        <YellowPulsatingButton onClick={onBookCall} className="mt-12">
+        <YellowPulsatingButton onClick={onBookCall} className="mx-auto mt-12">
           Book a call
         </YellowPulsatingButton>
       </AnimatedContent>
