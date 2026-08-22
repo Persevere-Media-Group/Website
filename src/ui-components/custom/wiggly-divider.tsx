@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 
 // a thin decorative pen-stroke break between two ivory sections. deliberately NOT
@@ -27,7 +27,6 @@ const DIVIDER_PATH_REVERSED =
 export function SectionDivider({ reverse = false }: { reverse?: boolean }) {
   const svgRef = useRef<SVGSVGElement>(null);
   const isInView = useInView(svgRef, { once: true, margin: "-10%" });
-  const [hasDrawn, setHasDrawn] = useState(false);
 
   return (
     <div className="relative w-screen ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] flex items-center justify-center bg-(--color-ivory) py-4">
@@ -39,7 +38,7 @@ export function SectionDivider({ reverse = false }: { reverse?: boolean }) {
           className="block h-full"
           style={{
             width: "200%",
-            animation: hasDrawn
+            animation: isInView
               ? `section-wave-roll 16s linear infinite${reverse ? " reverse" : ""}`
               : undefined,
           }}
@@ -54,7 +53,6 @@ export function SectionDivider({ reverse = false }: { reverse?: boolean }) {
             initial={{ pathLength: 0 }}
             animate={isInView ? { pathLength: 1 } : {}}
             transition={{ duration: 1.1, ease: "easeInOut" }}
-            onAnimationComplete={() => setHasDrawn(true)}
           />
         </svg>
       </div>
