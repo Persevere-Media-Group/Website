@@ -1,9 +1,6 @@
-import { useState, type ReactNode } from "react";
-import { PopupModal } from "react-calendly";
-import { PageSection } from "@/ui-components/custom/common-page-elements";
+import type { ReactNode } from "react";
+import { PageSection, PageBookCall } from "@/ui-components/custom/common-page-elements";
 import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
-import { CALENDLY_URL } from "@/container-contents/services-shared";
-import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
 import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
 import {
   Hero,
@@ -62,8 +59,6 @@ export interface ServicePageData {
 // ---------------------------------------------------------------------------
 
 export function ServicePersonPage({ name }: { name: ServicePersonName }) {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-
   return (
     <PageSection>
       <Hero name={name} />
@@ -96,18 +91,9 @@ export function ServicePersonPage({ name }: { name: ServicePersonName }) {
         <div className="mt-16 flex w-full items-center justify-center">
           <ChoosePersevereMark />
         </div>
-
-        <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)} className="mt-12">
-          Book a call
-        </YellowPulsatingButton>
       </div>
 
-      <PopupModal
-        url={CALENDLY_URL}
-        onModalClose={() => setIsCalendlyOpen(false)}
-        open={isCalendlyOpen}
-        rootElement={document.getElementById("root")!}
-      />
+      <PageBookCall />
     </PageSection>
   );
 }

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { PageHero, PageSection } from "@/ui-components/custom/common-page-elements";
+import { PageHero, PageSection, PageBookCall } from "@/ui-components/custom/common-page-elements";
 import { NotFound } from "@/containers/NotFound";
 import { getPostBySlug } from "@/lib/blog";
 
@@ -31,6 +31,8 @@ export function BlogPost() {
           <ReactMarkdown>{post.body}</ReactMarkdown>
         </div>
       </div>
+
+      <PageBookCall />
     </PageSection>
   );
 }

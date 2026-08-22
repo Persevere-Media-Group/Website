@@ -105,14 +105,14 @@ export function PageBookCall() {
   return (
     <>
       <GrainWave height="10rem" waveClassName="h-10 sm:h-14 md:h-16" waveTop waveBottom={false}>
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-2 sm:gap-4">
           <SquigglyArrow
             direction="right"
             variant="bouncy"
-            width={120}
-            height={60}
+            width={70}
+            height={35}
             strokeWidth={4}
-            className="hidden text-(--color-amber-gold) sm:block animate-[arrow-bounce-toward-right_1.2s_ease-in-out_infinite]"
+            className="text-(--color-amber-gold) animate-[arrow-bounce-toward-right_1.2s_ease-in-out_infinite] sm:h-15 sm:w-30"
           />
           <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
             Book a Call
@@ -120,10 +120,10 @@ export function PageBookCall() {
           <SquigglyArrow
             direction="left"
             variant="bouncy"
-            width={120}
-            height={60}
+            width={70}
+            height={35}
             strokeWidth={4}
-            className="hidden text-(--color-amber-gold) sm:block animate-[arrow-bounce-toward-left_1.2s_ease-in-out_infinite]"
+            className="text-(--color-amber-gold) animate-[arrow-bounce-toward-left_1.2s_ease-in-out_infinite] sm:h-15 sm:w-30"
           />
         </div>
         <p className="mt-3 font-subtitle text-sm text-(--color-oxblood)/50">

@@ -1,4 +1,9 @@
-import { PageHero, PageSection, Placeholder } from "@/ui-components/custom/common-page-elements";
+import {
+  PageHero,
+  PageSection,
+  Placeholder,
+  PageBookCall,
+} from "@/ui-components/custom/common-page-elements";
 
 export function Services() {
   return (
@@ -6,6 +11,8 @@ export function Services() {
       <PageHero size="md">Our Services</PageHero>
 
       <Placeholder />
+
+      <PageBookCall />
     </PageSection>
   );
 }

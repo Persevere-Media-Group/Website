@@ -1,4 +1,4 @@
-import { PageHero } from "@/ui-components/custom/common-page-elements";
+import { PageHero, PageBookCall } from "@/ui-components/custom/common-page-elements";
 import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
 import {
   ContactIntroSection,
@@ -22,6 +22,8 @@ export function Contact() {
       <SectionDivider reverse />
 
       <ContactFaqSection />
+
+      <PageBookCall />
     </section>
   );
 }
