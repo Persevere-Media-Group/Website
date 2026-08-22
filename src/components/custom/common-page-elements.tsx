@@ -53,7 +53,9 @@ export function PageHero({ children, size = "lg", grainy = false }: PageHeroProp
         {grainy ? (
           <GrainHeading text={String(children)} className={HERO_TEXT_SIZE[size]} />
         ) : (
-          <span className={`font-heading tracking-wide text-(--color-ivory) ${HERO_TEXT_SIZE[size]}`}>
+          <span
+            className={`font-heading tracking-wide text-(--color-ivory) ${HERO_TEXT_SIZE[size]}`}
+          >
             {children}
           </span>
         )}
