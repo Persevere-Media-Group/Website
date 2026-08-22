@@ -1,21 +1,16 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { PopupModal } from "react-calendly";
 import { ChevronRight } from "lucide-react";
 import { Highlighter } from "@/ui-components/primitive/highlighter";
 import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
 import { SectionHeading } from "@/ui-components/custom/common-page-elements";
-import { GrainWave } from "@/ui-components/custom/grain-wave";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
 import SquigglyArrow from "@/ui-components/primitive/squiggly-arrow";
-import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from "@/ui-components/primitive/accordion";
-import { CALENDLY_URL } from "@/container-contents/services-shared";
 
 // ---------------------------------------------------------------------------
 // Highlight/underline config
@@ -92,7 +87,7 @@ export function RolesSection() {
           >
             <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
               <Link to={role.to} className="group/header w-fit">
-                <h3 className="font-subtitle text-[clamp(1.75rem,3.4vw,2.1rem)] font-black tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
+                <h3 className="font-heading text-[clamp(2.1rem,4vw,2.6rem)] tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
                   {role.title}
                 </h3>
               </Link>
@@ -334,31 +329,6 @@ export function ChooseSection() {
       <div className="mt-16 flex w-full items-center justify-center">
         <ChoosePersevereMark />
       </div>
-    </>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Book a call
-// ---------------------------------------------------------------------------
-
-export function BookCallSection() {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-
-  return (
-    <>
-      <GrainWave height="22rem" waveClassName="h-16 sm:h-24 md:h-28" waveTop waveBottom={false}>
-        <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)} className="mx-auto">
-          Book a Call
-        </YellowPulsatingButton>
-      </GrainWave>
-
-      <PopupModal
-        url={CALENDLY_URL}
-        onModalClose={() => setIsCalendlyOpen(false)}
-        open={isCalendlyOpen}
-        rootElement={document.getElementById("root")!}
-      />
     </>
   );
 }

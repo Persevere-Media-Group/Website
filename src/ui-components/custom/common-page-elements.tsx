@@ -3,6 +3,7 @@ import { PopupModal } from "react-calendly";
 import { GrainWave } from "@/ui-components/custom/grain-wave";
 import { GrainHeading } from "@/ui-components/primitive/grain-heading";
 import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
+import SquigglyArrow from "@/ui-components/primitive/squiggly-arrow";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
 
 // ---------------------------------------------------------------------------
@@ -104,9 +105,30 @@ export function PageBookCall() {
   return (
     <>
       <GrainWave height="10rem" waveClassName="h-10 sm:h-14 md:h-16" waveTop waveBottom={false}>
-        <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)} className="mx-auto">
-          Book a Call
-        </YellowPulsatingButton>
+        <div className="flex items-center justify-center gap-4">
+          <SquigglyArrow
+            direction="right"
+            variant="bouncy"
+            width={120}
+            height={60}
+            strokeWidth={4}
+            className="hidden text-(--color-amber-gold) sm:block animate-[arrow-bounce-toward-right_1.2s_ease-in-out_infinite]"
+          />
+          <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
+            Book a Call
+          </YellowPulsatingButton>
+          <SquigglyArrow
+            direction="left"
+            variant="bouncy"
+            width={120}
+            height={60}
+            strokeWidth={4}
+            className="hidden text-(--color-amber-gold) sm:block animate-[arrow-bounce-toward-left_1.2s_ease-in-out_infinite]"
+          />
+        </div>
+        <p className="mt-3 font-subtitle text-sm text-(--color-oxblood)/50">
+          you know you want to...
+        </p>
       </GrainWave>
 
       <PopupModal

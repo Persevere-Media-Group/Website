@@ -230,6 +230,28 @@ body {
   }
 }
 
+/* nudges an inline element (e.g. a squiggly arrow) sideways and back, used to
+   point attention toward something it sits next to */
+@keyframes arrow-bounce-toward-right {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+}
+
+@keyframes arrow-bounce-toward-left {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+}
+
 .staggered-menu-header {
   justify-content: flex-end;
 }
