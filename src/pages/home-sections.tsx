@@ -321,7 +321,7 @@ export function VideoSection() {
       >
         <div className="flex w-full flex-col items-center gap-6">
           <h2 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
-            What we're all about
+            Title Placeholder
           </h2>
 
           <div className="mx-auto mt-8 mb-14 w-full max-w-3xl">

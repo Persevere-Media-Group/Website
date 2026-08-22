@@ -4,7 +4,6 @@ import {
   HeroSection,
   FactsSection,
   StatsCountSection,
-  VideoSection,
   TestimonialsSection,
   OurServicesSection,
   ClosingCtaSection,
@@ -20,8 +19,6 @@ export function Home() {
       <SectionDivider />
       <StatsCountSection />
       <SectionDivider reverse />
-      <VideoSection />
-      <SectionDivider />
       <TestimonialsSection />
       <SectionSpacer size="md" />
       <OurServicesSection />
