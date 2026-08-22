@@ -53,18 +53,16 @@ const HIGHLIGHT_COLOR = "rgba(237, 176, 62, 0.3)";
 // commits to the rest of the sentence
 const ROLES = [
   {
-    title: "Content & Organic",
-    lead: "Led by Calum",
-    hook: "The stuff that makes people follow you, trust you, and remember you.",
-    detail: "Video, organic social and performance creative built around your brand.",
+    title: "Creative",
+    detail:
+      "The stuff that makes people follow you, trust you, and remember you. Video, organic social and performance creative built around your brand.",
     to: "/services/calum",
     linkLabel: "Learn more",
   },
   {
-    title: "Paid & Performance",
-    lead: "Led by Keir",
-    hook: "The stuff that makes people click, convert, and buy.",
-    detail: "Paid ads, designed intentionally to drive results and scale your business.",
+    title: "Ads",
+    detail:
+      "The stuff that makes people click, convert, and buy. Paid ads, designed intentionally to drive results and scale your business.",
     to: "/services/keir",
     linkLabel: "Learn more",
   },
@@ -79,7 +77,7 @@ export function RolesSection() {
 
       {/* the two halves side by side on desktop, stacked on mobile - same card
         treatment as the Our Services section on the homepage */}
-      <div className="mx-auto mt-14 grid w-full max-w-4xl gap-8 text-left sm:grid-cols-2">
+      <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">
         {ROLES.map((role, i) => (
           <AnimatedContent
             key={role.title}
@@ -93,29 +91,23 @@ export function RolesSection() {
           >
             <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
               <Link to={role.to} className="group/header w-fit">
-                <p className="font-subtitle text-sm font-semibold uppercase tracking-[0.15em] text-(--color-terracotta)">
-                  {role.lead}
-                </p>
-                <h3 className="font-subtitle text-[clamp(1.25rem,2.4vw,1.6rem)] font-black tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
+                <h3 className="font-subtitle text-[clamp(1.75rem,3.4vw,2.1rem)] font-black tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
                   {role.title}
                 </h3>
               </Link>
-              <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed font-semibold text-(--color-oxblood)">
-                {role.hook}
-              </p>
               <p className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80">
                 {role.detail}
               </p>
               <Link
                 to={role.to}
-                className="group mt-auto inline-flex w-fit items-center gap-1 text-[clamp(0.95rem,1.5vw,1.05rem)] font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
+                className="group mt-auto inline-flex w-fit items-center gap-1 text-[clamp(1.25rem,2.2vw,1.5rem)] font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
               >
                 <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
                   {role.linkLabel}
                 </span>
                 <SquigglyArrow
-                  width={120}
-                  height={60}
+                  width={165}
+                  height={82}
                   strokeWidth={4}
                   variant="bouncy"
                   className="text-current"
@@ -181,7 +173,7 @@ export function OriginStorySection() {
             <AccordionTrigger className="w-full py-0.5 text-left">
               <div className="flex items-center">
                 <ChevronRight className="h-5 w-5 shrink-0 text-(--color-terracotta) transition-transform duration-200 group-data-expanded:rotate-90" />
-                <span className="ml-3 text-[clamp(1rem,1.6vw,1.1rem)] font-bold text-(--color-oxblood)">
+                <span className="ml-3 text-[clamp(1.2rem,1.6vw,1.1rem)] tracking-wide font-subtitle font-bold text-(--color-oxblood)">
                   Want a quick history lesson?
                 </span>
               </div>
