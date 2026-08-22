@@ -64,7 +64,16 @@ export function HeroSection() {
   }, []);
 
   return (
-    <div className="relative flex min-h-[58vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-10 pb-8 text-center sm:min-h-[60vh] sm:pt-14 sm:pb-10 md:pb-12">
+    <ClickSpark
+      sparkColor="--color-ivory"
+      sparkSize={10}
+      sparkRadius={15}
+      sparkCount={8}
+      duration={400}
+      easing="ease-out"
+      extraScale={1}
+      className="relative flex min-h-[58vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-10 pb-8 text-center sm:min-h-[60vh] sm:pt-14 sm:pb-10 md:pb-12"
+    >
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
         speed={7}
@@ -74,16 +83,7 @@ export function HeroSection() {
         className="absolute inset-0"
       />
 
-      <ClickSpark
-        sparkColor="--color-ivory"
-        sparkSize={10}
-        sparkRadius={15}
-        sparkCount={8}
-        duration={400}
-        easing="ease-out"
-        extraScale={1}
-        className="relative z-10 flex w-full flex-1 flex-col items-center justify-center gap-8 px-4 pt-12 pb-10 text-center sm:gap-8 sm:pt-16 sm:pb-14 md:pb-16"
-      >
+      <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center gap-8 px-4 pt-12 pb-10 text-center sm:gap-8 sm:pt-16 sm:pb-14 md:pb-16">
         <div className="flex w-full flex-col items-center gap-2">
           <p className="font-subtitle text-[clamp(1.3rem,4vw,2rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase">
             Choose
@@ -123,7 +123,7 @@ export function HeroSection() {
         >
           Book a Call
         </YellowPulsatingButton>
-      </ClickSpark>
+      </div>
 
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />
 
@@ -133,7 +133,7 @@ export function HeroSection() {
         open={isCalendlyOpen}
         rootElement={document.getElementById("root")!}
       />
-    </div>
+    </ClickSpark>
   );
 }
 

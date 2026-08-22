@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useRef, type ReactNode, type MouseEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  type CSSProperties,
+  type ReactNode,
+  type MouseEvent,
+} from "react";
 
 interface Spark {
   x: number;
@@ -16,6 +23,7 @@ interface ClickSparkProps {
   easing?: "linear" | "ease-in" | "ease-out" | "ease-in-out";
   extraScale?: number;
   className?: string;
+  style?: CSSProperties;
   children?: ReactNode;
 }
 
@@ -38,6 +46,7 @@ export function ClickSpark({
   easing = "ease-out",
   extraScale = 1,
   className,
+  style,
   children,
 }: ClickSparkProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -139,8 +148,10 @@ export function ClickSpark({
   };
 
   return (
-    <div className={className} onClick={handleClick}>
-      <canvas ref={canvasRef} className="pointer-events-none absolute inset-0" />
+    <div className={className} style={style} onClick={handleClick}>
+      {/* z-10 so the spark strokes paint above any background layer (e.g. Grainient)
+          also placed inside this wrapper without an explicit z-index of its own */}
+      <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-10" />
       {children}
     </div>
   );

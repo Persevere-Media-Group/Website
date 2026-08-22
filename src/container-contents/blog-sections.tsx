@@ -12,11 +12,7 @@ export function BlogListSection() {
   return (
     <div className="flex w-full max-w-3xl flex-col gap-10 px-4 pt-16 pb-24 sm:pt-20">
       {posts.map((post) => (
-        <Link
-          key={post.slug}
-          to={`/blog/${post.slug}`}
-          className="flex flex-col gap-2 text-left"
-        >
+        <Link key={post.slug} to={`/blog/${post.slug}`} className="flex flex-col gap-2 text-left">
           <h2 className="font-subtitle text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-wide text-(--color-oxblood)">
             {post.title}
           </h2>

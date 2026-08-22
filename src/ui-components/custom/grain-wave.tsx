@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Grainient } from "@/ui-components/primitive/grainient";
 import { SectionWave } from "@/ui-components/primitive/section-wave";
+import { ClickSpark } from "@/ui-components/primitive/click-spark";
 
 interface GrainWaveProps {
   /**
@@ -56,7 +57,14 @@ export function GrainWave({
   className,
 }: GrainWaveProps) {
   return (
-    <div
+    <ClickSpark
+      sparkColor="--color-ivory"
+      sparkSize={10}
+      sparkRadius={15}
+      sparkCount={8}
+      duration={400}
+      easing="ease-out"
+      extraScale={1}
       className={`relative flex w-full flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) ${className ?? ""}`}
       style={{ minHeight: height }}
     >
@@ -94,6 +102,6 @@ export function GrainWave({
       {/* solid curve capping the bottom, sits above the animated layers so it reads as
           a clean edge rather than picking up the grain underneath it */}
       {waveBottom && <SectionWave fillColor={fillColor} className={`z-20 ${waveClassName}`} />}
-    </div>
+    </ClickSpark>
   );
 }
