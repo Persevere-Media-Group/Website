@@ -45,7 +45,12 @@ export function ChoosePersevereMark({ className }: ChoosePersevereMarkProps) {
           has its corners poke outside a symmetric ellipse - extra horizontal
           padding relative to vertical is what actually keeps the far-left/right
           characters ("C", the trailing ".") safely inside the curve */}
-      <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={[20, 64, 20, 64]}>
+      <Highlighter
+        action="circle"
+        color={UNDERLINE_COLOR}
+        {...MARK_PROPS}
+        padding={[20, 64, 20, 64]}
+      >
         Choose Persevere.
       </Highlighter>
     </p>
