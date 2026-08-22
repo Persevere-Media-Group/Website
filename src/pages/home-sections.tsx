@@ -36,7 +36,20 @@ export function HeroSection() {
   useEffect(() => {
     const el = wordRef.current;
     if (!el) return;
-    const measure = () => setWordNaturalHeight(el.offsetHeight);
+    // PersevereAnimation's letters swap glyph variants forever (every ~900ms,
+    // by design), which shifts this element's natural height by a sub-pixel
+    // amount on every swap - just from different hand-drawn ink, nothing
+    // layout-relevant. Without the threshold below, every single swap would
+    // update this state, which resizes the wrapper below (its height is
+    // derived from this value), which the ResizeObserver here is itself
+    // watching - a self-triggering loop that never settles. A couple of
+    // pixels of slop is invisible for what this value is used for (undoing
+    // the scaled word's flex-gap reservation), so it's a safe place to
+    // ignore noise that isn't a real size change.
+    const measure = () => {
+      const next = el.offsetHeight;
+      setWordNaturalHeight((prev) => (Math.abs(next - prev) < 2 ? prev : next));
+    };
     measure();
     document.fonts.ready.then(measure);
     const settleTimeout1 = setTimeout(measure, 150);

@@ -48,7 +48,7 @@ function buildWordGrainTexture(width: number, height: number): string {
 
 const WORD = "persevere";
 
-type Tremble = { rot: number; dx: number; dy: number };
+type TrembleTiming = { durationS: number; delayS: number };
 
 // Base glyph -> its available alternate codepoints (PUA, from the subset
 // font). The plain letter is the base style, alt1-4 map to the private-use-
@@ -61,8 +61,15 @@ const VARIANT_MAP: Record<string, string[]> = {
   v: ["v", "\uE010", "\uE011", "\uE012", "\uE013"],
 };
 
-const TREMBLE_INTERVAL_MS = 90;
 const UPDATE_INTERVAL_MS = 900;
+
+// Randomized once per letter (not re-rolled on every tick, unlike the old
+// JS-driven version), so each letter trembles on its own phase via the CSS
+// `persevere-tremble` keyframe animation instead of a JS setInterval.
+function randomTrembleTiming(): TrembleTiming {
+  const durationS = 1.6 + Math.random() * 0.8; // 1.6s .. 2.4s
+  return { durationS, delayS: -Math.random() * durationS };
+}
 
 // Font size (px) used when measuring glyph ink extents via canvas, chosen
 // large for precision; the resulting overshoot is expressed as a ratio of
@@ -139,9 +146,7 @@ export function PersevereAnimation({
   } | null>(null);
   const [initial] = useState(buildInitialAssignment);
   const [glyphs, setGlyphs] = useState(initial);
-  const [trembles, setTrembles] = useState<Tremble[]>(() =>
-    WORD.split("").map(() => ({ rot: 0, dx: 0, dy: 0 }))
-  );
+  const [trembleTimings] = useState<TrembleTiming[]>(() => WORD.split("").map(randomTrembleTiming));
   const currentRef = useRef(initial);
   const measureRefs = useRef<Record<string, (HTMLSpanElement | null)[]>>({});
   const [maxWidths, setMaxWidths] = useState<Record<string, number> | null>(null);
@@ -237,20 +242,6 @@ export function PersevereAnimation({
     };
   }, [sizeClassName, grainy]);
 
-  // Continuous trembling, every letter, every tick, independent of variant swaps.
-  useEffect(() => {
-    const id = setInterval(() => {
-      setTrembles(
-        WORD.split("").map(() => ({
-          rot: (Math.random() - 0.5) * 1, // -0.5deg .. 0.5deg
-          dx: (Math.random() - 0.5) * 0.8, // -0.4px .. 0.4px
-          dy: (Math.random() - 0.5) * 0.8,
-        }))
-      );
-    }, TREMBLE_INTERVAL_MS);
-    return () => clearInterval(id);
-  }, []);
-
   // Slow, single-letter variant swapping, forever, one letter per tick.
   useEffect(() => {
     const id = setInterval(() => {
@@ -294,7 +285,7 @@ export function PersevereAnimation({
       </div>
 
       {glyphs.map((char, i) => {
-        const t = trembles[i] ?? { rot: 0, dx: 0, dy: 0 };
+        const timing = trembleTimings[i];
         const width = maxWidths?.[WORD[i]];
         return (
           <span
@@ -305,9 +296,13 @@ export function PersevereAnimation({
             // from the previous (sometimes taller) variant lingers as visible
             // artefacts above the new glyph.
             key={`${i}-${char}`}
-            className={`inline-block text-center font-[TGMotionSicknessSubset] transition-transform duration-90 ease-linear will-change-transform ${sizeClassName} ${textClassName}`}
+            className={`inline-block text-center font-[TGMotionSicknessSubset] will-change-transform ${sizeClassName} ${textClassName}`}
             style={{
-              transform: `translate(${t.dx}px, ${t.dy}px) rotate(${t.rot}deg)`,
+              animationName: "persevere-tremble",
+              animationDuration: `${timing.durationS}s`,
+              animationDelay: `${timing.delayS}s`,
+              animationTimingFunction: "ease-in-out",
+              animationIterationCount: "infinite",
               width: width !== undefined ? `${width}px` : undefined,
               paddingTop: `${topPadEm}em`,
               paddingBottom: `${bottomPadEm}em`,

@@ -32,7 +32,14 @@ export function useAutoFitScale(ref: React.RefObject<HTMLElement | null>, widthM
       const availableWidth = parent.clientWidth;
       const nextScale =
         availableWidth > 0 && naturalWidth > 0 ? Math.min(1, availableWidth / naturalWidth) : 1;
-      setScale(nextScale);
+      // Callers commonly feed this scale back into a style (e.g. a wrapper's
+      // height) that the observed parent itself picks up, which makes the
+      // ResizeObserver below fire again from that very update. Skipping
+      // sub-0.1%-different updates keeps that from becoming a permanent
+      // back-and-forth: once the scale has settled, further callback firings
+      // recompute essentially the same value and this bails out instead of
+      // scheduling another render (which would resize the parent again).
+      setScale((prev) => (Math.abs(nextScale - prev) < 0.001 ? prev : nextScale));
     };
 
     fit();

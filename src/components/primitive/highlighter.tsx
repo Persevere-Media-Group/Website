@@ -136,6 +136,20 @@ function RoughHighlighter({
 }: RoughHighlighterProps) {
   const elementRef = useRef<HTMLSpanElement>(null);
 
+  // `padding` is frequently passed as an inline array literal (e.g.
+  // `padding={[20, 64, 20, 64]}`), a fresh reference on every render of the
+  // caller. Depending on `padding` itself below would re-run this effect -
+  // tearing down and redrawing the annotation - on every single one of the
+  // caller's re-renders, not just when the padding actually changes. Circle
+  // annotations draw outside the text's own box, so redrawing measurably
+  // changes this element's rendered size; if a caller also feeds that size
+  // into layout (as ClosingCta's markScale does via useAutoFitScale), the
+  // resulting resize triggers another of the caller's re-renders, which
+  // creates another new padding array, forever. Depending on this
+  // stringified form instead only changes when the padding's actual values
+  // do.
+  const paddingKey = JSON.stringify(padding);
+
   const isInView = useInView(elementRef, {
     once: true,
     margin: "-10%",
@@ -148,7 +162,8 @@ function RoughHighlighter({
     if (!shouldShow || !element) return;
 
     let annotation: RoughAnnotation | null = null;
-    let resizeObserver: ResizeObserver | null = null;
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+    let removeResizeListener: (() => void) | undefined;
 
     const showTimer = setTimeout(() => {
       const currentAnnotation = annotate(element, {
@@ -163,20 +178,37 @@ function RoughHighlighter({
       annotation = currentAnnotation;
       currentAnnotation.show();
 
-      resizeObserver = new ResizeObserver(() => {
-        currentAnnotation.hide();
-        currentAnnotation.show();
-      });
-
-      resizeObserver.observe(element);
-      resizeObserver.observe(document.body);
+      // Redraw on a genuine viewport resize (the text may have reflowed), not
+      // via a ResizeObserver on the element/document.body like this used to:
+      // hide()/show() draws an SVG into the page, which a ResizeObserver
+      // watching that same element (or body, which every Highlighter on the
+      // page was also watching) sees as "it resized" and fires again - hiding
+      // and showing forever, non-stop, for as long as the annotation stays
+      // mounted, and with every Highlighter on the page doing the same thing
+      // to the same document.body observation, cross-triggering each other.
+      // A debounced window resize listener only fires on an actual viewport
+      // change, so it can never trigger itself this way.
+      const onResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          currentAnnotation.hide();
+          currentAnnotation.show();
+        }, 150);
+      };
+      window.addEventListener("resize", onResize);
+      removeResizeListener = () => window.removeEventListener("resize", onResize);
     }, animationDelay);
 
     return () => {
       clearTimeout(showTimer);
+      clearTimeout(resizeTimer);
+      removeResizeListener?.();
       annotation?.remove();
-      resizeObserver?.disconnect();
     };
+    // paddingKey (padding's stringified value) is used instead of padding
+    // itself - depending on padding directly is exactly the reference-
+    // identity churn this is avoiding (see paddingKey above).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     shouldShow,
     action,
@@ -184,7 +216,7 @@ function RoughHighlighter({
     strokeWidth,
     animationDuration,
     iterations,
-    padding,
+    paddingKey,
     multiline,
     animationDelay,
   ]);
