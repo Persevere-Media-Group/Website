@@ -24,8 +24,9 @@ export function About() {
         </div>
 
         <ChooseSection />
-        <BookCallSection />
       </div>
+
+      <BookCallSection />
     </PageSection>
   );
 }

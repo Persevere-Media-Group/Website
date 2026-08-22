@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 import { Highlighter } from "@/ui-components/primitive/highlighter";
 import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
 import { SectionHeading } from "@/ui-components/custom/common-page-elements";
+import { GrainWave } from "@/ui-components/custom/grain-wave";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
 import SquigglyArrow from "@/ui-components/primitive/squiggly-arrow";
 import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
@@ -345,16 +346,19 @@ export function BookCallSection() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   return (
-    <div className="mt-20">
-      <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
-        Book a Call
-      </YellowPulsatingButton>
+    <>
+      <GrainWave height="22rem" waveClassName="h-16 sm:h-24 md:h-28" waveTop waveBottom={false}>
+        <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)} className="mx-auto">
+          Book a Call
+        </YellowPulsatingButton>
+      </GrainWave>
+
       <PopupModal
         url={CALENDLY_URL}
         onModalClose={() => setIsCalendlyOpen(false)}
         open={isCalendlyOpen}
         rootElement={document.getElementById("root")!}
       />
-    </div>
+    </>
   );
 }
