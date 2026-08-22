@@ -88,6 +88,7 @@ export function HeroSection() {
                 showBackground={false}
                 textClassName="text-(--color-ivory)"
                 sizeClassName="text-[clamp(64px,13vw,180px)]"
+                grainy
               />
             </div>
           </div>
