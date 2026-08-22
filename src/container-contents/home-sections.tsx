@@ -122,7 +122,7 @@ export function HeroSection() {
 
         <YellowPulsatingButton
           onClick={() => setIsCalendlyOpen(true)}
-          className="px-6 py-3 text-sm sm:px-7 sm:py-3.5 sm:text-base"
+          className="px-6 py-3 text-base sm:px-7 sm:py-3.5 sm:text-lg"
         >
           Book a Call
         </YellowPulsatingButton>
