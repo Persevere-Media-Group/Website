@@ -1,6 +1,9 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { PopupModal } from "react-calendly";
 import { GrainWave } from "@/ui-components/custom/grain-wave";
 import { GrainHeading } from "@/ui-components/primitive/grain-heading";
+import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
+import { CALENDLY_URL } from "@/container-contents/services-shared";
 
 // ---------------------------------------------------------------------------
 // Shared building blocks reused across every non-home page (About, Contact,
@@ -88,6 +91,31 @@ export function SectionHeading({ children, size = "md", className = "" }: Sectio
     >
       {children}
     </h2>
+  );
+}
+
+// The closing "Book a Call" band, dropped at the end of every non-home page.
+// A thin GrainWave (only cutting up from the ivory above it, no bottom wave)
+// so it sits flush against the oxblood footer, full width, with just the one
+// button centered inside - it's a closing nudge, not another content section.
+export function PageBookCall() {
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+
+  return (
+    <>
+      <GrainWave height="10rem" waveClassName="h-10 sm:h-14 md:h-16" waveTop waveBottom={false}>
+        <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)} className="mx-auto">
+          Book a Call
+        </YellowPulsatingButton>
+      </GrainWave>
+
+      <PopupModal
+        url={CALENDLY_URL}
+        onModalClose={() => setIsCalendlyOpen(false)}
+        open={isCalendlyOpen}
+        rootElement={document.getElementById("root")!}
+      />
+    </>
   );
 }
 

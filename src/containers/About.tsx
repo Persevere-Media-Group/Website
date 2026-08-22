@@ -1,10 +1,9 @@
-import { PageHero, PageSection } from "@/ui-components/custom/common-page-elements";
+import { PageHero, PageSection, PageBookCall } from "@/ui-components/custom/common-page-elements";
 import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
 import {
   RolesSection,
   OriginStorySection,
   ChooseSection,
-  BookCallSection,
 } from "@/container-contents/about-sections";
 
 export function About() {
@@ -26,7 +25,7 @@ export function About() {
         <ChooseSection />
       </div>
 
-      <BookCallSection />
+      <PageBookCall />
     </PageSection>
   );
 }
