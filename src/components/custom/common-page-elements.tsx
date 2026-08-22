@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { GrainWave } from "@/components/custom/grain-wave";
-import { GrainText } from "@/components/primitive/grain-text";
+import { GrainHeading } from "@/components/primitive/grain-heading";
 
 // ---------------------------------------------------------------------------
 // Shared building blocks reused across every non-home page (About, Contact,
@@ -38,7 +38,8 @@ interface PageHeroProps {
   children: ReactNode;
   size?: PageHeroSize;
   /** use the grainy TG Motion Sickness treatment (About/Contact/Blog) instead of
-   * the plain TG Pomelo heading font used by the rest of these pages */
+   * the plain TG Pomelo heading font used by the rest of these pages. Requires
+   * `children` to be plain text (it's drawn letter-by-letter onto a canvas). */
   grainy?: boolean;
 }
 
@@ -47,10 +48,14 @@ interface PageHeroProps {
 export function PageHero({ children, size = "lg", grainy = false }: PageHeroProps) {
   return (
     <GrainWave height="24rem">
-      <h1
-        className={`mt-3 ${grainy ? "font-fun tracking-[0.08em]" : "font-heading tracking-wide"} ${HERO_TEXT_SIZE[size]}`}
-      >
-        {grainy ? <GrainText>{children}</GrainText> : <span className="text-(--color-ivory)">{children}</span>}
+      <h1 className="mt-3">
+        {grainy ? (
+          <GrainHeading text={String(children)} className={`font-fun ${HERO_TEXT_SIZE[size]}`} />
+        ) : (
+          <span className={`font-heading tracking-wide text-(--color-ivory) ${HERO_TEXT_SIZE[size]}`}>
+            {children}
+          </span>
+        )}
       </h1>
     </GrainWave>
   );
