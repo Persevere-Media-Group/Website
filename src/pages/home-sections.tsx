@@ -107,7 +107,13 @@ export function HeroSection() {
           </div>
         </div>
 
-        <p className="text-center text-[clamp(1.25rem,5vw,1.6rem)] font-subtitle font-black leading-none tracking-wide text-(--color-oxblood) sm:text-[clamp(1.4rem,4vw,1.85rem)]">
+        {/* Negative margin pulls this up into the word's reserved (but
+            normally-empty) glyph-overshoot padding below "persevere" - the
+            flex `gap` alone leaves that space looking too large. Only eats
+            part of the buffer, not all of it, so an unusually deep descender
+            variant still has room and won't get visually clipped by this
+            text. */}
+        <p className="-mt-8 text-center text-[clamp(1.25rem,5vw,1.6rem)] font-subtitle font-black leading-none tracking-wide text-(--color-oxblood) sm:-mt-9 sm:text-[clamp(1.4rem,4vw,1.85rem)]">
           Content & Ads done properly. Nae faff.
         </p>
 
