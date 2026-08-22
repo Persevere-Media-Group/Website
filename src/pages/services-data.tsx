@@ -14,7 +14,7 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
   keir: {
     hero: (
       <h1 className="mt-3 text-center">
-        <GrainHeading text="Ads" className="font-fun text-[clamp(6rem,14vw,10rem)]" />
+        <GrainHeading text="Ads" className="text-[clamp(6rem,14vw,10rem)]" />
       </h1>
     ),
 
@@ -172,7 +172,7 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
   calum: {
     hero: (
       <h1 className="mt-3 text-center">
-        <GrainHeading text="Creative" className="font-fun text-[clamp(6rem,14vw,10rem)]" />
+        <GrainHeading text="Creative" className="text-[clamp(6rem,14vw,10rem)]" />
       </h1>
     ),
 

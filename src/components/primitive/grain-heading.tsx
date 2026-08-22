@@ -4,6 +4,8 @@ import { paintGrainOverlay, resolveColor } from "@/lib/grain-canvas";
 
 interface GrainHeadingProps {
   text: string;
+  /** which TG display font to draw the glyphs from */
+  fontUrl?: string;
   /** sizing classes only (e.g. text-[clamp(...)]) - drives the rendered font-size,
    * the same way any other heading would be sized */
   className?: string;
@@ -17,13 +19,18 @@ interface GrainHeadingProps {
 }
 
 // opentype.js's own load()/loadSync() are deprecated no-ops in this version's
-// browser build, so the font is fetched and parsed directly instead.
-let fontPromise: Promise<Font> | null = null;
-function loadFont(): Promise<Font> {
-  fontPromise ??= fetch("/fonts/TG-MotionSickness.otf")
-    .then((res) => res.arrayBuffer())
-    .then((buffer) => opentype.parse(buffer));
-  return fontPromise;
+// browser build, so the font is fetched and parsed directly instead. Cached per
+// URL so switching fonts across headings doesn't re-fetch on every render.
+const fontPromises = new Map<string, Promise<Font>>();
+function loadFont(fontUrl: string): Promise<Font> {
+  let promise = fontPromises.get(fontUrl);
+  if (!promise) {
+    promise = fetch(fontUrl)
+      .then((res) => res.arrayBuffer())
+      .then((buffer) => opentype.parse(buffer));
+    fontPromises.set(fontUrl, promise);
+  }
+  return promise;
 }
 
 // Builds a name -> glyph index map once per font (font.glyphNames.nameToGlyphIndex
@@ -43,13 +50,14 @@ function getGlyphNameIndex(font: Font): Map<string, number> {
 }
 
 // For each letter in `text`, picks a glyph so that no letter shape repeats within
-// the word unless it has to: the font ships several hand-drawn alternates per
-// letter (TG-MotionSickness.otf, glyphs named e.g. "e.alt1".."e.alt4"), so the
-// first occurrence gets the base glyph and each subsequent occurrence of the same
-// letter cycles to the next-unused alternate. If a letter repeats more times than
-// it has alternates, styles start recurring, but only after every other variant
-// has been used - which is what keeps any two repeats of the same style as far
-// apart as the font's variety allows.
+// the word unless it has to: fonts that ship hand-drawn alternates per letter
+// (e.g. TG-MotionSickness.otf's "e.alt1".."e.alt4") give the first occurrence the
+// base glyph and cycle each subsequent occurrence of the same letter to the
+// next-unused alternate. If a letter repeats more times than it has alternates,
+// styles start recurring, but only after every other variant has been used -
+// which is what keeps any two repeats of the same style as far apart as the
+// font's variety allows. Fonts with no alternates (e.g. TG-Pomelo.otf) just fall
+// back to the single base glyph every time, a no-op.
 function pickGlyphIndices(text: string, font: Font): number[] {
   const nameIndex = getGlyphNameIndex(font);
   const seenCount: Record<string, number> = {};
@@ -77,7 +85,7 @@ function pickGlyphIndices(text: string, font: Font): number[] {
 }
 
 /**
- * Renders `text` in TG Motion Sickness by drawing each letter's outline onto a
+ * Renders `text` in the given TG font by drawing each letter's outline onto a
  * canvas itself (rather than leaving it to the browser's normal text layout),
  * which is what makes two things possible at once:
  *  - picking a different hand-drawn alternate glyph for each repeated letter
@@ -88,8 +96,9 @@ function pickGlyphIndices(text: string, font: Font): number[] {
  */
 export function GrainHeading({
   text,
+  fontUrl = "/fonts/TG-Pomelo.otf",
   className = "",
-  tracking = 0.08,
+  tracking = 0.025,
   lightColor = "--color-ivory",
   deepColor = "#e2d7b2",
   noiseIntensity = 5,
@@ -100,13 +109,13 @@ export function GrainHeading({
 
   useEffect(() => {
     let cancelled = false;
-    loadFont().then((loaded) => {
+    loadFont(fontUrl).then((loaded) => {
       if (!cancelled) setFont(loaded);
     });
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [fontUrl]);
 
   useEffect(() => {
     const sizer = sizerRef.current;

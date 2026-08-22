@@ -37,9 +37,10 @@ const HERO_TEXT_SIZE: Record<PageHeroSize, string> = {
 interface PageHeroProps {
   children: ReactNode;
   size?: PageHeroSize;
-  /** use the grainy TG Motion Sickness treatment (About/Contact/Blog) instead of
-   * the plain TG Pomelo heading font used by the rest of these pages. Requires
-   * `children` to be plain text (it's drawn letter-by-letter onto a canvas). */
+  /** give the title the grainy-ivory treatment (About/Contact/Blog/Case Studies)
+   * instead of a plain flat ivory fill. Both use TG Pomelo; this only toggles the
+   * texture. Requires `children` to be plain text when true (it's drawn
+   * letter-by-letter onto a canvas). */
   grainy?: boolean;
 }
 
@@ -50,7 +51,7 @@ export function PageHero({ children, size = "lg", grainy = false }: PageHeroProp
     <GrainWave height="24rem">
       <h1 className="mt-3">
         {grainy ? (
-          <GrainHeading text={String(children)} className={`font-fun ${HERO_TEXT_SIZE[size]}`} />
+          <GrainHeading text={String(children)} className={HERO_TEXT_SIZE[size]} />
         ) : (
           <span className={`font-heading tracking-wide text-(--color-ivory) ${HERO_TEXT_SIZE[size]}`}>
             {children}
