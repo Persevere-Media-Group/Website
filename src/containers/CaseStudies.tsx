@@ -1,4 +1,4 @@
-import { PageHero, PageSection, Placeholder } from "@/components/custom/common-page-elements";
+import { PageHero, PageSection, Placeholder } from "@/ui-components/custom/common-page-elements";
 
 export function CaseStudies() {
   return (

@@ -1,10 +1,10 @@
-import { PageHero } from "@/components/custom/common-page-elements";
-import { SectionDivider } from "@/components/custom/wiggly-divider";
+import { PageHero } from "@/ui-components/custom/common-page-elements";
+import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
 import {
   ContactIntroSection,
   ContactFormSection,
   ContactFaqSection,
-} from "@/pages/contact-sections";
+} from "@/container-contents/contact-sections";
 
 export function Contact() {
   // NOTE: the <section> deliberately has no padding of its own. Any padding here would

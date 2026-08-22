@@ -15,7 +15,7 @@ GitHub Pages site (this repo's root). It exists solely to run
 5. Deploy. Note the resulting `*.vercel.app` URL (or a custom domain if you
    add one).
 6. Back in the main site, update `CONTACT_API_URL` in
-   [`src/pages/Contact.tsx`](../src/pages/Contact.tsx) to that URL, then
+   [`src/containers/Contact.tsx`](../src/containers/Contact.tsx) to that URL, then
    redeploy the main site.
 
 `ALLOWED_ORIGINS` in `api/send-email.ts` must include whatever origin the

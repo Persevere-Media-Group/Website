@@ -2,7 +2,7 @@ import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/primitive/button-variants";
+import { buttonVariants } from "@/ui-components/primitive/button-variants";
 
 function Button({
   className,

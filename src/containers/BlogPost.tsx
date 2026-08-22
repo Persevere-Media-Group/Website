@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { PageHero, PageSection } from "@/components/custom/common-page-elements";
-import { NotFound } from "@/pages/NotFound";
+import { PageHero, PageSection } from "@/ui-components/custom/common-page-elements";
+import { NotFound } from "@/containers/NotFound";
 import { getPostBySlug } from "@/lib/blog";
 
 export function BlogPost() {

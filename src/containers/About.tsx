@@ -1,11 +1,11 @@
-import { PageHero, PageSection } from "@/components/custom/common-page-elements";
-import { SectionDivider } from "@/components/custom/wiggly-divider";
+import { PageHero, PageSection } from "@/ui-components/custom/common-page-elements";
+import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
 import {
   RolesSection,
   OriginStorySection,
   ChooseSection,
   BookCallSection,
-} from "@/pages/about-sections";
+} from "@/container-contents/about-sections";
 
 export function About() {
   return (

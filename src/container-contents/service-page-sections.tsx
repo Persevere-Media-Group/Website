@@ -1,11 +1,11 @@
-import { SectionHeading } from "@/components/custom/common-page-elements";
-import { GrainWave } from "@/components/custom/grain-wave";
-import AnimatedContent from "@/components/primitive/animated-content";
-import ScrollStack, { ScrollStackItem } from "@/components/primitive/ScrollStack";
-import { FaqAccordion } from "@/components/custom/faq";
-import { AlwaysIncluded, IntroBanner } from "@/pages/ServicesCombined";
-import { getServiceData } from "@/pages/services-data";
-import type { ServicePersonName } from "@/pages/ServicePage";
+import { SectionHeading } from "@/ui-components/custom/common-page-elements";
+import { GrainWave } from "@/ui-components/custom/grain-wave";
+import AnimatedContent from "@/ui-components/primitive/animated-content";
+import ScrollStack, { ScrollStackItem } from "@/ui-components/primitive/ScrollStack";
+import { FaqAccordion } from "@/ui-components/custom/faq";
+import { AlwaysIncluded, IntroBanner } from "@/container-contents/ServicesCombined";
+import { getServiceData } from "@/container-contents/services-data";
+import type { ServicePersonName } from "@/containers/ServicePage";
 
 type SectionProps = { name: ServicePersonName };
 

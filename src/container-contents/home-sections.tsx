@@ -2,20 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
-import { ClickSpark } from "@/components/primitive/click-spark";
-import { PersevereAnimation } from "@/components/custom/PersevereAnimation";
-import { Grainient } from "@/components/primitive/grainient";
-import { SectionWave } from "@/components/primitive/section-wave";
-import { YellowPulsatingButton } from "@/components/custom/yellow-pulsating-button";
-import SquigglyArrow from "@/components/primitive/squiggly-arrow";
-import AnimatedContent from "@/components/primitive/animated-content";
-import { Highlighter } from "@/components/primitive/highlighter";
-import { Backlight } from "@/components/primitive/backlight";
-import StatsCount from "@/components/primitive/statscount";
-import { GrainWave } from "@/components/custom/grain-wave";
-import { ClosingCta } from "@/pages/ServicesCombined";
-import { Testimonials, type Testimonial } from "@/components/primitive/testimonial";
-import { CALENDLY_URL } from "@/pages/services-shared";
+import { ClickSpark } from "@/ui-components/primitive/click-spark";
+import { PersevereAnimation } from "@/ui-components/custom/PersevereAnimation";
+import { Grainient } from "@/ui-components/primitive/grainient";
+import { SectionWave } from "@/ui-components/primitive/section-wave";
+import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
+import SquigglyArrow from "@/ui-components/primitive/squiggly-arrow";
+import AnimatedContent from "@/ui-components/primitive/animated-content";
+import { Highlighter } from "@/ui-components/primitive/highlighter";
+import { Backlight } from "@/ui-components/primitive/backlight";
+import StatsCount from "@/ui-components/primitive/statscount";
+import { GrainWave } from "@/ui-components/custom/grain-wave";
+import { ClosingCta } from "@/container-contents/ServicesCombined";
+import { Testimonials, type Testimonial } from "@/ui-components/primitive/testimonial";
+import { CALENDLY_URL } from "@/container-contents/services-shared";
 
 // ---------------------------------------------------------------------------
 // Hero

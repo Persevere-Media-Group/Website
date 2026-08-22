@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Layout } from "@/pages/Layout";
-import { Home } from "@/pages/Home";
-import { About } from "@/pages/About";
-import { Services } from "@/pages/Services";
-import { ServicePersonPage } from "@/pages/ServicePage";
-import { CaseStudies } from "@/pages/CaseStudies";
-import { Blog } from "@/pages/Blog";
-import { BlogPost } from "@/pages/BlogPost";
-import { Contact } from "@/pages/Contact";
-import { PrivacyPolicy } from "@/pages/PrivacyPolicy";
-import { NotFound } from "@/pages/NotFound";
+import { Layout } from "@/containers/Layout";
+import { Home } from "@/containers/Home";
+import { About } from "@/containers/About";
+import { Services } from "@/containers/Services";
+import { ServicePersonPage } from "@/containers/ServicePage";
+import { CaseStudies } from "@/containers/CaseStudies";
+import { Blog } from "@/containers/Blog";
+import { BlogPost } from "@/containers/BlogPost";
+import { Contact } from "@/containers/Contact";
+import { PrivacyPolicy } from "@/containers/PrivacyPolicy";
+import { NotFound } from "@/containers/NotFound";
 
 export const router = createBrowserRouter([
   {

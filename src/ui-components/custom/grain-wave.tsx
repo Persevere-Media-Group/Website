@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { Grainient } from "@/components/primitive/grainient";
-import { SectionWave } from "@/components/primitive/section-wave";
+import { Grainient } from "@/ui-components/primitive/grainient";
+import { SectionWave } from "@/ui-components/primitive/section-wave";
 
 interface GrainWaveProps {
   /**

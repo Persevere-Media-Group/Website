@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { MadeByBadge } from "./madeby-badge";
-import { SparkleHover } from "@/components/custom/sparkle";
+import { SparkleHover } from "@/ui-components/custom/sparkle";
 
 export function Footer() {
   return (

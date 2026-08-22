@@ -2,8 +2,8 @@ import {
   StaggeredMenu,
   type StaggeredMenuItem,
   type StaggeredMenuSocialItem,
-} from "@/components/custom/staggered-menu";
-import { HomeButton } from "@/components/custom/home-button";
+} from "@/ui-components/custom/staggered-menu";
+import { HomeButton } from "@/ui-components/custom/home-button";
 import { useHeaderContrast } from "@/hooks/use-header-contrast";
 
 const MENU_ITEMS: StaggeredMenuItem[] = [

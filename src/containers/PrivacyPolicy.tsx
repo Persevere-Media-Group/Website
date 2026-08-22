@@ -1,4 +1,4 @@
-import { PageHero, PageSection, SectionHeading } from "@/components/custom/common-page-elements";
+import { PageHero, PageSection, SectionHeading } from "@/ui-components/custom/common-page-elements";
 
 export function PrivacyPolicy() {
   return (

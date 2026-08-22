@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
 import { ArrowLeft, ArrowRight, HelpCircle, Phone, TriangleAlert, Users, X } from "lucide-react";
-import SpecularButton from "@/components/primitive/specular-button";
-import { Highlighter } from "@/components/primitive/highlighter";
-import AnimatedContent from "@/components/primitive/animated-content";
-import { Instagram, Linkedin } from "@/components/primitive/svgs";
-import { FaqSection, type Faq } from "@/components/custom/faq";
+import SpecularButton from "@/ui-components/primitive/specular-button";
+import { Highlighter } from "@/ui-components/primitive/highlighter";
+import AnimatedContent from "@/ui-components/primitive/animated-content";
+import { Instagram, Linkedin } from "@/ui-components/primitive/svgs";
+import { FaqSection, type Faq } from "@/ui-components/custom/faq";
 import { containsProfanity } from "@/lib/profanity";
 import {
   Stepper,
@@ -16,7 +16,7 @@ import {
   StepperPanel,
   StepperSeparator,
   StepperTrigger,
-} from "@/components/primitive/stepper";
+} from "@/ui-components/primitive/stepper";
 import confetti from "canvas-confetti";
 
 // ---------------------------------------------------------------------------

@@ -1,8 +1,8 @@
-import { Highlighter } from "@/components/primitive/highlighter";
-import { GrainHeading } from "@/components/primitive/grain-heading";
-import { UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/pages/services-shared";
-import { FaqLink } from "@/components/custom/faq";
-import type { ServicePageData, ServicePersonName } from "@/pages/ServicePage";
+import { Highlighter } from "@/ui-components/primitive/highlighter";
+import { GrainHeading } from "@/ui-components/primitive/grain-heading";
+import { UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/container-contents/services-shared";
+import { FaqLink } from "@/ui-components/custom/faq";
+import type { ServicePageData, ServicePersonName } from "@/containers/ServicePage";
 
 // ---------------------------------------------------------------------------
 // All copy for the two services pages, keyed by person. ServicePersonPage

@@ -1,6 +1,6 @@
 import { forwardRef, type ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
-import { PulsatingButton } from "@/components/primitive/pulsating-button";
+import { PulsatingButton } from "@/ui-components/primitive/pulsating-button";
 
 // The site's one recurring CTA button style (amber-gold, pulsing), used for the
 // "Get Started" / "Book a call" buttons on Home and the services

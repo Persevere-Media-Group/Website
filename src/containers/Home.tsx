@@ -1,5 +1,5 @@
-import { SectionDivider } from "@/components/custom/wiggly-divider";
-import { SectionSpacer } from "@/components/custom/section-spacer";
+import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
+import { SectionSpacer } from "@/ui-components/custom/section-spacer";
 import {
   HeroSection,
   FactsSection,
@@ -8,7 +8,7 @@ import {
   OurServicesSection,
   ClosingCtaSection,
   WhyChooseSection,
-} from "@/pages/home-sections";
+} from "@/container-contents/home-sections";
 
 export function Home() {
   return (

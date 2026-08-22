@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import AnimatedContent from "@/components/primitive/animated-content";
-import ThreeDCard from "@/components/primitive/3d-card";
+import AnimatedContent from "@/ui-components/primitive/animated-content";
+import ThreeDCard from "@/ui-components/primitive/3d-card";
 
 // ---------------------------------------------------------------------------
 // Generic testimonials grid. Carries no content of its own, callers supply

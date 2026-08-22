@@ -9,7 +9,7 @@ import { Resend } from "resend";
 //    onboarding@resend.dev address, which is fine for testing but looks less
 //    trustworthy to recipients and has lower deliverability limits.
 // 3. Set RECAPTCHA_SECRET_KEY in this Vercel project's environment variables. It
-//    pairs with the site key hardcoded in src/pages/Contact.tsx on the main site.
+//    pairs with the site key hardcoded in src/containers/Contact.tsx on the main site.
 const COMPANY_EMAIL = "keir@choosepersevere.com";
 const FROM_EMAIL = "onboarding@resend.dev";
 

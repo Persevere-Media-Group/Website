@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { GrainWave } from "@/components/custom/grain-wave";
-import { GrainHeading } from "@/components/primitive/grain-heading";
+import { GrainWave } from "@/ui-components/custom/grain-wave";
+import { GrainHeading } from "@/ui-components/primitive/grain-heading";
 
 // ---------------------------------------------------------------------------
 // Shared building blocks reused across every non-home page (About, Contact,

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Home } from "lucide-react";
-import SpecularButton from "@/components/primitive/specular-button";
+import SpecularButton from "@/ui-components/primitive/specular-button";
 import "./home-button.css";
 
 interface HomeButtonProps {

@@ -1,11 +1,11 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { Navbar } from "@/components/custom/navbar";
-import { ScrollProgress } from "@/components/primitive/scroll-progress";
-import { FloatingCta } from "@/components/custom/floating-cta";
-import { CookieConsentBanner } from "@/components/primitive/cookie-consent-banner";
-import { Footer } from "@/components/custom/footer";
+import { Navbar } from "@/ui-components/custom/navbar";
+import { ScrollProgress } from "@/ui-components/primitive/scroll-progress";
+import { FloatingCta } from "@/ui-components/custom/floating-cta";
+import { CookieConsentBanner } from "@/ui-components/primitive/cookie-consent-banner";
+import { Footer } from "@/ui-components/custom/footer";
 import { trackPageviewAll } from "@/lib/analytics";
 
 export function Layout() {

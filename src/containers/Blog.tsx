@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PageHero, PageSection, Placeholder } from "@/components/custom/common-page-elements";
+import { PageHero, PageSection, Placeholder } from "@/ui-components/custom/common-page-elements";
 import { getAllPosts } from "@/lib/blog";
 
 export function Blog() {

@@ -6,8 +6,8 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/primitive/accordion";
-import AnimatedContent from "@/components/primitive/animated-content";
+} from "@/ui-components/primitive/accordion";
+import AnimatedContent from "@/ui-components/primitive/animated-content";
 
 // ---------------------------------------------------------------------------
 // FAQ accordion, shared across the services pages and the Contact page.

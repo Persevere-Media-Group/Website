@@ -1,9 +1,9 @@
 import { useState, type ReactNode } from "react";
 import { PopupModal } from "react-calendly";
-import { PageSection } from "@/components/custom/common-page-elements";
-import { SectionDivider } from "@/components/custom/wiggly-divider";
-import { ClosingCta } from "@/pages/ServicesCombined";
-import { CALENDLY_URL } from "@/pages/services-shared";
+import { PageSection } from "@/ui-components/custom/common-page-elements";
+import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
+import { ClosingCta } from "@/container-contents/ServicesCombined";
+import { CALENDLY_URL } from "@/container-contents/services-shared";
 import {
   Hero,
   AboutMe,
@@ -13,7 +13,7 @@ import {
   WhatsIncluded,
   AlwaysIncludedSection,
   Faqs,
-} from "@/pages/service-page-sections";
+} from "@/container-contents/service-page-sections";
 
 // ---------------------------------------------------------------------------
 // Types shared by ServicePersonPage below (rendered for both the keir and
