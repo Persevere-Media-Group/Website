@@ -4,6 +4,8 @@ import { PageSection } from "@/ui-components/custom/common-page-elements";
 import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
 import { ClosingCta } from "@/container-contents/ServicesCombined";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
+import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
+import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
 import {
   Hero,
   AboutMe,
@@ -81,7 +83,15 @@ export function ServicePersonPage({ name }: { name: ServicePersonName }) {
         <SectionDivider reverse />
         <Faqs name={name} />
         <SectionDivider />
-        <ClosingCta onBookCall={() => setIsCalendlyOpen(true)} />
+        <ClosingCta />
+
+        <div className="mt-16 flex w-full items-center justify-center">
+          <ChoosePersevereMark />
+        </div>
+
+        <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)} className="mt-12">
+          Book a call
+        </YellowPulsatingButton>
       </div>
 
       <PopupModal

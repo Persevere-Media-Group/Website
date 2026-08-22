@@ -13,7 +13,6 @@ import { Highlighter } from "@/ui-components/primitive/highlighter";
 import { Backlight } from "@/ui-components/primitive/backlight";
 import StatsCount from "@/ui-components/primitive/statscount";
 import { GrainWave } from "@/ui-components/custom/grain-wave";
-import { ClosingCta } from "@/container-contents/ServicesCombined";
 import { Testimonials, type Testimonial } from "@/ui-components/primitive/testimonial";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
 
@@ -516,30 +515,10 @@ export function OurServicesSection() {
 }
 
 // ---------------------------------------------------------------------------
-// Closing CTA
-// ---------------------------------------------------------------------------
-
-export function ClosingCtaSection() {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-
-  return (
-    <div className="flex w-full flex-col items-center bg-(--color-ivory) px-4 py-4">
-      <ClosingCta onBookCall={() => setIsCalendlyOpen(true)} />
-      <PopupModal
-        url={CALENDLY_URL}
-        onModalClose={() => setIsCalendlyOpen(false)}
-        open={isCalendlyOpen}
-        rootElement={document.getElementById("root")!}
-      />
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
 // Why Choose Us
 // ---------------------------------------------------------------------------
 
-export function WhyChooseSection() {
+export function WhyChooseSection({ onBookCall }: { onBookCall: () => void }) {
   return (
     <GrainWave height="22rem" waveClassName="h-16 sm:h-24 md:h-28" waveTop waveBottom={false}>
       <AnimatedContent
@@ -550,14 +529,19 @@ export function WhyChooseSection() {
         threshold={0.2}
       >
         <h2 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-ivory)">
-          Why work with us?
+          We are your growth partners.
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-ivory)/85">
           We're a straight-talking team who'll tell you what you need to hear, not what you want to
-          hear. Your wins are our wins.
+          hear. Your wins are our wins. We want to scale with you, keep improving with you, and
+          never settle for "good enough."
           <br />
           Ready to come aboard?
         </p>
+
+        <YellowPulsatingButton onClick={onBookCall} className="mt-12">
+          Book a call
+        </YellowPulsatingButton>
       </AnimatedContent>
     </GrainWave>
   );

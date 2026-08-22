@@ -1,8 +1,6 @@
 import { useRef, type ReactNode } from "react";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
 import { SectionHeading } from "@/ui-components/custom/common-page-elements";
-import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
-import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
 import { CylinderTextRotate } from "@/ui-components/primitive/cylinder-text-rotate";
 import { getCylinderSizeCompensation } from "@/lib/cylinder-size-compensation";
 import { ImageGallery } from "@/ui-components/primitive/image-gallery";
@@ -46,33 +44,6 @@ export function AlwaysIncluded({ bodies }: { bodies: [ReactNode, ReactNode, Reac
           </AnimatedContent>
         ))}
       </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Closing CTA ("We're your growth partner.")
-// ---------------------------------------------------------------------------
-
-export function ClosingCta({ onBookCall }: { onBookCall: () => void }) {
-  return (
-    <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
-      <h2 className="font-subtitle text-[clamp(2.6rem,6.4vw,3.75rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
-        We are your growth partners.
-      </h2>
-      <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
-        We’re not here to ghost you after signing you on. We want to scale with you, keep improving
-        with you, and never settle for "good enough."
-      </p>
-      <br />
-      {/* same "payoff" treatment as the About page's closing beat: a big circled
-          wordmark between the copy and the CTA button */}
-      <div className="flex w-full items-center justify-center">
-        <ChoosePersevereMark />
-      </div>
-      <YellowPulsatingButton onClick={onBookCall} className="mt-12">
-        Book a call
-      </YellowPulsatingButton>
     </div>
   );
 }

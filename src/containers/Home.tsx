@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { PopupModal } from "react-calendly";
 import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
 import { SectionSpacer } from "@/ui-components/custom/section-spacer";
 import {
@@ -6,11 +8,14 @@ import {
   StatsCountSection,
   TestimonialsSection,
   OurServicesSection,
-  ClosingCtaSection,
   WhyChooseSection,
 } from "@/container-contents/home-sections";
+import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
+import { CALENDLY_URL } from "@/container-contents/services-shared";
 
 export function Home() {
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+
   return (
     <>
       <HeroSection />
@@ -23,8 +28,17 @@ export function Home() {
       <SectionSpacer size="md" />
       <OurServicesSection />
       <SectionSpacer size="md" />
-      <ClosingCtaSection />
-      <WhyChooseSection />
+      <ChoosePersevereMark />
+      <SectionSpacer size="lg" />
+
+      <WhyChooseSection onBookCall={() => setIsCalendlyOpen(true)} />
+
+      <PopupModal
+        url={CALENDLY_URL}
+        onModalClose={() => setIsCalendlyOpen(false)}
+        open={isCalendlyOpen}
+        rootElement={document.getElementById("root")!}
+      />
     </>
   );
 }
