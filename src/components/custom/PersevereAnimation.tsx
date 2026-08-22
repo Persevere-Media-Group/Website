@@ -151,6 +151,15 @@ export function PersevereAnimation({
   // flourish ever gets clipped by an overflow-hidden ancestor, no matter
   // which letter happens to render tallest.
   const [topPadEm, setTopPadEm] = useState(FALLBACK_TOP_PAD_EM);
+  // Same idea, but for how far the lowest variant's ink drops below the
+  // font's normal descent. `leading-none` on the word wrapper keeps each
+  // letter's own box tight to the font's line metrics, and a plain solid
+  // colour fill doesn't care if a descender pokes past that box - but
+  // `background-clip: text` does: the background (and so the grain texture)
+  // never paints outside the element's own box no matter how big the texture
+  // itself is, so without this, any descender overshoot the box didn't
+  // already account for renders with no texture behind it, i.e. invisible.
+  const [bottomPadEm, setBottomPadEm] = useState(FALLBACK_TOP_PAD_EM);
 
   // Measure every variant of every letter off-screen and take the widest per
   // letter, so each letter's box can be sized to fit its widest variant up
@@ -177,9 +186,14 @@ export function PersevereAnimation({
             offsets.push(cumulativeX);
             cumulativeX += widths[ch] ?? 0;
           }
-          // generous multiplier so the tallest swash/flourish is never
-          // sampling past the bottom/top edge of the shared texture
-          const height = fontSizePx * 1.8;
+          // Deliberately much taller than any letter's own box (which is
+          // tightened by `leading-none` on top): the texture is centred on
+          // each letter via `background-position-y: 50%` rather than pinned
+          // to the top, so overshoot in *either* direction (an ascender's
+          // swash above, a descender below) still finds paint behind it
+          // instead of the glyph running out past the texture's edge and
+          // showing nothing.
+          const height = fontSizePx * 4;
           setWordTexture({
             url: buildWordGrainTexture(cumulativeX, height),
             width: cumulativeX,
@@ -192,15 +206,21 @@ export function PersevereAnimation({
       const ctx = document.createElement("canvas").getContext("2d");
       if (ctx) {
         ctx.font = `${INK_MEASURE_FONT_PX}px TGMotionSicknessSubset`;
-        let maxOvershoot = 0;
+        let maxAscentOvershoot = 0;
+        let maxDescentOvershoot = 0;
         for (const ch of UNIQUE_LETTERS) {
           for (const variant of VARIANT_MAP[ch]) {
             const m = ctx.measureText(variant);
-            const overshoot = m.actualBoundingBoxAscent - m.fontBoundingBoxAscent;
-            if (Number.isFinite(overshoot)) maxOvershoot = Math.max(maxOvershoot, overshoot);
+            const ascentOvershoot = m.actualBoundingBoxAscent - m.fontBoundingBoxAscent;
+            if (Number.isFinite(ascentOvershoot))
+              maxAscentOvershoot = Math.max(maxAscentOvershoot, ascentOvershoot);
+            const descentOvershoot = m.actualBoundingBoxDescent - m.fontBoundingBoxDescent;
+            if (Number.isFinite(descentOvershoot))
+              maxDescentOvershoot = Math.max(maxDescentOvershoot, descentOvershoot);
           }
         }
-        if (maxOvershoot > 0) setTopPadEm(maxOvershoot / INK_MEASURE_FONT_PX + 0.05);
+        if (maxAscentOvershoot > 0) setTopPadEm(maxAscentOvershoot / INK_MEASURE_FONT_PX + 0.05);
+        if (maxDescentOvershoot > 0) setBottomPadEm(maxDescentOvershoot / INK_MEASURE_FONT_PX + 0.05);
       }
     };
 
@@ -289,11 +309,12 @@ export function PersevereAnimation({
               transform: `translate(${t.dx}px, ${t.dy}px) rotate(${t.rot}deg)`,
               width: width !== undefined ? `${width}px` : undefined,
               paddingTop: `${topPadEm}em`,
+              paddingBottom: `${bottomPadEm}em`,
               ...(wordTexture
                 ? {
                     backgroundImage: `url(${wordTexture.url})`,
                     backgroundSize: `${wordTexture.width}px ${wordTexture.height}px`,
-                    backgroundPosition: `-${wordTexture.offsets[i]}px 0`,
+                    backgroundPosition: `-${wordTexture.offsets[i]}px 50%`,
                     backgroundRepeat: "no-repeat",
                     WebkitBackgroundClip: "text",
                     backgroundClip: "text",
