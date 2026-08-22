@@ -220,7 +220,8 @@ export function PersevereAnimation({
           }
         }
         if (maxAscentOvershoot > 0) setTopPadEm(maxAscentOvershoot / INK_MEASURE_FONT_PX + 0.05);
-        if (maxDescentOvershoot > 0) setBottomPadEm(maxDescentOvershoot / INK_MEASURE_FONT_PX + 0.05);
+        if (maxDescentOvershoot > 0)
+          setBottomPadEm(maxDescentOvershoot / INK_MEASURE_FONT_PX + 0.05);
       }
     };
 
