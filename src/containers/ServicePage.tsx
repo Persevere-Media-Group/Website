@@ -2,7 +2,6 @@ import { useState, type ReactNode } from "react";
 import { PopupModal } from "react-calendly";
 import { PageSection } from "@/ui-components/custom/common-page-elements";
 import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
-import { ClosingCta } from "@/container-contents/ServicesCombined";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
 import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
 import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
@@ -83,7 +82,16 @@ export function ServicePersonPage({ name }: { name: ServicePersonName }) {
         <SectionDivider reverse />
         <Faqs name={name} />
         <SectionDivider />
-        <ClosingCta />
+
+        <div className="mt-4 flex w-full max-w-2xl flex-col items-center gap-6 text-center">
+          <h2 className="font-subtitle text-[clamp(2.6rem,6.4vw,3.75rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
+            We are your growth partners.
+          </h2>
+          <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+            We’re not here to ghost you after signing you on. We want to scale with you, keep
+            improving with you, and never settle for "good enough."
+          </p>
+        </div>
 
         <div className="mt-16 flex w-full items-center justify-center">
           <ChoosePersevereMark />

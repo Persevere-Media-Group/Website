@@ -83,8 +83,12 @@ export function HeroSection() {
       />
 
       <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center gap-8 px-4 pt-12 pb-10 text-center sm:gap-8 sm:pt-16 sm:pb-14 md:pb-16">
-        <div className="flex w-full flex-col items-center gap-2">
-          <p className="font-subtitle text-[clamp(1.3rem,4vw,2rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase">
+        <div className="flex w-full flex-col items-center gap-8">
+          {/* Mirrors the "-mt-8" paragraph below exactly: gap-8 plus an equal
+              and opposite negative margin cancel out, leaving only the word's
+              natural glyph-overshoot buffer as the visible gap - same
+              mechanism on both sides is what keeps the two gaps equal. */}
+          <p className="-mb-8 font-subtitle text-[clamp(1.75rem,5.5vw,2.75rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase sm:-mb-9">
             Choose
           </p>
 
@@ -531,10 +535,12 @@ export function WhyChooseSection({ onBookCall }: { onBookCall: () => void }) {
         <h2 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-ivory)">
           We are your growth partners.
         </h2>
-        <p className="mx-auto mt-4 max-w-xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-ivory)/85">
-          We're a straight-talking team who'll tell you what you need to hear, not what you want to
-          hear. Your wins are our wins. We want to scale with you, keep improving with you, and
-          never settle for "good enough." Ready to come aboard?
+        <p className="mx-auto mt-4 max-w-4xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-ivory)/85">
+          We're a no BS team who'll tell you what you need to hear, not what you want to hear. Your
+          wins are our wins. We want to scale with you, keep improving with you, and never settle
+          for "good enough."
+          <br />
+          <em>Ready to come aboard?</em>
         </p>
 
         <YellowPulsatingButton onClick={onBookCall} className="mx-auto mt-12">
