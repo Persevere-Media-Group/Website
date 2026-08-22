@@ -37,6 +37,10 @@ export interface StaggeredMenuProps {
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
   isFixed?: boolean;
+  /** extra content rendered in the header just before the menu toggle (e.g. a
+   * home button), grouped with it under the same flex item so `space-between`
+   * against the logo still holds */
+  headerActions?: React.ReactNode;
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -56,6 +60,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   closeOnClickAway = true,
   onMenuOpen,
   onMenuClose,
+  headerActions,
 }: StaggeredMenuProps) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
@@ -87,6 +92,15 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const toggleBtnRef = useRef<HTMLButtonElement | null>(null);
   const busyRef = useRef(false);
   const itemEntranceTweenRef = useRef<gsap.core.Tween | null>(null);
+  // The toggle's own height, so an optional square headerActions button (e.g.
+  // a home button) can match it exactly via the --sm-toggle-height CSS var
+  // (see .sm-header-actions/.sm-home-button) instead of a hardcoded pixel
+  // value. `align-items: stretch` alone can't do this: flexbox resolves
+  // stretch AFTER an item's main-size (width, in this row) is already
+  // computed from its aspect-ratio, so a stretch-derived height never
+  // reaches the aspect-ratio math in time - it needs an explicit height,
+  // hence measuring the real toggle button instead.
+  const [toggleHeight, setToggleHeight] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -432,6 +446,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
 
   React.useEffect(() => {
+    const btn = toggleBtnRef.current;
+    if (!btn) return;
+    // getBoundingClientRect(), not entry.contentRect, since contentRect excludes
+    // the button's own padding/border and we want its full outer height to match
+    const ro = new ResizeObserver(() => setToggleHeight(btn.getBoundingClientRect().height));
+    ro.observe(btn);
+    return () => ro.disconnect();
+  }, []);
+
+  React.useEffect(() => {
     if (!closeOnClickAway || !open) return;
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -486,45 +510,55 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             height={24}
           />
         </div>
-        <SpecularButton
-          ref={toggleBtnRef}
-          size="sm"
-          radius={12}
-          tint="#ffffff"
-          tintOpacity={0}
-          blur={0}
-          textColor={menuButtonColor}
-          lineColor="#ffffff"
-          baseColor="#525252"
-          intensity={1}
-          shineSize={10}
-          shineFade={40}
-          thickness={1}
-          speed={0.35}
-          followMouse
-          proximity={200}
-          autoAnimate={false}
-          className="sm-toggle"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="staggered-menu-panel"
-          onClick={toggleMenu}
-          type="button"
+        <div
+          className="sm-header-actions"
+          style={
+            toggleHeight
+              ? ({ "--sm-toggle-height": `${toggleHeight}px` } as React.CSSProperties)
+              : undefined
+          }
         >
-          <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
-            <span ref={textInnerRef} className="sm-toggle-textInner">
-              {textLines.map((l, i) => (
-                <span className="sm-toggle-line" key={i}>
-                  {l}
-                </span>
-              ))}
+          {headerActions}
+          <SpecularButton
+            ref={toggleBtnRef}
+            size="sm"
+            radius={12}
+            tint="#ffffff"
+            tintOpacity={0}
+            blur={0}
+            textColor={menuButtonColor}
+            lineColor="#ffffff"
+            baseColor="#525252"
+            intensity={1}
+            shineSize={10}
+            shineFade={40}
+            thickness={1}
+            speed={0.35}
+            followMouse
+            proximity={200}
+            autoAnimate={false}
+            className="sm-toggle"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="staggered-menu-panel"
+            onClick={toggleMenu}
+            type="button"
+          >
+            <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
+              <span ref={textInnerRef} className="sm-toggle-textInner">
+                {textLines.map((l, i) => (
+                  <span className="sm-toggle-line" key={i}>
+                    {l}
+                  </span>
+                ))}
+              </span>
             </span>
-          </span>
-          <span ref={iconRef} className="sm-icon" aria-hidden="true">
-            <span ref={plusHRef} className="sm-icon-line" />
-            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
-          </span>
-        </SpecularButton>
+            <span ref={iconRef} className="sm-icon" aria-hidden="true">
+              <span ref={plusHRef} className="sm-icon-line" />
+              <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+            </span>
+          </SpecularButton>
+        </div>
       </header>
 
       <aside

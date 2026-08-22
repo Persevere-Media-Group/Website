@@ -61,6 +61,19 @@
   object-fit: contain;
 }
 
+/* wraps the (optional) home button together with the menu toggle, so
+   `justify-content: space-between` on the header still only sees two items
+   (logo, this group). Carries --sm-toggle-height (set inline by
+   StaggeredMenu via a ResizeObserver on the real toggle button) so a square
+   headerActions button can match its height exactly - see .sm-home-button in
+   home-button.css for why that's an explicit height rather than
+   align-items: stretch. */
+.sm-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .sm-toggle {
   display: inline-flex;
   align-items: center;

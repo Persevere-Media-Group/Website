@@ -1,0 +1,15 @@
+/* Square "go home" button: reuses .specular-button's own glass-shine effect
+   (see specular-button.css), just square instead of pill-shaped.
+   --sm-toggle-height is the menu toggle's real measured height (set by
+   StaggeredMenu via ResizeObserver, see .sm-header-actions), and aspect-ratio
+   turns that into a matching width - deliberately an explicit height rather
+   than `align-items: stretch`, since flexbox resolves stretch after an
+   item's aspect-ratio-driven main size is already computed, so a
+   stretch-only height never actually reaches the aspect-ratio math.
+   40px is a fallback for the one frame before the ResizeObserver's first
+   measurement lands. */
+.sm-home-button.specular-button--sm {
+  padding: 0;
+  height: var(--sm-toggle-height, 40px);
+  aspect-ratio: 1;
+}
