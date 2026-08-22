@@ -112,7 +112,7 @@ export function PageBookCall() {
             width={70}
             height={35}
             strokeWidth={4}
-            className="text-(--color-amber-gold) animate-[arrow-bounce-toward-right_1.2s_ease-in-out_infinite] sm:h-15 sm:w-30"
+            className="text-(--color-amber-gold) animate-[arrow-bounce-toward-right_1.8s_ease-out_infinite] sm:h-15 sm:w-30"
           />
           <YellowPulsatingButton onClick={() => setIsCalendlyOpen(true)}>
             Book a Call
@@ -123,7 +123,7 @@ export function PageBookCall() {
             width={70}
             height={35}
             strokeWidth={4}
-            className="text-(--color-amber-gold) animate-[arrow-bounce-toward-left_1.2s_ease-in-out_infinite] sm:h-15 sm:w-30"
+            className="text-(--color-amber-gold) animate-[arrow-bounce-toward-left_1.8s_ease-out_infinite] sm:h-15 sm:w-30"
           />
         </div>
         <p className="mt-3 font-subtitle text-sm text-(--color-oxblood)/50">
