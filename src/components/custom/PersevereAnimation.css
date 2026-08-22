@@ -9,14 +9,10 @@
 
 /* Continuous per-letter "hand-drawn" trembling, driven entirely by the
    compositor via CSS animation rather than a JS setInterval + React state
-   loop. The previous JS-driven version re-rendered every letter 11x/second
-   forever; harmless while letters used a flat colour, but once `grainy`
-   mode put each letter on the expensive background-clip: text mask path
-   (see buildWordGrainTexture in PersevereAnimation.tsx), that constant
-   React re-render loop became a real, ongoing main-thread cost for as long
-   as the hero was mounted. Each letter gets a randomized animation-delay
-   and animation-duration (computed once, not per tick) so the word doesn't
-   move as one rigid block. */
+   loop. The previous JS-driven version re-rendered every letter 11x/second,
+   forever, for as long as the hero was mounted. Each letter gets a
+   randomized animation-delay and animation-duration (computed once, not per
+   tick) so the word doesn't move as one rigid block. */
 @keyframes persevere-tremble {
   0% {
     transform: translate(0, 0) rotate(0deg);

@@ -1,31 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { paintGrainOverlay, resolveColor } from "@/lib/grain-canvas";
 import "./PersevereAnimation.css";
-
-// Same gradient + grain as GrainHeading (the About/Contact/Blog/Case Studies and
-// Ads/Creative page titles) - see that component for why the gradient matters
-// (Grainient's overlay-blend noise barely reads against flat ivory on its own).
-const GRAIN_LIGHT_COLOR = "--color-ivory";
-const GRAIN_DEEP_COLOR = "#e2d7b2";
-const GRAIN_NOISE_INTENSITY = 5;
-
-// Paints one continuous gradient+grain texture sized to the whole word (rather
-// than a small repeating tile), so each letter's `background-position` can
-// sample its own slice with no risk of a repeating tile's seams showing.
-function buildWordGrainTexture(width: number, height: number): string {
-  const canvas = document.createElement("canvas");
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = Math.max(1, Math.ceil(width * dpr));
-  canvas.height = Math.max(1, Math.ceil(height * dpr));
-  const ctx = canvas.getContext("2d")!;
-  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  gradient.addColorStop(0, resolveColor(GRAIN_LIGHT_COLOR));
-  gradient.addColorStop(1, resolveColor(GRAIN_DEEP_COLOR));
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  paintGrainOverlay(ctx, canvas.width, canvas.height, GRAIN_NOISE_INTENSITY);
-  return canvas.toDataURL();
-}
 
 // ---------------------------------------------------------------------------
 // Persevere animation
@@ -125,25 +99,12 @@ export function PersevereAnimation({
   textClassName = "text-(--color-ivory)",
   sizeClassName = "text-[clamp(48px,9vw,140px)]",
   showBackground = true,
-  grainy = false,
 }: {
   className?: string;
   textClassName?: string;
   sizeClassName?: string;
   showBackground?: boolean;
-  /** texture the glyph fill with the same ivory grain used elsewhere on the
-   * site, instead of a flat colour from `textClassName` */
-  grainy?: boolean;
 }) {
-  // One shared texture sized to the whole word, sliced per letter via
-  // background-position (see buildWordGrainTexture) rather than a repeating
-  // tile, so the gradient reads as continuous across the word with no seams.
-  const [wordTexture, setWordTexture] = useState<{
-    url: string;
-    width: number;
-    height: number;
-    offsets: number[];
-  } | null>(null);
   const [initial] = useState(buildInitialAssignment);
   const [glyphs, setGlyphs] = useState(initial);
   const [trembleTimings] = useState<TrembleTiming[]>(() => WORD.split("").map(randomTrembleTiming));
@@ -157,13 +118,7 @@ export function PersevereAnimation({
   // which letter happens to render tallest.
   const [topPadEm, setTopPadEm] = useState(FALLBACK_TOP_PAD_EM);
   // Same idea, but for how far the lowest variant's ink drops below the
-  // font's normal descent. `leading-none` on the word wrapper keeps each
-  // letter's own box tight to the font's line metrics, and a plain solid
-  // colour fill doesn't care if a descender pokes past that box - but
-  // `background-clip: text` does: the background (and so the grain texture)
-  // never paints outside the element's own box no matter how big the texture
-  // itself is, so without this, any descender overshoot the box didn't
-  // already account for renders with no texture behind it, i.e. invisible.
+  // font's normal descent.
   const [bottomPadEm, setBottomPadEm] = useState(FALLBACK_TOP_PAD_EM);
 
   // Measure every variant of every letter off-screen and take the widest per
@@ -180,33 +135,6 @@ export function PersevereAnimation({
         widths[ch] = Math.max(0, ...spans.map((el) => el?.offsetWidth ?? 0));
       }
       setMaxWidths(widths);
-
-      if (grainy) {
-        const firstSpan = measureRefs.current[UNIQUE_LETTERS[0]]?.[0];
-        const fontSizePx = firstSpan ? parseFloat(getComputedStyle(firstSpan).fontSize) : 0;
-        if (fontSizePx) {
-          const offsets: number[] = [];
-          let cumulativeX = 0;
-          for (const ch of WORD) {
-            offsets.push(cumulativeX);
-            cumulativeX += widths[ch] ?? 0;
-          }
-          // Deliberately much taller than any letter's own box (which is
-          // tightened by `leading-none` on top): the texture is centred on
-          // each letter via `background-position-y: 50%` rather than pinned
-          // to the top, so overshoot in *either* direction (an ascender's
-          // swash above, a descender below) still finds paint behind it
-          // instead of the glyph running out past the texture's edge and
-          // showing nothing.
-          const height = fontSizePx * 4;
-          setWordTexture({
-            url: buildWordGrainTexture(cumulativeX, height),
-            width: cumulativeX,
-            height,
-            offsets,
-          });
-        }
-      }
 
       const ctx = document.createElement("canvas").getContext("2d");
       if (ctx) {
@@ -240,7 +168,7 @@ export function PersevereAnimation({
       clearTimeout(settleTimeout2);
       window.removeEventListener("resize", measure);
     };
-  }, [sizeClassName, grainy]);
+  }, [sizeClassName]);
 
   // Slow, single-letter variant swapping, forever, one letter per tick.
   useEffect(() => {
@@ -306,18 +234,6 @@ export function PersevereAnimation({
               width: width !== undefined ? `${width}px` : undefined,
               paddingTop: `${topPadEm}em`,
               paddingBottom: `${bottomPadEm}em`,
-              ...(wordTexture
-                ? {
-                    backgroundImage: `url(${wordTexture.url})`,
-                    backgroundSize: `${wordTexture.width}px ${wordTexture.height}px`,
-                    backgroundPosition: `-${wordTexture.offsets[i]}px 50%`,
-                    backgroundRepeat: "no-repeat",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                    WebkitTextFillColor: "transparent",
-                  }
-                : undefined),
             }}
           >
             {char}
