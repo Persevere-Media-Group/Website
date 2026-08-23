@@ -10,7 +10,10 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/ui-components/primitive/accordion";
-import { SPRING_TRANSITION, SPRING_SCALE_VARIANTS } from "@/ui-components/primitive/accordion-presets";
+import {
+  SPRING_TRANSITION,
+  SPRING_SCALE_VARIANTS,
+} from "@/ui-components/primitive/accordion-presets";
 import { MARK_PROPS, UNDERLINE_COLOR, HIGHLIGHT_COLOR } from "@/lib/text-marks";
 
 // how long each "half" (grim, or, good) takes to float in as one block. Each one is

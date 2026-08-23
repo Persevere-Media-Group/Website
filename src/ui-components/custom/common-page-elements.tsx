@@ -107,7 +107,10 @@ interface BodyTextProps {
 export function BodyText({ children, as: Tag = "p", className }: BodyTextProps) {
   return (
     <Tag
-      className={cn("text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80", className)}
+      className={cn(
+        "text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80",
+        className
+      )}
     >
       {children}
     </Tag>

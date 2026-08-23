@@ -150,35 +150,19 @@ const FACTS_BLOCKS = [
     heading: "Proven industry experience.",
     body: (
       <>
-        <Highlighter
-          action="highlight"
-          color={HIGHLIGHT_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
           £20m+
         </Highlighter>
         in ad spend, across{" "}
-        <Highlighter
-          action="highlight"
-          color={HIGHLIGHT_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
           50+
         </Highlighter>{" "}
         brands managed,{" "}
-        <Highlighter
-          action="highlight"
-          color={HIGHLIGHT_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
           1000s
         </Highlighter>{" "}
         of hours of experience. We've been there and done it time and again, and{" "}
-        <Highlighter
-          action="underline"
-          color={UNDERLINE_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
           have the results to show for it
         </Highlighter>
         .
@@ -189,19 +173,11 @@ const FACTS_BLOCKS = [
     heading: "The best of both worlds.",
     body: (
       <>
-        <Highlighter
-          action="highlight"
-          color={HIGHLIGHT_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
           Content and paid ads
         </Highlighter>
         , under one roof. No more choosing between a{" "}
-        <Highlighter
-          action="underline"
-          color={UNDERLINE_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
           creative team or an ads agency
         </Highlighter>
         .
@@ -213,19 +189,11 @@ const FACTS_BLOCKS = [
     body: (
       <>
         You get{" "}
-        <Highlighter
-          action="highlight"
-          color={HIGHLIGHT_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
           Keir and Calum
         </Highlighter>
         . The two who are{" "}
-        <Highlighter
-          action="underline"
-          color={UNDERLINE_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
           actually doing the work
         </Highlighter>
         . No account managers, no profit-skimming by shareholders, and 100% of your budget going
@@ -374,20 +342,12 @@ const SERVICES_BLOCKS = [
     heading: "Ads done right.",
     body: (
       <>
-        <Highlighter
-          action="highlight"
-          color={HIGHLIGHT_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
           £20m+ in ad spend
         </Highlighter>{" "}
         managed across budgets from £1,000 a month to £500,000 a month. We design a bespoke
         strategy, test constantly, and evolve with the data. We're not leaving you with{" "}
-        <Highlighter
-          action="underline"
-          color={UNDERLINE_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
           an AI agent left on autopilot
         </Highlighter>
         .
@@ -402,19 +362,11 @@ const SERVICES_BLOCKS = [
     body: (
       <>
         We build out your customer avatars, script the copy, and shoot and edit creative to make{" "}
-        <Highlighter
-          action="highlight"
-          color={HIGHLIGHT_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
           thumb stopping content
         </Highlighter>{" "}
         for your organic pages or your paid campaigns. Crafted by{" "}
-        <Highlighter
-          action="underline"
-          color={UNDERLINE_COLOR}
-          {...MARK_PROPS}
-        >
+        <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
           the same team running your campaigns
         </Highlighter>
         , closing the feedback loop, learning and implementing change faster.

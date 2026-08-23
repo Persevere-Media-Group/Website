@@ -7,7 +7,10 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/ui-components/primitive/accordion";
-import { SPRING_TRANSITION, SPRING_SCALE_VARIANTS } from "@/ui-components/primitive/accordion-presets";
+import {
+  SPRING_TRANSITION,
+  SPRING_SCALE_VARIANTS,
+} from "@/ui-components/primitive/accordion-presets";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
 import { BodyText } from "@/ui-components/custom/common-page-elements";
 

@@ -19,7 +19,14 @@ interface LinkCardProps {
   delay?: number;
 }
 
-export function LinkCard({ to, heading, headingClassName, body, linkLabel, delay = 0 }: LinkCardProps) {
+export function LinkCard({
+  to,
+  heading,
+  headingClassName,
+  body,
+  linkLabel,
+  delay = 0,
+}: LinkCardProps) {
   return (
     <AnimatedContent distance={40} duration={0.7} delay={delay} className="h-full">
       <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
@@ -43,7 +50,13 @@ export function LinkCard({ to, heading, headingClassName, body, linkLabel, delay
           <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
             {linkLabel}
           </span>
-          <SquigglyArrow width={165} height={82} strokeWidth={4} variant="bouncy" className="text-current" />
+          <SquigglyArrow
+            width={165}
+            height={82}
+            strokeWidth={4}
+            variant="bouncy"
+            className="text-current"
+          />
         </Link>
       </div>
     </AnimatedContent>
