@@ -1,0 +1,19 @@
+/* Shared sizing/masking rules for every `.logo--*` class in this folder. Each
+   brand file sets --logo-aspect (width / height of its glyph) and --logo-h
+   (its ink height relative to a full-height badge mark, 0-1) then imports
+   this file - so a single font-size on an ancestor scales every logo, and
+   thinner wordmarks render shorter than badge marks instead of being
+   stretched up to match their bounding box. */
+[class*="logo--"] {
+  display: inline-block;
+  flex: none;
+  height: calc(var(--logo-h) * 1em);
+  width: calc(var(--logo-h) * var(--logo-aspect) * 1em);
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}

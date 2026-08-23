@@ -849,7 +849,7 @@ export function ContactFormSection() {
                 <button
                   type="button"
                   onClick={goNext}
-                  className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full bg-(--color-deep-plum) px-10 py-[18px] text-[1.15rem] font-bold text-(--color-ivory) transition-[filter] hover:brightness-90 active:brightness-75"
+                  className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full bg-(--color-deep-plum) px-10 py-4.5 text-[1.15rem] font-bold text-(--color-ivory) transition-[filter] hover:brightness-90 active:brightness-75"
                 >
                   Next
                   <ArrowRight size={16} />

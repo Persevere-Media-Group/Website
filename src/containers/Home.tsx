@@ -7,6 +7,7 @@ import {
   FactsSection,
   StatsCountSection,
   TestimonialsSection,
+  LogosSection,
   OurServicesSection,
   WhyChooseSection,
 } from "@/container-contents/home-sections";
@@ -25,11 +26,13 @@ export function Home() {
       <StatsCountSection />
       <SectionDivider reverse />
       <TestimonialsSection />
+      <SectionSpacer size="sm" />
+      <LogosSection />
       <SectionSpacer size="md" />
       <OurServicesSection />
       <SectionSpacer size="md" />
       <ChoosePersevereMark />
-      <SectionSpacer size="lg" />
+      <SectionSpacer size="md" />
 
       <WhyChooseSection onBookCall={() => setIsCalendlyOpen(true)} />
 

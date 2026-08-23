@@ -1,0 +1,14 @@
+/* Runtime fetches against public/logos, not bundler-resolved imports - same
+   url() technique those files use themselves to pull in _logo-base.css. */
+@import url("/logos/aspire-bidding.css");
+@import url("/logos/brig-car-sales.css");
+@import url("/logos/cinegrams.css");
+@import url("/logos/common.css");
+@import url("/logos/founders.css");
+@import url("/logos/ionakate.css");
+@import url("/logos/jacksons-arc.css");
+@import url("/logos/myexecutor.css");
+@import url("/logos/one-week.css");
+@import url("/logos/pieute.css");
+@import url("/logos/scottish-marketing-summit.css");
+@import url("/logos/talo.css");

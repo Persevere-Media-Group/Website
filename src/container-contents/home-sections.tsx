@@ -12,6 +12,7 @@ import { Backlight } from "@/ui-components/primitive/backlight";
 import StatsCount from "@/ui-components/primitive/statscount";
 import { GrainWave } from "@/ui-components/custom/grain-wave";
 import { Testimonials, type Testimonial } from "@/ui-components/primitive/testimonial";
+import { LogoMarquee } from "@/ui-components/custom/logo-marquee";
 import { LinkCard } from "@/ui-components/custom/link-card";
 import { DisplayHeading } from "@/ui-components/custom/display-heading";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
@@ -320,15 +321,22 @@ export function TestimonialsSection() {
       testimonials={TESTIMONIALS}
       heading={
         <>
-          We could tell you we're great.
+          We'd brag.
           <br />
-          Or you could just ask them.
+          But they beat us to it.
         </>
       }
-      subheading="The proof is in the pudding…"
       className="bg-(--color-ivory)"
     />
   );
+}
+
+// ---------------------------------------------------------------------------
+// Logos
+// ---------------------------------------------------------------------------
+
+export function LogosSection() {
+  return <LogoMarquee heading="Brands we've worked with" className="bg-(--color-ivory)" />;
 }
 
 // ---------------------------------------------------------------------------
@@ -387,8 +395,9 @@ export function OurServicesSection() {
             one roof. We keep it simple, accessible and affordable.
           </>
         }
+        headingClassName="mt-3 font-heading text-[clamp(2.25rem,5vw,3.25rem)] font-normal tracking-wide text-(--color-oxblood)"
       >
-        The best of both worlds
+        The full shabang
       </DisplayHeading>
 
       <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">
