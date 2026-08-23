@@ -117,18 +117,22 @@ export function Testimonials({
   testimonials,
   heading = "What people say",
   subheading,
+  headingClassName,
   className = "",
 }: {
   testimonials: Testimonial[];
   heading?: ReactNode;
-  subheading?: string;
+  subheading?: ReactNode;
+  headingClassName?: string;
   className?: string;
 }) {
   if (testimonials.length === 0) return null;
 
   return (
     <section className={`px-4 py-4 text-center ${className}`}>
-      <DisplayHeading subheading={subheading}>{heading}</DisplayHeading>
+      <DisplayHeading subheading={subheading} headingClassName={headingClassName}>
+        {heading}
+      </DisplayHeading>
 
       <div className="mx-auto mt-16 flex max-w-5xl flex-wrap justify-center gap-8 text-left">
         {testimonials.map((testimonial, i) => (

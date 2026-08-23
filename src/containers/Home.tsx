@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PopupModal } from "react-calendly";
-import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
+import { SectionDivider, MiniDivider } from "@/ui-components/custom/wiggly-divider";
 import { SectionSpacer } from "@/ui-components/custom/section-spacer";
 import {
   HeroSection,
@@ -29,6 +29,7 @@ export function Home() {
       <SectionSpacer size="sm" />
       <LogosSection />
       <SectionSpacer size="lg" />
+      <MiniDivider size="sm" />
       <OurServicesSection />
       <SectionSpacer size="md" />
       <ChoosePersevereMark />

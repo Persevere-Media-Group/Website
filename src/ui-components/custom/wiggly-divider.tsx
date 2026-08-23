@@ -49,6 +49,7 @@ export function SectionDivider({ reverse = false }: { reverse?: boolean }) {
             fill="none"
             stroke="var(--color-terracotta)"
             strokeWidth="1.5"
+            vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
             initial={{ pathLength: 0 }}
             animate={isInView ? { pathLength: 1 } : {}}
@@ -56,6 +57,85 @@ export function SectionDivider({ reverse = false }: { reverse?: boolean }) {
           />
         </svg>
       </div>
+    </div>
+  );
+}
+
+// a short, two-hump slice of the same wave unit, sized to sit inline as a small
+// standalone flourish (e.g. under a heading) rather than spanning the page
+const SM_PATH = "M0,40 C40,5 80,75 120,40 C160,5 200,75 240,40";
+
+interface MiniDividerProps {
+  // "lg" is a full page-width wiggly line (same shape/animation as SectionDivider,
+  // just exposed through this component too); "sm" is a small standalone squiggle
+  // sized to drop inline as a little divider between two bits of content
+  size?: "lg" | "sm";
+  reverse?: boolean;
+  className?: string;
+}
+
+export function MiniDivider({ size = "sm", reverse = false, className }: MiniDividerProps) {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const isInView = useInView(svgRef, { once: true, margin: "-10%" });
+
+  if (size === "lg") {
+    return (
+      <div
+        className={`relative w-screen ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] flex items-center justify-center bg-(--color-ivory) py-4 ${className ?? ""}`}
+      >
+        <div className="h-14 w-full overflow-hidden">
+          <svg
+            ref={svgRef}
+            viewBox="0 0 2880 80"
+            preserveAspectRatio="none"
+            className="block h-full"
+            style={{
+              width: "200%",
+              animation: isInView
+                ? `section-wave-roll 16s linear infinite${reverse ? " reverse" : ""}`
+                : undefined,
+            }}
+            aria-hidden
+          >
+            <motion.path
+              d={reverse ? DIVIDER_PATH : DIVIDER_PATH_REVERSED}
+              fill="none"
+              stroke="var(--color-terracotta)"
+              strokeWidth="1.5"
+              vectorEffect="non-scaling-stroke"
+              strokeLinecap="round"
+              initial={{ pathLength: 0 }}
+              animate={isInView ? { pathLength: 1 } : {}}
+              transition={{ duration: 1.1, ease: "easeInOut" }}
+            />
+          </svg>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`flex items-center justify-center py-2 ${className ?? ""}`}>
+      <svg
+        ref={svgRef}
+        viewBox="0 0 240 80"
+        preserveAspectRatio="none"
+        className="block h-4 w-24"
+        aria-hidden
+      >
+        <motion.path
+          d={SM_PATH}
+          fill="none"
+          stroke="var(--color-terracotta)"
+          strokeWidth="1.5"
+          vectorEffect="non-scaling-stroke"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={isInView ? { pathLength: 1 } : {}}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          style={reverse ? { scaleX: -1, transformOrigin: "center" } : undefined}
+        />
+      </svg>
     </div>
   );
 }
