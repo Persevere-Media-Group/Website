@@ -13,7 +13,6 @@ const LOGOS = [
   { slug: "cinegrams", name: "Cinegrams" },
   { slug: "common", name: "Common" },
   { slug: "founders", name: "Founders" },
-  { slug: "ionakate", name: "Iona Kate" },
   { slug: "jacksons-arc", name: "Jackson's Arc" },
   { slug: "myexecutor", name: "MyExecutor" },
   { slug: "one-week", name: "One Week" },
@@ -23,7 +22,7 @@ const LOGOS = [
 ] as const;
 
 export function LogoMarquee({
-  heading = "Brands we've worked with",
+  heading = "",
   subheading,
   className = "",
 }: {

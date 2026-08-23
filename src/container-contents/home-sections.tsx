@@ -336,7 +336,7 @@ export function TestimonialsSection() {
 // ---------------------------------------------------------------------------
 
 export function LogosSection() {
-  return <LogoMarquee heading="Brands we've worked with" className="bg-(--color-ivory)" />;
+  return <LogoMarquee className="bg-(--color-ivory)" />;
 }
 
 // ---------------------------------------------------------------------------
