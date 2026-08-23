@@ -28,7 +28,7 @@ export function Home() {
       <TestimonialsSection />
       <SectionSpacer size="sm" />
       <LogosSection />
-      <SectionSpacer size="md" />
+      <SectionSpacer size="lg" />
       <OurServicesSection />
       <SectionSpacer size="md" />
       <ChoosePersevereMark />

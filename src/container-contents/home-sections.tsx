@@ -197,8 +197,8 @@ const FACTS_BLOCKS = [
         <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
           actually doing the work
         </Highlighter>
-        . No account managers, no profit-skimming by shareholders, and 100% of your budget going
-        exactly where it should be.
+        . No account managers, no profit-skimming by shareholders. The money you save on cutting out
+        the middlemen goes straight back into your business.
       </>
     ),
   },
@@ -395,7 +395,7 @@ export function OurServicesSection() {
             one roof. We keep it simple, accessible and affordable.
           </>
         }
-        headingClassName="mt-3 font-heading text-[clamp(2.25rem,5vw,3.25rem)] font-normal tracking-wide text-(--color-oxblood)"
+        headingClassName="mt-3 font-heading text-[clamp(2.75rem,6vw,4rem)] font-normal tracking-wide text-(--color-oxblood)"
       >
         The full shabang
       </DisplayHeading>
