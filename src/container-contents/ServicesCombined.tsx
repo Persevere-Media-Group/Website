@@ -1,6 +1,6 @@
 import { useRef, type ReactNode } from "react";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
-import { SectionHeading } from "@/ui-components/custom/common-page-elements";
+import { SectionHeading, BodyText } from "@/ui-components/custom/common-page-elements";
 import { CylinderTextRotate } from "@/ui-components/primitive/cylinder-text-rotate";
 import { getCylinderSizeCompensation } from "@/lib/cylinder-size-compensation";
 import { ImageGallery } from "@/ui-components/primitive/image-gallery";
@@ -21,15 +21,7 @@ export function AlwaysIncluded({ bodies }: { bodies: [ReactNode, ReactNode, Reac
 
       <div className="mt-12 grid w-full gap-8 text-center sm:grid-cols-3">
         {ALWAYS_INCLUDED_HEADINGS.map((heading, i) => (
-          <AnimatedContent
-            key={i}
-            direction="vertical"
-            distance={24}
-            duration={0.7}
-            ease="power3.out"
-            threshold={0.2}
-            delay={i * 0.1}
-          >
+          <AnimatedContent key={i} distance={24} duration={0.7} delay={i * 0.1}>
             <div className="flex flex-col items-center gap-2">
               <span className="mb-1 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
                 <heading.icon size={18} />
@@ -37,9 +29,7 @@ export function AlwaysIncluded({ bodies }: { bodies: [ReactNode, ReactNode, Reac
               <h3 className="font-subtitle text-[clamp(1.3rem,2.4vw,1.55rem)] font-black tracking-wide text-(--color-oxblood)">
                 {heading.title}
               </h3>
-              <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
-                {bodies[i]}
-              </p>
+              <BodyText>{bodies[i]}</BodyText>
             </div>
           </AnimatedContent>
         ))}

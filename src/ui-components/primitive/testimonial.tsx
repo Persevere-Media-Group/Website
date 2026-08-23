@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
 import ThreeDCard from "@/ui-components/primitive/3d-card";
+import { DisplayHeading } from "@/ui-components/custom/display-heading";
 
 // ---------------------------------------------------------------------------
 // Generic testimonials grid. Carries no content of its own, callers supply
@@ -127,26 +128,11 @@ export function Testimonials({
 
   return (
     <section className={`px-4 py-4 text-center ${className}`}>
-      <h2 className="mt-3 font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
-        {heading}
-      </h2>
-      {subheading && (
-        <p className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
-          {subheading}
-        </p>
-      )}
+      <DisplayHeading subheading={subheading}>{heading}</DisplayHeading>
 
       <div className="mx-auto mt-16 flex max-w-5xl flex-wrap justify-center gap-8 text-left">
         {testimonials.map((testimonial, i) => (
-          <AnimatedContent
-            key={i}
-            direction="vertical"
-            distance={40}
-            duration={0.7}
-            ease="power3.out"
-            threshold={0.2}
-            delay={(i % 3) * 0.1}
-          >
+          <AnimatedContent key={i} distance={40} duration={0.7} delay={(i % 3) * 0.1}>
             <TestimonialCard testimonial={testimonial} />
           </AnimatedContent>
         ))}

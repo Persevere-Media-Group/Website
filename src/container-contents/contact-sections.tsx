@@ -7,6 +7,7 @@ import AnimatedContent from "@/ui-components/primitive/animated-content";
 import { Instagram, Linkedin } from "@/ui-components/primitive/svgs";
 import { FaqSection, type Faq } from "@/ui-components/custom/faq";
 import { containsProfanity } from "@/lib/profanity";
+import { CALENDLY_URL } from "@/container-contents/services-shared";
 import {
   Stepper,
   StepperContent,
@@ -22,9 +23,6 @@ import confetti from "canvas-confetti";
 // ---------------------------------------------------------------------------
 // Intro / context panel
 // ---------------------------------------------------------------------------
-
-// same link used in HeroSection/FloatingCta, keep these in sync if it ever changes
-const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
 
 const TEAM_SOCIALS = [
   {
@@ -75,13 +73,7 @@ export function ContactIntroSection() {
 
   return (
     <div className="flex flex-col">
-      <AnimatedContent
-        direction="vertical"
-        distance={40}
-        duration={0.7}
-        ease="power3.out"
-        threshold={0.2}
-      >
+      <AnimatedContent distance={40} duration={0.7}>
         <div>
           <h1 className="mt-3 font-heading text-[clamp(2.5rem,6vw,4rem)] leading-none tracking-wide text-(--color-oxblood)">
             Let's talk.
@@ -123,7 +115,6 @@ export function ContactIntroSection() {
           direction="horizontal"
           distance={30}
           duration={0.6}
-          ease="power3.out"
           threshold={0.3}
           delay={0.24}
         >
@@ -155,7 +146,6 @@ export function ContactIntroSection() {
           direction="horizontal"
           distance={30}
           duration={0.6}
-          ease="power3.out"
           threshold={0.3}
           delay={0.36}
         >
@@ -180,7 +170,6 @@ export function ContactIntroSection() {
           direction="horizontal"
           distance={30}
           duration={0.6}
-          ease="power3.out"
           threshold={0.3}
           delay={0.48}
         >
@@ -540,26 +529,15 @@ export function ContactFormSection() {
 
             <div className="mt-8">
               <SpecularButton
-                type="button"
-                size="lg"
-                radius={18}
                 tint="var(--color-deep-plum)"
                 tintOpacity={1}
-                blur={0}
                 textColor="var(--color-ivory)"
-                lineColor="#ffffff"
                 // matches `tint` rather than the usual neutral grey: with tintOpacity
                 // at 1 the button is a solid fill, not real glass, so the WebGL base
                 // coat needs to be the same colour as that fill or it shows through
                 // as a mismatched grey patch instead of blending in
                 baseColor="#594157"
                 intensity={0.8}
-                shineSize={10}
-                shineFade={40}
-                thickness={1}
-                speed={0.35}
-                followMouse
-                proximity={250}
                 autoAnimate
                 className="w-full"
                 onClick={() => {
@@ -850,24 +828,14 @@ export function ContactFormSection() {
                   ref={submitButtonRef}
                   type="submit"
                   disabled={isSending}
-                  size="lg"
-                  radius={18}
                   tint="var(--color-deep-plum)"
                   tintOpacity={1}
-                  blur={0}
                   textColor="var(--color-ivory)"
-                  lineColor="#ffffff"
                   // matches `tint`: with tintOpacity at 1 the button is a solid fill,
                   // not real glass, so the WebGL base coat needs to be the same
                   // colour as that fill or it shows through as a mismatched patch
                   baseColor="#594157"
                   intensity={0.8}
-                  shineSize={10}
-                  shineFade={40}
-                  thickness={1}
-                  speed={0.35}
-                  followMouse
-                  proximity={250}
                   autoAnimate
                   className="flex-1"
                 >

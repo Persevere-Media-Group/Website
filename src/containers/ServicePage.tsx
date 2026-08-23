@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { PageSection, PageBookCall } from "@/ui-components/custom/common-page-elements";
+import { PageSection, PageBookCall, BodyText } from "@/ui-components/custom/common-page-elements";
 import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
 import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
 import {
@@ -82,10 +82,10 @@ export function ServicePersonPage({ name }: { name: ServicePersonName }) {
           <h2 className="font-subtitle text-[clamp(2.6rem,6.4vw,3.75rem)] font-black leading-tight tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
             We are your growth partners.
           </h2>
-          <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+          <BodyText>
             We’re not here to ghost you after signing you on. We want to scale with you, keep
             improving with you, and never settle for "good enough."
-          </p>
+          </BodyText>
         </div>
 
         <div className="mt-16 flex w-full items-center justify-center">

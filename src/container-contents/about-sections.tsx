@@ -1,28 +1,17 @@
-import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Highlighter } from "@/ui-components/primitive/highlighter";
 import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
-import { SectionHeading } from "@/ui-components/custom/common-page-elements";
+import { SectionHeading, BodyText } from "@/ui-components/custom/common-page-elements";
+import { LinkCard } from "@/ui-components/custom/link-card";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
-import SquigglyArrow from "@/ui-components/primitive/squiggly-arrow";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from "@/ui-components/primitive/accordion";
-
-// ---------------------------------------------------------------------------
-// Highlight/underline config
-// ---------------------------------------------------------------------------
-
-// shared props so every mark behaves identically, sketchy hand-drawn feel that draws
-// itself as it scrolls into view
-const MARK_PROPS = {
-  triggerOnView: true,
-  animationDuration: 1000,
-  iterations: 2,
-} as const;
+import { SPRING_TRANSITION, SPRING_SCALE_VARIANTS } from "@/ui-components/primitive/accordion-presets";
+import { MARK_PROPS, UNDERLINE_COLOR, HIGHLIGHT_COLOR } from "@/lib/text-marks";
 
 // how long each "half" (grim, or, good) takes to float in as one block. Each one is
 // its own independent ScrollTrigger keyed to its own position on the page, not a
@@ -32,11 +21,6 @@ const MARK_PROPS = {
 // keeps things snappy on a fast scroll instead of leaving Choose Persevere sitting in
 // a blank page while a stale multi-second delay from an earlier block finishes.
 const BLOCK_REVEAL_DURATION = 0.6;
-
-// terracotta underline for the grim half, reads like a red pen marking up what's wrong
-const UNDERLINE_COLOR = "#d5573b";
-// soft amber highlight for the good half, warm and positive rather than critical
-const HIGHLIGHT_COLOR = "rgba(237, 176, 62, 0.3)";
 
 // ---------------------------------------------------------------------------
 // Roles
@@ -75,42 +59,15 @@ export function RolesSection() {
         treatment as the Our Services section on the homepage */}
       <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">
         {ROLES.map((role, i) => (
-          <AnimatedContent
+          <LinkCard
             key={role.title}
-            direction="vertical"
-            distance={40}
-            duration={0.7}
-            ease="power3.out"
-            threshold={0.2}
+            to={role.to}
+            heading={role.title}
+            headingClassName="font-heading text-[clamp(2.1rem,4vw,2.6rem)] tracking-wide text-(--color-oxblood)"
+            body={role.detail}
+            linkLabel={role.linkLabel}
             delay={i * 0.1}
-            className="h-full"
-          >
-            <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
-              <Link to={role.to} className="group/header w-fit">
-                <h3 className="font-heading text-[clamp(2.1rem,4vw,2.6rem)] tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
-                  {role.title}
-                </h3>
-              </Link>
-              <p className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80">
-                {role.detail}
-              </p>
-              <Link
-                to={role.to}
-                className="group mt-auto inline-flex w-fit items-center gap-1 text-[clamp(1.25rem,2.2vw,1.5rem)] font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
-              >
-                <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
-                  {role.linkLabel}
-                </span>
-                <SquigglyArrow
-                  width={165}
-                  height={82}
-                  strokeWidth={4}
-                  variant="bouncy"
-                  className="text-current"
-                />
-              </Link>
-            </div>
-          </AnimatedContent>
+          />
         ))}
       </div>
     </>
@@ -128,14 +85,14 @@ export function OriginStorySection() {
         <h2 className="font-subtitle text-[clamp(1.5rem,3vw,2rem)] font-black tracking-wide text-(--color-oxblood)">
           How it started
         </h2>
-        <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+        <BodyText>
           Keir and Calum met over four years ago in the corporate marketing world.{" "}
           <strong className="font-bold text-(--color-oxblood)">
             Calum behind the camera as videographer and editor, Keir in front of it
           </strong>{" "}
           (and behind the strategy) for businesses all over the world.
-        </p>
-        <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+        </BodyText>
+        <BodyText>
           For years we earned our stripes working in-house and in agencies, often joking about what
           we could build if we pooled two skillsets that rarely exist under one roof. Then we
           actually moved in together, survived a year of flat-share life without falling out, and
@@ -143,7 +100,7 @@ export function OriginStorySection() {
           <strong className="font-bold text-(--color-oxblood)">
             if we can manage that, we can manage this.
           </strong>
-        </p>
+        </BodyText>
         <p className="font-subtitle text-[clamp(1.3rem,2.2vw,1.4rem)] font-black tracking-wide text-(--color-oxblood)">
           So we did. Persevere was born.
         </p>
@@ -153,18 +110,12 @@ export function OriginStorySection() {
         <h2 className="font-subtitle text-[clamp(1.5rem,3vw,2rem)] font-black tracking-wide text-(--color-oxblood)">
           Why “Persevere”?
         </h2>
-        <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+        <BodyText>
           You'll spot it on architecture, the iconic coat of arms and in street art. It's meant
           something to Keir over the years he's called the area home. It's where he put down roots,
           and where he met his wife. Calum, naturally, was the one on camera duty for the wedding.
-        </p>
-        <Accordion
-          transition={{ type: "spring", stiffness: 120, damping: 20 }}
-          variants={{
-            expanded: { opacity: 1, scale: 1 },
-            collapsed: { opacity: 0, scale: 0.7 },
-          }}
-        >
+        </BodyText>
+        <Accordion transition={SPRING_TRANSITION} variants={SPRING_SCALE_VARIANTS}>
           <AccordionItem value="history">
             <AccordionTrigger className="w-full py-0.5 text-left">
               <div className="flex items-center">
@@ -175,7 +126,7 @@ export function OriginStorySection() {
               </div>
             </AccordionTrigger>
             <AccordionContent className="origin-top">
-              <p className="pt-3 pl-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+              <BodyText className="pt-3 pl-8">
                 The word "Persevere" itself goes back further than most people realise. Leith was
                 its own burgh for centuries, a proper port town in its own right. Trading,
                 shipbuilding, always a bit separate from Edinburgh next door even after the two got
@@ -184,16 +135,16 @@ export function OriginStorySection() {
                 every time. Nobody's entirely sure when "Persevere" first got adopted as the motto,
                 it just seems to have been in use long before it was made official on the coat of
                 arms back in 1889.
-              </p>
+              </BodyText>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <p className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+        <BodyText>
           Turns out it's a decent word for how we work too. There's (sadly) no silver bullet
           campaign that makes you millionaire, no clever hack that skips the grind. It's about
           showing up, testing, learning, adjusting... and sticking with it until the results start
           to build. We Persevere.
-        </p>
+        </BodyText>
       </div>
     </div>
   );
@@ -276,13 +227,7 @@ export function ChooseSection() {
         whole grim half floats in together (rather than line by line) so it reads
         as one block to take in, then its marks draw themselves on top of it -
         easier to digest than a slow staggered trickle */}
-      <AnimatedContent
-        direction="vertical"
-        distance={32}
-        duration={BLOCK_REVEAL_DURATION}
-        ease="power3.out"
-        threshold={0.2}
-      >
+      <AnimatedContent distance={32} duration={BLOCK_REVEAL_DURATION}>
         <div className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)/80">
           {BEFORE.map((line, i) => (
             <p key={i}>{line}</p>
@@ -295,13 +240,7 @@ export function ChooseSection() {
         its own ScrollTrigger, keyed to its own position in the page, so it floats
         in on its own the moment it's scrolled to - it can't appear before the grim
         block since it sits below it in the DOM and can't be scrolled to first */}
-      <AnimatedContent
-        direction="vertical"
-        distance={28}
-        duration={0.6}
-        ease="power3.out"
-        threshold={0.2}
-      >
+      <AnimatedContent distance={28} duration={0.6}>
         <p className="mt-14 text-[clamp(2.5rem,7vw,4.5rem)] font-black leading-none tracking-tight text-(--color-terracotta)">
           Or.
         </p>
@@ -310,13 +249,7 @@ export function ChooseSection() {
       {/* the good half, same "show the block, then annotate" treatment as the grim
         half - its own ScrollTrigger fires only once scrolled to, which is always
         after the Or hinge above it has already fired */}
-      <AnimatedContent
-        direction="vertical"
-        distance={32}
-        duration={BLOCK_REVEAL_DURATION}
-        ease="power3.out"
-        threshold={0.2}
-      >
+      <AnimatedContent distance={32} duration={BLOCK_REVEAL_DURATION}>
         <div className="mt-14 flex w-full max-w-xl flex-col gap-5 text-left text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug text-(--color-oxblood)">
           {AFTER.map((line, i) => (
             <p key={i}>{line}</p>

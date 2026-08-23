@@ -1,6 +1,6 @@
 import { Highlighter } from "@/ui-components/primitive/highlighter";
 import { GrainHeading } from "@/ui-components/primitive/grain-heading";
-import { UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/container-contents/services-shared";
+import { UNDERLINE_COLOR, HIGHLIGHT_COLOR, MARK_PROPS } from "@/lib/text-marks";
 import { FaqLink } from "@/ui-components/custom/faq";
 import type { ServicePageData, ServicePersonName } from "@/containers/ServicePage";
 
@@ -93,12 +93,14 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
     ],
 
     included: {
-      heading: "Business Partners (with Benefits)",
+      heading: "What's included in the Ads package?",
       items: [
-        "We are a no BS team who will tell you what you need to hear, not what you want to hear.",
-        "We are seasoned pros, if we do say so ourselves. We have been there and done it, time and again.",
-        "We have offer you creative and performance services under one roof, so you don't have to choose between one or the other.",
-        "A team who genuinely cares about your business, and will stick around, not ghost you after you've onboarded.",
+        "Full campaign strategy. Designed and implemented by us, end-to-end. Not handled by an anonymous media manager.",
+        "Tracking set up properly across every platform you run on: Meta, TikTok, Snapchat, Reddit, Pinterest, or Google.",
+        "A revenue-first approach, so decisions get made on what the ads earn, not what produces the best vanity metrics.",
+        "A thorough creative testing framework, making sure every test teaches us something instead of wasting budget.",
+        "Data and trend analysis that actually optimises your campaigns. Taking the learnings and implementing it into your strategy.",
+        "Reporting dashboards built with tools like Triple Whale, so the numbers are accurate and the campaigns stay accountable!",
       ],
     },
 

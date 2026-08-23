@@ -523,26 +523,13 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             ref={toggleBtnRef}
             size="sm"
             radius={12}
-            tint="#ffffff"
-            tintOpacity={0}
-            blur={0}
             textColor={menuButtonColor}
-            lineColor="#ffffff"
-            baseColor="#525252"
-            intensity={1}
-            shineSize={10}
-            shineFade={40}
-            thickness={1}
-            speed={0.35}
-            followMouse
             proximity={200}
-            autoAnimate={false}
             className="sm-toggle"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="staggered-menu-panel"
             onClick={toggleMenu}
-            type="button"
           >
             <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
               <span ref={textInnerRef} className="sm-toggle-textInner">

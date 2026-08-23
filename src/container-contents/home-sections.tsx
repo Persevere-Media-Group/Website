@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { ClickSpark } from "@/ui-components/primitive/click-spark";
@@ -7,14 +6,16 @@ import { PersevereAnimation } from "@/ui-components/custom/PersevereAnimation";
 import { Grainient } from "@/ui-components/primitive/grainient";
 import { SectionWave } from "@/ui-components/primitive/section-wave";
 import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
-import SquigglyArrow from "@/ui-components/primitive/squiggly-arrow";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
 import { Highlighter } from "@/ui-components/primitive/highlighter";
 import { Backlight } from "@/ui-components/primitive/backlight";
 import StatsCount from "@/ui-components/primitive/statscount";
 import { GrainWave } from "@/ui-components/custom/grain-wave";
 import { Testimonials, type Testimonial } from "@/ui-components/primitive/testimonial";
+import { LinkCard } from "@/ui-components/custom/link-card";
+import { DisplayHeading } from "@/ui-components/custom/display-heading";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
+import { MARK_PROPS, UNDERLINE_COLOR, HIGHLIGHT_COLOR } from "@/lib/text-marks";
 
 // ---------------------------------------------------------------------------
 // Hero
@@ -151,40 +152,32 @@ const FACTS_BLOCKS = [
       <>
         <Highlighter
           action="highlight"
-          color="rgba(237, 176, 62, 0.3)"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={HIGHLIGHT_COLOR}
+          {...MARK_PROPS}
         >
           £20m+
         </Highlighter>
         in ad spend, across{" "}
         <Highlighter
           action="highlight"
-          color="rgba(237, 176, 62, 0.3)"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={HIGHLIGHT_COLOR}
+          {...MARK_PROPS}
         >
           50+
         </Highlighter>{" "}
         brands managed,{" "}
         <Highlighter
           action="highlight"
-          color="rgba(237, 176, 62, 0.3)"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={HIGHLIGHT_COLOR}
+          {...MARK_PROPS}
         >
           1000s
         </Highlighter>{" "}
         of hours of experience. We've been there and done it time and again, and{" "}
         <Highlighter
           action="underline"
-          color="#d5573b"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={UNDERLINE_COLOR}
+          {...MARK_PROPS}
         >
           have the results to show for it
         </Highlighter>
@@ -198,20 +191,16 @@ const FACTS_BLOCKS = [
       <>
         <Highlighter
           action="highlight"
-          color="rgba(237, 176, 62, 0.3)"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={HIGHLIGHT_COLOR}
+          {...MARK_PROPS}
         >
           Content and paid ads
         </Highlighter>
         , under one roof. No more choosing between a{" "}
         <Highlighter
           action="underline"
-          color="#d5573b"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={UNDERLINE_COLOR}
+          {...MARK_PROPS}
         >
           creative team or an ads agency
         </Highlighter>
@@ -226,20 +215,16 @@ const FACTS_BLOCKS = [
         You get{" "}
         <Highlighter
           action="highlight"
-          color="rgba(237, 176, 62, 0.3)"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={HIGHLIGHT_COLOR}
+          {...MARK_PROPS}
         >
           Keir and Calum
         </Highlighter>
         . The two who are{" "}
         <Highlighter
           action="underline"
-          color="#d5573b"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={UNDERLINE_COLOR}
+          {...MARK_PROPS}
         >
           actually doing the work
         </Highlighter>
@@ -254,15 +239,7 @@ export function FactsSection() {
   return (
     <section className="flex flex-col items-center gap-16 bg-(--color-ivory) px-4 py-4 text-center">
       {FACTS_BLOCKS.map((block, i) => (
-        <AnimatedContent
-          key={block.heading}
-          direction="vertical"
-          distance={50}
-          duration={0.8}
-          ease="power3.out"
-          threshold={0.2}
-          delay={i * 0.15}
-        >
+        <AnimatedContent key={block.heading} distance={50} duration={0.8} delay={i * 0.15}>
           <div className="max-w-xl">
             <h3 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
               {block.heading}
@@ -320,14 +297,7 @@ const PLACEHOLDER_VIDEO_SRC = "https://www.youtube.com/embed/dQw4w9WgXcQ";
 export function VideoSection() {
   return (
     <section className="flex flex-col items-center gap-6 bg-(--color-ivory) px-4 py-4 text-center">
-      <AnimatedContent
-        direction="vertical"
-        distance={50}
-        duration={0.8}
-        ease="power3.out"
-        threshold={0.2}
-        className="w-full"
-      >
+      <AnimatedContent distance={50} duration={0.8} className="w-full">
         <div className="flex w-full flex-col items-center gap-6">
           <h2 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
             Title Placeholder
@@ -406,10 +376,8 @@ const SERVICES_BLOCKS = [
       <>
         <Highlighter
           action="highlight"
-          color="rgba(237, 176, 62, 0.3)"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={HIGHLIGHT_COLOR}
+          {...MARK_PROPS}
         >
           £20m+ in ad spend
         </Highlighter>{" "}
@@ -417,10 +385,8 @@ const SERVICES_BLOCKS = [
         strategy, test constantly, and evolve with the data. We're not leaving you with{" "}
         <Highlighter
           action="underline"
-          color="#d5573b"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={UNDERLINE_COLOR}
+          {...MARK_PROPS}
         >
           an AI agent left on autopilot
         </Highlighter>
@@ -438,20 +404,16 @@ const SERVICES_BLOCKS = [
         We build out your customer avatars, script the copy, and shoot and edit creative to make{" "}
         <Highlighter
           action="highlight"
-          color="rgba(237, 176, 62, 0.3)"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={HIGHLIGHT_COLOR}
+          {...MARK_PROPS}
         >
           thumb stopping content
         </Highlighter>{" "}
         for your organic pages or your paid campaigns. Crafted by{" "}
         <Highlighter
           action="underline"
-          color="#d5573b"
-          triggerOnView
-          animationDuration={1000}
-          iterations={2}
+          color={UNDERLINE_COLOR}
+          {...MARK_PROPS}
         >
           the same team running your campaigns
         </Highlighter>
@@ -466,52 +428,28 @@ const SERVICES_BLOCKS = [
 export function OurServicesSection() {
   return (
     <section id={OUR_SERVICES_ID} className="bg-(--color-ivory) px-4 py-4 text-center">
-      <h2 className="mt-3 font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
+      <DisplayHeading
+        subheading={
+          <>
+            Most agencies offer you one service and leave you to find the other. We do both, under
+            one roof. We keep it simple, accessible and affordable.
+          </>
+        }
+      >
         The best of both worlds
-      </h2>
-      <p className="mx-auto mt-4 max-w-2xl text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
-        Most agencies offer you one service and leave you to find the other. We do both, under one
-        roof. We keep it simple, accessible and affordable.
-      </p>
+      </DisplayHeading>
 
       <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">
         {SERVICES_BLOCKS.map((block, i) => (
-          <AnimatedContent
-            key={block.eyebrow}
-            direction="vertical"
-            distance={40}
-            duration={0.7}
-            ease="power3.out"
-            threshold={0.2}
+          <LinkCard
+            key={block.to}
+            to={block.to}
+            heading={block.heading}
+            headingClassName="font-subtitle text-[clamp(1.75rem,3.4vw,2.1rem)] font-black tracking-wide text-(--color-oxblood)"
+            body={block.body}
+            linkLabel="Learn more"
             delay={i * 0.1}
-            className="h-full"
-          >
-            <div className="flex h-full flex-col gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-8 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
-              <Link to={block.to} className="group/header w-fit">
-                <h3 className="font-subtitle text-[clamp(1.75rem,3.4vw,2.1rem)] font-black tracking-wide text-(--color-oxblood) transition-colors duration-300 group-hover/header:text-(--color-terracotta)">
-                  {block.heading}
-                </h3>
-              </Link>
-              <p className="text-[clamp(0.95rem,1.5vw,1.05rem)] leading-relaxed text-(--color-oxblood)/80">
-                {block.body}
-              </p>
-              <Link
-                to={block.to}
-                className="group mt-auto inline-flex w-fit items-center gap-1 text-[clamp(1.25rem,2.2vw,1.5rem)] font-subtitle font-bold text-(--color-terracotta) underline underline-offset-2"
-              >
-                <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1">
-                  Learn more
-                </span>
-                <SquigglyArrow
-                  width={165}
-                  height={82}
-                  strokeWidth={4}
-                  variant="bouncy"
-                  className="text-current"
-                />
-              </Link>
-            </div>
-          </AnimatedContent>
+          />
         ))}
       </div>
     </section>
@@ -525,13 +463,7 @@ export function OurServicesSection() {
 export function WhyChooseSection({ onBookCall }: { onBookCall: () => void }) {
   return (
     <GrainWave height="22rem" waveClassName="h-16 sm:h-24 md:h-28" waveTop waveBottom={false}>
-      <AnimatedContent
-        direction="vertical"
-        distance={40}
-        duration={0.7}
-        ease="power3.out"
-        threshold={0.2}
-      >
+      <AnimatedContent distance={40} duration={0.7}>
         <h2 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-ivory)">
           We are your growth partners.
         </h2>

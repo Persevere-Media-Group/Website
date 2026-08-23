@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, animate, type PanInfo } from "motion/react";
 import { PopupModal } from "react-calendly";
 import { Phone } from "lucide-react";
-
-// same link used in HeroSection/CtaBanner, keep these in sync if it ever changes
-const CALENDLY_URL = "https://calendly.com/keir-choosepersevere/30min";
+import { CALENDLY_URL } from "@/container-contents/services-shared";
 
 const STORAGE_KEY = "floating-cta-position";
 const EDGE_MARGIN = 8; // px, keeps it fully clickable rather than flush against the very edge

@@ -1,10 +1,11 @@
-import { useState, type ReactNode } from "react";
+import { useState, type ElementType, type ReactNode } from "react";
 import { PopupModal } from "react-calendly";
 import { GrainWave } from "@/ui-components/custom/grain-wave";
 import { GrainHeading } from "@/ui-components/primitive/grain-heading";
 import { YellowPulsatingButton } from "@/ui-components/custom/yellow-pulsating-button";
 import SquigglyArrow from "@/ui-components/primitive/squiggly-arrow";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
+import { cn } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Shared building blocks reused across every non-home page (About, Contact,
@@ -92,6 +93,24 @@ export function SectionHeading({ children, size = "md", className = "" }: Sectio
     >
       {children}
     </h2>
+  );
+}
+
+interface BodyTextProps {
+  children: ReactNode;
+  as?: ElementType;
+  className?: string;
+}
+
+// Standard body-copy style used throughout page content. `as` lets it render
+// as something other than a <p> (e.g. a list item) while keeping the same type style.
+export function BodyText({ children, as: Tag = "p", className }: BodyTextProps) {
+  return (
+    <Tag
+      className={cn("text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80", className)}
+    >
+      {children}
+    </Tag>
   );
 }
 

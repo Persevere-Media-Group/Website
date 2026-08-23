@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { resolveColor } from "@/lib/grain-canvas";
 
 interface GrainientProps {
   colors?: string[];
@@ -7,16 +8,6 @@ interface GrainientProps {
   noiseIntensity?: number;
   rotation?: number;
   className?: string;
-}
-
-// canvas fillStyle can't read CSS custom properties on its own, this looks the value up manually.
-// pass either a CSS variable name (e.g. "--color-terracotta") or a literal colour string, both work.
-function resolveColor(colorOrVariableName: string): string {
-  if (!colorOrVariableName.startsWith("--")) {
-    return colorOrVariableName;
-  }
-
-  return getComputedStyle(document.documentElement).getPropertyValue(colorOrVariableName).trim();
 }
 
 export function Grainient({
@@ -51,6 +42,11 @@ export function Grainient({
     const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
 
+    // Built once per effect run and reused by every animate frame below (rather than
+    // `paintGrainOverlay` from lib/grain-canvas, which regenerates a fresh random tile
+    // per call) - this canvas redraws continuously via requestAnimationFrame, so a
+    // fresh tile per frame would read as flickering static instead of a fixed grain
+    // texture sitting still over the animated gradient.
     const grainTile = document.createElement("canvas");
     grainTile.width = 128;
     grainTile.height = 128;

@@ -7,7 +7,9 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/ui-components/primitive/accordion";
+import { SPRING_TRANSITION, SPRING_SCALE_VARIANTS } from "@/ui-components/primitive/accordion-presets";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
+import { BodyText } from "@/ui-components/custom/common-page-elements";
 
 // ---------------------------------------------------------------------------
 // FAQ accordion, shared across the services pages and the Contact page.
@@ -36,22 +38,11 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
   return (
     <Accordion
       className="flex w-full flex-col"
-      transition={{ type: "spring", stiffness: 120, damping: 20 }}
-      variants={{
-        expanded: { opacity: 1, scale: 1 },
-        collapsed: { opacity: 0, scale: 0.7 },
-      }}
+      transition={SPRING_TRANSITION}
+      variants={SPRING_SCALE_VARIANTS}
     >
       {faqs.map((faq, i) => (
-        <AnimatedContent
-          key={faq.q}
-          direction="vertical"
-          distance={20}
-          duration={0.6}
-          ease="power3.out"
-          threshold={0.2}
-          delay={i * 0.06}
-        >
+        <AnimatedContent key={faq.q} distance={20} duration={0.6} delay={i * 0.06}>
           <AccordionItem
             value={faq.q}
             className="border-b border-(--color-oxblood)/15 py-4 first:pt-0 last:border-b-0"
@@ -65,9 +56,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
               </div>
             </AccordionTrigger>
             <AccordionContent className="origin-top">
-              <p className="pt-3 pr-2 pl-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
-                {faq.a}
-              </p>
+              <BodyText className="pt-3 pr-2 pl-8">{faq.a}</BodyText>
             </AccordionContent>
           </AccordionItem>
         </AnimatedContent>

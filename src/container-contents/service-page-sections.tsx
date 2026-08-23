@@ -1,4 +1,4 @@
-import { SectionHeading } from "@/ui-components/custom/common-page-elements";
+import { SectionHeading, BodyText } from "@/ui-components/custom/common-page-elements";
 import { GrainWave } from "@/ui-components/custom/grain-wave";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
 import ScrollStack, { ScrollStackItem } from "@/ui-components/primitive/ScrollStack";
@@ -36,11 +36,9 @@ export function MyRole({ name }: SectionProps) {
   return (
     <>
       <SectionHeading size="sm">My role in Persevere Media</SectionHeading>
-      <p
-        className={`mt-6 text-left text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80 ${data.role.maxWidthClassName ?? "max-w-2xl"}`}
-      >
+      <BodyText className={`mt-6 text-left ${data.role.maxWidthClassName ?? "max-w-2xl"}`}>
         {data.role.paragraph}
-      </p>
+      </BodyText>
     </>
   );
 }
@@ -55,12 +53,7 @@ export function Approach({ name }: SectionProps) {
     <div className="flex w-full max-w-2xl flex-col gap-5 text-left">
       <SectionHeading>Our Approach</SectionHeading>
       {data.approach.map((paragraph, i) => (
-        <p
-          key={i}
-          className="text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80"
-        >
-          {paragraph}
-        </p>
+        <BodyText key={i}>{paragraph}</BodyText>
       ))}
     </div>
   );
@@ -102,9 +95,7 @@ export function HowItWorks({ name }: SectionProps) {
                 {stage.title}
               </h3>
             </div>
-            <p className="px-7 pt-0 pb-8 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
-              {stage.body}
-            </p>
+            <BodyText className="px-7 pt-0 pb-8">{stage.body}</BodyText>
           </ScrollStackItem>
         ))}
       </ScrollStack>
@@ -123,19 +114,11 @@ export function WhatsIncluded({ name }: SectionProps) {
       <SectionHeading>{data.included.heading}</SectionHeading>
       <ul className="flex flex-col gap-4 text-left">
         {data.included.items.map((item, i) => (
-          <AnimatedContent
-            key={i}
-            direction="vertical"
-            distance={20}
-            duration={0.6}
-            ease="power3.out"
-            threshold={0.2}
-            delay={i * 0.06}
-          >
-            <li className="flex items-start gap-3 text-[clamp(1rem,1.6vw,1.1rem)] leading-relaxed text-(--color-oxblood)/80">
+          <AnimatedContent key={i} distance={20} duration={0.6} delay={i * 0.06}>
+            <BodyText as="li" className="flex items-start gap-3">
               <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-terracotta)" />
               {item}
-            </li>
+            </BodyText>
           </AnimatedContent>
         ))}
       </ul>

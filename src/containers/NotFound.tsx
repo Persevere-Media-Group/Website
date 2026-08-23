@@ -63,20 +63,9 @@ export function NotFound() {
               responsive concept, it's just one fixed string per render) */}
           <SpecularButton
             size="lg"
-            radius={18}
             tint="var(--color-terracotta)"
             tintOpacity={0.5}
-            blur={0}
-            textColor="#f5f5f5"
-            lineColor="#ffffff"
-            baseColor="#525252"
             intensity={0.8}
-            shineSize={10}
-            shineFade={40}
-            thickness={1}
-            speed={0.35}
-            followMouse
-            proximity={250}
             autoAnimate
             className="sm:text-[1.35rem]! sm:p-[24px_52px]!"
             onClick={() => navigate("/")}
