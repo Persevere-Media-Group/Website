@@ -147,7 +147,7 @@ export function HeroSection() {
 
 const FACTS_BLOCKS = [
   {
-    heading: "Proven industry experience.",
+    heading: "Proven Experience",
     body: (
       <>
         <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
@@ -170,7 +170,7 @@ const FACTS_BLOCKS = [
     ),
   },
   {
-    heading: "The best of both worlds.",
+    heading: "Best of Both Worlds",
     body: (
       <>
         <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
@@ -185,7 +185,7 @@ const FACTS_BLOCKS = [
     ),
   },
   {
-    heading: "Just two of us to deal with.",
+    heading: "No Middlemen",
     body: (
       <>
         You get{" "}
@@ -209,7 +209,7 @@ export function FactsSection() {
       {FACTS_BLOCKS.map((block, i) => (
         <AnimatedContent key={block.heading} distance={50} duration={0.8} delay={i * 0.15}>
           <div className="max-w-xl">
-            <h3 className="font-subtitle text-[clamp(2.25rem,5vw,3.25rem)] font-black tracking-wide text-(--color-oxblood)">
+            <h3 className="font-heading text-[clamp(2.75rem,6.5vw,4.25rem)] tracking-wide text-(--color-oxblood)">
               {block.heading}
             </h3>
             <p className="mt-3 text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80">
