@@ -24,7 +24,7 @@ export function SectionWave({
   return (
     <div
       aria-hidden
-      className={`absolute inset-x-0 w-full overflow-hidden ${flip ? "top-0 rotate-180" : "bottom-0"} ${className ?? ""}`}
+      className={`pointer-events-none absolute inset-x-0 w-full overflow-hidden ${flip ? "top-0 rotate-180" : "bottom-0"} ${className ?? ""}`}
     >
       <svg
         viewBox="0 0 2880 120"
