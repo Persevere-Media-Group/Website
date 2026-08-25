@@ -94,10 +94,10 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             <img
               src={testimonial.avatar}
               alt={testimonial.name}
-              className="size-11 shrink-0 rounded-full border border-(--color-oxblood)/15 object-cover"
+              className="size-14 shrink-0 rounded-full border-2 border-(--color-terracotta) object-cover"
             />
           ) : (
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-sm font-bold text-(--color-terracotta)">
+            <span className="flex size-14 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-base font-bold text-(--color-terracotta)">
               {initials(testimonial.name)}
             </span>
           )}

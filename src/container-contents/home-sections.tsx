@@ -299,9 +299,11 @@ export function VideoSection() {
 // mistakes this for a genuine review before it's replaced.
 const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "Placeholder for a real client quote.",
-    name: "Client Name",
-    role: "Role, Company",
+    quote:
+      "We came to Persevere with a short brief and a limited budget. The support and service we received was personable, professional and aligned well with our ambitions.",
+    name: "Jason",
+    role: "Founder of Common Coffee",
+    avatar: "/photos/testimonials/jason.jpeg",
   },
   {
     quote: "Placeholder for a real client quote.",
