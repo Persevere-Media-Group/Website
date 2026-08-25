@@ -85,10 +85,8 @@ const SECTION_HEADING_FONT: Record<SectionHeadingFont, string> = {
   heading: "font-heading",
 };
 
-// TG Pomelo (font-heading) only ships one weight, so font-black gets
-// faux-bolded by the browser - that synthetic bolding is what crowds its
-// letters together. Every other font-heading title on the site (e.g.
-// "Let's talk.") skips the weight class for exactly this reason.
+// Every other font-heading title on the site (e.g. "Let's talk.") skips the
+// weight class, so this follows suit for consistency when font="heading".
 const SECTION_HEADING_WEIGHT: Record<SectionHeadingWeight, string> = {
   normal: "font-normal",
   black: "font-black",

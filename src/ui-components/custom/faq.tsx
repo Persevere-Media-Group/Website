@@ -70,10 +70,10 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
 
 // Heading + accordion, for pages that just want to drop in a self-contained FAQ
 // block without composing the heading themselves.
-export function FaqSection({ faqs, heading = "FAQs" }: { faqs: Faq[]; heading?: string }) {
+export function FaqSection({ faqs, heading = "FAQ" }: { faqs: Faq[]; heading?: string }) {
   return (
     <div className="flex w-full max-w-2xl flex-col gap-10">
-      <h2 className="font-heading text-center text-[clamp(2rem,5vw,3.5rem)] tracking-[0.15em] text-(--color-oxblood) sm:whitespace-nowrap">
+      <h2 className="font-heading text-center text-[clamp(2rem,5vw,3.5rem)] tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
         {heading}
       </h2>
       <FaqAccordion faqs={faqs} />
