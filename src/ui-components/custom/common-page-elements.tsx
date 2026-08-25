@@ -70,6 +70,8 @@ export function PageHero({ children, size = "lg", grainy = false }: PageHeroProp
 }
 
 type SectionHeadingSize = "sm" | "md" | "lg";
+type SectionHeadingFont = "subtitle" | "heading";
+type SectionHeadingWeight = "normal" | "black";
 
 // Same reasoning as HERO_TEXT_SIZE above: static strings so Tailwind can see them.
 const SECTION_HEADING_STYLE: Record<SectionHeadingSize, string> = {
@@ -78,18 +80,40 @@ const SECTION_HEADING_STYLE: Record<SectionHeadingSize, string> = {
   lg: "text-[clamp(2rem,5vw,3.5rem)]", // About, Privacy Policy, Placeholder
 };
 
+const SECTION_HEADING_FONT: Record<SectionHeadingFont, string> = {
+  subtitle: "font-subtitle",
+  heading: "font-heading",
+};
+
+// TG Pomelo (font-heading) only ships one weight, so font-black gets
+// faux-bolded by the browser - that synthetic bolding is what crowds its
+// letters together. Every other font-heading title on the site (e.g.
+// "Let's talk.") skips the weight class for exactly this reason.
+const SECTION_HEADING_WEIGHT: Record<SectionHeadingWeight, string> = {
+  normal: "font-normal",
+  black: "font-black",
+};
+
 interface SectionHeadingProps {
   children: ReactNode;
   size?: SectionHeadingSize;
+  font?: SectionHeadingFont;
+  weight?: SectionHeadingWeight;
   className?: string;
 }
 
 // A centered font-subtitle heading used to introduce a section of page
 // content (as opposed to PageHero's h1, which introduces the whole page).
-export function SectionHeading({ children, size = "md", className = "" }: SectionHeadingProps) {
+export function SectionHeading({
+  children,
+  size = "md",
+  font = "subtitle",
+  weight = "black",
+  className = "",
+}: SectionHeadingProps) {
   return (
     <h2
-      className={`font-subtitle text-center font-black tracking-wide text-(--color-oxblood) ${SECTION_HEADING_STYLE[size]} ${className}`}
+      className={`${SECTION_HEADING_FONT[font]} text-center ${SECTION_HEADING_WEIGHT[weight]} tracking-wide text-(--color-oxblood) ${SECTION_HEADING_STYLE[size]} ${className}`}
     >
       {children}
     </h2>

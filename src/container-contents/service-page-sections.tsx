@@ -143,7 +143,9 @@ export function Faqs({ name }: SectionProps) {
   const data = getServiceData(name);
   return (
     <div className="flex w-full max-w-2xl flex-col gap-10">
-      <SectionHeading>FAQ</SectionHeading>
+      <SectionHeading font="heading" size="lg" weight="normal">
+        FAQ
+      </SectionHeading>
       <FaqAccordion faqs={data.faqs} />
     </div>
   );

@@ -73,7 +73,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
 export function FaqSection({ faqs, heading = "FAQs" }: { faqs: Faq[]; heading?: string }) {
   return (
     <div className="flex w-full max-w-2xl flex-col gap-10">
-      <h2 className="font-subtitle text-center text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood) sm:whitespace-nowrap">
+      <h2 className="font-heading text-center text-[clamp(2rem,5vw,3.5rem)] tracking-[0.15em] text-(--color-oxblood) sm:whitespace-nowrap">
         {heading}
       </h2>
       <FaqAccordion faqs={faqs} />
