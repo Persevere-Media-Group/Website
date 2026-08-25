@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { PopupModal } from "react-calendly";
-import { SectionDivider, MiniDivider } from "@/ui-components/custom/wiggly-divider";
+import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
 import { SectionSpacer } from "@/ui-components/custom/section-spacer";
 import {
   HeroSection,
   FactsSection,
   StatsCountSection,
-  TestimonialsSection,
-  LogosSection,
   OurServicesSection,
   WhyChooseSection,
 } from "@/container-contents/home-sections";
@@ -25,18 +23,18 @@ export function Home() {
       <SectionDivider />
       <StatsCountSection />
       <SectionDivider reverse />
+      {/* Commented out until it is safe to deploy logos and quotes from clients
       <TestimonialsSection />
       <SectionSpacer size="sm" />
       <LogosSection />
-      <SectionSpacer size="lg" />
+      <SectionSpacer size="lg" /> 
       <MiniDivider size="sm" />
+      */}
       <OurServicesSection />
       <SectionSpacer size="md" />
       <ChoosePersevereMark />
       <SectionSpacer size="md" />
-
       <WhyChooseSection onBookCall={() => setIsCalendlyOpen(true)} />
-
       <PopupModal
         url={CALENDLY_URL}
         onModalClose={() => setIsCalendlyOpen(false)}
