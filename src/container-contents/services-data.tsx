@@ -246,7 +246,10 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
     // (monthly calls/weekly check-ins, direct access, reporting)
     alwaysIncludedBodies: [
       "A proper call each month to cover what's working, what's changed, and what's next, plus a weekly check-in so you're never left wondering how things stand.",
-      "A group chat with the two of us. Real access, not an account manager relaying messages. (Not at 11pm though, we've got lives too.)",
+      <>
+        A group chat with the two of us. Real access, not an account manager relaying messages.{" "}
+        <em>(Not at 11pm though, we've got lives too.)</em>
+      </>,
       "Honest reporting on the signals that actually matter: saves, shares, watch-time. No vanity numbers dressed up to look good.",
     ],
 
