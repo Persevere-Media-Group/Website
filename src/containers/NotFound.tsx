@@ -1,39 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import FuzzyText from "@/ui-components/primitive/fuzzy-text";
 import SpecularButton from "@/ui-components/primitive/specular-button";
-import DotField from "@/ui-components/primitive/dot-field";
 
 export function NotFound() {
   const navigate = useNavigate();
 
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center gap-6 overflow-hidden bg-(--color-ivory) px-4 text-center">
-      {/* sits behind everything as a subtle interactive texture.
-          NOTE: colour props here are literal hex, not CSS variables, this component is
-          canvas/WebGL driven like SpecularButton and Grainient, and those don't resolve
-          var(--color-...) strings the way real DOM CSS properties do.
-          glowColor below is a PLACEHOLDER dark oxblood-ish tone, swap for the real
-          --color-oxblood hex once you confirm it. */}
-      <div
-        className="dot-field-container"
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-      >
-        <DotField
-          dotRadius={1.5}
-          dotSpacing={14}
-          bulgeStrength={67}
-          glowRadius={0}
-          sparkle={false}
-          waveAmplitude={0}
-          cursorRadius={500}
-          cursorForce={0.1}
-          bulgeOnly
-          gradientFrom="#d5573b"
-          gradientTo="#edb03e"
-          glowColor="#edb03e"
-        />
-      </div>
-
       <div className="relative z-10 flex flex-col items-center gap-6 pointer-events-none">
         <FuzzyText
           className="font-fun"
