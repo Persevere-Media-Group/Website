@@ -104,8 +104,8 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
           manager.
         </span>,
         <span>
-          No matter which platforms you're running on, Meta, TikTok, Snapchat, Reddit, Pinterest,
-          or Google, we set up{" "}
+          No matter which platforms you're running on, Meta, TikTok, Snapchat, Reddit, Pinterest, or
+          Google, we set up{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
             tracking on every platform
           </Highlighter>{" "}
