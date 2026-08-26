@@ -11,10 +11,8 @@ interface GrainHeadingProps {
   className?: string;
   /** extra letter-spacing, as a fraction of font-size */
   tracking?: number;
-  /** lighter end of the subtle ivory gradient, defaults to the site's ivory */
-  lightColor?: string;
-  /** darker end of the gradient - just enough value difference for the grain to read */
-  deepColor?: string;
+  /** fill colour the grain texture is painted over */
+  color?: string;
   noiseIntensity?: number;
 }
 
@@ -90,17 +88,16 @@ function pickGlyphIndices(text: string, font: Font): number[] {
  * which is what makes two things possible at once:
  *  - picking a different hand-drawn alternate glyph for each repeated letter
  *    (see pickGlyphIndices), which plain CSS text can't do
- *  - filling the glyph shapes with a painted texture (a subtle ivory gradient
+ *  - filling the glyph shapes with a painted texture (the deep ivory colour
  *    plus the same grain noise as Grainient) instead of a flat colour, so the
- *    grain actually reads against the light ivory instead of washing out
+ *    grain actually reads instead of washing out
  */
 export function GrainHeading({
   text,
   fontUrl = "/fonts/TG-Pomelo.otf",
   className = "",
   tracking = 0.025,
-  lightColor = "--color-ivory",
-  deepColor = "#e2d7b2",
+  color = "#e2d7b2",
   noiseIntensity = 5,
 }: GrainHeadingProps) {
   const sizerRef = useRef<HTMLSpanElement>(null);
@@ -155,10 +152,7 @@ export function GrainHeading({
       paint.width = width;
       paint.height = height;
       const paintCtx = paint.getContext("2d")!;
-      const gradient = paintCtx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, resolveColor(lightColor));
-      gradient.addColorStop(1, resolveColor(deepColor));
-      paintCtx.fillStyle = gradient;
+      paintCtx.fillStyle = resolveColor(color);
       paintCtx.fillRect(0, 0, width, height);
       paintGrainOverlay(paintCtx, width, height, noiseIntensity);
 
@@ -187,7 +181,7 @@ export function GrainHeading({
     const resizeObserver = new ResizeObserver(render);
     resizeObserver.observe(sizer);
     return () => resizeObserver.disconnect();
-  }, [font, text, tracking, lightColor, deepColor, noiseIntensity]);
+  }, [font, text, tracking, color, noiseIntensity]);
 
   return (
     <span className="inline-block align-middle">

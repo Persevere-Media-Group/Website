@@ -2,11 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { paintGrainOverlay, resolveColor } from "@/lib/grain-canvas";
 import "./PersevereAnimation.css";
 
-// Same gradient as GrainHeading (the About/Contact/Blog/Case Studies and
-// Ads/Creative page titles) - see that component for why the gradient matters
+// Same fill colour as GrainHeading (the About/Contact/Blog/Case Studies and
+// Ads/Creative page titles) - see that component for why the grain matters
 // (Grainient's overlay-blend noise barely reads against flat ivory on its own).
-const GRAIN_LIGHT_COLOR = "--color-ivory";
-const GRAIN_DEEP_COLOR = "#e2d7b2";
+const GRAIN_COLOR = "#e2d7b2";
 const GRAIN_NOISE_INTENSITY = 5;
 
 // How much taller than the font size each letter's texture canvas is, so a
@@ -34,10 +33,7 @@ function buildGrainTexture(variant: string, widthCss: number, fontSizePx: number
   paint.width = width;
   paint.height = height;
   const paintCtx = paint.getContext("2d")!;
-  const gradient = paintCtx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, resolveColor(GRAIN_LIGHT_COLOR));
-  gradient.addColorStop(1, resolveColor(GRAIN_DEEP_COLOR));
-  paintCtx.fillStyle = gradient;
+  paintCtx.fillStyle = resolveColor(GRAIN_COLOR);
   paintCtx.fillRect(0, 0, width, height);
   paintGrainOverlay(paintCtx, width, height, GRAIN_NOISE_INTENSITY);
 
