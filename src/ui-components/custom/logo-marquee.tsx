@@ -34,7 +34,7 @@ export function LogoMarquee({
     <section className={`overflow-hidden px-4 py-4 text-center ${className}`}>
       <DisplayHeading subheading={subheading}>{heading}</DisplayHeading>
 
-      <div className="relative mx-auto mt-14 max-w-5xl [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <div className="relative mx-auto mt-14 max-w-5xl mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <Marquee pauseOnHover className="text-[3.5rem] [--duration:32s] [--gap:4.5rem]">
           {LOGOS.map((logo) => (
             <div
