@@ -3,12 +3,8 @@ import AnimatedContent from "@/ui-components/primitive/animated-content";
 import { SectionHeading, BodyText } from "@/ui-components/custom/common-page-elements";
 import { CylinderTextRotate } from "@/ui-components/primitive/cylinder-text-rotate";
 import { getCylinderSizeCompensation } from "@/lib/cylinder-size-compensation";
-import {
-  useImageGallery,
-  GalleryThumbnails,
-  GalleryPreview,
-  type GalleryImage,
-} from "@/ui-components/primitive/image-gallery";
+import { GalleryThumbnails, GalleryPreview } from "@/ui-components/primitive/image-gallery";
+import { useImageGallery, type GalleryImage } from "@/hooks/use-image-gallery";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { ALWAYS_INCLUDED_HEADINGS } from "@/container-contents/services-shared";
 
@@ -62,7 +58,11 @@ const REAL_IMAGES: Record<string, GalleryImage[]> = {
       alt: "Keir at a concert with the Chromakopia stage behind him",
       focalPoint: "28% 55%",
     },
-    { src: "/photos/keir/4.jpeg", alt: "Keir taking a selfie on a city street", focalPoint: "40% 45%" },
+    {
+      src: "/photos/keir/4.jpeg",
+      alt: "Keir taking a selfie on a city street",
+      focalPoint: "40% 45%",
+    },
   ],
   calum: [
     {
@@ -76,7 +76,11 @@ const REAL_IMAGES: Record<string, GalleryImage[]> = {
       alt: "Calum with Arya the cat on his shoulder",
       focalPoint: "50% 38%",
     },
-    { src: "/photos/calum/4.jpeg", alt: "Calum editing footage on a laptop", focalPoint: "58% 38%" },
+    {
+      src: "/photos/calum/4.jpeg",
+      alt: "Calum editing footage on a laptop",
+      focalPoint: "58% 38%",
+    },
   ],
 };
 

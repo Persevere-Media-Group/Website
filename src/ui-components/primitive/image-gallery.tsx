@@ -1,13 +1,13 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import type { ImageGallery } from "@/hooks/use-image-gallery";
 
 // ---------------------------------------------------------------------------
-// Click-to-swap image gallery, split into a `useImageGallery` hook plus two
-// presentational pieces - <GalleryThumbnails> and <GalleryPreview> - so a
-// caller can lay them out however it needs (stacked, side by side, thumbnails
-// paired with unrelated content) while sharing one source of truth for which
-// photo is active and how tall the preview frame is.
+// Click-to-swap image gallery: <GalleryThumbnails> and <GalleryPreview>, two
+// presentational pieces sharing one `useImageGallery()` (src/hooks) result so
+// a caller can lay them out however it needs - stacked, side by side,
+// thumbnails paired with unrelated content.
 //
 // The preview frame is a fixed height - the tallest of the carousel's own
 // photos, rendered at the frame's own width - so switching the active photo
@@ -27,93 +27,13 @@ import { cn } from "@/lib/utils";
 // framer-motion/Lenis interaction.
 // ---------------------------------------------------------------------------
 
-export type GalleryImage = {
-  src: string;
-  alt: string;
-  /** CSS object-position for the thumbnail crop, e.g. "50% 20%". Defaults to center. */
-  focalPoint?: string;
-};
-
-function cssLengthToPx(value: string): number {
-  if (typeof document === "undefined") return Number.POSITIVE_INFINITY;
-  const probe = document.createElement("div");
-  probe.style.position = "absolute";
-  probe.style.visibility = "hidden";
-  probe.style.height = value;
-  document.body.appendChild(probe);
-  const px = probe.getBoundingClientRect().height;
-  probe.remove();
-  return px;
-}
-
-export function useImageGallery({
-  images,
-  initialIndex = 0,
-  maxPreviewHeight = "34rem",
+export function GalleryThumbnails({
+  gallery,
+  className,
 }: {
-  images: GalleryImage[];
-  initialIndex?: number;
-  /** Ceiling on the fixed frame height, for an unusually tall carousel. */
-  maxPreviewHeight?: string;
+  gallery: ImageGallery;
+  className?: string;
 }) {
-  const [activeIndex, setActiveIndex] = useState(
-    Math.min(Math.max(initialIndex, 0), Math.max(images.length - 1, 0))
-  );
-
-  // Frame width + each photo's intrinsic size determine the tallest photo's
-  // rendered height at that width, which becomes the frame's fixed height.
-  const frameRef = useRef<HTMLDivElement>(null);
-  const [frameWidth, setFrameWidth] = useState(0);
-  const [naturalSizes, setNaturalSizes] = useState<Record<string, { width: number; height: number }>>(
-    {}
-  );
-
-  useLayoutEffect(() => {
-    const frame = frameRef.current;
-    if (!frame) return;
-
-    const measure = () => setFrameWidth(frame.clientWidth);
-    measure();
-
-    const resizeObserver = new ResizeObserver(measure);
-    resizeObserver.observe(frame);
-    return () => resizeObserver.disconnect();
-  }, []);
-
-  useLayoutEffect(() => {
-    setNaturalSizes({});
-  }, [images]);
-
-  const reportNaturalSize = (src: string, width: number, height: number) => {
-    setNaturalSizes((prev) => (prev[src] ? prev : { ...prev, [src]: { width, height } }));
-  };
-
-  const tallestHeight = images.reduce((max, image) => {
-    const natural = naturalSizes[image.src];
-    if (!natural || !frameWidth) return max;
-    const rendered = (frameWidth * natural.height) / natural.width;
-    return Math.max(max, rendered);
-  }, 0);
-
-  const frameHeight = tallestHeight > 0 ? Math.min(tallestHeight, cssLengthToPx(maxPreviewHeight)) : 0;
-
-  const active = images[activeIndex];
-
-  return {
-    images,
-    activeIndex,
-    setActiveIndex,
-    active,
-    frameRef,
-    frameHeight,
-    maxPreviewHeight,
-    reportNaturalSize,
-  };
-}
-
-export type ImageGallery = ReturnType<typeof useImageGallery>;
-
-export function GalleryThumbnails({ gallery, className }: { gallery: ImageGallery; className?: string }) {
   return (
     <div className={cn("grid grid-cols-4 gap-4", className)}>
       {gallery.images.map((image, index) => {
@@ -149,12 +69,33 @@ export function GalleryThumbnails({ gallery, className }: { gallery: ImageGaller
   );
 }
 
-export function GalleryPreview({ gallery, className }: { gallery: ImageGallery; className?: string }) {
+export function GalleryPreview({
+  gallery,
+  className,
+}: {
+  gallery: ImageGallery;
+  className?: string;
+}) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const reportFrameWidth = gallery.reportFrameWidth;
+
+  useLayoutEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return;
+
+    const measure = () => reportFrameWidth(frame.clientWidth);
+    measure();
+
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(frame);
+    return () => resizeObserver.disconnect();
+  }, [reportFrameWidth]);
+
   if (!gallery.active) return null;
 
   return (
     <div
-      ref={gallery.frameRef}
+      ref={frameRef}
       className={cn("relative overflow-hidden rounded-2xl bg-(--color-ivory)", className)}
       style={{
         height: gallery.frameHeight > 0 ? gallery.frameHeight : undefined,
