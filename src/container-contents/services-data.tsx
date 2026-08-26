@@ -149,7 +149,7 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
       <>
         A dedicated group chat with the two of us, to discuss day-to-day performance, and to feel
         like an extension of your team. We want to give you real access, not an account manager
-        relaying messages. <em>(Not at 11pm though, we've got lives too.)</em>
+        relaying messages. <em>(You won't get a reply at 11pm though, we've got lives too!)</em>
       </>,
       "We'll help you get set up with tools that keep the numbers clear and trustworthy, not vanity metrics dressed up to make us look good. We want your business to actually do well, not just make us look good.",
     ],
@@ -273,35 +273,36 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
       heading: "What's included in the Creative package?",
       items: [
         <span>
-          Shoots for{" "}
+          Built around{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
             paid and organic content
           </Highlighter>
-          , starting at one half-day a month and scaling with your needs
+          , every shoot starts at one half-day a month and scales with your needs
         </span>,
         <span>
-          Every asset gets{" "}
+          Editing, colour grading, and captioning are all handled to a professional standard,
+          because every asset gets{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
             full production
           </Highlighter>
-          , editing, colour grading, and captioning to a professional standard
         </span>,
         <span>
-          From short-form video and long-form to VSLs, static graphics, and reels, we cover a{" "}
+          From short-form video and long-form to VSLs, static graphics, and reels, we make sure a{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
             full range of formats
-          </Highlighter>
+          </Highlighter>{" "}
+          is covered end to end
         </span>,
         <span>
-          Posting included, not just the content itself, backed by a proper{" "}
+          Every rollout is backed by a proper{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
             organic social strategy
-          </Highlighter>{" "}
-          and rollout
+          </Highlighter>
+          , so posting is included, not just the content itself
         </span>,
         <span>
-          Wherever your audience actually is, most often Instagram, TikTok, or YouTube, everything
-          runs on a clear{" "}
+          Wherever your audience actually is, most often Instagram, TikTok, or YouTube, we build
+          everything around a clear{" "}
           <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
             platform strategy
           </Highlighter>
@@ -315,7 +316,7 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
       "A proper call each month to cover what's working, what's changed, and what's next, plus a weekly check-in so you're never left wondering how things stand.",
       <>
         A group chat with the two of us. Real access, not an account manager relaying messages.{" "}
-        <em>(Not at 11pm though, we've got lives too.)</em>
+        <em>(You won't get a reply at 11pm though, we've got lives too!)</em>
       </>,
       "Honest reporting on the signals that actually matter: saves, shares, watch-time. No vanity numbers dressed up to look good.",
     ],
