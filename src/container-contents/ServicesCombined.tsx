@@ -117,14 +117,19 @@ export function IntroBanner({
   return (
     <div className="flex w-full max-w-4xl flex-col items-center gap-8 pb-16 text-center">
       {/* useAutoFitScale measures against the row's parent, so this wrapper is what
-          defines the width the row is allowed to occupy. */}
-      <div className="w-full max-w-2xl">
+          defines the width the row is allowed to occupy. It's matched to the outer
+          container (rather than a narrower cap) because the grid below leans on
+          that fixed width: the "Hi I'm ___" column is 1fr, so it always stretches
+          to fill whatever's left of that width, and right-aligning its text against
+          that edge is what lands the rotating word's start flush with the photo's
+          right edge further down - no visible gap to fake it with. */}
+      <div className="w-full max-w-4xl">
         <div
           ref={wordRowRef}
-          className="flex flex-row items-center justify-center gap-3 font-subtitle text-[clamp(2.4rem,6vw,4.2rem)] tracking-normal text-(--color-oxblood) sm:gap-4"
+          className="grid grid-cols-[1fr_auto] items-center gap-3 font-subtitle text-[clamp(2.4rem,6vw,4.2rem)] tracking-normal text-(--color-oxblood) sm:gap-4"
           style={{ transform: `scale(${wordRowScale})`, transformOrigin: "center" }}
         >
-          <span className="whitespace-nowrap">
+          <span className="whitespace-nowrap text-right">
             Hi I'm <span className="text-(--color-terracotta)">{name}</span>. I'm your
           </span>
 
