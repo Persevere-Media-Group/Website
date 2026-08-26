@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Home } from "lucide-react";
 import FuzzyText from "@/ui-components/primitive/fuzzy-text";
 import SpecularButton from "@/ui-components/primitive/specular-button";
 
@@ -30,20 +31,17 @@ export function NotFound() {
         </p>
 
         <div className="mt-4 pointer-events-auto">
-          {/* size stays "lg" so mobile is untouched, the sm: overrides bump it up to
-              match .specular-button--xl's own font-size/padding values from the sm
-              breakpoint up, rather than switching the size prop itself (which has no
-              responsive concept, it's just one fixed string per render) */}
           <SpecularButton
             size="lg"
-            tint="var(--color-terracotta)"
-            tintOpacity={0.5}
-            intensity={0.8}
+            radius={20}
+            textColor="var(--color-oxblood)"
+            proximity={260}
             autoAnimate
-            className="sm:text-[1.35rem]! sm:p-[24px_52px]!"
+            aria-label="Go to home page"
+            className="p-0! size-20 sm:size-24"
             onClick={() => navigate("/")}
           >
-            Back to Home
+            <Home size={40} strokeWidth={2} aria-hidden="true" />
           </SpecularButton>
         </div>
       </div>
