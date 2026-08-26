@@ -6,12 +6,16 @@ import { cn } from "@/lib/utils";
 // Generic image gallery: click-to-swap thumbnail row on top, large preview
 // below. Carries no content of its own, callers supply the images.
 //
-// The preview frame has no fixed aspect ratio - it sizes itself to whatever
-// image is active (landscape or portrait), capped by maxPreviewHeight so a
-// tall portrait doesn't take over the page. Thumbnails stay uniform squares
-// regardless of the source image's shape, object-cover cropping to whatever
-// `focalPoint` each image specifies (or the center by default) so the crop
-// lands on the recognizable part of the shot rather than a shrunk whole frame.
+// The preview frame is a fixed height - the tallest of the carousel's own
+// photos, rendered at the frame's own width - so switching the active photo
+// never changes the frame's size (and anything laid out beside the gallery
+// never reflows because of it). Shorter/wider photos letterbox within that
+// fixed height rather than shrinking the frame. `maxPreviewHeight` remains a
+// ceiling on that computed height for an unusually tall carousel. Thumbnails
+// stay uniform squares regardless of the source image's shape, object-cover
+// cropping to whatever `focalPoint` each image specifies (or the center by
+// default) so the crop lands on the recognizable part of the shot rather
+// than a shrunk whole frame.
 //
 // The preview paints via a background-image div sized to the image's own
 // rendered box in pixels, not an <img src> with object-fit and not a div that
@@ -45,9 +49,21 @@ export type ImageGalleryProps = {
   images: GalleryImage[];
   className?: string;
   initialIndex?: number;
-  /** Caps how tall the preview frame can grow for very portrait images. */
+  /** Ceiling on the fixed frame height, for an unusually tall carousel. */
   maxPreviewHeight?: string;
 };
+
+function cssLengthToPx(value: string): number {
+  if (typeof document === "undefined") return Number.POSITIVE_INFINITY;
+  const probe = document.createElement("div");
+  probe.style.position = "absolute";
+  probe.style.visibility = "hidden";
+  probe.style.height = value;
+  document.body.appendChild(probe);
+  const px = probe.getBoundingClientRect().height;
+  probe.remove();
+  return px;
+}
 
 export function ImageGallery({
   images,
@@ -58,6 +74,39 @@ export function ImageGallery({
   const [activeIndex, setActiveIndex] = useState(
     Math.min(Math.max(initialIndex, 0), Math.max(images.length - 1, 0))
   );
+
+  // Frame width + each photo's intrinsic size determine the tallest photo's
+  // rendered height at that width, which becomes the frame's fixed height.
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [frameWidth, setFrameWidth] = useState(0);
+  const [naturalSizes, setNaturalSizes] = useState<Record<string, { width: number; height: number }>>(
+    {}
+  );
+
+  useLayoutEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return;
+
+    const measure = () => setFrameWidth(frame.clientWidth);
+    measure();
+
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(frame);
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  useLayoutEffect(() => {
+    setNaturalSizes({});
+  }, [images]);
+
+  const tallestHeight = images.reduce((max, image) => {
+    const natural = naturalSizes[image.src];
+    if (!natural || !frameWidth) return max;
+    const rendered = (frameWidth * natural.height) / natural.width;
+    return Math.max(max, rendered);
+  }, 0);
+
+  const frameHeight = tallestHeight > 0 ? Math.min(tallestHeight, cssLengthToPx(maxPreviewHeight)) : 0;
 
   const sizerRef = useRef<HTMLImageElement>(null);
   const [previewSize, setPreviewSize] = useState<{ width: number; height: number } | null>(null);
@@ -85,7 +134,7 @@ export function ImageGallery({
       sizer.removeEventListener("load", measure);
       resizeObserver.disconnect();
     };
-  }, [active?.src, maxPreviewHeight]);
+  }, [active?.src, frameHeight]);
 
   if (images.length === 0) return null;
 
@@ -113,6 +162,14 @@ export function ImageGallery({
                 alt={image.alt}
                 className="h-full w-full object-cover"
                 style={{ objectPosition: image.focalPoint ?? "center" }}
+                onLoad={(event) => {
+                  const target = event.currentTarget;
+                  setNaturalSizes((prev) =>
+                    prev[image.src]
+                      ? prev
+                      : { ...prev, [image.src]: { width: target.naturalWidth, height: target.naturalHeight } }
+                  );
+                }}
               />
             </button>
           );
@@ -120,8 +177,9 @@ export function ImageGallery({
       </div>
 
       <div
+        ref={frameRef}
         className="grid w-full place-items-center overflow-hidden rounded-2xl bg-(--color-ivory)"
-        style={{ maxHeight: maxPreviewHeight }}
+        style={{ height: frameHeight > 0 ? frameHeight : undefined, maxHeight: maxPreviewHeight }}
       >
         {/* Invisible - exists only so the browser's own intrinsic-ratio sizing tells us
             the pixel box to paint the background-image div at (see file banner). */}
@@ -132,7 +190,7 @@ export function ImageGallery({
           alt=""
           aria-hidden
           className="invisible max-w-full object-contain [grid-area:1/1]"
-          style={{ maxHeight: maxPreviewHeight }}
+          style={{ maxHeight: frameHeight > 0 ? frameHeight : maxPreviewHeight }}
         />
 
         <AnimatePresence mode="wait">

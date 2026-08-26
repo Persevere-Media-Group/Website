@@ -197,8 +197,8 @@ const FACTS_BLOCKS = [
         <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
           actually doing the work
         </Highlighter>
-        . No account managers, no profit-skimming by shareholders. The money you save on cutting out
-        the middlemen goes straight back into your business.
+        . No account managers, no bloated fees to pay shareholders. keeping your budget going where
+        it should, toward growing your business.
       </>
     ),
   },

@@ -85,10 +85,10 @@ export function IntroBanner({
   const wordRowScale = useAutoFitScale(wordRowRef, getCylinderSizeCompensation());
 
   return (
-    <div className="flex w-full max-w-2xl flex-col items-center gap-8 pb-16 text-center">
+    <div className="flex w-full max-w-4xl flex-col items-center gap-8 pb-16 text-center">
       {/* useAutoFitScale measures against the row's parent, so this wrapper is what
           defines the width the row is allowed to occupy. */}
-      <div className="w-full">
+      <div className="w-full max-w-2xl">
         <div
           ref={wordRowRef}
           className="flex flex-row items-center justify-center gap-3 font-subtitle text-[clamp(2.4rem,6vw,4.2rem)] tracking-normal text-(--color-oxblood) sm:gap-4"
@@ -120,12 +120,18 @@ export function IntroBanner({
           </div>
         </div>
       </div>
-      <ImageGallery images={placeholderImages(name)} className="mt-10 max-w-sm" />
-      {note && (
-        <p className="max-w-sm text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/70">
-          {note}
-        </p>
-      )}
+
+      {/* The gallery's preview frame is a fixed height (image-gallery.tsx sizes it to
+          the tallest photo in the carousel), so this row - and the note beside it -
+          never reflow as the active photo changes. */}
+      <div className="mt-10 flex w-full flex-col items-center gap-8 md:flex-row md:items-center md:justify-center">
+        <ImageGallery images={placeholderImages(name)} className="max-w-sm shrink-0" />
+        {note && (
+          <p className="max-w-sm text-[clamp(0.95rem,1.4vw,1rem)] leading-relaxed text-(--color-oxblood)/70 md:text-left">
+            {note}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
