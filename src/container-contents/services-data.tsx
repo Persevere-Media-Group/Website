@@ -95,12 +95,50 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
     included: {
       heading: "What's included in the Ads package?",
       items: [
-        "Full campaign strategy. Designed and implemented by us, end-to-end. Not handled by an anonymous media manager.",
-        "Tracking set up properly across every platform you run on: Meta, TikTok, Snapchat, Reddit, Pinterest, or Google.",
-        "A revenue-first approach, so decisions get made on what the ads earn, not what produces the best vanity metrics.",
-        "A thorough creative testing framework, making sure every test teaches us something instead of wasting budget.",
-        "Data and trend analysis that actually optimises your campaigns. Taking the learnings and implementing it into your strategy.",
-        "Reporting dashboards built with tools like Triple Whale, so the numbers are accurate and the campaigns stay accountable!",
+        <span>
+          End-to-end, our{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            full campaign strategy
+          </Highlighter>{" "}
+          is designed and implemented entirely by us, never handed off to an anonymous media
+          manager.
+        </span>,
+        <span>
+          No matter which platforms you're running on, Meta, TikTok, Snapchat, Reddit, Pinterest,
+          or Google, we set up{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            tracking on every platform
+          </Highlighter>{" "}
+          properly, right from the start.
+        </span>,
+        <span>
+          Every decision we make runs through a{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            revenue-first approach
+          </Highlighter>
+          : what the ads actually earn, not what produces the best vanity metrics.
+        </span>,
+        <span>
+          Every test teaches us something instead of wasting budget, thanks to a thorough{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            creative testing framework
+          </Highlighter>
+          .
+        </span>,
+        <span>
+          Behind every campaign sits real{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            data and trend analysis
+          </Highlighter>
+          , turning what we learn straight into your strategy.
+        </span>,
+        <span>
+          The numbers stay accurate and the campaigns stay accountable, thanks to{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            reporting dashboards
+          </Highlighter>{" "}
+          built with tools like Triple Whale.
+        </span>,
       ],
     },
 
@@ -234,11 +272,40 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
     included: {
       heading: "What's included in the Creative package?",
       items: [
-        "Shoots for paid and organic content, starting at one half-day a month and scaling with your needs",
-        "Full production: editing, colour grading, and captioning to a professional standard",
-        "A full range of formats: short-form video, long-form, VSLs, static graphics, and reels",
-        "Organic social strategy and rollout, including posting, not just the content itself",
-        "Platform strategy built around where your audience actually is, most often Instagram, TikTok, or YouTube",
+        <span>
+          Shoots for{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            paid and organic content
+          </Highlighter>
+          , starting at one half-day a month and scaling with your needs
+        </span>,
+        <span>
+          Every asset gets{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            full production
+          </Highlighter>
+          , editing, colour grading, and captioning to a professional standard
+        </span>,
+        <span>
+          From short-form video and long-form to VSLs, static graphics, and reels, we cover a{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            full range of formats
+          </Highlighter>
+        </span>,
+        <span>
+          Posting included, not just the content itself, backed by a proper{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            organic social strategy
+          </Highlighter>{" "}
+          and rollout
+        </span>,
+        <span>
+          Wherever your audience actually is, most often Instagram, TikTok, or YouTube, everything
+          runs on a clear{" "}
+          <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+            platform strategy
+          </Highlighter>
+        </span>,
       ],
     },
 

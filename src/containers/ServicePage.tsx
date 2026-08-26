@@ -46,7 +46,7 @@ export interface ServicePageData {
   stages: ServiceStage[];
   included: {
     heading: ReactNode;
-    items: string[];
+    items: ReactNode[];
   };
   alwaysIncludedBodies: [ReactNode, ReactNode, ReactNode];
   faqs: { q: string; a: ReactNode }[];
