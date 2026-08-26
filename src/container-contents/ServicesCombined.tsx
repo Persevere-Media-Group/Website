@@ -41,7 +41,18 @@ export function AlwaysIncluded({ bodies }: { bodies: [ReactNode, ReactNode, Reac
 // Real shoot photos, keyed by name (lowercase). Falls back to stand-in
 // picsum placeholders for anyone whose photoshoot hasn't delivered yet.
 const REAL_IMAGES: Record<string, { src: string; alt: string }[]> = {
-  keir: [{ src: "/photos/keir/DSC06936.jpeg", alt: "Keir smiling at a table" }],
+  keir: [
+    { src: "/photos/keir/1.jpeg", alt: "Keir smiling at a cafe table" },
+    { src: "/photos/keir/2.jpeg", alt: "Keir behind the camera on a shoot" },
+    { src: "/photos/keir/3.jpeg", alt: "Keir at a concert with the Chromakopia stage behind him" },
+    { src: "/photos/keir/4.jpeg", alt: "Keir taking a selfie on a city street" },
+  ],
+  calum: [
+    { src: "/photos/calum/3.jpeg", alt: "Calum filming on set with a cinema camera" },
+    { src: "/photos/calum/1.jpeg", alt: "Calum out hiking with a backpack" },
+    { src: "/photos/calum/2.jpeg", alt: "Calum with Arya the cat on his shoulder" },
+    { src: "/photos/calum/4.jpeg", alt: "Calum editing footage on a laptop" },
+  ],
 };
 
 function placeholderImages(name: string): { src: string; alt: string }[] {
