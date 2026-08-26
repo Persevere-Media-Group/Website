@@ -24,7 +24,9 @@ export function BlogListSection() {
             })}
           </p>
           {post.excerpt && (
-            <p className="max-w-xl leading-relaxed text-(--color-oxblood)/80">{post.excerpt}</p>
+            <p className="max-w-xl text-justify leading-relaxed text-(--color-oxblood)/80">
+              {post.excerpt}
+            </p>
           )}
         </Link>
       ))}

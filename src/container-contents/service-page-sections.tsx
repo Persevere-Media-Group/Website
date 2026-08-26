@@ -36,7 +36,7 @@ export function MyRole({ name }: SectionProps) {
   return (
     <>
       <SectionHeading size="sm">My role in Persevere Media</SectionHeading>
-      <BodyText className={`mt-6 text-left ${data.role.maxWidthClassName ?? "max-w-2xl"}`}>
+      <BodyText className={`mt-6 text-justify ${data.role.maxWidthClassName ?? "max-w-2xl"}`}>
         {data.role.paragraph}
       </BodyText>
     </>
@@ -50,7 +50,7 @@ export function MyRole({ name }: SectionProps) {
 export function Approach({ name }: SectionProps) {
   const data = getServiceData(name);
   return (
-    <div className="flex w-full max-w-2xl flex-col gap-5 text-left">
+    <div className="flex w-full max-w-2xl flex-col gap-5 text-justify">
       <SectionHeading>Our Approach</SectionHeading>
       {data.approach.map((paragraph, i) => (
         <BodyText key={i}>{paragraph}</BodyText>
@@ -85,7 +85,7 @@ export function HowItWorks({ name }: SectionProps) {
         {data.stages.map((stage) => (
           <ScrollStackItem
             key={stage.number}
-            itemClassName="overflow-hidden rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) text-left shadow-[0_12px_44px_-18px_rgba(74,31,29,0.55)]"
+            itemClassName="overflow-hidden rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) text-justify shadow-[0_12px_44px_-18px_rgba(74,31,29,0.55)]"
           >
             <div className="flex h-20 items-center gap-4 px-7">
               <span className="flex w-16 shrink-0 items-center justify-center font-fun text-[clamp(2.75rem,5.2vw,3.5rem)] text-(--color-terracotta)">

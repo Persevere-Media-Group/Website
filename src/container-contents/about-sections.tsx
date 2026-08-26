@@ -83,7 +83,7 @@ export function RolesSection() {
 
 export function OriginStorySection() {
   return (
-    <div className="mt-20 flex w-full max-w-2xl flex-col gap-14 text-left">
+    <div className="mt-20 flex w-full max-w-2xl flex-col gap-14 text-justify">
       <div className="flex flex-col gap-4">
         <h2 className="font-subtitle text-[clamp(1.5rem,3vw,2rem)] font-black tracking-wide text-(--color-oxblood)">
           How it started

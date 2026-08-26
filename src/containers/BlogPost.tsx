@@ -27,7 +27,7 @@ export function BlogPost() {
 
         {post.image && <img src={post.image} alt="" className="w-full rounded-lg object-cover" />}
 
-        <div className="prose max-w-none text-(--color-oxblood)">
+        <div className="prose max-w-none text-justify text-(--color-oxblood)">
           <ReactMarkdown>{post.body}</ReactMarkdown>
         </div>
       </div>
