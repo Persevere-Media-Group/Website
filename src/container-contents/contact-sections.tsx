@@ -5,9 +5,10 @@ import SpecularButton from "@/ui-components/primitive/specular-button";
 import { Highlighter } from "@/ui-components/primitive/highlighter";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
 import { Instagram, Linkedin } from "@/ui-components/primitive/svgs";
-import { FaqSection, type Faq } from "@/ui-components/custom/faq";
+import { FaqSection, FaqLink, type Faq } from "@/ui-components/custom/faq";
 import { containsProfanity } from "@/lib/profanity";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
+import { UNDERLINE_COLOR, MARK_PROPS } from "@/lib/text-marks";
 import {
   Stepper,
   StepperContent,
@@ -927,6 +928,15 @@ export function ContactFormSection() {
 // FAQs
 // ---------------------------------------------------------------------------
 
+// Combines the general contact FAQs with the ones from both services pages,
+// so everything lives in one place instead of being split across three
+// pages. Where both services pages asked the same question (long-term
+// contracts, timelines, getting started), the question text is disambiguated
+// rather than shown twice; where they asked mirrored versions of the same
+// question (handling both ads and creative), they're merged into one entry.
+// Any "get in touch"/"send us a message" CTAs from the source FAQs are
+// dropped here since they'd otherwise point back at the page they're
+// already on.
 const CONTACT_FAQS: Faq[] = [
   {
     q: "What happens after I submit the form?",
@@ -943,6 +953,70 @@ const CONTACT_FAQS: Faq[] = [
   {
     q: "Do I need to prepare anything before I get in touch?",
     a: 'Nope, just come as you are. If you\'d rather talk it through than type it out, use the "Book a call" link instead of the form.',
+  },
+  {
+    q: "Do you handle both ads and creative, or just one?",
+    a: (
+      <>
+        Both. Creative and paid media are handled under one roof, from scripting and shooting
+        through to the campaigns themselves, so nothing gets lost in translation between a
+        separate ads agency and a separate content team.
+        <FaqLink to="/services/keir">See the Ads service for details</FaqLink>
+        <FaqLink to="/services/calum">See the Creative service for details</FaqLink>
+      </>
+    ),
+  },
+  {
+    q: "How much ad spend do you recommend?",
+    a: (
+      <>
+        Ad spend goes directly to the platforms themselves (Meta, Google, TikTok, wherever),
+        separate from our management fee. We work across a wide range of ad spend budgets, from
+        four figures a month to six. As a starting point, we'd recommend reserving at least{" "}
+        <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={8}>
+          £500 a month
+        </Highlighter>{" "}
+        for that ad spend alone, so the platform actually has enough to work with, though this
+        varies by sector and goals. Not sure what's realistic for you? Fill in the form below and
+        we'll walk you through it.
+      </>
+    ),
+  },
+  {
+    q: "Do I need any equipment for a shoot?",
+    a: "Nope! We handle all of it. Cameras, lighting, sound, the lot. You just need to show up.",
+  },
+  {
+    q: "What if I'm not comfortable in front of a camera?",
+    a: "Some founders love being the face of their brand. Others would rather not be. Either works. If you're happy on camera, we'll build content around you. If you're not as confident, we can help you become a natural in front of a camera lens, or discuss other ways to represent your brand.",
+  },
+  {
+    q: "How often will I hear from you?",
+    a: "A proper reporting call every month, plus direct access to us via group chat in between. No account manager standing in the way.",
+  },
+  {
+    q: "How long before I see results with paid ads?",
+    a: "The unfortunate and realistic answer is, it depends. We don't want to sit here and promise you the world just so you come onboard. But we can guarantee you that we will do everything in our power to make sure that results start flowing in as quickly as possible.",
+  },
+  {
+    q: "How long before I see results with organic/creative content?",
+    a: "The honest answer is, it depends, but organic growth is genuinely a three to six month game, not a three-week one. We won't promise overnight virality just to get you onboard. What we'll guarantee is a real strategy, properly executed, and total honesty about how it's tracking.",
+  },
+  {
+    q: "Are there long-term contracts for ads?",
+    a: "We ask for an initial three-month commitment. It takes time for the platforms to gather enough data to optimise properly, and chopping and changing every few weeks works against you, not for you. After three months, you're free to roll monthly (we'd love to have you!), no long lock-ins, no small print.",
+  },
+  {
+    q: "Are there long-term contracts for creative?",
+    a: "We ask for an initial three-month commitment, same as our paid media work, but for a different reason. Organic growth is about understanding your audience's signals and continually refining the strategy around them, and that takes a bit of runway to do properly. After three months, you're free to roll monthly (we'd love to have you!), no long lock-ins, no small print.",
+  },
+  {
+    q: "How do we get started with Ads?",
+    a: "Every plan is built around your budget, goals, and the platforms that actually make sense for your business, not a one-size-fits-all package. The best way to find out what that looks like for you is a conversation, not a price list. Fill in the form below and let's chat.",
+  },
+  {
+    q: "How do we get started with Creative?",
+    a: "Every plan is built around what your business actually needs, from shoot frequency to platform mix. The best way to find out what that looks like for you is a conversation, not a price list. Fill in the form below and let's chat.",
   },
 ];
 
