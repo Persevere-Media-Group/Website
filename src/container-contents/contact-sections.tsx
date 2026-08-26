@@ -959,8 +959,8 @@ const CONTACT_FAQS: Faq[] = [
     a: (
       <>
         Both. Creative and paid media are handled under one roof, from scripting and shooting
-        through to the campaigns themselves, so nothing gets lost in translation between a
-        separate ads agency and a separate content team.
+        through to the campaigns themselves, so nothing gets lost in translation between a separate
+        ads agency and a separate content team.
         <FaqLink to="/services/keir">See the Ads service for details</FaqLink>
         <FaqLink to="/services/calum">See the Creative service for details</FaqLink>
       </>
@@ -971,8 +971,8 @@ const CONTACT_FAQS: Faq[] = [
     a: (
       <>
         Ad spend goes directly to the platforms themselves (Meta, Google, TikTok, wherever),
-        separate from our management fee. We work across a wide range of ad spend budgets, from
-        four figures a month to six. As a starting point, we'd recommend reserving at least{" "}
+        separate from our management fee. We work across a wide range of ad spend budgets, from four
+        figures a month to six. As a starting point, we'd recommend reserving at least{" "}
         <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={8}>
           £500 a month
         </Highlighter>{" "}
