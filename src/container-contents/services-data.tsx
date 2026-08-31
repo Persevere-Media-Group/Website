@@ -161,12 +161,9 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
           <>
             Ad spend goes directly to the platforms themselves (Meta, Google, TikTok, wherever),
             separate from our management fee. We work across a wide range of ad spend budgets, from
-            four figures a month to six. As a starting point, we'd recommend reserving at least{" "}
-            <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={8}>
-              £500 a month
-            </Highlighter>{" "}
-            for that ad spend alone, so the platform actually has enough to work with, though this
-            varies by sector and goals. Not sure what's realistic for you?
+            four figures a month to six. As a starting point, we'd recommend reserving at least £500
+            a month for that ad spend alone, so the platform actually has enough to work with,
+            though this varies by sector and goals. Not sure what's realistic for you?
             <FaqLink to="/contact">Get in touch and we can walk you through it!</FaqLink>
           </>
         ),

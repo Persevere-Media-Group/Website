@@ -8,7 +8,6 @@ import { Instagram, Linkedin } from "@/ui-components/primitive/svgs";
 import { FaqSearch, FaqLink, type Faq } from "@/ui-components/custom/faq";
 import { containsProfanity } from "@/lib/profanity";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
-import { UNDERLINE_COLOR, MARK_PROPS } from "@/lib/text-marks";
 import {
   Stepper,
   StepperContent,
@@ -972,10 +971,7 @@ const CONTACT_FAQS: Faq[] = [
       <>
         Ad spend goes directly to the platforms themselves (Meta, Google, TikTok, wherever),
         separate from our management fee. We work across a wide range of ad spend budgets, from four
-        figures a month to six. As a starting point, we'd recommend reserving at least{" "}
-        <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS} padding={8}>
-          £500 a month
-        </Highlighter>{" "}
+        figures a month to six. As a starting point, we'd recommend reserving at least £500 a month
         for that ad spend alone, so the platform actually has enough to work with, though this
         varies by sector and goals. Not sure what's realistic for you? Fill in the form below and
         we'll walk you through it.
