@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
-import { ArrowLeft, ArrowRight, HelpCircle, Phone, TriangleAlert, Users, X } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ChevronDown,
+  HelpCircle,
+  Phone,
+  TriangleAlert,
+  Users,
+  X,
+} from "lucide-react";
 import SpecularButton from "@/ui-components/primitive/specular-button";
 import { Highlighter } from "@/ui-components/primitive/highlighter";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
@@ -318,14 +327,12 @@ const INPUT_CLASSES =
 
 const LABEL_CLASSES = "mb-2 block text-sm font-semibold text-(--color-oxblood)";
 
-// used for the 2x2 select grid: labels there vary in length ("What service?" vs
-// "How did you hear about us?"), and a wrapped 2-line label pushes just its own
-// select down, throwing the row out of alignment with its neighbour. A shared
-// min-height (flex + items-end to bottom-align the text against it) reserves the
-// same vertical space whether a label wraps or not, so every select in the grid
-// lines up both across its row and down its column.
-const SELECT_LABEL_CLASSES =
-  "mb-2 flex min-h-11 items-end gap-x-1 text-sm font-semibold text-(--color-oxblood)";
+// appearance-none strips the native dropdown arrow (which browsers render flush
+// against the edge, crowding the rounded corner) so a custom ChevronDown can be
+// placed with deliberate spacing instead — see the selects below. pr-10 clears
+// room for that icon so option text never runs under it.
+const SELECT_CLASSES =
+  "w-full appearance-none cursor-pointer rounded-xl border border-(--color-oxblood)/20 bg-(--color-ivory-raised) py-3 pl-4 pr-10 text-(--color-oxblood) outline-none transition-colors focus:border-(--color-terracotta)";
 
 export function ContactFormSection() {
   const [submitted, setSubmitted] = useState(false);
@@ -679,101 +686,125 @@ export function ContactFormSection() {
                   </StepperContent>
 
                   <StepperContent value={3} forceMount>
-                    <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="grid gap-5">
                       <div>
-                        <label htmlFor="service" className={SELECT_LABEL_CLASSES}>
+                        <label htmlFor="service" className={LABEL_CLASSES}>
                           What services do you require?{" "}
                           <span className="text-(--color-terracotta)">*</span>
                         </label>
-                        <select
-                          id="service"
-                          name="service"
-                          required={step === 3}
-                          defaultValue=""
-                          className={INPUT_CLASSES}
-                        >
-                          <option value="" disabled>
-                            Pick one
-                          </option>
-                          {SERVICE_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                        <div className="relative">
+                          <select
+                            id="service"
+                            name="service"
+                            required={step === 3}
+                            defaultValue=""
+                            className={SELECT_CLASSES}
+                          >
+                            <option value="" disabled>
+                              Pick one
                             </option>
-                          ))}
-                        </select>
+                            {SERVICE_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown
+                            size={18}
+                            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-(--color-oxblood)/40"
+                          />
+                        </div>
                       </div>
 
                       <div>
-                        <label htmlFor="budget" className={SELECT_LABEL_CLASSES}>
+                        <label htmlFor="budget" className={LABEL_CLASSES}>
                           Monthly ad spend budget?{" "}
                           <span className="text-(--color-terracotta)">*</span>
                         </label>
-                        <select
-                          id="budget"
-                          name="budget"
-                          required={step === 3}
-                          defaultValue=""
-                          className={INPUT_CLASSES}
-                        >
-                          <option value="" disabled>
-                            Select a range
-                          </option>
-                          {BUDGET_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                        <div className="relative">
+                          <select
+                            id="budget"
+                            name="budget"
+                            required={step === 3}
+                            defaultValue=""
+                            className={SELECT_CLASSES}
+                          >
+                            <option value="" disabled>
+                              Select a range
                             </option>
-                          ))}
-                        </select>
+                            {BUDGET_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown
+                            size={18}
+                            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-(--color-oxblood)/40"
+                          />
+                        </div>
                       </div>
                     </div>
                   </StepperContent>
 
                   <StepperContent value={4} forceMount>
-                    <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="grid gap-5">
                       <div>
-                        <label htmlFor="timeframe" className={SELECT_LABEL_CLASSES}>
+                        <label htmlFor="timeframe" className={LABEL_CLASSES}>
                           When do you want to start?{" "}
                           <span className="text-(--color-terracotta)">*</span>
                         </label>
-                        <select
-                          id="timeframe"
-                          name="timeframe"
-                          required={step === 4}
-                          defaultValue=""
-                          className={INPUT_CLASSES}
-                        >
-                          <option value="" disabled>
-                            Select a timeframe
-                          </option>
-                          {TIMEFRAME_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                        <div className="relative">
+                          <select
+                            id="timeframe"
+                            name="timeframe"
+                            required={step === 4}
+                            defaultValue=""
+                            className={SELECT_CLASSES}
+                          >
+                            <option value="" disabled>
+                              Select a timeframe
                             </option>
-                          ))}
-                        </select>
+                            {TIMEFRAME_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown
+                            size={18}
+                            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-(--color-oxblood)/40"
+                          />
+                        </div>
                       </div>
 
                       <div>
-                        <label htmlFor="referral" className={SELECT_LABEL_CLASSES}>
+                        <label htmlFor="referral" className={LABEL_CLASSES}>
                           How did you hear about us?{" "}
                           <span className="text-(--color-terracotta)">*</span>
                         </label>
-                        <select
-                          id="referral"
-                          name="referral"
-                          required={step === 4}
-                          defaultValue=""
-                          className={INPUT_CLASSES}
-                        >
-                          <option value="" disabled>
-                            Select an option
-                          </option>
-                          {REFERRAL_OPTIONS.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                        <div className="relative">
+                          <select
+                            id="referral"
+                            name="referral"
+                            required={step === 4}
+                            defaultValue=""
+                            className={SELECT_CLASSES}
+                          >
+                            <option value="" disabled>
+                              Select an option
                             </option>
-                          ))}
-                        </select>
+                            {REFERRAL_OPTIONS.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown
+                            size={18}
+                            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-(--color-oxblood)/40"
+                          />
+                        </div>
                       </div>
                     </div>
                   </StepperContent>
