@@ -128,8 +128,9 @@ export function FaqSearch({
   );
 
   const trimmedQuery = query.trim().toLowerCase();
-  const searchTerms =
-    SEARCH_SYNONYM_GROUPS.find((group) => group.includes(trimmedQuery)) ?? [trimmedQuery];
+  const searchTerms = SEARCH_SYNONYM_GROUPS.find((group) => group.includes(trimmedQuery)) ?? [
+    trimmedQuery,
+  ];
   const results = trimmedQuery
     ? searchable
         .filter(({ haystack }) => searchTerms.some((term) => haystack.includes(term)))
@@ -151,7 +152,7 @@ export function FaqSearch({
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search a question, e.g. “budget” or “contracts”…"
+          placeholder="Search a keyword, e.g. “budget” or “contracts”…"
           aria-label="Search frequently asked questions"
           className="w-full rounded-full border border-(--color-oxblood)/20 bg-(--color-ivory-raised) py-4 pr-12 pl-13 text-(--color-oxblood) outline-none transition-colors placeholder:text-(--color-oxblood)/40 focus:border-(--color-terracotta)"
         />
