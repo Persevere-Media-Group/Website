@@ -7,6 +7,7 @@ import { FloatingCta } from "@/ui-components/custom/floating-cta";
 import { CookieConsentBanner } from "@/ui-components/primitive/cookie-consent-banner";
 import { Footer } from "@/ui-components/custom/footer";
 import { trackPageviewAll } from "@/lib/analytics";
+import { Seo } from "@/seo/Seo";
 
 export function Layout() {
   const location = useLocation();
@@ -34,6 +35,8 @@ export function Layout() {
 
   return (
     <>
+      <Seo />
+
       {/* fixed to the very top of the viewport, fills as the page scrolls,
           sits above everything (including the nav) so it's always visible.
           !bg-none strips the component's own default rainbow gradient

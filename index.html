@@ -19,7 +19,34 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Persevere Media - Coming Soon</title>
+
+    <!-- Static fallback head content: this is the only HTML any crawler that
+         doesn't execute JavaScript (most social link-preview scrapers) ever
+         sees, on every route, since this is a client-rendered SPA served as
+         one static file. src/seo/Seo.tsx overwrites these per-route once
+         React mounts, for crawlers (like Googlebot) that do run JS. -->
+    <title>Persevere Media | Content & Paid Ads, Done Properly</title>
+    <meta
+      name="description"
+      content="Persevere Media is a two-person growth partner combining paid ads and content creation under one roof. £20m+ in ad spend managed across 50+ brands — no account managers, no bloated fees."
+    />
+    <link rel="canonical" href="https://choosepersevere.com/" />
+    <meta property="og:title" content="Persevere Media | Content & Paid Ads, Done Properly" />
+    <meta
+      property="og:description"
+      content="Persevere Media is a two-person growth partner combining paid ads and content creation under one roof. £20m+ in ad spend managed across 50+ brands — no account managers, no bloated fees."
+    />
+    <meta property="og:url" content="https://choosepersevere.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://choosepersevere.com/og-image.png" />
+    <meta property="og:site_name" content="Persevere Media" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Persevere Media | Content & Paid Ads, Done Properly" />
+    <meta
+      name="twitter:description"
+      content="Persevere Media is a two-person growth partner combining paid ads and content creation under one roof. £20m+ in ad spend managed across 50+ brands — no account managers, no bloated fees."
+    />
+    <meta name="twitter:image" content="https://choosepersevere.com/og-image.png" />
 
     <!-- Iona's "ik" wordmark (font-face + .ik-logo styling), used by MadeByBadge -->
     <link rel="stylesheet" href="/logos/ionakate.css" />

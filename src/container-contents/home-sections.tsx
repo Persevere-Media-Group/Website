@@ -85,14 +85,14 @@ export function HeroSection() {
       />
 
       <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center gap-8 px-4 pt-12 pb-10 text-center sm:gap-8 sm:pt-16 sm:pb-14 md:pb-16">
-        <div className="flex w-full flex-col items-center gap-8">
+        <h1 className="flex w-full flex-col items-center gap-8">
           {/* Mirrors the "-mt-8" paragraph below exactly: gap-8 plus an equal
               and opposite negative margin cancel out, leaving only the word's
               natural glyph-overshoot buffer as the visible gap - same
               mechanism on both sides is what keeps the two gaps equal. */}
-          <p className="-mb-8 font-subtitle text-[clamp(1.75rem,5.5vw,2.75rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase sm:-mb-9">
+          <span className="-mb-8 font-subtitle text-[clamp(1.75rem,5.5vw,2.75rem)] font-black tracking-[0.3em] text-(--color-oxblood) uppercase sm:-mb-9">
             Choose
-          </p>
+          </span>
 
           <div
             className="flex w-full items-start justify-center"
@@ -110,7 +110,7 @@ export function HeroSection() {
               />
             </div>
           </div>
-        </div>
+        </h1>
 
         {/* Negative margin pulls this up into the word's reserved (but
             normally-empty) glyph-overshoot padding below "persevere" - the
