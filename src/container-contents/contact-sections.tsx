@@ -961,8 +961,8 @@ const CONTACT_FAQS: Faq[] = [
         Both. Creative and paid media are handled under one roof, from scripting and shooting
         through to the campaigns themselves, so nothing gets lost in translation between a separate
         ads agency and a separate content team.
-        <FaqLink to="/services/ads">See the Ads service for details</FaqLink>
-        <FaqLink to="/services/creative">See the Creative service for details</FaqLink>
+        <FaqLink to="/ads">See the Ads service for details</FaqLink>
+        <FaqLink to="/creative">See the Creative service for details</FaqLink>
       </>
     ),
   },

@@ -2,7 +2,6 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/containers/Layout";
 import { Home } from "@/containers/Home";
 import { About } from "@/containers/About";
-import { Services } from "@/containers/Services";
 import { ServicePersonPage } from "@/containers/ServicePage";
 import { CaseStudies } from "@/containers/CaseStudies";
 import { Blog } from "@/containers/Blog";
@@ -18,12 +17,14 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/about", element: <About /> },
-      { path: "/services", element: <Services /> },
-      { path: "/services/ads", element: <ServicePersonPage name="keir" /> },
-      { path: "/services/creative", element: <ServicePersonPage name="calum" /> },
+      { path: "/ads", element: <ServicePersonPage name="keir" /> },
+      { path: "/creative", element: <ServicePersonPage name="calum" /> },
       // old paths, kept as redirects so existing bookmarks/indexed links still resolve
-      { path: "/services/keir", element: <Navigate to="/services/ads" replace /> },
-      { path: "/services/calum", element: <Navigate to="/services/creative" replace /> },
+      { path: "/services", element: <Navigate to="/" replace /> },
+      { path: "/services/ads", element: <Navigate to="/ads" replace /> },
+      { path: "/services/creative", element: <Navigate to="/creative" replace /> },
+      { path: "/services/keir", element: <Navigate to="/ads" replace /> },
+      { path: "/services/calum", element: <Navigate to="/creative" replace /> },
       { path: "/case-studies", element: <CaseStudies /> },
       { path: "/blog", element: <Blog /> },
       { path: "/blog/:slug", element: <BlogPost /> },

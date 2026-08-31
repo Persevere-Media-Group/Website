@@ -178,7 +178,7 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
             Both. Creative and paid are handled under one roof, from scripting and shooting through
             to the campaigns themselves, so nothing gets lost in translation between an ads agency
             and a separate content team.
-            <FaqLink to="/services/creative">Check out the Creative service for more details</FaqLink>
+            <FaqLink to="/creative">Check out the Creative service for more details</FaqLink>
           </>
         ),
       },
@@ -337,7 +337,7 @@ const SERVICE_DATA: Record<ServicePersonName, ServicePageData> = {
             Both. Content and paid are handled under one roof, from shoots and edits through to the
             campaigns themselves, so nothing gets lost in translation between a content team and a
             separate ads agency.
-            <FaqLink to="/services/ads">Check out the Ads service for more details</FaqLink>
+            <FaqLink to="/ads">Check out the Ads service for more details</FaqLink>
           </>
         ),
       },

@@ -308,14 +308,14 @@ const TESTIMONIALS: Testimonial[] = [
   {
     quote:
       "We’ve worked with Persevere on a number of video projects for the Scottish Marketing Summit and have been really impressed with the quality of the work... Would absolutely recommend them to anyone looking for a talented and dependable video editor!.",
-    name: "Susan Carruthers",
+    name: "Susan",
     role: "Founder of The Scottish Marketing Summit",
     avatar: "/photos/testimonials/susan.jpeg",
   },
   {
     quote:
       "Keir is a standout professional whose expertise and ability to consistently smash goals played a real part in our success.",
-    name: "Jamie Robbins",
+    name: "Jamie",
     role: "Founder of Cinegrams",
     avatar: "/photos/testimonials/jamie.jpeg",
   },
@@ -363,7 +363,7 @@ const SERVICES_BLOCKS = [
         .
       </>
     ),
-    to: "/services/ads",
+    to: "/ads",
     linkLabel: "Learn more about our ads services",
   },
   {
@@ -382,7 +382,7 @@ const SERVICES_BLOCKS = [
         , closing the feedback loop, learning and implementing change faster.
       </>
     ),
-    to: "/services/creative",
+    to: "/creative",
     linkLabel: "Learn more about our creative services",
   },
 ];

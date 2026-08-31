@@ -53,9 +53,9 @@ export interface ServicePageData {
 }
 
 // ---------------------------------------------------------------------------
-// Full page - the single source of truth for both /services/ads and
-// /services/creative, which differ only in which name they pass down (all the
-// actual copy differences live in services-data.tsx).
+// Full page - the single source of truth for both /ads and /creative, which
+// differ only in which name they pass down (all the actual copy differences
+// live in services-data.tsx).
 // ---------------------------------------------------------------------------
 
 export function ServicePersonPage({ name }: { name: ServicePersonName }) {

@@ -39,14 +39,14 @@ const ROLES = [
     title: "Creative",
     detail:
       "The stuff that makes people follow you, trust you, and remember you. Video, organic social and performance creative built around your brand.",
-    to: "/services/creative",
+    to: "/creative",
     linkLabel: "Learn more",
   },
   {
     title: "Ads",
     detail:
       "The stuff that makes people click, convert, and buy. Paid ads, designed intentionally to drive results and scale your business.",
-    to: "/services/ads",
+    to: "/ads",
     linkLabel: "Learn more",
   },
 ];

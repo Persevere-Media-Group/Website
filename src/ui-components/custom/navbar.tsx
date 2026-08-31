@@ -17,12 +17,12 @@ const MENU_ITEMS: StaggeredMenuItem[] = [
       {
         label: "Ads",
         ariaLabel: "Paid Media & Performance Marketing",
-        link: "/services/ads",
+        link: "/ads",
       },
       {
         label: "Creative",
         ariaLabel: "Creative Strategy, Content Creation & Organic Social",
-        link: "/services/creative",
+        link: "/creative",
       },
     ],
   },
