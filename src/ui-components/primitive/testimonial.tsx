@@ -1,11 +1,19 @@
-import type { ReactNode } from "react";
-import AnimatedContent from "@/ui-components/primitive/animated-content";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import ThreeDCard from "@/ui-components/primitive/3d-card";
 import { DisplayHeading } from "@/ui-components/custom/display-heading";
 
+// Gap between cards - also applied as the track's gap-6 Tailwind class below,
+// kept as a JS constant too since the centering/slide math needs it as a number.
+const GAP = 24;
+// Sane pre-measurement default (roughly max-w-5xl minus the section's px-4),
+// used for exactly one frame before the ResizeObserver below reports the
+// real viewport width.
+const FALLBACK_VIEWPORT_WIDTH = 992;
+
 // ---------------------------------------------------------------------------
-// Generic testimonials grid. Carries no content of its own, callers supply
-// the quotes via the `testimonials` prop.
+// Generic testimonials carousel. Carries no content of its own, callers
+// supply the quotes via the `testimonials` prop.
 // ---------------------------------------------------------------------------
 
 export type Testimonial = {
@@ -65,16 +73,25 @@ function initials(name: string) {
     .toUpperCase();
 }
 
+// Width comes from --card-w, a CSS variable the carousel below sets on the
+// track (computed as half the viewport, so the centered card plus a half
+// card peeking on each side exactly fill it - see the centering math in
+// Testimonials). Fixed height (h-104) so every card matches regardless of
+// quote length, with a generous line-clamp-9 as the safety net for future
+// longer quotes - both sized to comfortably fit the longest quote currently
+// in use (Susan's) with real headroom to spare. overflow-hidden (rather than
+// -visible) clips each card's drop shadow at its own edge, so an unclipped
+// shadow doesn't bleed into the peeking neighbour card next to it.
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <ThreeDCard
-      className="h-full"
-      innerClassName="h-full w-80 rounded-3xl overflow-visible"
+      className="h-104"
+      innerClassName="h-104 w-(--card-w) rounded-3xl overflow-hidden"
       enableGlow={false}
       enableShadow={false}
       enableBorder={false}
     >
-      <div className="flex h-full w-80 flex-col items-start gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-6 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
+      <div className="flex h-104 w-(--card-w) flex-col items-start gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-6 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
         <QuoteMark />
 
         {testimonial.rating != null && (
@@ -85,7 +102,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           </div>
         )}
 
-        <p className="mt-1 text-[clamp(0.9rem,1.4vw,0.98rem)] leading-relaxed text-(--color-oxblood)/80">
+        <p className="mt-1 line-clamp-9 text-[clamp(0.9rem,1.4vw,0.98rem)] leading-relaxed text-(--color-oxblood)/80">
           {testimonial.quote}
         </p>
 
@@ -94,10 +111,10 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             <img
               src={testimonial.avatar}
               alt={testimonial.name}
-              className="size-14 shrink-0 rounded-full border-2 border-(--color-terracotta) object-cover"
+              className="size-18 shrink-0 rounded-full border-2 border-(--color-terracotta) object-cover"
             />
           ) : (
-            <span className="flex size-14 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-base font-bold text-(--color-terracotta)">
+            <span className="flex size-18 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-lg font-bold text-(--color-terracotta)">
               {initials(testimonial.name)}
             </span>
           )}
@@ -126,7 +143,66 @@ export function Testimonials({
   headingClassName?: string;
   className?: string;
 }) {
-  if (testimonials.length === 0) return null;
+  const n = testimonials.length;
+
+  // Rendered 3 copies back-to-back so there are always real cards to slide to
+  // on either side, however far someone clicks; `index` starts in the middle
+  // copy. After each step lands right at the edge of that middle copy, it
+  // snaps (transition switched off for that one render) back to the
+  // equivalent spot n cards over, so clicking never runs out of track and
+  // never shows a visible jump - a click just always moves exactly one card.
+  const track = [...testimonials, ...testimonials, ...testimonials];
+  const [index, setIndex] = useState(n);
+  const [animate, setAnimate] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [viewportWidth, setViewportWidth] = useState(FALLBACK_VIEWPORT_WIDTH);
+
+  // Re-measures on resize (a ResizeObserver, not a window resize listener,
+  // since this element's width can change from layout causes other than the
+  // viewport resizing too, e.g. the page's own font finishing load).
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => setViewportWidth(entry.contentRect.width));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  if (n === 0) return null;
+
+  // The centered card should fill the viewport with exactly half a card
+  // peeking on each side: halfCard + gap + fullCard + gap + halfCard =
+  // viewportWidth, and a half-card is half a full card, so cardWidth =
+  // (viewportWidth - 2*gap) / 2. `step` is the distance between consecutive
+  // cards. `centerOffset` is the general "center a box of this width within
+  // a container of that width" formula - deliberately NOT the halfCard+gap
+  // shortcut implied above, since that shortcut only centers correctly when
+  // cardWidth actually equals its natural (viewportWidth - 2*gap)/2 value;
+  // once the floor below clamps cardWidth on a narrow screen, that shortcut
+  // and the true centering formula diverge, which showed up as a lopsided
+  // peek (much more of the previous card visible than the next one).
+  const cardWidth = Math.max(viewportWidth / 2 - GAP, 200);
+  const step = cardWidth + GAP;
+  const centerOffset = (viewportWidth - cardWidth) / 2;
+
+  const go = (dir: 1 | -1) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setAnimate(true);
+    setIndex((i) => i + dir);
+  };
+
+  const handleTransitionEnd = () => {
+    setIsAnimating(false);
+    if (index >= 2 * n || index < n) {
+      setAnimate(false);
+      setIndex(n + ((((index - n) % n) + n) % n));
+    }
+  };
+
+  const arrowButtonClasses =
+    "flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-(--color-oxblood)/20 bg-(--color-ivory-raised) text-(--color-oxblood) shadow-[0_8px_24px_-10px_rgba(74,31,29,0.3)] transition-colors hover:border-(--color-terracotta) hover:text-(--color-terracotta)";
 
   return (
     <section className={`px-4 py-4 text-center ${className}`}>
@@ -134,12 +210,49 @@ export function Testimonials({
         {heading}
       </DisplayHeading>
 
-      <div className="mx-auto mt-16 flex max-w-5xl flex-wrap justify-center gap-8 text-left">
-        {testimonials.map((testimonial, i) => (
-          <AnimatedContent key={i} distance={40} duration={0.7} delay={(i % 3) * 0.1}>
-            <TestimonialCard testimonial={testimonial} />
-          </AnimatedContent>
-        ))}
+      {/* Arrows sit in their own row below the carousel (never over a card,
+          at any viewport width) rather than beside it - there's no side
+          gutter to put them in without eating into the half-card peek the
+          centering math above is aiming for. */}
+      <div className="relative mx-auto mt-16 max-w-5xl">
+        <div
+          ref={viewportRef}
+          className="overflow-hidden mask-[linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
+        >
+          <div
+            onTransitionEnd={handleTransitionEnd}
+            className={`flex gap-6 py-2 text-left ${animate ? "transition-transform duration-500 ease-out" : ""}`}
+            style={
+              {
+                transform: `translateX(${centerOffset - index * step}px)`,
+                "--card-w": `${cardWidth}px`,
+              } as CSSProperties
+            }
+          >
+            {track.map((testimonial, i) => (
+              <TestimonialCard key={i} testimonial={testimonial} />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            onClick={() => go(-1)}
+            aria-label="Previous testimonial"
+            className={arrowButtonClasses}
+          >
+            <ChevronLeft className="size-5" aria-hidden />
+          </button>
+          <button
+            type="button"
+            onClick={() => go(1)}
+            aria-label="Next testimonial"
+            className={arrowButtonClasses}
+          >
+            <ChevronRight className="size-5" aria-hidden />
+          </button>
+        </div>
       </div>
     </section>
   );

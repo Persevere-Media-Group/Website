@@ -615,7 +615,7 @@ export function ContactFormSection() {
 
                 <StepperPanel>
                   <StepperContent value={1} forceMount>
-                    <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="grid gap-5">
                       <div>
                         <label htmlFor="name" className={LABEL_CLASSES}>
                           Your name <span className="text-(--color-terracotta)">*</span>
@@ -647,7 +647,7 @@ export function ContactFormSection() {
                   </StepperContent>
 
                   <StepperContent value={2} forceMount>
-                    <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="grid gap-5">
                       <div>
                         <label htmlFor="business" className={LABEL_CLASSES}>
                           Business name <span className="text-(--color-terracotta)">*</span>
