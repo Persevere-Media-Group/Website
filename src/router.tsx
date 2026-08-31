@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "@/containers/Layout";
 import { Home } from "@/containers/Home";
 import { About } from "@/containers/About";
@@ -19,8 +19,11 @@ export const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/about", element: <About /> },
       { path: "/services", element: <Services /> },
-      { path: "/services/keir", element: <ServicePersonPage name="keir" /> },
-      { path: "/services/calum", element: <ServicePersonPage name="calum" /> },
+      { path: "/services/ads", element: <ServicePersonPage name="keir" /> },
+      { path: "/services/creative", element: <ServicePersonPage name="calum" /> },
+      // old paths, kept as redirects so existing bookmarks/indexed links still resolve
+      { path: "/services/keir", element: <Navigate to="/services/ads" replace /> },
+      { path: "/services/calum", element: <Navigate to="/services/creative" replace /> },
       { path: "/case-studies", element: <CaseStudies /> },
       { path: "/blog", element: <Blog /> },
       { path: "/blog/:slug", element: <BlogPost /> },

@@ -242,7 +242,7 @@ const RECAPTCHA_SITE_KEY = "6LfCS3AtAAAAADpEdfO4MoIBV5YS_dLxzHD3DHoN";
 const SERVICE_OPTIONS = [
   "Creative strategy & content creation",
   "Paid media & performance marketing",
-  "The full shabang (all of the above)",
+  "The full shebang (all of the above)",
   "Nae clue, help me figure it out",
 ];
 
@@ -961,8 +961,8 @@ const CONTACT_FAQS: Faq[] = [
         Both. Creative and paid media are handled under one roof, from scripting and shooting
         through to the campaigns themselves, so nothing gets lost in translation between a separate
         ads agency and a separate content team.
-        <FaqLink to="/services/keir">See the Ads service for details</FaqLink>
-        <FaqLink to="/services/calum">See the Creative service for details</FaqLink>
+        <FaqLink to="/services/ads">See the Ads service for details</FaqLink>
+        <FaqLink to="/services/creative">See the Creative service for details</FaqLink>
       </>
     ),
   },

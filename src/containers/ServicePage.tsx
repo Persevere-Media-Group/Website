@@ -53,8 +53,8 @@ export interface ServicePageData {
 }
 
 // ---------------------------------------------------------------------------
-// Full page - the single source of truth for both /services/keir and
-// /services/calum, which differ only in which name they pass down (all the
+// Full page - the single source of truth for both /services/ads and
+// /services/creative, which differ only in which name they pass down (all the
 // actual copy differences live in services-data.tsx).
 // ---------------------------------------------------------------------------
 

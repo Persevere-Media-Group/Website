@@ -359,7 +359,7 @@ const SERVICES_BLOCKS = [
         .
       </>
     ),
-    to: "/services/keir",
+    to: "/services/ads",
     linkLabel: "Learn more about our ads services",
   },
   {
@@ -378,7 +378,7 @@ const SERVICES_BLOCKS = [
         , closing the feedback loop, learning and implementing change faster.
       </>
     ),
-    to: "/services/calum",
+    to: "/services/creative",
     linkLabel: "Learn more about our creative services",
   },
 ];
@@ -395,7 +395,7 @@ export function OurServicesSection() {
         }
         headingClassName="mt-3 font-heading text-[clamp(2.75rem,6vw,4rem)] font-normal tracking-wide text-(--color-oxblood)"
       >
-        The full shabang
+        The full shebang
       </DisplayHeading>
 
       <div className="mx-auto mt-16 grid max-w-4xl gap-8 text-left sm:grid-cols-2">

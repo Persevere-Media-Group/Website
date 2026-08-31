@@ -18,12 +18,12 @@ export const seoConfig: Record<string, SeoEntry> = {
     description:
       "Meet Keir and Calum — the two people who actually do the work at Persevere Media, a paid ads and content agency built on getting stuck in, not handing you off.",
   },
-  "/services/keir": {
+  "/services/ads": {
     title: "Paid Ads Management | Persevere Media",
     description:
       "Bespoke Meta, TikTok, Google and Snapchat ad strategy. £20m+ in ad spend managed across budgets from £1k to £500k a month — no AI autopilot, no account managers.",
   },
-  "/services/calum": {
+  "/services/creative": {
     title: "Content & Creative That Converts | Persevere Media",
     description:
       "Thumb-stopping organic and paid social content — scripted, shot and edited by the same team running your ad campaigns.",
