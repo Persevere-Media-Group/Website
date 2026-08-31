@@ -30,11 +30,13 @@ export const seoConfig: Record<string, SeoEntry> = {
   },
   "/contact": {
     title: "Book a Call | Persevere Media",
-    description: "Get in touch with Persevere Media to talk paid ads and content strategy for your business.",
+    description:
+      "Get in touch with Persevere Media to talk paid ads and content strategy for your business.",
   },
   "/privacy-policy": {
     title: "Privacy Policy | Persevere Media",
-    description: "How Persevere Media collects, uses, and protects your information on choosepersevere.com.",
+    description:
+      "How Persevere Media collects, uses, and protects your information on choosepersevere.com.",
   },
   "/services": {
     title: "Our Services | Persevere Media",
