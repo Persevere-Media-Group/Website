@@ -94,7 +94,19 @@ export function HeroSection() {
             Choose
           </span>
 
+          {/* PersevereAnimation's letters continuously swap glyph variants
+              (private-use-area codepoints from the hand-drawn subset font),
+              so its rendered text content isn't readable as "persevere" at
+              any given moment. Its own glyph spans are already aria-hidden,
+              but that only removes them from the accessibility tree, not
+              from a crawler's raw text extraction - this sr-only span gives
+              search engines (and screen readers) the real word once, and
+              aria-hidden below keeps them from also reading the garbled
+              visible glyphs as a second, redundant copy. */}
+          <span className="sr-only">Persevere</span>
+
           <div
+            aria-hidden="true"
             className="flex w-full items-start justify-center"
             style={{ height: wordNaturalHeight ? wordNaturalHeight * wordScale : undefined }}
           >

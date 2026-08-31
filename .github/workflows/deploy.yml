@@ -32,6 +32,12 @@ jobs:
           node-version: 22
           cache: "pnpm"
 
+      - name: Cache Puppeteer Chromium
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
