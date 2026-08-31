@@ -331,6 +331,13 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Founder of Cinegrams",
     avatar: "/photos/testimonials/jamie.jpeg",
   },
+  {
+    quote:
+      "The team from Persevere Media have been exceptional from the get go, explaining the process and setting realistic timescales. They even got me on video (something I never thought I'd do!) and always welcome my feedback. No reservations recommending them to other businesses.",
+    name: "Stewart",
+    role: "Owner of Jackson Accident Repair Centre",
+    avatar: "/photos/testimonials/stewart.jpeg",
+  },
 ];
 
 export function TestimonialsSection() {
