@@ -307,7 +307,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     quote:
-      "We’ve worked with Persevere on a number of video projects for the Scottish Marketing Summit and have been really impressed with the quality of the work. They’ve taken our raw footage and turned it into polished, engaging content that gets us more engagement and clicks. They have a great eye for pacing and the little details and have always been reliable and easy to work with. Would absolutely recommend them to anyone looking for a talented and dependable video editor!.",
+      "We’ve worked with Persevere on a number of video projects for the Scottish Marketing Summit and have been really impressed with the quality of the work... Would absolutely recommend them to anyone looking for a talented and dependable video editor!.",
     name: "Susan Carruthers",
     role: "Founder of The Scottish Marketing Summit",
     avatar: "/photos/testimonials/susan.jpeg",
