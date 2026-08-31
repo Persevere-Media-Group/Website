@@ -281,6 +281,7 @@ const FORM_STEPS = [
   "What's your name, pal?",
   "Tell us about your business",
   "What are you after?",
+  "When do you want to start?",
   "Anything else you want to tell us?",
 ] as const;
 
@@ -307,8 +308,8 @@ const REQUIRED_FIELDS = [
   { key: "website", step: 2 },
   { key: "service", step: 3 },
   { key: "budget", step: 3 },
-  { key: "timeframe", step: 3 },
-  { key: "referral", step: 3 },
+  { key: "timeframe", step: 4 },
+  { key: "referral", step: 4 },
   { key: "message", step: FORM_STEPS.length },
 ] as const;
 
@@ -569,10 +570,11 @@ export function ContactFormSection() {
                 reCAPTCHA note then always land in the same spot at the card's
                 bottom edge instead of drifting up or down with each step's content.
                 The min-height covers this whole block (nav + title + panel), sized
-                to its tallest combination (step 3's four selects, measured at each
-                breakpoint) so that height is reserved from the very first render,
-                rather than the card growing the first time someone reaches that step. */}
-            <div className="flex-1 min-h-142.5 sm:min-h-82.5">
+                to its tallest combination (step 3/4's two stacked selects on mobile,
+                step 5's message textarea on desktop, measured at each breakpoint) so
+                that height is reserved from the very first render, rather than the
+                card growing the first time someone reaches that step. */}
+            <div className="flex-1 min-h-86 sm:min-h-84">
               <Stepper value={step} onValueChange={setStep}>
                 <StepperNav className="mb-6">
                   {FORM_STEPS.map((title, i) => {
@@ -723,7 +725,11 @@ export function ContactFormSection() {
                           ))}
                         </select>
                       </div>
+                    </div>
+                  </StepperContent>
 
+                  <StepperContent value={4} forceMount>
+                    <div className="grid gap-5 sm:grid-cols-2">
                       <div>
                         <label htmlFor="timeframe" className={SELECT_LABEL_CLASSES}>
                           When do you want to start?{" "}
@@ -732,7 +738,7 @@ export function ContactFormSection() {
                         <select
                           id="timeframe"
                           name="timeframe"
-                          required={step === 3}
+                          required={step === 4}
                           defaultValue=""
                           className={INPUT_CLASSES}
                         >
@@ -755,7 +761,7 @@ export function ContactFormSection() {
                         <select
                           id="referral"
                           name="referral"
-                          required={step === 3}
+                          required={step === 4}
                           defaultValue=""
                           className={INPUT_CLASSES}
                         >
@@ -772,14 +778,14 @@ export function ContactFormSection() {
                     </div>
                   </StepperContent>
 
-                  <StepperContent value={4} forceMount>
+                  <StepperContent value={5} forceMount>
                     <label htmlFor="message" className={LABEL_CLASSES}>
                       Tell us what's going on <span className="text-(--color-terracotta)">*</span>
                     </label>
                     <textarea
                       id="message"
                       name="message"
-                      required={step === 4}
+                      required={step === 5}
                       rows={6}
                       placeholder="What you're working on, what's not landing, and what you'd like it to look like instead."
                       className={`${INPUT_CLASSES} resize-none`}
