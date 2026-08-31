@@ -339,7 +339,7 @@ export function TestimonialsSection() {
       testimonials={TESTIMONIALS}
       heading={<>Pals of Persevere</>}
       subheading={<>What our clients say about us</>}
-      headingClassName="mt-3 font-heading text-[clamp(2.75rem,6vw,4rem)] font-black tracking-wide text-(--color-oxblood)"
+      headingClassName="mt-3 font-heading text-[clamp(2.75rem,6vw,4rem)] tracking-wide text-(--color-oxblood)"
       className="bg-(--color-ivory)"
     />
   );
