@@ -91,7 +91,18 @@ export function HowItWorks({ name }: SectionProps) {
               <span className="flex w-16 shrink-0 items-center justify-center font-fun text-[clamp(2.75rem,5.2vw,3.5rem)] text-(--color-terracotta)">
                 {stage.number}
               </span>
-              <h3 className="translate-y-1 font-subtitle text-[clamp(1.6rem,3.2vw,2.1rem)] font-black tracking-wide text-(--color-oxblood)">
+              {/* This translate-y nudge compensates for font-fun's numeral
+                  glyphs sitting visually higher than font-subtitle's baseline
+                  at the same items-center row - the two fonts' line-box
+                  metrics don't share a baseline, so centering each by its own
+                  box (all items-center does) still leaves the number looking
+                  too high. That gap is a property of the two fonts, not a
+                  fixed number of pixels, so a flat 4px (right for desktop,
+                  where the number sits at its clamp() ceiling) undercorrects
+                  once the number's clamp() floor makes it noticeably smaller
+                  on mobile - hence the larger unprefixed value here, restored
+                  to the original at md and up. */}
+              <h3 className="translate-y-4 font-subtitle text-[clamp(1.6rem,3.2vw,2.1rem)] font-black tracking-wide text-(--color-oxblood) md:translate-y-1">
                 {stage.title}
               </h3>
             </div>

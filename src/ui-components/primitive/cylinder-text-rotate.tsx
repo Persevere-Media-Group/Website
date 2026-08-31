@@ -16,6 +16,15 @@ interface CylinderTextRotateProps {
   highlightClassName?: string;
   // how long the drum pauses on highlightWord specifically, instead of the normal duration
   highlightDuration?: number;
+  // Every word's slot shares one cell sized to the widest word (see the caller's
+  // invisible sizing spans), so a "start"-aligned shorter word leaves empty
+  // space on its own right rather than the cell's. Defaults to "start" to
+  // match every existing caller; "center" is for callers with no fixed
+  // element (e.g. a photo) that the drum's left edge needs to stay flush
+  // against, where centering each word within the cell instead reads as
+  // noticeably more balanced as the drum cycles through words of very
+  // different lengths.
+  align?: "start" | "center";
 }
 
 export function CylinderTextRotate({
@@ -28,6 +37,7 @@ export function CylinderTextRotate({
   highlightWord,
   highlightClassName,
   highlightDuration = 2200,
+  align = "start",
 }: CylinderTextRotateProps) {
   // counts every step the drum has ever taken and never resets, this is what keeps the spin
   // moving in one direction forever instead of snapping backwards to restart the list
@@ -93,7 +103,7 @@ export function CylinderTextRotate({
           return (
             <div
               key={offset}
-              className={`absolute inset-x-0 top-1/2 flex h-[1em] items-center justify-start whitespace-nowrap transition-opacity duration-500 ${isHighlighted ? (highlightClassName ?? "") : ""}`}
+              className={`absolute inset-x-0 top-1/2 flex h-[1em] items-center whitespace-nowrap transition-opacity duration-500 ${align === "center" ? "justify-center" : "justify-start"} ${isHighlighted ? (highlightClassName ?? "") : ""}`}
               style={{
                 transform: `translateY(-50%) rotateX(${slotPosition * segmentAngle}deg) translateZ(${-drumRadiusEm}em)`,
                 backfaceVisibility: "hidden",

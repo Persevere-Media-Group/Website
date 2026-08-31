@@ -76,22 +76,29 @@ function initials(name: string) {
 // Width comes from --card-w, a CSS variable the carousel below sets on the
 // track (computed as half the viewport, so the centered card plus a half
 // card peeking on each side exactly fill it - see the centering math in
-// Testimonials). Fixed height (h-104) so every card matches regardless of
-// quote length, with a generous line-clamp-9 as the safety net for future
-// longer quotes - both sized to comfortably fit the longest quote currently
-// in use (Susan's) with real headroom to spare. overflow-hidden (rather than
-// -visible) clips each card's drop shadow at its own edge, so an unclipped
-// shadow doesn't bleed into the peeking neighbour card next to it.
+// Testimonials). Fixed height so every card matches regardless of quote
+// length, with a generous line-clamp as the safety net for future longer
+// quotes - both sized to comfortably fit the longest quote currently in use
+// (Susan's/Stewart's) with real headroom to spare, at that breakpoint's
+// --card-w. Two sizes, not one: below sm, --card-w bottoms out at the 200px
+// floor in the centering math below (viewports narrower than ~448px can't
+// fit a half-viewport card any smaller), which wraps the same quote into far
+// more lines than the ~488px desktop card width does - h-104/line-clamp-9
+// (sized for that wider desktop card) was clipping mobile quotes mid-
+// sentence. sm:h-104/sm:line-clamp-9 below restores the exact desktop
+// values unchanged. overflow-hidden (rather than -visible) clips each
+// card's drop shadow at its own edge, so an unclipped shadow doesn't bleed
+// into the peeking neighbour card next to it.
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <ThreeDCard
-      className="h-104"
-      innerClassName="h-104 w-(--card-w) rounded-3xl overflow-hidden"
+      className="h-156 sm:h-104"
+      innerClassName="h-156 w-(--card-w) rounded-3xl overflow-hidden sm:h-104"
       enableGlow={false}
       enableShadow={false}
       enableBorder={false}
     >
-      <div className="flex h-104 w-(--card-w) flex-col items-start gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-6 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
+      <div className="flex h-156 w-(--card-w) flex-col items-start gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-6 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)] sm:h-104">
         <QuoteMark />
 
         {testimonial.rating != null && (
@@ -102,7 +109,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           </div>
         )}
 
-        <p className="mt-1 line-clamp-9 text-[clamp(0.9rem,1.4vw,0.98rem)] leading-relaxed text-(--color-oxblood)/80">
+        <p className="mt-1 line-clamp-18 text-[clamp(0.9rem,1.4vw,0.98rem)] leading-relaxed text-(--color-oxblood)/80 sm:line-clamp-9">
           {testimonial.quote}
         </p>
 

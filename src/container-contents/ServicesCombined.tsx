@@ -101,6 +101,89 @@ function placeholderImages(name: string): GalleryImage[] {
 // Reads as "Hi I'm <name>. I'm <rotating keyword>". The name is fixed copy and the
 // standout of the line; `words` holds only the rotating keywords, so it should not
 // include the name itself.
+// The "Hi I'm X. I'm your ___" row, rendered twice by IntroBanner below (once
+// per breakpoint) rather than made responsive in place, because the two
+// versions need genuinely different useAutoFitScale runs, not just different
+// classes on a shared one. That hook returns a single scale number fed into
+// one inline transform, so sharing one instance between breakpoints means
+// mobile and desktop are forced to accept the same fit - and they can't:
+// desktop's 1fr column happens to floor the measured width at the full
+// parent width, which incidentally absorbs the small imprecision in
+// widthMultiplier's compensation for CylinderTextRotate's paint-only 3D
+// scale; centering the row by its natural width on mobile removes that
+// accidental floor, so mobile needs its own (larger) widthMultiplier to stay
+// safe, and changing the shared value to suit mobile would shrink desktop's
+// text too. Two independent refs/hooks/DOM subtrees, toggled with
+// hidden/md:hidden rather than CSS alone, sidesteps that entirely: each
+// tunes its own fit and neither's number depends on the other's.
+function IntroWordRow({
+  name,
+  words,
+  gridClassName,
+  fixedTextClassName,
+  widthMultiplier,
+  wordAlign = "start",
+}: {
+  name: string;
+  words: string[];
+  gridClassName: string;
+  fixedTextClassName: string;
+  widthMultiplier: number;
+  wordAlign?: "start" | "center";
+}) {
+  const wordRowRef = useRef<HTMLDivElement>(null);
+  const wordRowScale = useAutoFitScale(wordRowRef, widthMultiplier);
+
+  return (
+    <div className="w-full max-w-4xl">
+      <div
+        ref={wordRowRef}
+        // w-full is load-bearing, not decorative: a grid container with no fr
+        // track (the mobile auto/auto variant) doesn't stretch to fill its
+        // parent by default the way a plain block element would - it sizes to
+        // its content instead, which let this row grow wider than its parent
+        // and push the whole page into horizontal scroll. Desktop's 1fr
+        // column already forces 100% on its own, so this is a no-op there.
+        className={`w-full ${gridClassName}`}
+        style={{ transform: `scale(${wordRowScale})`, transformOrigin: "center" }}
+      >
+        <span className={fixedTextClassName}>
+          Hi I'm <span className="text-(--color-terracotta)">{name}</span>. I'm your
+        </span>
+
+        {/* CylinderTextRotate lays its words out absolutely, so it carries no width
+            of its own. These invisible copies share the one grid cell and size the
+            drum to the widest keyword, so the fixed half of the sentence never
+            shifts as the drum spins. Same pattern as the home page hero. */}
+        <div className="grid">
+          {words.map((word) => (
+            <span key={word} aria-hidden className="invisible whitespace-nowrap [grid-area:1/1]">
+              {word}
+            </span>
+          ))}
+
+          <div className="w-full [grid-area:1/1]">
+            <CylinderTextRotate
+              words={words}
+              loop
+              duration={1800}
+              align={wordAlign}
+              className="text-left text-(--color-oxblood)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Extra safety margin (on top of getCylinderSizeCompensation's own paint-scale
+// compensation) for the mobile row specifically - see IntroWordRow's comment
+// for why mobile can't just reuse desktop's multiplier. Tuned against the
+// longest keyword in current use ("creative strategist", on /ads) down to a
+// 320px viewport (iPhone SE) without clipping.
+const MOBILE_WORD_ROW_SAFETY_FACTOR = 1.22;
+
 export function IntroBanner({
   name,
   words,
@@ -110,50 +193,58 @@ export function IntroBanner({
   words: string[];
   note?: string;
 }) {
-  const wordRowRef = useRef<HTMLDivElement>(null);
-  const wordRowScale = useAutoFitScale(wordRowRef, getCylinderSizeCompensation());
   const gallery = useImageGallery({ images: placeholderImages(name), maxPreviewHeight: "28rem" });
 
   return (
     <div className="flex w-full max-w-4xl flex-col items-center gap-8 pb-16 text-center">
-      {/* useAutoFitScale measures against the row's parent, so this wrapper is what
-          defines the width the row is allowed to occupy. It's matched to the outer
-          container (rather than a narrower cap) because the grid below leans on
-          that fixed width: the "Hi I'm ___" column is 1fr, so it always stretches
-          to fill whatever's left of that width, and right-aligning its text against
-          that edge is what lands the rotating word's start flush with the photo's
-          right edge further down - no visible gap to fake it with. */}
-      <div className="w-full max-w-4xl">
-        <div
-          ref={wordRowRef}
-          className="grid grid-cols-[1fr_auto] items-center gap-3 font-subtitle text-[clamp(2.4rem,6vw,4.2rem)] tracking-normal text-(--color-oxblood) sm:gap-4"
-          style={{ transform: `scale(${wordRowScale})`, transformOrigin: "center" }}
-        >
-          <span className="whitespace-nowrap text-right">
-            Hi I'm <span className="text-(--color-terracotta)">{name}</span>. I'm your
-          </span>
+      {/* Desktop/tablet: unchanged from the original single-row design - the
+          "Hi I'm ___" column is 1fr, so it always stretches to fill whatever's
+          left of the row's width, and right-aligning its text against that
+          edge is what lands the rotating word's start flush with the photo's
+          right edge further down (the gallery row's own md:flex-row below is
+          what makes that edge exist in the first place). w-full here isn't
+          decorative either - see the mobile wrapper's comment below, same
+          reason. */}
+      <div className="hidden w-full md:block">
+        <IntroWordRow
+          name={name}
+          words={words}
+          gridClassName="grid grid-cols-[1fr_auto] items-center gap-3 font-subtitle text-[clamp(2.4rem,6vw,4.2rem)] tracking-normal text-(--color-oxblood)"
+          fixedTextClassName="whitespace-nowrap text-right"
+          widthMultiplier={getCylinderSizeCompensation()}
+        />
+      </div>
 
-          {/* CylinderTextRotate lays its words out absolutely, so it carries no width
-              of its own. These invisible copies share the one grid cell and size the
-              drum to the widest keyword, so the fixed half of the sentence never
-              shifts as the drum spins. Same pattern as the home page hero. */}
-          <div className="grid">
-            {words.map((word) => (
-              <span key={word} aria-hidden className="invisible whitespace-nowrap [grid-area:1/1]">
-                {word}
-              </span>
-            ))}
+      {/* Mobile: the photo/note row isn't laid out side-by-side below this
+          breakpoint (it stacks - see the gallery row's own md:flex-row), so
+          there's no edge to align flush with. grid-cols-[auto_auto] +
+          justify-center centers the whole "Hi I'm X. I'm your ___" clump as
+          one block instead, which the 1fr/auto split doesn't do on its own
+          (1fr still consumes the full row width, just packed against the
+          right-aligned text's own column rather than centered around the
+          pair) - and a taller clamp() floor than desktop's, since this no
+          longer needs to leave room for a photo beside it.
 
-            <div className="w-full [grid-area:1/1]">
-              <CylinderTextRotate
-                words={words}
-                loop
-                duration={1800}
-                className="text-left text-(--color-oxblood)"
-              />
-            </div>
-          </div>
-        </div>
+          w-full is load-bearing here too, for a completely different reason
+          than the grid's own w-full in IntroWordRow: this div is a direct
+          child of the items-center flex column above, and align-items other
+          than stretch sizes flex items via shrink-to-fit rather than filling
+          the available cross-axis width - so without an explicit width, this
+          wrapper (and its "hidden md:block" sibling above) sizes to its
+          content's natural width like a shrink-to-fit float would, letting
+          the row's pre-scale nowrap content inflate it past the viewport and
+          push the whole page into horizontal scroll. The original single-row
+          version never hit this because it had no such wrapper - the row's
+          own w-full max-w-4xl div was directly the flex item. */}
+      <div className="w-full md:hidden">
+        <IntroWordRow
+          name={name}
+          words={words}
+          gridClassName="grid grid-cols-[auto_auto] items-center justify-center gap-3 font-subtitle text-[clamp(3.1rem,10vw,4.2rem)] tracking-normal text-(--color-oxblood)"
+          fixedTextClassName="whitespace-nowrap text-center"
+          wordAlign="center"
+          widthMultiplier={getCylinderSizeCompensation() * MOBILE_WORD_ROW_SAFETY_FACTOR}
+        />
       </div>
 
       {/* The preview frame is a fixed height (image-gallery.tsx sizes it to the
