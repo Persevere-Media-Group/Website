@@ -161,8 +161,8 @@ export function OriginStorySection() {
 // than trickling in line by line.
 const BEFORE = [
   <>
-    Choose poor performing marketing campaigns. Sticking with the wrong agency, feeling
-    like you've got{" "}
+    Choose poor performing marketing campaigns. Sticking with the wrong agency, feeling like you've
+    got{" "}
     <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS}>
       Stockholm syndrome
     </Highlighter>
@@ -170,8 +170,8 @@ const BEFORE = [
   </>,
   <>Choose being forgettable. Choose getting lost in the crowd.</>,
   <>
-    Choose not fulfilling your business's potential and not reaching the heights that
-    you know you can.
+    Choose not fulfilling your business's potential and not reaching the heights that you know you
+    can.
   </>,
   <>
     Choose lining the pockets of shareholders who don't care about anything other than{" "}
@@ -188,10 +188,7 @@ const BEFORE = [
     , getting your reports and strategy from an AI agent, because "AI is the future."
   </>,
   <>Choose a lack of direction, mediocrity, the sunk cost fallacy.</>,
-  <>
-    Choose wishing you did it all differently, choose wondering what you're actually
-    paying for.
-  </>,
+  <>Choose wishing you did it all differently, choose wondering what you're actually paying for.</>,
 ];
 
 const AFTER = [
@@ -219,8 +216,8 @@ const AFTER = [
     .
   </>,
   <>
-    Choose a team who are sick of seeing people taken for a ride, who want to help a
-    business just like yours.
+    Choose a team who are sick of seeing people taken for a ride, who want to help a business just
+    like yours.
   </>,
   <>Choose a brighter future.</>,
 ];
