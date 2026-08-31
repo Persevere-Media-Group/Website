@@ -5,7 +5,7 @@ import SpecularButton from "@/ui-components/primitive/specular-button";
 import { Highlighter } from "@/ui-components/primitive/highlighter";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
 import { Instagram, Linkedin } from "@/ui-components/primitive/svgs";
-import { FaqSection, FaqLink, type Faq } from "@/ui-components/custom/faq";
+import { FaqSearch, FaqLink, type Faq } from "@/ui-components/custom/faq";
 import { containsProfanity } from "@/lib/profanity";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
 import { UNDERLINE_COLOR, MARK_PROPS } from "@/lib/text-marks";
@@ -1020,13 +1020,17 @@ const CONTACT_FAQS: Faq[] = [
   },
 ];
 
+// A handful of common topics, shown as clickable chips below the search box
+// before someone's typed anything, so it's obvious what the box is for.
+const CONTACT_FAQ_SUGGESTIONS = ["budget", "contracts", "ads", "creative"];
+
 export function ContactFaqSection() {
   return (
     <div
       id="contact-faqs"
       className="mx-auto flex w-full max-w-6xl scroll-mt-24 flex-col items-center px-4 pb-32 pt-16"
     >
-      <FaqSection faqs={CONTACT_FAQS} />
+      <FaqSearch faqs={CONTACT_FAQS} suggestions={CONTACT_FAQ_SUGGESTIONS} />
     </div>
   );
 }
