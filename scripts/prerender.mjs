@@ -57,8 +57,12 @@ const ROUTES = [
 
 // Every head tag src/seo/Seo.tsx can render for a route, matching what used
 // to carry [data-default] in index.html before main.tsx strips it on boot.
+// Scoped to `head > title` rather than a bare `title` - decorative icons
+// elsewhere on the page (e.g. squiggly-arrow.tsx) render their own <title>
+// for SVG accessibility, and an unscoped selector was scraping those into
+// <head> too, producing several stray duplicate <title> tags per route.
 const SEO_TAG_SELECTOR = [
-  "title",
+  "head > title",
   'meta[name="description"]',
   'link[rel="canonical"]',
   'meta[property^="og:"]',
