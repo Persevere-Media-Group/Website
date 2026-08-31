@@ -157,38 +157,41 @@ export function OriginStorySection() {
 // Choose Persevere (Trainspotting monologue)
 // ---------------------------------------------------------------------------
 
-// pared right back: short, staccato, repetitive. the power in the trainspotting
-// monologue is the hammering rhythm, not the detail, anything that needs a comma to
-// hold it together has been cut or split. marks stay sparing, three per half.
+// marks stay sparing, three per half - drawn onto the block after it lands rather
+// than trickling in line by line.
 const BEFORE = [
   <>
-    Choose the wrong agency. Choose{" "}
+    Choose poor performing marketing campaigns. Sticking with the wrong agency, feeling
+    like you've got{" "}
     <Highlighter action="circle" color={UNDERLINE_COLOR} {...MARK_PROPS}>
       Stockholm syndrome
     </Highlighter>
     .
   </>,
-  <>Choose "we're working on it." Choose just a few more months.</>,
+  <>Choose being forgettable. Choose getting lost in the crowd.</>,
   <>
-    Choose lining shareholders' pockets. Choose being a retainer,{" "}
-    <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
-      not a client.
-    </Highlighter>
+    Choose not fulfilling your business's potential and not reaching the heights that
+    you know you can.
   </>,
   <>
-    Choose a manager who gets paid either way. Profit or loss.{" "}
+    Choose lining the pockets of shareholders who don't care about anything other than{" "}
     <Highlighter action="underline" color={UNDERLINE_COLOR} {...MARK_PROPS}>
-      They don't care.
-    </Highlighter>
-  </>,
-  <>
-    Choose paying for humans. Choose receiving{" "}
-    <Highlighter action="box" color={UNDERLINE_COLOR} {...MARK_PROPS}>
-      AI slop
+      how big your retainer is
     </Highlighter>
     .
   </>,
-  <>Choose mediocrity. Choose the sunk cost fallacy. Choose blending in.</>,
+  <>
+    Choose paying for people, but receiving{" "}
+    <Highlighter action="box" color={UNDERLINE_COLOR} {...MARK_PROPS}>
+      AI slop
+    </Highlighter>
+    , getting your reports and strategy from an AI agent, because "AI is the future."
+  </>,
+  <>Choose a lack of direction, mediocrity, the sunk cost fallacy.</>,
+  <>
+    Choose wishing you did it all differently, choose wondering what you're actually
+    paying for.
+  </>,
 ];
 
 const AFTER = [
@@ -198,24 +201,28 @@ const AFTER = [
     <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
       actual people
     </Highlighter>
-    . People who care about doing good work and paying the bills.
+    , who just care about doing good work and getting you real results.
   </>,
-  <>Choose taking a chance on us. Choose bespoke content strategies.</>,
   <>
-    Choose not deciding between an ads agency and a creative team. Choose{" "}
+    Choose bespoke strategies, informed by{" "}
+    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
+      years of experience and expertise
+    </Highlighter>
+    .
+  </>,
+  <>Choose not having to decide between an ads agency and a creative team.</>,
+  <>
+    Choose getting{" "}
     <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
       the best of both worlds
     </Highlighter>
     .
   </>,
   <>
-    Choose a team who actually care. Choose{" "}
-    <Highlighter action="highlight" color={HIGHLIGHT_COLOR} {...MARK_PROPS}>
-      fair fees
-    </Highlighter>
-    .
+    Choose a team who are sick of seeing people taken for a ride, who want to help a
+    business just like yours.
   </>,
-  <>Choose craft. Choose good vibes. Choose growth. Choose a brighter future.</>,
+  <>Choose a brighter future.</>,
 ];
 
 export function ChooseSection() {
