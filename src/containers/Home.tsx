@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PopupModal } from "react-calendly";
-import { SectionDivider } from "@/ui-components/custom/wiggly-divider";
+import { MiniDivider, SectionDivider } from "@/ui-components/custom/wiggly-divider";
 import { SectionSpacer } from "@/ui-components/custom/section-spacer";
 import {
   HeroSection,
@@ -8,6 +8,8 @@ import {
   StatsCountSection,
   OurServicesSection,
   WhyChooseSection,
+  LogosSection,
+  TestimonialsSection,
 } from "@/container-contents/home-sections";
 import { ChoosePersevereMark } from "@/ui-components/custom/choose-persevere-mark";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
@@ -23,13 +25,11 @@ export function Home() {
       <SectionDivider />
       <StatsCountSection />
       <SectionDivider reverse />
-      {/* Commented out until it is safe to deploy logos and quotes from clients
       <TestimonialsSection />
       <SectionSpacer size="sm" />
       <LogosSection />
-      <SectionSpacer size="lg" /> 
+      <SectionSpacer size="lg" />
       <MiniDivider size="sm" />
-      */}
       <OurServicesSection />
       <SectionSpacer size="md" />
       <ChoosePersevereMark />
