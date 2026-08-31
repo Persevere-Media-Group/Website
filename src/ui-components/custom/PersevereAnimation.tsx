@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { paintGrainOverlay, resolveColor } from "@/lib/grain-canvas";
 import "./PersevereAnimation.css";
 
@@ -281,8 +281,14 @@ export function PersevereAnimation({
       } ${className}`}
     >
       {/* Off-screen: every variant of every letter, rendered once to measure
-          natural widths. Never visible, positioned out of flow so it can't
-          affect layout or scroll. */}
+          natural widths. Positioned out of flow so it can't affect layout or
+          scroll - but opacity-0 (unlike visibility-hidden/display-none)
+          doesn't exclude an element from textContent/innerText, so like the
+          visible glyphs below, the character lives in data-glyph and is
+          painted via generated content (.persevere-glyph::before in
+          PersevereAnimation.css) rather than a real text node. offsetWidth
+          measurement below works identically either way - generated content
+          contributes to an element's rendered width same as a text child. */}
       <div aria-hidden className="pointer-events-none absolute -z-10 -translate-x-full opacity-0">
         {UNIQUE_LETTERS.map((ch) =>
           VARIANT_MAP[ch].map((variant, vi) => (
@@ -291,10 +297,9 @@ export function PersevereAnimation({
               ref={(el) => {
                 (measureRefs.current[ch] ??= [])[vi] = el;
               }}
-              className={`inline-block font-[TGMotionSicknessSubset] whitespace-pre ${sizeClassName}`}
-            >
-              {variant}
-            </span>
+              data-glyph={variant}
+              className={`persevere-glyph inline-block font-[TGMotionSicknessSubset] whitespace-pre ${sizeClassName}`}
+            />
           ))
         )}
       </div>
@@ -313,34 +318,37 @@ export function PersevereAnimation({
             // artefacts above the new glyph.
             key={`${i}-${char}`}
             aria-hidden="true"
-            className={`inline-block text-center font-[TGMotionSicknessSubset] will-change-transform ${sizeClassName} ${textClassName}`}
-            style={{
-              animationName: "persevere-tremble",
-              animationDuration: `${timing.durationS}s`,
-              animationDelay: `${timing.delayS}s`,
-              animationTimingFunction: "ease-in-out",
-              animationIterationCount: "infinite",
-              width: width !== undefined ? `${width}px` : undefined,
-              paddingTop: `${topPadEm}em`,
-              paddingBottom: `${bottomPadEm}em`,
-              // Pre-rendered texture (see buildGrainTexture): a plain
-              // background-image with the grain baked into its alpha, no
-              // background-clip: text mask needed at runtime. Falls back to
-              // the flat textClassName colour until the texture for this
-              // variant is ready.
-              ...(tex
-                ? {
-                    backgroundImage: `url(${tex.url})`,
-                    backgroundSize: `${tex.width}px ${tex.height}px`,
-                    backgroundPosition: "50% 50%",
-                    backgroundRepeat: "no-repeat",
-                    color: "transparent",
-                  }
-                : undefined),
-            }}
-          >
-            {char}
-          </span>
+            // The glyph itself is generated content driven by data-glyph
+            // (see .persevere-glyph::before in PersevereAnimation.css), not
+            // a text child - see that rule's comment for why.
+            data-glyph={char}
+            className={`persevere-glyph inline-block text-center font-[TGMotionSicknessSubset] will-change-transform ${sizeClassName} ${textClassName}`}
+            style={
+              {
+                animationName: "persevere-tremble",
+                animationDuration: `${timing.durationS}s`,
+                animationDelay: `${timing.delayS}s`,
+                animationTimingFunction: "ease-in-out",
+                animationIterationCount: "infinite",
+                width: width !== undefined ? `${width}px` : undefined,
+                paddingTop: `${topPadEm}em`,
+                paddingBottom: `${bottomPadEm}em`,
+                // Pre-rendered texture (see buildGrainTexture): a plain
+                // background-image with the grain baked into its alpha, no
+                // background-clip: text mask needed at runtime. Falls back to
+                // the flat textClassName colour (via the CSS rule's
+                // var(..., inherit) fallback) until the texture for this
+                // variant is ready.
+                ...(tex
+                  ? {
+                      "--glyph-bg": `url(${tex.url})`,
+                      "--glyph-bg-size": `${tex.width}px ${tex.height}px`,
+                      "--glyph-color": "transparent",
+                    }
+                  : undefined),
+              } as CSSProperties
+            }
+          />
         );
       })}
     </div>
