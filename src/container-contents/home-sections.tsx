@@ -220,9 +220,9 @@ export function FactsSection() {
         </AnimatedContent>
       ))}
 
-      <div className="flex aspect-video w-full max-w-3xl items-center justify-center rounded-2xl border-2 border-dashed border-(--color-oxblood)/20 bg-(--color-oxblood)/5 text-(--color-oxblood)/40">
+      {/* <div className="flex aspect-video w-full max-w-3xl items-center justify-center rounded-2xl border-2 border-dashed border-(--color-oxblood)/20 bg-(--color-oxblood)/5 text-(--color-oxblood)/40">
         Placeholder image
-      </div>
+      </div> */}
     </section>
   );
 }
