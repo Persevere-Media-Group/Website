@@ -118,17 +118,19 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             <img
               src={testimonial.avatar}
               alt={testimonial.name}
-              className="size-18 shrink-0 rounded-full border-2 border-(--color-terracotta) object-cover"
+              className="size-14 shrink-0 rounded-full border-2 border-(--color-terracotta) object-cover sm:size-18"
             />
           ) : (
-            <span className="flex size-18 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-lg font-bold text-(--color-terracotta)">
+            <span className="flex size-14 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-base font-bold text-(--color-terracotta) sm:size-18 sm:text-lg">
               {initials(testimonial.name)}
             </span>
           )}
-          <div className="flex min-h-16 flex-col justify-center">
-            <p className="font-bold text-(--color-oxblood)">{testimonial.name}</p>
+          <div className="flex min-h-14 flex-col justify-center sm:min-h-16">
+            <p className="text-sm font-bold text-(--color-oxblood) sm:text-base">{testimonial.name}</p>
             {testimonial.role && (
-              <p className="line-clamp-2 text-sm text-(--color-oxblood)/60">{testimonial.role}</p>
+              <p className="line-clamp-3 text-xs leading-snug text-(--color-oxblood)/60 sm:line-clamp-2 sm:text-sm sm:leading-normal">
+                {testimonial.role}
+              </p>
             )}
           </div>
         </div>

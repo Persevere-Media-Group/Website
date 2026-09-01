@@ -30,7 +30,7 @@ interface ChoosePersevereMarkProps {
 // own width multiplier to correct for it, tuned per breakpoint rather than
 // shared, since a single value tuned for mobile's worse ratio would
 // over-shrink desktop, which isn't overflowing and shouldn't change.
-const CIRCLE_WIDTH_MULTIPLIER = { mobile: 1.75, desktop: 1 };
+const CIRCLE_WIDTH_MULTIPLIER = { mobile: 1.62, desktop: 1 };
 
 const TEXT_CLASS =
   "font-accent text-[clamp(2.75rem,16vw,6.5rem)] leading-none tracking-wide whitespace-nowrap text-(--color-oxblood)";
@@ -157,12 +157,18 @@ function FontSizeMark({ className, wrapperClassName }: { className?: string; wra
         className={cn("w-fit mx-auto", TEXT_CLASS, className)}
         style={fontSizePx ? { fontSize: `${fontSizePx}px` } : undefined}
       >
+        {/* Smaller padding than TransformMark's (desktop) - the fit is tuned
+            (via CIRCLE_WIDTH_MULTIPLIER.mobile) to hold the whole circle,
+            padding included, within the viewport at mobile's smaller sizes,
+            so a tighter padding here leaves more of that budget for the text
+            itself to render bigger, without growing the circle beyond what
+            the fit already accounts for. */}
         <Highlighter
           key={fontSizePx}
           action="circle"
           color={UNDERLINE_COLOR}
           {...MARK_PROPS}
-          padding={[20, 64, 20, 64]}
+          padding={[20, 44, 20, 44]}
         >
           Choose Persevere.
         </Highlighter>
