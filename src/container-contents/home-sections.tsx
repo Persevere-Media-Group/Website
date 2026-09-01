@@ -70,7 +70,7 @@ export function HeroSection() {
       duration={400}
       easing="ease-out"
       extraScale={1}
-      className="relative flex min-h-[58vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-10 pb-8 text-center sm:min-h-[60vh] sm:pt-14 sm:pb-10 md:pb-12"
+      className="relative flex min-h-[58vh] flex-col items-center justify-center overflow-hidden bg-(--color-terracotta) px-4 pt-6 pb-8 text-center sm:min-h-[60vh] sm:pt-8 sm:pb-10 md:pb-12"
     >
       <Grainient
         colors={["--color-deep-plum", "--color-terracotta", "--color-amber-gold"]}
@@ -81,7 +81,7 @@ export function HeroSection() {
         className="absolute inset-0"
       />
 
-      <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center gap-8 px-4 pt-12 pb-10 text-center sm:gap-8 sm:pt-16 sm:pb-14 md:pb-16">
+      <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center gap-8 px-4 pt-6 pb-10 text-center sm:gap-8 sm:pt-8 sm:pb-14 md:pb-16">
         <h1 className="flex w-full flex-col items-center gap-8">
           {/* Mirrors the "-mt-8" paragraph below exactly: gap-8 plus an equal
               and opposite negative margin cancel out, leaving only the word's
