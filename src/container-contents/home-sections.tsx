@@ -304,28 +304,28 @@ export function VideoSection() {
 const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "We came to Persevere with a short brief and a limited budget. The support and service we received was personable, professional and aligned well with our ambitions.",
+      "We came to Persevere Media with a short brief and a limited budget. The support and service we received was personable, professional and aligned well with our ambitions.",
     name: "Jason",
     role: "Founder of Common Coffee",
     avatar: "/photos/testimonials/jason.jpeg",
   },
   {
     quote:
-      "We’ve worked with Persevere on a number of video projects for the Scottish Marketing Summit and have been really impressed with the quality of the work... Would absolutely recommend them to anyone looking for a talented and dependable video editor!",
+      "We’ve worked with Persevere Media on a number of video projects for the Scottish Marketing Summit and have been really impressed with the quality of the work... Would absolutely recommend them to anyone looking for a talented and dependable video editor!",
     name: "Susan",
     role: "Founder of The Scottish Marketing Summit",
     avatar: "/photos/testimonials/susan.jpeg",
   },
   {
     quote:
-      "Persevere are standout professionals whose expertise and ability to consistently smash goals played a real part in our success.",
+      "Persevere Media are standout professionals whose expertise and ability to consistently smash goals played a real part in our success.",
     name: "Jamie",
     role: "Founder of Cinegrams",
     avatar: "/photos/testimonials/jamie.jpeg",
   },
   {
     quote:
-      "The team from Persevere Media have been exceptional from the get go, explaining the process and setting realistic timescales. They even got me on video (something I never thought I'd do!) and always welcome my feedback. No reservations recommending them to other businesses.",
+      "Persevere Media have been exceptional from the get go, explaining the process and setting realistic timescales. They even got me on video (something I never thought I'd do!) and always welcome my feedback. I have no reservations recommending them to other businesses.",
     name: "Stuart",
     role: "Owner of Jackson Accident Repair Centre",
     avatar: "/photos/testimonials/stuart.jpeg",
