@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { PopupModal } from "react-calendly";
 import { useAutoFitScale } from "@/hooks/use-auto-fit-scale";
 import { ClickSpark } from "@/ui-components/primitive/click-spark";
 import { PersevereAnimation } from "@/ui-components/custom/PersevereAnimation";
@@ -15,7 +14,6 @@ import { Testimonials, type Testimonial } from "@/ui-components/primitive/testim
 import { LogoMarquee } from "@/ui-components/custom/logo-marquee";
 import { LinkCard } from "@/ui-components/custom/link-card";
 import { DisplayHeading } from "@/ui-components/custom/display-heading";
-import { CALENDLY_URL } from "@/container-contents/services-shared";
 import { MARK_PROPS, UNDERLINE_COLOR, HIGHLIGHT_COLOR } from "@/lib/text-marks";
 
 // ---------------------------------------------------------------------------
@@ -23,7 +21,6 @@ import { MARK_PROPS, UNDERLINE_COLOR, HIGHLIGHT_COLOR } from "@/lib/text-marks";
 // ---------------------------------------------------------------------------
 
 export function HeroSection() {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const wordRef = useRef<HTMLDivElement>(null);
   const wordScale = useAutoFitScale(wordRef);
 
@@ -135,21 +132,16 @@ export function HeroSection() {
         </p>
 
         <YellowPulsatingButton
-          onClick={() => setIsCalendlyOpen(true)}
+          onClick={() =>
+            document.getElementById(OUR_SERVICES_ID)?.scrollIntoView({ behavior: "smooth" })
+          }
           className="px-6 py-3 text-base sm:px-7 sm:py-3.5 sm:text-lg"
         >
-          Book a Call
+          Our Services
         </YellowPulsatingButton>
       </div>
 
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />
-
-      <PopupModal
-        url={CALENDLY_URL}
-        onModalClose={() => setIsCalendlyOpen(false)}
-        open={isCalendlyOpen}
-        rootElement={document.getElementById("root")!}
-      />
     </ClickSpark>
   );
 }
