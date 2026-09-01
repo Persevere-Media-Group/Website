@@ -30,7 +30,7 @@ interface ChoosePersevereMarkProps {
 // own width multiplier to correct for it, tuned per breakpoint rather than
 // shared, since a single value tuned for mobile's worse ratio would
 // over-shrink desktop, which isn't overflowing and shouldn't change.
-const CIRCLE_WIDTH_MULTIPLIER = { mobile: 1.55, desktop: 1 };
+const CIRCLE_WIDTH_MULTIPLIER = { mobile: 1.75, desktop: 1 };
 
 const TEXT_CLASS =
   "font-accent text-[clamp(2.75rem,16vw,6.5rem)] leading-none tracking-wide whitespace-nowrap text-(--color-oxblood)";
