@@ -146,12 +146,14 @@ export function Testimonials({
   heading = "What people say",
   subheading,
   headingClassName,
+  subheadingClassName,
   className = "",
 }: {
   testimonials: Testimonial[];
   heading?: ReactNode;
   subheading?: ReactNode;
   headingClassName?: string;
+  subheadingClassName?: string;
   className?: string;
 }) {
   const n = testimonials.length;
@@ -243,7 +245,11 @@ export function Testimonials({
 
   return (
     <section className={`px-4 py-4 text-center ${className}`}>
-      <DisplayHeading subheading={subheading} headingClassName={headingClassName}>
+      <DisplayHeading
+        subheading={subheading}
+        headingClassName={headingClassName}
+        subheadingClassName={subheadingClassName}
+      >
         {heading}
       </DisplayHeading>
 

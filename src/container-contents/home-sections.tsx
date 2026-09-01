@@ -347,6 +347,7 @@ export function TestimonialsSection() {
       heading={<>Pals of Persevere</>}
       subheading={<>What our clients say about us</>}
       headingClassName="mt-3 font-heading text-[clamp(2.75rem,6vw,4rem)] tracking-wide text-(--color-oxblood)"
+      subheadingClassName="mx-auto mt-4 max-w-2xl font-subtitle text-[clamp(1rem,1.6vw,1.15rem)] leading-relaxed text-(--color-oxblood)/80"
       className="bg-(--color-ivory)"
     />
   );

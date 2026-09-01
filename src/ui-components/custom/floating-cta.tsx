@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, animate, type PanInfo } from "motion/react";
+import { motion, useMotionValue, animate } from "motion/react";
 import { PopupModal } from "react-calendly";
 import { Phone } from "lucide-react";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
@@ -9,10 +9,24 @@ const EDGE_MARGIN = 8; // px, keeps it fully clickable rather than flush against
 
 // snappy but soft, matching the "smooth spring" feel rather than a rigid ease curve
 const SNAP_SPRING = { type: "spring", stiffness: 380, damping: 32 } as const;
+const SCALE_SPRING = { type: "spring", stiffness: 500, damping: 30 } as const;
+
+// how far (px) a press has to move before it counts as a drag rather than a tap
+const DRAG_THRESHOLD = 6;
+// rubber-band resistance applied to movement past the edge bounds, matching
+// the "give" Motion's old dragElastic={0.12} had
+const DRAG_ELASTIC = 0.12;
 
 interface Position {
   x: number;
   y: number;
+}
+
+interface Bounds {
+  top: number;
+  left: number;
+  right: number;
+  bottom: number;
 }
 
 // keeps the button pinned to whichever edge of the screen it's nearest to, sliding
@@ -53,17 +67,43 @@ function getStoredPosition(): Position | null {
   return null;
 }
 
+// Pixel bounds for the `x`/`y` motion values themselves (which are measured from
+// the button's static top-left-origin position), matching the same edge math as
+// snapToNearestEdge.
+function computeBounds(width: number, height: number): Bounds {
+  return {
+    top: EDGE_MARGIN,
+    left: EDGE_MARGIN,
+    right: Math.max(window.innerWidth - width - EDGE_MARGIN, EDGE_MARGIN),
+    bottom: Math.max(window.innerHeight - height - EDGE_MARGIN, EDGE_MARGIN),
+  };
+}
+
+function withElastic(value: number, min: number, max: number): number {
+  if (value < min) return min - (min - value) * DRAG_ELASTIC;
+  if (value > max) return max + (value - max) * DRAG_ELASTIC;
+  return value;
+}
+
 export function FloatingCta() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [ready, setReady] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const constraintsRef = useRef<HTMLDivElement>(null);
+
+  // Plain pixel bounds, recomputed only by this component's own effects below -
+  // see the drag handling further down for why this button doesn't use Motion's
+  // built-in `drag` gesture at all.
+  const boundsRef = useRef<Bounds>(computeBounds(0, 0));
+  const setBounds = (b: Bounds) => {
+    boundsRef.current = b;
+  };
 
   // driven directly by the drag gesture, then spring-animated to the snapped
   // edge position on drop, rather than plain React state (which would fight
   // the drag gesture's own per-frame transform updates)
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const scale = useMotionValue(1);
 
   const snapTo = (pos: Position) => {
     animate(x, pos.x, SNAP_SPRING);
@@ -77,6 +117,7 @@ export function FloatingCta() {
     const el = buttonRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
+    setBounds(computeBounds(rect.width, rect.height));
     const stored = getStoredPosition();
     const target = snapToNearestEdge(
       stored ?? {
@@ -107,6 +148,7 @@ export function FloatingCta() {
       const el = buttonRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
+      setBounds(computeBounds(rect.width, rect.height));
       snapTo(snapToNearestEdge({ x: rect.left, y: rect.top }, rect.width, rect.height));
     };
     window.addEventListener("resize", onResize);
@@ -114,29 +156,108 @@ export function FloatingCta() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- x/y are stable MotionValue refs
   }, []);
 
-  // Motion's tap and drag gestures are recognised independently, so a real drag
-  // can still leave a trailing tap event on release. This flag is set the moment
-  // a drag actually starts and consumed by the next tap, so that a drag never
-  // also opens the popup, while a genuine click (no drag) still does
-  const draggedRef = useRef(false);
+  // Dragging is handled by hand with plain pointer events rather than Motion's
+  // `drag` gesture. Motion's `drag` + `dragConstraints` re-validates the
+  // draggable's position against the viewport on events outside this
+  // component's control - on iOS that includes the address bar's own
+  // visualViewport resize/scroll as it collapses/expands mid-scroll, which
+  // is distinct from (and not caught by) the width-only `resize` guard above.
+  // That was still snapping this button to a "corrected" position mid-scroll
+  // on mobile even once dragConstraints was switched to a plain object.
+  // Handling pointer events ourselves means nothing but this component's own
+  // code can ever move `x`/`y`, so a scroll can never touch them.
+  const pointerState = useRef<{
+    pointerId: number;
+    startClientX: number;
+    startClientY: number;
+    originX: number;
+    originY: number;
+    dragging: boolean;
+  } | null>(null);
 
-  const handleDragStart = () => {
-    draggedRef.current = true;
+  // A real drag shouldn't also open the popup. pointerup clears pointerState
+  // before the browser's own trailing "click" event fires, so this flag - set
+  // the moment a drag crosses the threshold, consumed by that click - outlives
+  // pointerState for exactly as long as it needs to.
+  const didDragRef = useRef(false);
+
+  // Mirrors what whileHover/whileTap/whileDrag used to do declaratively:
+  // dragging beats pressed beats hovered beats idle.
+  const isHoveringRef = useRef(false);
+  const applyScale = (dragging: boolean) => {
+    const target = dragging ? 1.08 : pointerState.current ? 0.95 : isHoveringRef.current ? 1.05 : 1;
+    animate(scale, target, SCALE_SPRING);
   };
 
-  const handleDragEnd: (
-    event: PointerEvent | MouseEvent | TouchEvent,
-    info: PanInfo
-  ) => void = () => {
+  const handlePointerEnter = (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (e.pointerType !== "mouse") return;
+    isHoveringRef.current = true;
+    applyScale(false);
+  };
+
+  const handlePointerLeave = (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (e.pointerType !== "mouse") return;
+    isHoveringRef.current = false;
+    if (!pointerState.current?.dragging) applyScale(false);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    pointerState.current = {
+      pointerId: e.pointerId,
+      startClientX: e.clientX,
+      startClientY: e.clientY,
+      originX: x.get(),
+      originY: y.get(),
+      dragging: false,
+    };
+    applyScale(false);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const state = pointerState.current;
+    if (!state || state.pointerId !== e.pointerId) return;
+    const dx = e.clientX - state.startClientX;
+    const dy = e.clientY - state.startClientY;
+
+    if (!state.dragging) {
+      if (Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) return;
+      state.dragging = true;
+      didDragRef.current = true;
+      e.currentTarget.setPointerCapture(state.pointerId);
+      applyScale(true);
+    }
+
+    const bounds = boundsRef.current;
+    x.set(withElastic(state.originX + dx, bounds.left, bounds.right));
+    y.set(withElastic(state.originY + dy, bounds.top, bounds.bottom));
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const state = pointerState.current;
+    if (!state || state.pointerId !== e.pointerId) return;
+    pointerState.current = null;
+    if (!state.dragging) {
+      applyScale(false);
+      return;
+    }
+    applyScale(false);
     const el = buttonRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
     snapTo(snapToNearestEdge({ x: rect.left, y: rect.top }, rect.width, rect.height));
   };
 
-  const handleTap = () => {
-    if (draggedRef.current) {
-      draggedRef.current = false;
+  const handlePointerCancel = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const state = pointerState.current;
+    if (!state || state.pointerId !== e.pointerId) return;
+    pointerState.current = null;
+    applyScale(false);
+  };
+
+  const handleClick = () => {
+    if (didDragRef.current) {
+      didDragRef.current = false;
       return;
     }
     setIsCalendlyOpen(true);
@@ -144,10 +265,6 @@ export function FloatingCta() {
 
   return (
     <>
-      {/* invisible, full-viewport drag boundary, inset by EDGE_MARGIN so the button
-          can never be dragged flush against the very edge of the screen */}
-      <div ref={constraintsRef} className="pointer-events-none fixed inset-2" aria-hidden />
-
       {/* Two things fix iOS Safari's fixed-position scroll jitter here:
           1. The drag transform lives on a plain (statically positioned) child
              rather than on this `fixed` element itself, so this element's own
@@ -180,18 +297,15 @@ export function FloatingCta() {
         <motion.button
           ref={buttonRef}
           type="button"
-          drag
-          dragConstraints={constraintsRef}
-          dragElastic={0.12}
-          dragMomentum={false}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-          onTap={handleTap}
-          whileDrag={{ scale: 1.08 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerCancel}
+          onClick={handleClick}
           className="pointer-events-auto flex cursor-grab touch-none items-center gap-2 rounded-full bg-(--color-amber-gold) px-5 py-3 text-base font-subtitle font-bold whitespace-nowrap text-(--color-oxblood) shadow-[0_8px_24px_rgba(0,0,0,0.25)] select-none active:cursor-grabbing md:text-lg"
-          style={{ x, y }}
+          style={{ x, y, scale }}
         >
           <Phone className="h-4 w-4" />
           Book a call !
