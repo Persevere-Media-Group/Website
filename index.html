@@ -17,7 +17,15 @@
     <!-- End Google Tag Manager -->
 
     <meta charset="UTF-8" />
+    <!-- SVG first for browsers that support it, PNG/ICO fallbacks after for
+         everything else - including Google Search's favicon fetcher, which
+         doesn't reliably pick up an SVG-only favicon and was falling back to
+         a generic placeholder icon in search results without these. -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Static fallback head content: this is the only HTML any crawler that
@@ -33,7 +41,7 @@
     <meta
       data-default
       name="description"
-      content="Persevere Media is a two-person growth partner combining paid ads and content creation under one roof. £20m+ in ad spend managed across 50+ brands — no account managers, no bloated fees."
+      content="Most agencies offer you one service and leave you to find the other. We do both, under one roof. We keep it simple, accessible and affordable."
     />
     <link data-default rel="canonical" href="https://choosepersevere.com/" />
     <meta
@@ -44,7 +52,7 @@
     <meta
       data-default
       property="og:description"
-      content="Persevere Media is a two-person growth partner combining paid ads and content creation under one roof. £20m+ in ad spend managed across 50+ brands — no account managers, no bloated fees."
+      content="Most agencies offer you one service and leave you to find the other. We do both, under one roof. We keep it simple, accessible and affordable."
     />
     <meta data-default property="og:url" content="https://choosepersevere.com/" />
     <meta data-default property="og:type" content="website" />
@@ -59,7 +67,7 @@
     <meta
       data-default
       name="twitter:description"
-      content="Persevere Media is a two-person growth partner combining paid ads and content creation under one roof. £20m+ in ad spend managed across 50+ brands — no account managers, no bloated fees."
+      content="Most agencies offer you one service and leave you to find the other. We do both, under one roof. We keep it simple, accessible and affordable."
     />
     <meta data-default name="twitter:image" content="https://choosepersevere.com/og-image.png" />
 

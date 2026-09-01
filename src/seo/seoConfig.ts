@@ -11,7 +11,7 @@ export const seoConfig: Record<string, SeoEntry> = {
   "/": {
     title: "Persevere Media | Content & Ads",
     description:
-      "Persevere Media is a two-person growth partner combining paid ads and content creation under one roof. £20m+ in ad spend managed across 50+ brands — no account managers, no bloated fees.",
+      "Most agencies offer you one service and leave you to find the other. We do both, under one roof. We keep it simple, accessible and affordable.",
   },
   "/about": {
     title: "About Us | Persevere Media",
