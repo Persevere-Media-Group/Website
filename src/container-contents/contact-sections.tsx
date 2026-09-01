@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { PopupModal } from "react-calendly";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowLeft,
   ArrowRight,
@@ -29,6 +31,8 @@ import {
 } from "@/ui-components/primitive/stepper";
 import confetti from "canvas-confetti";
 
+gsap.registerPlugin(ScrollTrigger);
+
 // ---------------------------------------------------------------------------
 // Intro / context panel
 // ---------------------------------------------------------------------------
@@ -53,32 +57,95 @@ export function ContactIntroSection() {
   // container via a fixed top-2/bottom-2 inset) so it stops exactly at the last node's
   // icon instead of running on through that node's own — variable-height — content
   // below it (the "Connect with us" social rows), which made it look like a line
-  // leading nowhere.
+  // leading nowhere. Split into two segments (node1-node2, node2-node3) rather than
+  // one continuous line, so each segment can be revealed on its own once both of its
+  // endpoint nodes have popped in - see the grow-in effect below. Without the split,
+  // a single line spanning all three nodes has nothing sensible to wait for (it isn't
+  // "done" until the last node exists, so it'd either show early or only animate in
+  // right at the very end).
   const timelineRef = useRef<HTMLDivElement>(null);
   const firstNodeRef = useRef<HTMLSpanElement>(null);
+  const midNodeRef = useRef<HTMLSpanElement>(null);
   const lastNodeRef = useRef<HTMLSpanElement>(null);
-  const [lineStyle, setLineStyle] = useState<{ top: number; height: number } | undefined>(
+  const line1Ref = useRef<HTMLDivElement>(null);
+  const line2Ref = useRef<HTMLDivElement>(null);
+  const [line1Style, setLine1Style] = useState<{ top: number; height: number } | undefined>(
+    undefined
+  );
+  const [line2Style, setLine2Style] = useState<{ top: number; height: number } | undefined>(
     undefined
   );
 
-  // spans exactly from the first node's icon centre to the last node's icon centre.
-  // getBoundingClientRect is safe to use here (rather than layout-only measurements)
-  // because these nodes animate in horizontally, never vertically, so their Y position
-  // is stable even mid-animation.
+  // spans exactly from one icon's centre to the next. getBoundingClientRect is safe to
+  // use here (rather than layout-only measurements) because these nodes animate in
+  // horizontally, never vertically, so their Y position is stable even mid-animation.
   useEffect(() => {
     const measure = () => {
-      if (!timelineRef.current || !firstNodeRef.current || !lastNodeRef.current) return;
+      if (
+        !timelineRef.current ||
+        !firstNodeRef.current ||
+        !midNodeRef.current ||
+        !lastNodeRef.current
+      )
+        return;
       const containerTop = timelineRef.current.getBoundingClientRect().top;
-      const firstRect = firstNodeRef.current.getBoundingClientRect();
-      const lastRect = lastNodeRef.current.getBoundingClientRect();
-      const top = firstRect.top + firstRect.height / 2 - containerTop;
-      const bottom = lastRect.top + lastRect.height / 2 - containerTop;
-      setLineStyle({ top, height: bottom - top });
+      const centreOf = (el: HTMLElement) => {
+        const rect = el.getBoundingClientRect();
+        return rect.top + rect.height / 2 - containerTop;
+      };
+      const firstCentre = centreOf(firstNodeRef.current);
+      const midCentre = centreOf(midNodeRef.current);
+      const lastCentre = centreOf(lastNodeRef.current);
+      setLine1Style({ top: firstCentre, height: midCentre - firstCentre });
+      setLine2Style({ top: midCentre, height: lastCentre - midCentre });
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, []);
+
+  // Grows each line segment in from its top node once scrolled into view, instead of
+  // rendering it fully visible from the start (which used to show the line before the
+  // nodes it connects had even appeared). Runs once measurement above has produced real
+  // positions - guarded by hasAnimatedRef rather than depending on nothing, since the
+  // measure effect's resize listener can update line1Style/line2Style again later and
+  // this must not re-arm (and replay) the animation every time that happens.
+  const hasAnimatedRef = useRef(false);
+  useEffect(() => {
+    if (hasAnimatedRef.current) return;
+    if (!line1Style || !line2Style || !line1Ref.current || !line2Ref.current) return;
+    hasAnimatedRef.current = true;
+
+    const scroller = document.getElementById("snap-main-container") || window;
+    // Delays are tuned to land each segment right after the nodes on either side of it
+    // have finished popping in (node1 delay .24/dur .6 -> ends .84, node2 delay .36/dur
+    // .6 -> ends .96, node3 delay 1.5/dur .6 -> ends 2.1), so the build order reads as
+    // node, node, connecting line, node, connecting line. start is "top 70%", matching
+    // the nodes' own threshold=0.3 (top (1-0.3)*100%) - NOT a more lenient percentage
+    // like top 90%, which fires as soon as a sliver of the element nears the bottom of
+    // the viewport and was already true on page load here, before any real scrolling.
+    const segments = [
+      { el: line1Ref.current, delay: 1.0 },
+      { el: line2Ref.current, delay: 2.15 },
+    ];
+
+    const triggers = segments.map(({ el, delay }) => {
+      gsap.set(el, { scaleY: 0, transformOrigin: "top", visibility: "visible" });
+      const tl = gsap.timeline({ paused: true, delay });
+      tl.to(el, { scaleY: 1, duration: 0.45, ease: "power2.out" });
+      return ScrollTrigger.create({
+        trigger: el,
+        scroller,
+        start: "top 70%",
+        once: true,
+        onEnter: () => tl.play(),
+      });
+    });
+
+    return () => {
+      triggers.forEach((t) => t.kill());
+    };
+  }, [line1Style, line2Style]);
 
   return (
     <div className="flex flex-col">
@@ -110,15 +177,22 @@ export function ContactIntroSection() {
           down the left with each item as a stop along it, staggered in one at a
           time on scroll rather than all appearing at once */}
       <div ref={timelineRef} className="relative mt-12 flex flex-col gap-9">
-        <div
-          className="absolute left-5 w-px bg-(--color-terracotta)/25"
-          style={
-            lineStyle
-              ? { top: `${lineStyle.top}px`, height: `${lineStyle.height}px` }
-              : { top: "0.5rem", bottom: "0.5rem" }
-          }
-          aria-hidden
-        />
+        {line1Style && (
+          <div
+            ref={line1Ref}
+            className="invisible absolute left-5 w-px bg-(--color-terracotta)/25"
+            style={{ top: `${line1Style.top}px`, height: `${line1Style.height}px` }}
+            aria-hidden
+          />
+        )}
+        {line2Style && (
+          <div
+            ref={line2Ref}
+            className="invisible absolute left-5 w-px bg-(--color-terracotta)/25"
+            style={{ top: `${line2Style.top}px`, height: `${line2Style.height}px` }}
+            aria-hidden
+          />
+        )}
 
         <AnimatedContent
           direction="horizontal"
@@ -159,7 +233,10 @@ export function ContactIntroSection() {
           delay={0.36}
         >
           <div className="relative flex items-start gap-4">
-            <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)">
+            <span
+              ref={midNodeRef}
+              className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-(--color-terracotta) bg-(--color-ivory) text-(--color-terracotta)"
+            >
               <Phone size={18} />
             </span>
             <div className="pt-1.5">
@@ -180,7 +257,7 @@ export function ContactIntroSection() {
           distance={30}
           duration={0.6}
           threshold={0.3}
-          delay={0.48}
+          delay={1.5}
         >
           <div className="relative flex items-start gap-4">
             <span
@@ -523,9 +600,9 @@ export function ContactFormSection() {
         style={{ minHeight: cardHeight ? `${cardHeight}px` : undefined }}
       >
         {submitted ? (
-          <div className="flex flex-1 flex-col">
+          <div className="flex flex-1 flex-col min-h-0">
             <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-              <h2 className="font-subtitle text-[clamp(1.75rem,4vw,2.5rem)] font-black tracking-wide text-(--color-oxblood)">
+              <h2 className="font-heading text-[clamp(2.5rem,6vw,4rem)] tracking-wide text-(--color-oxblood)">
                 Cheers!
               </h2>
               <p className="max-w-sm text-(--color-oxblood)/80">
@@ -554,12 +631,12 @@ export function ContactFormSection() {
                   setMaxStepReached(1);
                 }}
               >
-                Submit another form
+                Done
               </SpecularButton>
             </div>
           </div>
         ) : (
-          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-1 flex-col">
+          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-1 flex-col min-h-0">
             {/* Honeypot: real visitors never see or reach this field, so it should
                 always submit empty. If it's filled in, the submission came from a bot
                 and the API silently drops it. Positioned off-screen rather than
@@ -893,32 +970,39 @@ export function ContactFormSection() {
                 </button>
               )}
             </div>
-
-            {/* required by Google's reCAPTCHA terms whenever the badge itself is
-                hidden (see .grecaptcha-badge in index.css) */}
-            <p className="mt-4 text-center text-xs text-(--color-oxblood)/50">
-              This site is protected by reCAPTCHA and the Google{" "}
-              <a
-                href="https://policies.google.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2"
-              >
-                Privacy Policy
-              </a>{" "}
-              and{" "}
-              <a
-                href="https://policies.google.com/terms"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2"
-              >
-                Terms of Service
-              </a>{" "}
-              apply.
-            </p>
           </form>
         )}
+
+        {/* required by Google's reCAPTCHA terms whenever the badge itself is hidden
+            (see .grecaptcha-badge in index.css). Rendered unconditionally, outside the
+            submitted/form ternary above, rather than only inside the form: it used to
+            live at the bottom of the form only, so it vanished the moment the success
+            view replaced the form, and the Done button (flush to the bottom of its own
+            flex-1 block, same as the Send button) dropped down to fill the gap that
+            note's height used to occupy. Keeping it mounted at all times means both
+            states reserve the exact same trailing space, so the Done button lands at
+            the same height as the Back/Next/Send buttons throughout. */}
+        <p className="mt-4 text-center text-xs text-(--color-oxblood)/50">
+          This site is protected by reCAPTCHA and the Google{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2"
+          >
+            Privacy Policy
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://policies.google.com/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2"
+          >
+            Terms of Service
+          </a>{" "}
+          apply.
+        </p>
       </div>
 
       {showProfanityWarning && (
