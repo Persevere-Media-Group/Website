@@ -319,14 +319,14 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     quote:
-      "We’ve worked with Persevere on a number of video projects for the Scottish Marketing Summit and have been really impressed with the quality of the work... Would absolutely recommend them to anyone looking for a talented and dependable video editor!.",
+      "We’ve worked with Persevere on a number of video projects for the Scottish Marketing Summit and have been really impressed with the quality of the work... Would absolutely recommend them to anyone looking for a talented and dependable video editor!",
     name: "Susan",
     role: "Founder of The Scottish Marketing Summit",
     avatar: "/photos/testimonials/susan.jpeg",
   },
   {
     quote:
-      "Keir is a standout professional whose expertise and ability to consistently smash goals played a real part in our success.",
+      "Persevere are standout professionals whose expertise and ability to consistently smash goals played a real part in our success.",
     name: "Jamie",
     role: "Founder of Cinegrams",
     avatar: "/photos/testimonials/jamie.jpeg",
@@ -334,9 +334,9 @@ const TESTIMONIALS: Testimonial[] = [
   {
     quote:
       "The team from Persevere Media have been exceptional from the get go, explaining the process and setting realistic timescales. They even got me on video (something I never thought I'd do!) and always welcome my feedback. No reservations recommending them to other businesses.",
-    name: "Stewart",
+    name: "Stuart",
     role: "Owner of Jackson Accident Repair Centre",
-    avatar: "/photos/testimonials/stewart.jpeg",
+    avatar: "/photos/testimonials/stuart.jpeg",
   },
 ];
 
