@@ -10,6 +10,9 @@ const GAP = 24;
 // used for exactly one frame before the ResizeObserver below reports the
 // real viewport width.
 const FALLBACK_VIEWPORT_WIDTH = 992;
+// Minimum horizontal finger travel before a touch is treated as a swipe
+// rather than an attempt to scroll the page or just a tap.
+const SWIPE_THRESHOLD = 40;
 
 // ---------------------------------------------------------------------------
 // Generic testimonials carousel. Carries no content of its own, callers
@@ -76,29 +79,26 @@ function initials(name: string) {
 // Width comes from --card-w, a CSS variable the carousel below sets on the
 // track (computed as half the viewport, so the centered card plus a half
 // card peeking on each side exactly fill it - see the centering math in
-// Testimonials). Fixed height so every card matches regardless of quote
-// length, with a generous line-clamp as the safety net for future longer
-// quotes - both sized to comfortably fit the longest quote currently in use
-// (Susan's/Stewart's) with real headroom to spare, at that breakpoint's
-// --card-w. Two sizes, not one: below sm, --card-w bottoms out at the 200px
-// floor in the centering math below (viewports narrower than ~448px can't
-// fit a half-viewport card any smaller), which wraps the same quote into far
-// more lines than the ~488px desktop card width does - h-104/line-clamp-9
-// (sized for that wider desktop card) was clipping mobile quotes mid-
-// sentence. sm:h-104/sm:line-clamp-9 below restores the exact desktop
-// values unchanged. overflow-hidden (rather than -visible) clips each
-// card's drop shadow at its own edge, so an unclipped shadow doesn't bleed
-// into the peeking neighbour card next to it.
+// Testimonials). Height is deliberately NOT fixed: every card is h-full
+// through this whole chain, so the track's default flex stretch (align-items:
+// stretch on a row-direction flex container) sizes every card to match the
+// tallest testimonial's natural content height - no more, no less - instead
+// of a hand-picked px value that overshoots shorter quotes. Because that's
+// content-driven rather than a hardcoded breakpoint pair, it also self-
+// adjusts for narrower cards wrapping the same quote into more lines (no
+// separate mobile/desktop height needed). The line-clamps below stay as a
+// safety net against a future pathologically long quote. overflow-hidden
+// (rather than -visible) clips each card's drop shadow at its own edge, so
+// an unclipped shadow doesn't bleed into the peeking neighbour card next to it.
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <ThreeDCard
-      className="h-156 sm:h-104"
-      innerClassName="h-156 w-(--card-w) rounded-3xl overflow-hidden sm:h-104"
+      innerClassName="h-full w-(--card-w) rounded-3xl overflow-hidden"
       enableGlow={false}
       enableShadow={false}
       enableBorder={false}
     >
-      <div className="flex h-156 w-(--card-w) flex-col items-start gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-6 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)] sm:h-104">
+      <div className="flex h-full w-(--card-w) flex-col items-start gap-3 rounded-3xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-6 shadow-[0_12px_44px_-18px_rgba(74,31,29,0.25)]">
         <QuoteMark />
 
         {testimonial.rating != null && (
@@ -164,6 +164,9 @@ export function Testimonials({
   const [isAnimating, setIsAnimating] = useState(false);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [viewportWidth, setViewportWidth] = useState(FALLBACK_VIEWPORT_WIDTH);
+  // Touch start point for swipe detection, read fresh on touchend rather than
+  // kept in state - a touch gesture doesn't need a re-render until it's over.
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
   // Re-measures on resize (a ResizeObserver, not a window resize listener,
   // since this element's width can change from layout causes other than the
@@ -208,6 +211,29 @@ export function Testimonials({
     }
   };
 
+  // Swipe is the second, touch-native way to move the carousel alongside the
+  // arrow buttons - both just call the same `go`, so a swipe always steps
+  // exactly one card with the same animation an arrow click would give.
+  // Threshold-based (checked once on touchend) rather than a live drag-follow,
+  // so it can't fall out of sync with the arrow-driven index math above.
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStartRef.current;
+    touchStartRef.current = null;
+    if (!start) return;
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - start.x;
+    const dy = touch.clientY - start.y;
+    // Ignore mostly-vertical drags so scrolling the page past the carousel
+    // still works.
+    if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
+    go(dx < 0 ? 1 : -1);
+  };
+
   const arrowButtonClasses =
     "flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-(--color-oxblood)/20 bg-(--color-ivory-raised) text-(--color-oxblood) shadow-[0_8px_24px_-10px_rgba(74,31,29,0.3)] transition-colors hover:border-(--color-terracotta) hover:text-(--color-terracotta)";
 
@@ -224,7 +250,9 @@ export function Testimonials({
       <div className="relative mx-auto mt-16 max-w-5xl">
         <div
           ref={viewportRef}
-          className="overflow-hidden mask-[linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="touch-pan-y overflow-hidden mask-[linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
         >
           <div
             onTransitionEnd={handleTransitionEnd}
