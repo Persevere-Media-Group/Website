@@ -43,7 +43,13 @@ const TEXT_CLASS =
 // than any viewport can hold at 1:1 (up to 6.5rem), so it always wants to be
 // as wide as its container; useAutoFitScale then shrinks it down only as
 // much as needed to avoid overflow.
-function TransformMark({ className, wrapperClassName }: { className?: string; wrapperClassName: string }) {
+function TransformMark({
+  className,
+  wrapperClassName,
+}: {
+  className?: string;
+  wrapperClassName: string;
+}) {
   const markRef = useRef<HTMLParagraphElement>(null);
   const markScale = useAutoFitScale(markRef, CIRCLE_WIDTH_MULTIPLIER.desktop);
 
@@ -144,13 +150,23 @@ function useAutoFitFontSize(ref: RefObject<HTMLElement | null>, widthMultiplier:
 // transform version, changing a real font-size is a layout change, not a
 // repaint, and the annotation has no other way to notice one happened (its
 // own resize handling only listens for an actual window resize event).
-function FontSizeMark({ className, wrapperClassName }: { className?: string; wrapperClassName: string }) {
+function FontSizeMark({
+  className,
+  wrapperClassName,
+}: {
+  className?: string;
+  wrapperClassName: string;
+}) {
   const measureRef = useRef<HTMLParagraphElement>(null);
   const fontSizePx = useAutoFitFontSize(measureRef, CIRCLE_WIDTH_MULTIPLIER.mobile);
 
   return (
     <div className={cn("w-full", wrapperClassName)}>
-      <p ref={measureRef} aria-hidden className={cn("pointer-events-none invisible absolute", TEXT_CLASS)}>
+      <p
+        ref={measureRef}
+        aria-hidden
+        className={cn("pointer-events-none invisible absolute", TEXT_CLASS)}
+      >
         Choose Persevere.
       </p>
       <p
