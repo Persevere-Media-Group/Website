@@ -26,8 +26,8 @@ const MENU_ITEMS: StaggeredMenuItem[] = [
       },
     ],
   },
-  { label: "Case Studies", ariaLabel: "View our case studies", link: "/case-studies" },
-  { label: "Blog", ariaLabel: "Read our blog", link: "/blog" },
+  // Case Studies and Blog routes still exist but are hidden from the menu
+  // until there's actual content to show on them.
   { label: "Contact", ariaLabel: "Get in touch", link: "/contact" },
 ];
 
