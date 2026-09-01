@@ -100,9 +100,17 @@ function randomTrembleTiming(): TrembleTiming {
 // large for precision; the resulting overshoot is expressed as a ratio of
 // this size, so it scales correctly to any rendered font size via `em`.
 const INK_MEASURE_FONT_PX = 200;
-// Fallback top-padding ratio (em) used before the canvas measurement
-// resolves, generous enough to avoid a flash of clipped ascenders.
-const FALLBACK_TOP_PAD_EM = 0.4;
+// This is meant to be a brief fallback, used only before the canvas
+// measurement below resolves - but in practice it's the value that's always
+// in effect: Canvas 2D's measureText() reports zero ascent/descent overshoot
+// for every variant of every letter in this font (actualBoundingBox* never
+// exceeds fontBoundingBox*), so maxAscentOvershoot/maxDescentOvershoot never
+// go positive and topPadEm/bottomPadEm never move off this value. Some
+// variants (e.g. one of "r"'s hand-drawn alternates) genuinely draw ink
+// above what that measurement call considers the font's own box, so this
+// needs to be generous enough on its own to cover that, not just a
+// placeholder for a flash of clipping before a better number arrives.
+const FALLBACK_TOP_PAD_EM = 0.65;
 
 function randOf<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
