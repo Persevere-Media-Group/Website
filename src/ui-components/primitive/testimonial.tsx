@@ -125,10 +125,10 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               {initials(testimonial.name)}
             </span>
           )}
-          <div>
+          <div className="flex min-h-16 flex-col justify-center">
             <p className="font-bold text-(--color-oxblood)">{testimonial.name}</p>
             {testimonial.role && (
-              <p className="text-sm text-(--color-oxblood)/60">{testimonial.role}</p>
+              <p className="line-clamp-2 text-sm text-(--color-oxblood)/60">{testimonial.role}</p>
             )}
           </div>
         </div>
