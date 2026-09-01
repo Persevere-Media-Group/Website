@@ -13,7 +13,7 @@
   font-size: 3rem;
   line-height: 1;
   user-select: none;
-  cursor: default;
+  cursor: pointer;
 }
 
 .ik-logo .letter-i {
