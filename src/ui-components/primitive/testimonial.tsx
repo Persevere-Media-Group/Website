@@ -126,7 +126,9 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             </span>
           )}
           <div className="flex min-h-14 flex-col justify-center sm:min-h-16">
-            <p className="text-sm font-bold text-(--color-oxblood) sm:text-base">{testimonial.name}</p>
+            <p className="text-sm font-bold text-(--color-oxblood) sm:text-base">
+              {testimonial.name}
+            </p>
             {testimonial.role && (
               <p className="line-clamp-3 text-xs leading-snug text-(--color-oxblood)/60 sm:line-clamp-2 sm:text-sm sm:leading-normal">
                 {testimonial.role}
