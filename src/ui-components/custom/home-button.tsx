@@ -17,6 +17,8 @@ export function HomeButton({ buttonColor }: HomeButtonProps) {
       size="sm"
       radius={12}
       textColor={buttonColor}
+      tintOpacity={0.08}
+      blur={14}
       proximity={200}
       className="sm-home-button"
       aria-label="Go to home page"
