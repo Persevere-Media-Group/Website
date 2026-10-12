@@ -59,7 +59,7 @@ function TransformMark({
     // shrink-to-fit instead of filling the available cross-axis width - without
     // this, useAutoFitScale would measure that shrunk width as "available" and
     // never detect any overflow to correct for.
-    <div className={cn("w-full", wrapperClassName)}>
+    <div data-nosnippet className={cn("w-full", wrapperClassName)}>
       <p
         ref={markRef}
         className={cn("w-fit mx-auto", TEXT_CLASS, className)}
@@ -161,7 +161,7 @@ function FontSizeMark({
   const fontSizePx = useAutoFitFontSize(measureRef, CIRCLE_WIDTH_MULTIPLIER.mobile);
 
   return (
-    <div className={cn("w-full", wrapperClassName)}>
+    <div data-nosnippet className={cn("w-full", wrapperClassName)}>
       <p
         ref={measureRef}
         aria-hidden
