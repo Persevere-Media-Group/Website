@@ -8,6 +8,7 @@ import { Blog } from "@/containers/Blog";
 import { BlogPost } from "@/containers/BlogPost";
 import { Contact } from "@/containers/Contact";
 import { PrivacyPolicy } from "@/containers/PrivacyPolicy";
+import { Terms } from "@/containers/Terms";
 import { NotFound } from "@/containers/NotFound";
 
 export const router = createBrowserRouter([
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
       { path: "/blog/:slug", element: <BlogPost /> },
       { path: "/contact", element: <Contact /> },
       { path: "/privacy-policy", element: <PrivacyPolicy /> },
+      { path: "/terms", element: <Terms /> },
       // catch-all: matches any path not explicitly defined above
       { path: "*", element: <NotFound /> },
     ],

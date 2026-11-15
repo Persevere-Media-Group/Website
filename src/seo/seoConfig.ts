@@ -38,6 +38,10 @@ export const seoConfig: Record<string, SeoEntry> = {
     description:
       "How Persevere Media collects, uses, and protects your information on choosepersevere.com.",
   },
+  "/terms": {
+    title: "Terms | Persevere Media",
+    description: "The terms that apply when you use choosepersevere.com and our services.",
+  },
   "/case-studies": {
     title: "Case Studies | Persevere Media",
     description: "Real results from real Persevere Media clients.",

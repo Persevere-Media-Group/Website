@@ -46,6 +46,7 @@ const ROUTES = [
   "/creative",
   "/contact",
   "/privacy-policy",
+  "/terms",
   "/case-studies",
   "/blog",
   "/services",
