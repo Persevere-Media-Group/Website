@@ -30,6 +30,7 @@ import {
   StepperTrigger,
 } from "@/ui-components/primitive/stepper";
 import confetti from "canvas-confetti";
+import { CONTACT_EMAIL } from "@/lib/contact";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -311,8 +312,6 @@ export function ContactIntroSection() {
 // ---------------------------------------------------------------------------
 // Form card
 // ---------------------------------------------------------------------------
-
-const CONTACT_EMAIL = "keir@choosepersevere.com";
 
 // The contact form's send endpoint lives in its own small Vercel project
 // (see email-api/), separate from this GitHub Pages site.

@@ -5,6 +5,8 @@ import {
   PageBookCall,
 } from "@/ui-components/custom/common-page-elements";
 
+import { CONTACT_EMAIL } from "@/lib/contact";
+
 const SECTIONS: { heading: string; body: string[] }[] = [
   {
     heading: "Who we are",
@@ -71,7 +73,7 @@ const SECTIONS: { heading: string; body: string[] }[] = [
   },
   {
     heading: "Contact us",
-    body: ["If you have questions about these terms, contact us at hello@choosepersevere.com."],
+    body: [`If you have questions about these terms, contact us at ${CONTACT_EMAIL}.`],
   },
 ];
 
