@@ -29,6 +29,7 @@ export interface StaggeredMenuProps {
   displayItemNumbering?: boolean;
   className?: string;
   logoUrl?: string;
+  logoAlt?: string;
   menuButtonColor?: string;
   openMenuButtonColor?: string;
   accentColor?: string;
@@ -51,7 +52,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   displaySocials = true,
   displayItemNumbering = true,
   className,
-  logoUrl = "/src/assets/logos/reactbits-gh-white.svg",
+  logoUrl,
+  logoAlt = "Persevere Media",
   menuButtonColor = "#fff",
   openMenuButtonColor = "#fff",
   changeMenuColorOnOpen = true,
@@ -500,15 +502,19 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         })()}
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
-        <div className="sm-logo" aria-label="Logo">
-          <img
-            src={logoUrl || "/src/assets/logos/reactbits-gh-white.svg"}
-            alt="Logo"
-            className="sm-logo-img"
-            draggable={false}
-            width={110}
-            height={24}
-          />
+        {/* always rendered so justify-content: space-between keeps the header
+            actions on the right, but the image only appears if a logo is passed in */}
+        <div className="sm-logo">
+          {logoUrl && (
+            <img
+              src={logoUrl}
+              alt={logoAlt}
+              className="sm-logo-img"
+              draggable={false}
+              width={110}
+              height={24}
+            />
+          )}
         </div>
         <div
           className="sm-header-actions"
