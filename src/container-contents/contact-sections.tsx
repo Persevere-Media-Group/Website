@@ -30,6 +30,7 @@ import {
   StepperTrigger,
 } from "@/ui-components/primitive/stepper";
 import confetti from "canvas-confetti";
+import { CONTACT_EMAIL } from "@/lib/contact";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -217,7 +218,7 @@ export function ContactIntroSection() {
                     .getElementById("contact-faqs")
                     ?.scrollIntoView({ behavior: "smooth", block: "start" })
                 }
-                className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
+                className="cursor-pointer text-(--color-terracotta-text) underline underline-offset-2"
               >
                 Check out the FAQs below
               </button>
@@ -244,7 +245,7 @@ export function ContactIntroSection() {
               <button
                 type="button"
                 onClick={() => setIsCalendlyOpen(true)}
-                className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
+                className="cursor-pointer text-(--color-terracotta-text) underline underline-offset-2"
               >
                 Book a call
               </button>
@@ -277,7 +278,7 @@ export function ContactIntroSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${person.name} on LinkedIn`}
-                      className="text-(--color-terracotta) transition-colors hover:text-(--color-oxblood)"
+                      className="text-(--color-terracotta-text) transition-colors hover:text-(--color-oxblood)"
                     >
                       <Linkedin />
                     </a>
@@ -286,7 +287,7 @@ export function ContactIntroSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${person.name} on Instagram`}
-                      className="text-(--color-terracotta) transition-colors hover:text-(--color-oxblood)"
+                      className="text-(--color-terracotta-text) transition-colors hover:text-(--color-oxblood)"
                     >
                       <Instagram />
                     </a>
@@ -311,8 +312,6 @@ export function ContactIntroSection() {
 // ---------------------------------------------------------------------------
 // Form card
 // ---------------------------------------------------------------------------
-
-const CONTACT_EMAIL = "keir@choosepersevere.com";
 
 // The contact form's send endpoint lives in its own small Vercel project
 // (see email-api/), separate from this GitHub Pages site.
@@ -904,7 +903,7 @@ export function ContactFormSection() {
             </div>
 
             {sendError && (
-              <p className="mt-5 flex items-start justify-between gap-3 text-sm font-semibold text-(--color-terracotta)">
+              <p className="mt-5 flex items-start justify-between gap-3 text-sm font-semibold text-(--color-terracotta-text)">
                 <span>{sendError}</span>
                 <button
                   type="button"
@@ -922,7 +921,7 @@ export function ContactFormSection() {
                 <button
                   type="button"
                   onClick={goBack}
-                  className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full border border-(--color-oxblood)/20 px-5 py-3 text-sm font-bold text-(--color-oxblood) transition-colors hover:bg-(--color-oxblood)/5"
+                  className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full border border-(--color-oxblood)/20 px-5 py-3 text-sm font-bold text-(--color-oxblood) transition hover:bg-(--color-oxblood)/5 active:scale-[0.97]"
                 >
                   <ArrowLeft size={16} />
                   Back
@@ -982,7 +981,7 @@ export function ContactFormSection() {
             note's height used to occupy. Keeping it mounted at all times means both
             states reserve the exact same trailing space, so the Done button lands at
             the same height as the Back/Next/Send buttons throughout. */}
-        <p className="mt-4 text-center text-xs text-(--color-oxblood)/50">
+        <p className="mt-4 text-center text-xs text-(--color-oxblood)/70">
           This site is protected by reCAPTCHA and the Google{" "}
           <a
             href="https://policies.google.com/privacy"
@@ -1033,7 +1032,7 @@ export function ContactFormSection() {
             <button
               type="button"
               onClick={() => setShowProfanityWarning(false)}
-              className="mt-6 w-full cursor-pointer rounded-full bg-(--color-deep-plum) px-5 py-3 text-sm font-bold text-(--color-ivory) transition-opacity hover:opacity-90"
+              className="mt-6 w-full cursor-pointer rounded-full bg-(--color-deep-plum) px-5 py-3 text-sm font-bold text-(--color-ivory) transition hover:opacity-90 active:scale-[0.97]"
             >
               Got it
             </button>

@@ -170,7 +170,7 @@ export function PageBookCall() {
             className="text-(--color-amber-gold) animate-[arrow-bounce-toward-left_1.8s_ease-out_infinite] sm:h-15 sm:w-30"
           />
         </div>
-        <p className="mt-3 font-subtitle text-sm text-(--color-oxblood)/50">
+        <p className="mt-3 font-subtitle text-sm text-(--color-oxblood)/70">
           you know you want to...
         </p>
       </GrainWave>

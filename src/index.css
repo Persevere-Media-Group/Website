@@ -220,6 +220,10 @@ body {
    e.g. bg-[var(--color-terracotta)] or text-[var(--color-ivory)] */
 :root {
   --color-terracotta: #d5573b;
+  /* darker terracotta for small text on ivory: --color-terracotta itself is 3.6:1 there,
+     under the 4.5:1 AA minimum, this is 5.1:1. Keep --color-terracotta for large/display
+     text, borders, fills and icons. */
+  --color-terracotta-text: #b04328;
   --color-clay-rose: #df7d68;
   --color-deep-plum: #594157;
   --color-amber-gold: #edb03e;
@@ -322,4 +326,16 @@ body {
 html {
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+/* headings wrap into evenly sized lines instead of leaving a lone word on the last one;
+   paragraphs avoid ending on a single orphaned word */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }

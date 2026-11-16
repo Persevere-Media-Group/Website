@@ -19,7 +19,7 @@ export function Home() {
 
   return (
     <>
-      <HeroSection />
+      <HeroSection onBookCall={() => setIsCalendlyOpen(true)} />
       <SectionSpacer size="md" />
       <FactsSection />
       <SectionDivider />

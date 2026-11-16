@@ -5,6 +5,8 @@ import {
   PageBookCall,
 } from "@/ui-components/custom/common-page-elements";
 
+import { CONTACT_EMAIL } from "@/lib/contact";
+
 export function PrivacyPolicy() {
   return (
     <PageSection>
@@ -16,7 +18,7 @@ export function PrivacyPolicy() {
         </SectionHeading>
 
         <div className="mt-10 max-w-2xl space-y-8 text-justify text-(--color-oxblood)/90">
-          <p className="text-sm text-(--color-oxblood)/60">Last updated: 25th July 2026</p>
+          <p className="text-sm text-(--color-oxblood)/70">Last updated: 25th July 2026</p>
 
           <div className="space-y-3">
             <h3 className="text-xl font-bold text-(--color-oxblood)">Who we are</h3>
@@ -92,9 +94,8 @@ export function PrivacyPolicy() {
           <div className="space-y-3">
             <h3 className="text-xl font-bold text-(--color-oxblood)">Contact us</h3>
             <p className="leading-relaxed">
-              {/* TODO: replace with your real contact details */}
-              If you have questions about this policy or how we handle your data, contact us at
-              hello@choosepersevere.com.
+              If you have questions about this policy or how we handle your data, contact us at{" "}
+              {CONTACT_EMAIL}.
             </p>
           </div>
         </div>

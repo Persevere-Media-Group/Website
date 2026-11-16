@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, animate } from "motion/react";
 import { PopupModal } from "react-calendly";
 import { Phone } from "lucide-react";
+import { SNAP_SPRING, SCALE_SPRING, PRESS_SCALE } from "@/lib/motion";
 import { CALENDLY_URL } from "@/container-contents/services-shared";
 
 const STORAGE_KEY = "floating-cta-position";
 const EDGE_MARGIN = 8; // px, keeps it fully clickable rather than flush against the very edge
 
-// snappy but soft, matching the "smooth spring" feel rather than a rigid ease curve
-const SNAP_SPRING = { type: "spring", stiffness: 380, damping: 32 } as const;
-const SCALE_SPRING = { type: "spring", stiffness: 500, damping: 30 } as const;
+// snappy but soft, matching the "smooth spring" feel rather than a rigid ease curve.
+// Both are critically damped (see lib/motion.ts) so the button settles without bouncing.
 
 // how far (px) a press has to move before it counts as a drag rather than a tap
 const DRAG_THRESHOLD = 6;
@@ -185,7 +185,13 @@ export function FloatingCta() {
   // dragging beats pressed beats hovered beats idle.
   const isHoveringRef = useRef(false);
   const applyScale = (dragging: boolean) => {
-    const target = dragging ? 1.08 : pointerState.current ? 0.95 : isHoveringRef.current ? 1.05 : 1;
+    const target = dragging
+      ? 1.08
+      : pointerState.current
+        ? PRESS_SCALE
+        : isHoveringRef.current
+          ? 1.05
+          : 1;
     animate(scale, target, SCALE_SPRING);
   };
 

@@ -1,3 +1,4 @@
+import { LIST_STAGGER } from "@/lib/motion";
 import { SectionHeading, BodyText } from "@/ui-components/custom/common-page-elements";
 import { GrainWave } from "@/ui-components/custom/grain-wave";
 import AnimatedContent from "@/ui-components/primitive/animated-content";
@@ -125,7 +126,7 @@ export function WhatsIncluded({ name }: SectionProps) {
       <SectionHeading>{data.included.heading}</SectionHeading>
       <ul className="flex flex-col gap-4 text-left">
         {data.included.items.map((item, i) => (
-          <AnimatedContent key={i} distance={20} duration={0.6} delay={i * 0.06}>
+          <AnimatedContent key={i} distance={20} duration={0.6} delay={i * LIST_STAGGER}>
             <BodyText as="li" className="flex items-start gap-3">
               <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-terracotta)" />
               {item}
