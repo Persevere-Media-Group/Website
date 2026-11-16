@@ -58,6 +58,12 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
       scrollerTarget = document.querySelector(scrollerTarget);
     }
 
+    // honour the OS reduced-motion setting: show the content in place, no movement
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(el, { x: 0, y: 0, scale: 1, opacity: 1, visibility: "visible" });
+      return;
+    }
+
     const axis = direction === "horizontal" ? "x" : "y";
     const offset = reverse ? -distance : distance;
     const startPct = (1 - threshold) * 100;

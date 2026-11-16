@@ -7,6 +7,7 @@ import { FloatingCta } from "@/ui-components/custom/floating-cta";
 import { CookieConsentBanner } from "@/ui-components/primitive/cookie-consent-banner";
 import { Footer } from "@/ui-components/custom/footer";
 import { trackPageviewAll } from "@/lib/analytics";
+import { ENTER_DURATION, EXIT_DURATION, EASE_OUT, EASE_IN } from "@/lib/motion";
 import { Seo } from "@/seo/Seo";
 
 export function Layout() {
@@ -59,9 +60,16 @@ export function Layout() {
           <motion.div
             key={location.pathname}
             initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { duration: ENTER_DURATION, ease: EASE_OUT },
+            }}
+            exit={{
+              opacity: 0,
+              y: 16,
+              transition: { duration: EXIT_DURATION, ease: EASE_IN },
+            }}
           >
             <Outlet />
           </motion.div>

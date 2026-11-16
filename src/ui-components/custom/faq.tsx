@@ -1,3 +1,4 @@
+import { LIST_STAGGER } from "@/lib/motion";
 import { isValidElement, useMemo, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight, Search, X } from "lucide-react";
@@ -45,7 +46,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
       variants={SPRING_SCALE_VARIANTS}
     >
       {faqs.map((faq, i) => (
-        <AnimatedContent key={faq.q} distance={20} duration={0.6} delay={i * 0.06}>
+        <AnimatedContent key={faq.q} distance={20} duration={0.6} delay={i * LIST_STAGGER}>
           <AccordionItem
             value={faq.q}
             className="border-b border-(--color-oxblood)/15 py-4 first:pt-0 last:border-b-0"
@@ -176,7 +177,7 @@ export function FaqSearch({
               key={word}
               type="button"
               onClick={() => setQuery(word)}
-              className="cursor-pointer rounded-full border border-(--color-terracotta)/40 px-3 py-1 text-sm font-semibold text-(--color-terracotta) transition-colors hover:bg-(--color-terracotta)/10"
+              className="cursor-pointer rounded-full border border-(--color-terracotta)/40 px-3 py-1 text-sm font-semibold text-(--color-terracotta) transition hover:bg-(--color-terracotta)/10 active:scale-[0.97]"
             >
               {word}
             </button>
@@ -193,7 +194,7 @@ export function FaqSearch({
       {results.length > 0 && (
         <div className="flex w-full flex-col gap-6">
           {results.map((faq, i) => (
-            <AnimatedContent key={faq.q} distance={12} duration={0.4} delay={i * 0.05}>
+            <AnimatedContent key={faq.q} distance={12} duration={0.4} delay={i * LIST_STAGGER}>
               <div className="rounded-2xl border border-(--color-oxblood)/15 bg-(--color-ivory-raised) p-5">
                 <div className="flex items-start">
                   <ChevronRight className="mt-1 h-5 w-5 shrink-0 text-(--color-terracotta)" />

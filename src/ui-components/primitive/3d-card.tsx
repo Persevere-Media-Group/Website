@@ -91,12 +91,16 @@ function ThreeDCard({
     });
   }, []);
 
+  const trackingDuration = transform.isHovered ? "0.12s" : transitionDuration;
+
   const cardStyle: CSSProperties = {
     transform: `perspective(1000px) rotateX(${transform.rotateX}deg) rotateY(${transform.rotateY}deg) scale3d(1, 1, 1)`,
     boxShadow: enableShadow
       ? `${transform.shadowX}px ${transform.shadowY}px ${shadowBlur}px rgba(0, 0, 0, 0.4)`
       : "none",
-    transition: `transform ${transitionDuration} cubic-bezier(0.23, 1, 0.32, 1), box-shadow ${transitionDuration} cubic-bezier(0.23, 1, 0.32, 1)`,
+    // while the cursor is on the card it tracks closely (a long tween here lags behind the
+    // pointer); the full-length ease only plays on the way back to rest
+    transition: `transform ${trackingDuration} cubic-bezier(0.23, 1, 0.32, 1), box-shadow ${trackingDuration} cubic-bezier(0.23, 1, 0.32, 1)`,
     transformStyle: "preserve-3d",
   };
 

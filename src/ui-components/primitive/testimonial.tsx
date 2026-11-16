@@ -241,7 +241,7 @@ export function Testimonials({
   };
 
   const arrowButtonClasses =
-    "flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-(--color-oxblood)/20 bg-(--color-ivory-raised) text-(--color-oxblood) shadow-[0_8px_24px_-10px_rgba(74,31,29,0.3)] transition-colors hover:border-(--color-terracotta) hover:text-(--color-terracotta)";
+    "flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-(--color-oxblood)/20 bg-(--color-ivory-raised) text-(--color-oxblood) shadow-[0_8px_24px_-10px_rgba(74,31,29,0.3)] transition hover:border-(--color-terracotta) hover:text-(--color-terracotta) active:scale-[0.97]";
 
   return (
     <section className={`px-4 py-4 text-center ${className}`}>
@@ -266,7 +266,7 @@ export function Testimonials({
         >
           <div
             onTransitionEnd={handleTransitionEnd}
-            className={`flex gap-6 py-2 text-left ${animate ? "transition-transform duration-500 ease-out" : ""}`}
+            className={`flex gap-6 py-2 text-left ${animate ? "transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" : ""}`}
             style={
               {
                 transform: `translateX(${centerOffset - index * step}px)`,

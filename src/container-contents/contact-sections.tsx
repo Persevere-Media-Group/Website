@@ -921,7 +921,7 @@ export function ContactFormSection() {
                 <button
                   type="button"
                   onClick={goBack}
-                  className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full border border-(--color-oxblood)/20 px-5 py-3 text-sm font-bold text-(--color-oxblood) transition-colors hover:bg-(--color-oxblood)/5"
+                  className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full border border-(--color-oxblood)/20 px-5 py-3 text-sm font-bold text-(--color-oxblood) transition hover:bg-(--color-oxblood)/5 active:scale-[0.97]"
                 >
                   <ArrowLeft size={16} />
                   Back
@@ -1032,7 +1032,7 @@ export function ContactFormSection() {
             <button
               type="button"
               onClick={() => setShowProfanityWarning(false)}
-              className="mt-6 w-full cursor-pointer rounded-full bg-(--color-deep-plum) px-5 py-3 text-sm font-bold text-(--color-ivory) transition-opacity hover:opacity-90"
+              className="mt-6 w-full cursor-pointer rounded-full bg-(--color-deep-plum) px-5 py-3 text-sm font-bold text-(--color-ivory) transition hover:opacity-90 active:scale-[0.97]"
             >
               Got it
             </button>

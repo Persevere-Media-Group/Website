@@ -252,7 +252,7 @@
   height: 1.1em;
   color: var(--sm-accent, currentColor);
   opacity: 1;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .sm-panel-item-chevron[data-expanded] {
@@ -267,7 +267,7 @@
 .sm-panel-subwrap {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s ease;
+  transition: grid-template-rows 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sm-panel-subwrap[data-expanded] {
