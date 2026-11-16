@@ -10,20 +10,12 @@ export function Footer() {
           © {new Date().getFullYear()} Persevere Media. All rights reserved.
         </p>
 
-        <div className="flex items-center gap-5 sm:justify-self-center">
-          <Link
-            to="/privacy-policy"
-            className="text-sm text-(--color-ivory)/70 underline underline-offset-2 transition-colors hover:text-(--color-ivory)"
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            to="/terms"
-            className="text-sm text-(--color-ivory)/70 underline underline-offset-2 transition-colors hover:text-(--color-ivory)"
-          >
-            Terms
-          </Link>
-        </div>
+        <Link
+          to="/privacy-policy"
+          className="text-sm text-(--color-ivory)/70 underline underline-offset-2 transition-colors hover:text-(--color-ivory) sm:justify-self-center"
+        >
+          Privacy Policy
+        </Link>
 
         <div className="sm:justify-self-end">
           <SparkleHover>

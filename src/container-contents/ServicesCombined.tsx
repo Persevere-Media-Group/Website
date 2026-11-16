@@ -90,7 +90,7 @@ function placeholderImages(name: string): GalleryImage[] {
 
   return Array.from({ length: 4 }, (_, i) => ({
     src: `https://picsum.photos/seed/${encodeURIComponent(name.toLowerCase())}-${i}/1200/900`,
-    alt: `Photo of ${name}`,
+    alt: `${name} placeholder photo ${i + 1}`,
   }));
 }
 

@@ -5,7 +5,6 @@ export interface BlogPost {
   title: string;
   date: string;
   image?: string;
-  imageAlt?: string;
   excerpt?: string;
   body: string;
 }
@@ -14,7 +13,6 @@ interface BlogFrontmatter {
   title: string;
   date: string;
   image?: string;
-  image_alt?: string;
   excerpt?: string;
 }
 
@@ -39,7 +37,6 @@ const posts: BlogPost[] = Object.entries(rawPosts).map(([path, raw]) => {
     title: attributes.title,
     date: attributes.date,
     image: attributes.image,
-    imageAlt: attributes.image_alt,
     excerpt: attributes.excerpt,
     body,
   };

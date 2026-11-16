@@ -105,7 +105,7 @@ function AnimatedCounter({
     >
       <motion.div
         className={cn(
-          "font-subtitle tabular-nums text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-none mb-1 sm:mb-2 whitespace-nowrap"
+          "font-subtitle text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-none mb-1 sm:mb-2 whitespace-nowrap"
         )}
         initial={{ scale: 0.8 }}
         animate={isInView ? { scale: 1 } : { scale: 0.8 }}

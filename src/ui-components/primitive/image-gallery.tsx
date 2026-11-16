@@ -1,4 +1,3 @@
-import { EASE_IN, EASE_OUT } from "@/lib/motion";
 import { useLayoutEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -103,15 +102,15 @@ export function GalleryPreview({
         maxHeight: gallery.maxPreviewHeight,
       }}
     >
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         <motion.div
           key={gallery.active.src}
           role="img"
           aria-label={gallery.active.alt}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.2, ease: EASE_IN } }}
-          transition={{ duration: 0.25, ease: EASE_OUT }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
           className="absolute inset-0 rounded-2xl bg-cover bg-no-repeat"
           style={{
             backgroundImage: `url(${gallery.active.src})`,

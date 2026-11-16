@@ -16,7 +16,7 @@ export function BlogListSection() {
           <h2 className="font-subtitle text-[clamp(1.5rem,3.5vw,2.25rem)] font-black tracking-wide text-(--color-oxblood)">
             {post.title}
           </h2>
-          <p className="text-sm text-(--color-oxblood)/70">
+          <p className="text-sm text-(--color-oxblood)/60">
             {new Date(post.date).toLocaleDateString(undefined, {
               year: "numeric",
               month: "long",

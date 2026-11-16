@@ -1,7 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import { MotionConfig } from "motion/react";
 import { router } from "./router.tsx";
 import "./index.css";
 
@@ -15,10 +14,6 @@ document.querySelectorAll("[data-default]").forEach((el) => el.remove());
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {/* "user" honours the OS reduced-motion setting: transform animations are skipped,
-        opacity fades still run */}
-    <MotionConfig reducedMotion="user">
-      <RouterProvider router={router} />
-    </MotionConfig>
+    <RouterProvider router={router} />
   </StrictMode>
 );

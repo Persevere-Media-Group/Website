@@ -24,7 +24,7 @@ export function NotFound() {
         <p className="font-subtitle text-[clamp(1.1rem,2.4vw,1.6rem)] font-black tracking-wide text-(--color-terracotta)">
           Looks like this page wandered off the map.
         </p>
-        <p className="max-w-md text-[clamp(0.95rem,1.6vw,1.05rem)] text-(--color-terracotta-text)">
+        <p className="max-w-md text-[clamp(0.95rem,1.6vw,1.05rem)] text-(--color-terracotta)/80">
           Whatever you were looking for isn't here.
           <br />
           Let's get you back on track.

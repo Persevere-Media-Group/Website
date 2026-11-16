@@ -17,7 +17,7 @@ export function BlogPost() {
       <PageHero size="sm">{post.title}</PageHero>
 
       <div className="flex w-full max-w-2xl flex-col gap-6 px-4 pt-16 pb-24 sm:pt-20">
-        <p className="text-sm text-(--color-oxblood)/70">
+        <p className="text-sm text-(--color-oxblood)/60">
           {new Date(post.date).toLocaleDateString(undefined, {
             year: "numeric",
             month: "long",
@@ -25,15 +25,7 @@ export function BlogPost() {
           })}
         </p>
 
-        {post.image && (
-          // falls back to the post title so the image is never announced as nothing
-          // when an author hasn't written a specific description for it
-          <img
-            src={post.image}
-            alt={post.imageAlt || post.title}
-            className="w-full rounded-lg object-cover"
-          />
-        )}
+        {post.image && <img src={post.image} alt="" className="w-full rounded-lg object-cover" />}
 
         <div className="prose max-w-none text-justify text-(--color-oxblood)">
           <ReactMarkdown>{post.body}</ReactMarkdown>
