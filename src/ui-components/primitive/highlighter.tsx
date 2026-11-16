@@ -7,7 +7,13 @@ import type { RoughAnnotation, RoughPadding } from "rough-notation/lib/model";
 import { cn } from "@/lib/utils";
 
 type RoughAction =
-  "highlight" | "underline" | "box" | "circle" | "strike-through" | "crossed-off" | "bracket";
+  | "highlight"
+  | "underline"
+  | "box"
+  | "circle"
+  | "strike-through"
+  | "crossed-off"
+  | "bracket";
 
 type SvgAction = "wavy" | "zigzag";
 
