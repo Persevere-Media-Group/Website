@@ -130,7 +130,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               {testimonial.name}
             </p>
             {testimonial.role && (
-              <p className="line-clamp-3 text-xs leading-snug text-(--color-oxblood)/60 sm:line-clamp-2 sm:text-sm sm:leading-normal">
+              <p className="line-clamp-3 text-xs leading-snug text-(--color-oxblood)/70 sm:line-clamp-2 sm:text-sm sm:leading-normal">
                 {testimonial.role}
               </p>
             )}

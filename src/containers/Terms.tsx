@@ -88,7 +88,7 @@ export function Terms() {
         </SectionHeading>
 
         <div className="mt-10 max-w-2xl space-y-8 text-justify text-(--color-oxblood)/90">
-          <p className="text-sm text-(--color-oxblood)/60">Last updated: 15th November 2026</p>
+          <p className="text-sm text-(--color-oxblood)/70">Last updated: 15th November 2026</p>
 
           {SECTIONS.map((section) => (
             <div key={section.heading} className="space-y-3">

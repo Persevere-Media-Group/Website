@@ -218,7 +218,7 @@ export function ContactIntroSection() {
                     .getElementById("contact-faqs")
                     ?.scrollIntoView({ behavior: "smooth", block: "start" })
                 }
-                className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
+                className="cursor-pointer text-(--color-terracotta-text) underline underline-offset-2"
               >
                 Check out the FAQs below
               </button>
@@ -245,7 +245,7 @@ export function ContactIntroSection() {
               <button
                 type="button"
                 onClick={() => setIsCalendlyOpen(true)}
-                className="cursor-pointer text-(--color-terracotta) underline underline-offset-2"
+                className="cursor-pointer text-(--color-terracotta-text) underline underline-offset-2"
               >
                 Book a call
               </button>
@@ -278,7 +278,7 @@ export function ContactIntroSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${person.name} on LinkedIn`}
-                      className="text-(--color-terracotta) transition-colors hover:text-(--color-oxblood)"
+                      className="text-(--color-terracotta-text) transition-colors hover:text-(--color-oxblood)"
                     >
                       <Linkedin />
                     </a>
@@ -287,7 +287,7 @@ export function ContactIntroSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${person.name} on Instagram`}
-                      className="text-(--color-terracotta) transition-colors hover:text-(--color-oxblood)"
+                      className="text-(--color-terracotta-text) transition-colors hover:text-(--color-oxblood)"
                     >
                       <Instagram />
                     </a>
@@ -903,7 +903,7 @@ export function ContactFormSection() {
             </div>
 
             {sendError && (
-              <p className="mt-5 flex items-start justify-between gap-3 text-sm font-semibold text-(--color-terracotta)">
+              <p className="mt-5 flex items-start justify-between gap-3 text-sm font-semibold text-(--color-terracotta-text)">
                 <span>{sendError}</span>
                 <button
                   type="button"
@@ -981,7 +981,7 @@ export function ContactFormSection() {
             note's height used to occupy. Keeping it mounted at all times means both
             states reserve the exact same trailing space, so the Done button lands at
             the same height as the Back/Next/Send buttons throughout. */}
-        <p className="mt-4 text-center text-xs text-(--color-oxblood)/50">
+        <p className="mt-4 text-center text-xs text-(--color-oxblood)/70">
           This site is protected by reCAPTCHA and the Google{" "}
           <a
             href="https://policies.google.com/privacy"

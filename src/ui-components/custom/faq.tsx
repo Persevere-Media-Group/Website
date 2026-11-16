@@ -31,7 +31,7 @@ export function FaqLink({ to, children }: { to: string; children: ReactNode }) {
   return (
     <Link
       to={to}
-      className="mt-3 block w-fit font-bold text-(--color-terracotta) underline underline-offset-2"
+      className="mt-3 block w-fit font-bold text-(--color-terracotta-text) underline underline-offset-2"
     >
       {children}
     </Link>
@@ -171,13 +171,13 @@ export function FaqSearch({
 
       {!trimmedQuery && suggestions && suggestions.length > 0 && (
         <div className="flex flex-wrap items-center justify-center gap-2">
-          <span className="text-sm text-(--color-oxblood)/50">Popular:</span>
+          <span className="text-sm text-(--color-oxblood)/70">Popular:</span>
           {suggestions.map((word) => (
             <button
               key={word}
               type="button"
               onClick={() => setQuery(word)}
-              className="cursor-pointer rounded-full border border-(--color-terracotta)/40 px-3 py-1 text-sm font-semibold text-(--color-terracotta) transition hover:bg-(--color-terracotta)/10 active:scale-[0.97]"
+              className="cursor-pointer rounded-full border border-(--color-terracotta)/40 px-3 py-1 text-sm font-semibold text-(--color-terracotta-text) transition hover:bg-(--color-terracotta)/10 active:scale-[0.97]"
             >
               {word}
             </button>

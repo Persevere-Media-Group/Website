@@ -17,7 +17,7 @@ export function BlogPost() {
       <PageHero size="sm">{post.title}</PageHero>
 
       <div className="flex w-full max-w-2xl flex-col gap-6 px-4 pt-16 pb-24 sm:pt-20">
-        <p className="text-sm text-(--color-oxblood)/60">
+        <p className="text-sm text-(--color-oxblood)/70">
           {new Date(post.date).toLocaleDateString(undefined, {
             year: "numeric",
             month: "long",

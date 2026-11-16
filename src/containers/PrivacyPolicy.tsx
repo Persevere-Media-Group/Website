@@ -18,7 +18,7 @@ export function PrivacyPolicy() {
         </SectionHeading>
 
         <div className="mt-10 max-w-2xl space-y-8 text-justify text-(--color-oxblood)/90">
-          <p className="text-sm text-(--color-oxblood)/60">Last updated: 25th July 2026</p>
+          <p className="text-sm text-(--color-oxblood)/70">Last updated: 25th July 2026</p>
 
           <div className="space-y-3">
             <h3 className="text-xl font-bold text-(--color-oxblood)">Who we are</h3>

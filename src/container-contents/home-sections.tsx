@@ -20,7 +20,7 @@ import { MARK_PROPS, UNDERLINE_COLOR, HIGHLIGHT_COLOR } from "@/lib/text-marks";
 // Hero
 // ---------------------------------------------------------------------------
 
-export function HeroSection() {
+export function HeroSection({ onBookCall }: { onBookCall: () => void }) {
   const wordRef = useRef<HTMLDivElement>(null);
   const wordScale = useAutoFitScale(wordRef);
 
@@ -131,14 +131,23 @@ export function HeroSection() {
           Content & Ads done properly. Nae faff.
         </p>
 
-        <YellowPulsatingButton
-          onClick={() =>
-            document.getElementById(OUR_SERVICES_ID)?.scrollIntoView({ behavior: "smooth" })
-          }
-          className="px-6 py-3 text-base sm:px-7 sm:py-3.5 sm:text-lg"
-        >
-          Our Services
-        </YellowPulsatingButton>
+        <div className="flex flex-col items-center gap-3">
+          <YellowPulsatingButton
+            onClick={onBookCall}
+            className="px-6 py-3 text-base sm:px-7 sm:py-3.5 sm:text-lg"
+          >
+            Book a call
+          </YellowPulsatingButton>
+          <button
+            type="button"
+            onClick={() =>
+              document.getElementById(OUR_SERVICES_ID)?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="cursor-pointer font-subtitle text-lg font-bold text-(--color-ivory) underline underline-offset-4 transition hover:opacity-80 active:scale-[0.97]"
+          >
+            Our Services
+          </button>
+        </div>
       </div>
 
       <SectionWave fillColor="--color-ivory" className="z-20 h-20 sm:h-28 md:h-36" />
@@ -447,7 +456,7 @@ export function WhyChooseSection({ onBookCall }: { onBookCall: () => void }) {
           wins are our wins. We want to scale with you, keep improving with you, and never settle
           for "good enough."
           <br />
-          <em>Ready to come aboard?</em>
+          Ready to come aboard?
         </p>
 
         <YellowPulsatingButton onClick={onBookCall} className="mx-auto mt-12">
